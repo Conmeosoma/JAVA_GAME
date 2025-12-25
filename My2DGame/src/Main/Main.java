@@ -4,6 +4,8 @@
 // > ^ <
 package Main;
 
+import model.Player;
+
 import javax.swing.JFrame;
 
 public class Main {
@@ -21,5 +23,8 @@ public class Main {
 
         window.setLocationRelativeTo(null); // cua so o giua man hinh
         window.setVisible(true); // hien thi cua so
+
+        Player player = new Player();
+        player.shoot();
     }
 }
