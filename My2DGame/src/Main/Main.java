@@ -3,9 +3,6 @@
 //( o.o ) 
 // > ^ <
 package Main;
-
-import model.Player;
-
 import javax.swing.JFrame;
 
 public class Main {
@@ -22,9 +19,9 @@ public class Main {
         window.pack(); // dieu chinh kich thuoc cua so de phu hop voi GamePanel
 
         window.setLocationRelativeTo(null); // cua so o giua man hinh
-        window.setVisible(true); // hien thi cua so
+        window.setVisible(true);// hien thi cua co
 
-        Player player = new Player();
-        player.shoot();
+        gamePanel.startGameThread();// bat dau luong game
+
     }
 }
