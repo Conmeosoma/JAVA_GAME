@@ -11,89 +11,116 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import Enity.Player;
+
 public class GamePanel extends JPanel implements Runnable { // khai bao lop GamePanel ke thua JPanel
-  // Screen settings
-  final int originalTileSize = 16; // kich thuoc o ban dau 16 * 16
-  final int scale = 3; // ti le phong to 3 lan
-  final int tileSize = originalTileSize * scale; // kich thuoc o hien tai 48 * 48
-  final int maxScreenCol = 16; // gioi han so cot cua man hinh
-  final int maxScreenRow = 12; // gioi han so hang cua man hinh
-  final int screenWidth = tileSize * maxScreenCol; // 768 pixel
-  final int screenHeight = tileSize * maxScreenRow; // 576 pixel
-  KeyHander keyH = new KeyHander();// khoi tao doi tuong KeyHandler de bat su kien phim
-  // FPS
-  int FPS = 60;
+    // Screen settings
 
-  Thread gamThread; // khai bao doi tuong thread cho game
-  // Set nhan vat toa do mac dinh
-  int playerX = 100;
-  int playerY = 100;
-  int playerSpeed = 4;
+    final int originalTileSize = 16; // kich thuoc o ban dau 16 * 16
+    final int scale = 3; // ti le phong to 3 lan
+    public final int tileSize = originalTileSize * scale; // kich thuoc o hien tai 48 * 48
+    final int maxScreenCol = 16; // gioi han so cot cua man hinh
+    final int maxScreenRow = 12; // gioi han so hang cua man hinh
+    final int screenWidth = tileSize * maxScreenCol; // 768 pixel
+    final int screenHeight = tileSize * maxScreenRow; // 576 pixel
+    KeyHander keyH = new KeyHander();// khoi tao doi tuong KeyHandler de bat su kien phim
+    // FPS
+    int FPS = 60;
+    Thread gamThread; // khai bao doi tuong thread cho game
+    Player player = new Player(this, keyH);
 
-  public GamePanel() {
-    this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // dat kich thuoc panel
-    this.setBackground(Color.black); // dat mau nen den
-    this.setDoubleBuffered(true); // cai dat double buffering de giam nhieu lan ve
-    this.addKeyListener(keyH); // them doi tuong keyH vao de lang nghe su kien phim
-    this.setFocusable(true); // panel co the nhan duoc su kien tu ban phim
-  }
+    // Set nhan vat toa do mac dinh
+    int playerX = 100;
+    int playerY = 100;
+    int playerSpeed = 4;
 
-  public void startGameThread() {
-    gamThread = new Thread(this);// khoi tao thread
-    gamThread.start();// bat dau thread
-  }
+    public GamePanel() {
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // dat kich thuoc panel
+        this.setBackground(Color.black); // dat mau nen den
+        this.setDoubleBuffered(true); // cai dat double buffering de giam nhieu lan ve
+        this.addKeyListener(keyH); // them doi tuong keyH vao de lang nghe su kien phim
+        this.setFocusable(true); // panel co the nhan duoc su kien tu ban phim
+    }
 
-  @Override
-  public void run() { // tuong tu trong unity thi co ham Update
+    public void startGameThread() {
+        gamThread = new Thread(this);// khoi tao thread
+        gamThread.start();// bat dau thread
+    }
 
-    double drawInterval = 1000000000 / FPS; // thoi gian giua 2 lan ve lien tiep ( nano giay) 0.16666667 giay
-    double nextDrawTime = System.nanoTime() + drawInterval; // thoi gian ve lan tiep theo
+    // @Override // Cach 1: Sleep method
+    // public void run() {
+    // double drawInterval = 1000000000 / FPS; // thoi gian giua 2 lan ve lien tiep
+    // ( nano giay) 0.16666667 giay
+    // double nextDrawTime = System.nanoTime() + drawInterval; // thoi gian ve lan
+    // tiep theo
+    // // phuong thuc chay cua thread
+    // while (gamThread != null) {
+    // // long currentTime = System.nanoTime(); // 1000000000 nan giay = 1 giay
+    // // long currentTime2 = System.currentTimeMillis(); // 1000 miligiay = 1 giay
+    // // System.out.println("NanoTime: " + currentTime);
+    // // 1.Update: Update information such as character positions || Nâng cấp: Cập
+    // // nhật vị trí nhân vật
+    // updated(); // goi pt update
+    // // 2. Draw: Draw the screen with the updated information || Vẽ : Vẽ màn hình
+    // với
+    // // thông tin đã cập nhật
+    // repaint(); // goi phuong thuc repaint goi den paintComponent
+    // try {
+    // double remainingTime = nextDrawTime - System.nanoTime(); // tinh thoi gian
+    // con lai de dat ngu
+    // remainingTime = remainingTime / 1000000;// chuyen nanos sang milis
+    // if (remainingTime < 0) {
+    // remainingTime = 0; // neu thoi gian con lai am thi dat bang 0
+    // }
+    // Thread.sleep((long) (remainingTime)); // cho thread ngu trong phan thoi gian
+    // con lai
+    // nextDrawTime += drawInterval; // cap nhat thoi gian ve lan tiep theo
+    // } catch (Exception e) {
+    // }
+    // }
+    // }
+    @Override // Cach 2: Delta/Accumulator method
+    public void run() {
+        double drawInterval = 1000000000 / FPS; // thoi gian giua 2 lan ve lien tiep
+        double delta = 0; // bien tich luy
+        long lastTime = System.nanoTime(); // thoi gian hien tai
+        long currentTime; // thoi gian hien tai
+        long timer = 0;
+        int drawCount = 0;
 
-    // phuong thuc chay cua thread
-    while (gamThread != null) {
-      // long currentTime = System.nanoTime(); // 1000000000 nan giay = 1 giay
-      // long currentTime2 = System.currentTimeMillis(); // 1000 miligiay = 1 giay
-      // System.out.println("NanoTime: " + currentTime);
-      // xu ly game theo FPS 2 cach
-      // cach 1: "Sleep" method
-      /*
-      
-      */
+        while (gamThread != null) {
+            currentTime = System.nanoTime(); // cap nhat thoi gian hien tai
+            delta += (currentTime - lastTime) / drawInterval; // tinh toan delta
 
-      // 1.Update: Update information such as character positions || Nâng cấp: Cập
-      // nhật vị trí nhân vật
-      updated(); // goi pt update
-      // 2. Draw: Draw the screen with the updated information || Vẽ : Vẽ màn hình với
-      // thông tin đã cập nhật
-      repaint(); // goi phuong thuc repaint goi den paintComponent
+            timer += (currentTime - lastTime); // cap nhat thoi gian dem
+            lastTime = currentTime; // cap nhat lai thoi gian cu thanh thoi gian moi
+            if (delta >= 1) { // neu delta lon hon hoac bang 1 thi co the update va ve
+                updated();
+                repaint();
+                delta--;
+                drawCount++;
+            }
+            if (timer >= 1000000000) {
+                System.out.println("FPS: " + drawCount);
+                drawCount = 0;
+                timer = 0;
+            }
+
+        }
 
     }
-  }
 
-  public void updated() {// phuong thuc update
-    if (keyH.upPressed == true) {
-      playerY -= playerSpeed;// di chuyen len tren
-    } else if (keyH.downPressed == true) {
-      playerY += playerSpeed; // di chuyen xuong duoi
-    } else if (keyH.leftPressed == true) {
-      playerX -= playerSpeed; // di chuyen sang trai
-    } else if (keyH.rightPressed == true) {
-      playerX += playerSpeed; // di chuyen sang phai
+    public void updated() {// phuong thuc update
+        player.update();
+
     }
-    // tang 4 pixel sau moi lan update neu phim duoc nhan
 
-  }
+    public void paintComponent(Graphics g) { // Phuong thuc ve len panel
+        super.paintComponent(g); // goi phuong thuc paintComponent cua lop cha JPanel
+        Graphics2D g2 = (Graphics2D) g; // ep kieu doi tuong g thanh Graphics2D de su dung cac tinh nang nang cao
+        player.draw(g2);
+        g2.dispose();// giai phong bo nho cho doi tuong g2
 
-  public void paintComponent(Graphics g) { // Phuong thuc ve len panel
-    super.paintComponent(g); // goi phuong thuc paintComponent cua lop cha JPanel
-    Graphics2D g2 = (Graphics2D) g; // ep kieu doi tuong g thanh Graphics2D de su dung cac tinh nang nang cao
-    g2.setColor(Color.white); // dat mau ve la trang
-    // g2.fillRect(100, 100, tileSize, tileSize);// ve hinh chu nhat o vi tri
-    // (100,100) voi kich thuoc tileSize * tileSize
-    g2.fillRect(playerX, playerY, tileSize, tileSize); // ve hinh chu nhat o vi tri (playerX,playerY) voi kich
-                                                       // thuoctileSize * tileSize
-    g2.dispose();// giai phong bo nho cho doi tuong g2
-
-  }
+    }
 
 }
