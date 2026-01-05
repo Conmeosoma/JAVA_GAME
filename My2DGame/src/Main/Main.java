@@ -13,7 +13,7 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Đóng cửa số khi nhấn nút X
 
         window.setResizable(false); // Khong cho phep thay doi kich thuoc cua cua so
-        window.setTitle("2D Adventure Game"); // Tieu de cua cua so
+        window.setTitle("HIT Adventure Game"); // Tieu de cua cua so
 
         GamePanel gamePanel = new GamePanel(); // tao mot doi tuong GamePanel
         window.add(gamePanel); // them GamePanel vao cua so
@@ -21,7 +21,6 @@ public class Main {
 
         window.setLocationRelativeTo(null); // cua so o giua man hinh
         window.setVisible(true);// hien thi cua co
-
         gamePanel.startGameThread();// bat dau luong game
 
     }
