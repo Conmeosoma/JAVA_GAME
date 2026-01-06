@@ -7,7 +7,7 @@ package Main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyHander implements KeyListener {
+public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed; // bien kiem tra phim di chuyen
 
@@ -21,17 +21,17 @@ public class KeyHander implements KeyListener {
     public void keyPressed(KeyEvent e) { // phuong thuc xu ly su kien nhan phim
         // Ngay sau khi ban nhan xuong phim
         int code = e.getKeyCode(); // lay ma phim vua nhan
-        if (code == KeyEvent.VK_W) {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             upPressed = true;
 
         }
-        if (code == KeyEvent.VK_S) {
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
             downPressed = true;
         }
-        if (code == KeyEvent.VK_A) {
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
             leftPressed = true;
         }
-        if (code == KeyEvent.VK_D) {
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = true;
         }
     }

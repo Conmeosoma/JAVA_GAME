@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     final int maxScreenRow = 12; // gioi han so hang cua man hinh
     final int screenWidth = tileSize * maxScreenCol; // 768 pixel
     final int screenHeight = tileSize * maxScreenRow; // 576 pixel
-    KeyHander keyH = new KeyHander();// khoi tao doi tuong KeyHandler de bat su kien phim
+    KeyHandler keyH = new KeyHandler();// khoi tao doi tuong KeyHandler de bat su kien phim
     // FPS
     int FPS = 60;
     Thread gamThread; // khai bao doi tuong thread cho game

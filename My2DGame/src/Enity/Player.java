@@ -10,15 +10,15 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import Main.GamePanel;
-import Main.KeyHander;
+import Main.KeyHandler;
 import java.awt.Color;
 
 public class Player extends Entity {
 
     GamePanel gp;
-    KeyHander keyH;
+    KeyHandler keyH;
 
-    public Player(GamePanel gp, KeyHander keyH) {
+    public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
         setDefaultValues();
