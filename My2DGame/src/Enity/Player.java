@@ -89,16 +89,43 @@ public class Player extends Entity {
         BufferedImage image = null;
         switch (direction) {
             case "up":
-                image = up1; // neu huong di chuyen la len tren thi ve hinh len tren
+                if (spiteNum == 1) { // xu ly animation nhan vat
+                    // neu spitenulm = 1 thi ve hinh up1 va dat spiteNum = 2 de lan sau ve hinh up2
+                    image = up1;
+                }
+                if (spiteNum == 2) {
+                    image = up2;
+                }
+                // neu huong di chuyen la len tren thi ve hinh len tren
                 break;
             case "down":
-                image = down1; // neu huong di chuyen la xuong duoi thi ve hinh xuong duoi
+                if (spiteNum == 1) { // xu ly animation nhan vat
+                    // neu spitenulm = 1 thi ve hinh up1 va dat spiteNum = 2 de lan sau ve hinh up2
+                    image = down1;
+                }
+                if (spiteNum == 2) {
+                    image = down2;
+
+                }
+                // neu huong di chuyen la xuong duoi thi ve hinh xuong duoi
                 break;
             case "left": // neu huong di chuyen la trai thi ve hinh trai
-                image = left1;
+                if (spiteNum == 1) { // xu ly animation nhan vat
+                    // neu spitenulm = 1 thi ve hinh up1 va dat spiteNum = 2 de lan sau ve hinh up2
+                    image = left1;
+                }
+                if (spiteNum == 2) {
+                    image = left2;
+                }
                 break;
             case "right":// neu huong di chuyen la phai thi ve hinh phai
-                image = right1;
+                if (spiteNum == 1) { // xu ly animation nhan vat
+                    // neu spitenulm = 1 thi ve hinh up1 va dat spiteNum = 2 de lan sau ve hinh up2
+                    image = right1;
+                }
+                if (spiteNum == 2) {
+                    image = right2;
+                }
                 break;
             default:
                 break;
