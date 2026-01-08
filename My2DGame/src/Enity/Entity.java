@@ -2,9 +2,9 @@
 // /\_/\  
 //( o.o ) 
 // > ^ <
-package Enity;
+package Enity; // 1 goi package de to chuc ma nguon
 
-import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImage; // them lop BufferedIamge de xu ly hinh anh
 
 public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho tat ca doi tuong
     // trong game
