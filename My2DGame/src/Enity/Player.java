@@ -62,20 +62,36 @@ public class Player extends Entity {
     }
 
     public void update() {
-        if (keyH.upPressed == true) {
-            direction = "up"; // set huong quay len tren
-            y -= speed;// di chuyen len tren
-        } else if (keyH.downPressed == true) {
-            direction = "down"; // set
-            y += speed; // di chuyen xuong duoi
-        } else if (keyH.leftPressed == true) {
-            direction = "left";
-            x -= speed; // di chuyen sang trai
-        } else if (keyH.rightPressed == true) {
-            direction = "right";
-            x += speed; // di chuyen sang phai
+        // chi di chuyen neu co phim duoc nhan
+        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true
+                || keyH.rightPressed == true) {
+
+            if (keyH.upPressed == true) {
+                direction = "up"; // set huong quay len tren
+                y -= speed;// di chuyen len tren
+            } else if (keyH.downPressed == true) {
+                direction = "down"; // set
+                y += speed; // di chuyen xuong duoi
+            } else if (keyH.leftPressed == true) {
+                direction = "left";
+                x -= speed; // di chuyen sang trai
+            } else if (keyH.rightPressed == true) {
+                direction = "right";
+                x += speed; // di chuyen sang phai
+            }
+
+            // tang 4 pixel sau moi lan update neu phim duoc nhan
+            // xu ly aniamtion nhan vat
+            spiteCounter++;
+            if (spiteCounter > 12) {// moi 12 lan update thi doi hinh
+                if (spiteNum == 1) { // neu spitenum = 1 thi dat spitenum = 2 de lan sau ve hinh 2
+                    spiteNum = 2;
+                } else if (spiteNum == 2) { // neu spitenum = 2 thi dat spitenum = 1 de lan sau ve hinh 1
+                    spiteNum = 1;
+                }
+                spiteCounter = 0;
+            }
         }
-        // tang 4 pixel sau moi lan update neu phim duoc nhan
 
     }
 
@@ -87,31 +103,31 @@ public class Player extends Entity {
         // (playerX,playerY) voi kich
         // thuoctileSize * tileSize
         BufferedImage image = null;
+        // xu ly animation nhan vat
         switch (direction) {
-            case "up":
-                if (spiteNum == 1) { // xu ly animation nhan vat
-                    // neu spitenulm = 1 thi ve hinh up1 va dat spiteNum = 2 de lan sau ve hinh up2
+            case "up":// neu huong di chuyen la len tren thi ve hinh len tren
+                // neu spitenulm = 1 thi ve hinh up1 va dat spiteNum = 2 de lan sau ve hinh up2
+                if (spiteNum == 1) {
                     image = up1;
                 }
                 if (spiteNum == 2) {
                     image = up2;
                 }
-                // neu huong di chuyen la len tren thi ve hinh len tren
+
                 break;
-            case "down":
-                if (spiteNum == 1) { // xu ly animation nhan vat
-                    // neu spitenulm = 1 thi ve hinh up1 va dat spiteNum = 2 de lan sau ve hinh up2
+            case "down": // neu huong di chuyen la xuong duoi thi ve hinh xuong duoi
+                // neu spitenum = 1 thi ve hinh up1 va dat spiteNum = 2 de lan sau ve hinh up2
+                if (spiteNum == 1) {
                     image = down1;
                 }
                 if (spiteNum == 2) {
                     image = down2;
 
                 }
-                // neu huong di chuyen la xuong duoi thi ve hinh xuong duoi
                 break;
             case "left": // neu huong di chuyen la trai thi ve hinh trai
-                if (spiteNum == 1) { // xu ly animation nhan vat
-                    // neu spitenulm = 1 thi ve hinh up1 va dat spiteNum = 2 de lan sau ve hinh up2
+                if (spiteNum == 1) { // neu spitenum = 1 thi ve hinh left1 va dat spiteNum = 2 de lan sau ve hinh
+                                     // left2
                     image = left1;
                 }
                 if (spiteNum == 2) {
@@ -119,8 +135,7 @@ public class Player extends Entity {
                 }
                 break;
             case "right":// neu huong di chuyen la phai thi ve hinh phai
-                if (spiteNum == 1) { // xu ly animation nhan vat
-                    // neu spitenulm = 1 thi ve hinh up1 va dat spiteNum = 2 de lan sau ve hinh up2
+                if (spiteNum == 1) {
                     image = right1;
                 }
                 if (spiteNum == 2) {
