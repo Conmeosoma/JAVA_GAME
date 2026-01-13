@@ -17,6 +17,5 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public int spiteCounter = 0;
     public int spiteNum = 1;
     // ========================================
-    
 
 }
