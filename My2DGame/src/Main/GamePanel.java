@@ -120,9 +120,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     public void paintComponent(Graphics g) { // Phuong thuc ve len panel
         super.paintComponent(g); // goi phuong thuc paintComponent cua lop cha JPanel
         Graphics2D g2 = (Graphics2D) g; // ep kieu doi tuong g thanh Graphics2D de su dung cac tinh nang nang cao
-
         tileM.draw(g2);
-
         player.draw(g2);
         g2.dispose();// giai phong bo nho cho doi tuong g2
 

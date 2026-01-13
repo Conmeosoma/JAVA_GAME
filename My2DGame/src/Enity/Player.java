@@ -5,6 +5,7 @@
 package Enity;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -42,14 +43,14 @@ public class Player extends Entity {
         // gan bien up1 bang hinh anh duoc tai ve
 
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/img/player/boy_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/img/player/boy_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/img/player/boy_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/img/player/boy_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/img/player/boy_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/img/player/boy_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/img/player/boy_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/img/player/boy_right_2.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_up_1.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_up_2.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_down_1.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_down_2.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_left_1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_left_2.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_right_1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_right_2.png"));
 
         } catch (IOException e) {
             // bo qua loi in ra man hinh
@@ -63,30 +64,90 @@ public class Player extends Entity {
     }
 
     public void update() {
-        if (keyH.upPressed == true) {
-            direction = "up"; // set huong quay len tren
-            y -= speed;// di chuyen len tren
-        } else if (keyH.downPressed == true) {
-            direction = "down"; // set
-            y += speed; // di chuyen xuong duoi
-        } else if (keyH.leftPressed == true) {
-            direction = "left";
-            x -= speed; // di chuyen sang trai
-        } else if (keyH.rightPressed == true) {
-            direction = "right";
-            x += speed; // di chuyen sang phai
+        // chi di chuyen neu co phim duoc nhan
+        if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true
+                || keyH.rightPressed == true) {
+
+            if (keyH.upPressed == true) {
+                direction = "up"; // set huong quay len tren
+                y -= speed;// di chuyen len tren
+            } else if (keyH.downPressed == true) {
+                direction = "down"; // set
+                y += speed; // di chuyen xuong duoi
+            } else if (keyH.leftPressed == true) {
+                direction = "left";
+                x -= speed; // di chuyen sang trai
+            } else if (keyH.rightPressed == true) {
+                direction = "right";
+                x += speed; // di chuyen sang phai
+            }
+
+            // tang 4 pixel sau moi lan update neu phim duoc nhan
+            // xu ly aniamtion nhan vat
+            spiteCounter++;
+            if (spiteCounter > 12) {// moi 12 lan update thi doi hinh
+                if (spiteNum == 1) { // neu spitenum = 1 thi dat spitenum = 2 de lan sau ve hinh 2
+                    spiteNum = 2;
+                } else if (spiteNum == 2) { // neu spitenum = 2 thi dat spitenum = 1 de lan sau ve hinh 1
+                    spiteNum = 1;
+                }
+                spiteCounter = 0;
+            }
         }
-        // tang 4 pixel sau moi lan update neu phim duoc nhan
 
     }
 
     public void draw(Graphics2D g2) {
-        g2.setColor(Color.white); // dat mau ve la trang
+        // g2.setColor(Color.white); // dat mau ve la trang
         // g2.fillRect(100, 100, tileSize, tileSize);// ve hinh chu nhat o vi tri
         // (100,100) voi kich thuoc tileSize * tileSize
-        g2.fillRect(x, y, gp.tileSize, gp.tileSize); // ve hinh chu nhat o vi tri (playerX,playerY) voi kich
+        // g2.fillRect(x, y, gp.tileSize, gp.tileSize); // ve hinh chu nhat o vi tri
+        // (playerX,playerY) voi kich
         // thuoctileSize * tileSize
+        BufferedImage image = null;
+        // xu ly animation nhan vat
+        switch (direction) {
+            case "up":// neu huong di chuyen la len tren thi ve hinh len tren
+                // neu spitenulm = 1 thi ve hinh up1 va dat spiteNum = 2 de lan sau ve hinh up2
+                if (spiteNum == 1) {
+                    image = up1;
+                }
+                if (spiteNum == 2) {
+                    image = up2;
+                }
+
+                break;
+            case "down": // neu huong di chuyen la xuong duoi thi ve hinh xuong duoi
+                // neu spitenum = 1 thi ve hinh up1 va dat spiteNum = 2 de lan sau ve hinh up2
+                if (spiteNum == 1) {
+                    image = down1;
+                }
+                if (spiteNum == 2) {
+                    image = down2;
+
+                }
+                break;
+            case "left": // neu huong di chuyen la trai thi ve hinh trai
+                if (spiteNum == 1) { // neu spitenum = 1 thi ve hinh left1 va dat spiteNum = 2 de lan sau ve hinh
+                                     // left2
+                    image = left1;
+                }
+                if (spiteNum == 2) {
+                    image = left2;
+                }
+                break;
+            case "right":// neu huong di chuyen la phai thi ve hinh phai
+                if (spiteNum == 1) {
+                    image = right1;
+                }
+                if (spiteNum == 2) {
+                    image = right2;
+                }
+                break;
+            default:
+                break;
+        }
+        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);// ve hinh anh nhan vat o vi tri
 
     }
-
 }
