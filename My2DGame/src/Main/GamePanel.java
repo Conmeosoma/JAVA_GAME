@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import Enity.Player;
+import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable { // khai bao lop GamePanel ke thua JPanel
     // Screen settings
@@ -19,13 +20,14 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     final int originalTileSize = 16; // kich thuoc o ban dau 16 * 16
     final int scale = 3; // ti le phong to 3 lan
     public final int tileSize = originalTileSize * scale; // kich thuoc o hien tai 48 * 48
-    final int maxScreenCol = 16; // gioi han so cot cua man hinh
-    final int maxScreenRow = 12; // gioi han so hang cua man hinh
-    final int screenWidth = tileSize * maxScreenCol; // 768 pixel
-    final int screenHeight = tileSize * maxScreenRow; // 576 pixel
+    public final int maxScreenCol = 16; // gioi han so cot cua man hinh
+    public final int maxScreenRow = 12; // gioi han so hang cua man hinh
+    public final int screenWidth = tileSize * maxScreenCol; // 768 pixel
+    public final int screenHeight = tileSize * maxScreenRow; // 576 pixel
     KeyHandler keyH = new KeyHandler();// khoi tao doi tuong KeyHandler de bat su kien phim
     // FPS
     int FPS = 60;
+    TileManager tileM = new TileManager(this);
     Thread gamThread; // khai bao doi tuong thread cho game
     Player player = new Player(this, keyH);
 
@@ -118,6 +120,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     public void paintComponent(Graphics g) { // Phuong thuc ve len panel
         super.paintComponent(g); // goi phuong thuc paintComponent cua lop cha JPanel
         Graphics2D g2 = (Graphics2D) g; // ep kieu doi tuong g thanh Graphics2D de su dung cac tinh nang nang cao
+        tileM.draw(g2);
         player.draw(g2);
         g2.dispose();// giai phong bo nho cho doi tuong g2
 
