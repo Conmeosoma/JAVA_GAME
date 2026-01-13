@@ -18,17 +18,26 @@ public class Player extends Entity {
 
     GamePanel gp;
     KeyHandler keyH;
+    public final int screenX;
+    public final int screenY;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
+        // cho player luon luon o giua man hinh
+        // tuy nhien neu screenX, screenY / 2 thi tâm nó sẽ tính ở góc trên bên trái
+        // nếu muốn xử lý nó là tâm điểm ảnh thì phải lấy chiều rộng trừ đi kích thước
+        // nhân vật rôi chia 2
+
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        World_X = gp.tileSize * 23;
+        World_Y = gp.tileSize * 21;
         speed = 4;
         direction = "down";
         direction = "up";
@@ -41,7 +50,7 @@ public class Player extends Entity {
         // cho 1 hinh vao 1 bien BufferedImage
         // su dung try catch de bat loi neu co
         // gan bien up1 bang hinh anh duoc tai ve
-        // My2DGame\src\res\player\boy_down_1.png
+        // My2DGame\src\res\Player\Walking_sprites\boy_down_1.png
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_up_1.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_up_2.png"));
@@ -69,16 +78,16 @@ public class Player extends Entity {
 
             if (keyH.upPressed == true) {
                 direction = "up"; // set huong quay len tren
-                y -= speed;// di chuyen len tren
+                World_Y -= speed;// di chuyen len tren
             } else if (keyH.downPressed == true) {
                 direction = "down"; // set
-                y += speed; // di chuyen xuong duoi
+                World_Y += speed; // di chuyen xuong duoi
             } else if (keyH.leftPressed == true) {
                 direction = "left";
-                x -= speed; // di chuyen sang trai
+                World_X -= speed; // di chuyen sang trai
             } else if (keyH.rightPressed == true) {
                 direction = "right";
-                x += speed; // di chuyen sang phai
+                World_X += speed; // di chuyen sang phai
             }
 
             // tang 4 pixel sau moi lan update neu phim duoc nhan
@@ -146,7 +155,7 @@ public class Player extends Entity {
             default:
                 break;
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);// ve hinh anh nhan vat o vi tri
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);// ve hinh anh nhan vat o vi tri
 
     }
 
