@@ -23,10 +23,11 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[10];
-        mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("/res/maps/map01.txt");
+        loadMap("/res/maps/world01.txt");
+        // My2DGame\src\res\maps\world01.txt
     }
 
     public void getTileImage() {
@@ -48,7 +49,7 @@ public class TileManager {
 
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/sand.png"));
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,19 +57,20 @@ public class TileManager {
 
     public void loadMap(String filePath) {
         try {
-            InputStream is = getClass().getResourceAsStream(filePath);
+            InputStream is = getClass().getResourceAsStream(filePath); // mo file
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             int col = 0;
             int row = 0;
-            while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
+            while (col < gp.maxWorldCol && row < gp.maxWorldRow) { // doc tung hang va cot. so sanh voi gioi han cua mao
                 String line = br.readLine();
-                while (col < gp.maxScreenCol) {
+                // xu ly map theo tung cot trong hang
+                while (col < gp.maxWorldCol) {
                     String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNum[col][row] = num;
                     col++;
                 }
-                if (col == gp.maxScreenCol) {
+                if (col == gp.maxWorldCol) { // dm loi cccc sai moi maxWorldCol voi maxScreenCol vcl chiu
                     col = 0;
                     row++;
                 }
@@ -80,22 +82,38 @@ public class TileManager {
     }
 
     public void draw(Graphics2D g2) {
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
-        while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
+        int worldCol = 0; // cot hien tai trong the gioi
 
-            int tileNum = mapTileNum[col][row];
+        int worldRow = 0; // hang hien tai trong the gioi
 
-            g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
-            col++;
-            x += gp.tileSize;
-            if (col == gp.maxScreenCol) {
-                col = 0;
-                x = 0;
-                row++;
-                y += gp.tileSize;
+        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+
+            int tileNum = mapTileNum[worldCol][worldRow];
+            // tinh toán vị trí vẽ tile bằng tọa độ thế giới
+            int worldX = worldCol * gp.tileSize; // tọa độ x thế giới
+            int worldY = worldRow * gp.tileSize; // tọa độ y thế giới
+            int screenX = worldX - gp.player.World_X + gp.player.screenX;
+            // tọa độ cam màn hình X = tọa độ thế giới X - tọa độ thế giới nhân vật X + tọa
+            // độ
+
+            int screenY = worldY - gp.player.World_Y + gp.player.screenY;
+            // tọa độ cam màn hình Y = tọa độ thế giới Y - tọa độ thế giới nhân vật Y + tọa
+            // độ
+
+            g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize,
+                    gp.tileSize, null);
+            worldCol++;
+            // đầu tiên check nếu ô đó là ô [0][0] thì nó sẽ là 0 * 48
+            // nếu ô [1][0] hì nó sẽ là 1 * 48
+            // .........
+            // nếu ô [15][0] thì nó sẽ là 15 * 48 = 768
+            // tương tự với hàng
+
+            if (worldCol == gp.maxWorldCol) {
+                worldCol = 0;
+
+                worldRow++;
+
             }
         }
     }
