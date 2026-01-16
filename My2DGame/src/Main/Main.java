@@ -21,6 +21,7 @@ public class Main {
 
         window.setLocationRelativeTo(null); // cua so o giua man hinh
         window.setVisible(true);// hien thi cua co
+        gamePanel.setupGame();// cai dat ban dau cho game
         gamePanel.startGameThread();// bat dau luong game
 
     }

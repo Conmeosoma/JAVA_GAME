@@ -42,14 +42,14 @@ public class TileManager {
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/water.png"));
             tile[2].collision = true;
-            
+
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/earth.png"));
-            
+
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/tree.png"));
             tile[4].collision = true;
-            
+
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/sand.png"));
 
@@ -101,11 +101,19 @@ public class TileManager {
 
             int screenY = worldY - gp.player.World_Y + gp.player.screenY;
             // tọa độ cam màn hình Y = tọa độ thế giới Y - tọa độ thế giới nhân vật Y + tọa
-            // độ
+            // do
+            if (worldX + gp.tileSize > gp.player.World_X - gp.player.screenX &&
+                    worldX - gp.tileSize < gp.player.World_X + gp.player.screenX &&
+                    worldY + gp.tileSize > gp.player.World_Y - gp.player.screenY &&
+                    worldY - gp.tileSize < gp.player.World_Y + gp.player.screenY)
+            // chi ve nhung tile trong vung nhin thay cua nhan vat
+            {
 
-            g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize,
-                    gp.tileSize, null);
+                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize,
+                        gp.tileSize, null);
+            }
             worldCol++;
+
             // đầu tiên check nếu ô đó là ô [0][0] thì nó sẽ là 0 * 48
             // nếu ô [1][0] hì nó sẽ là 1 * 48
             // .........
