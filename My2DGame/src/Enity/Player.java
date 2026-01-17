@@ -139,17 +139,24 @@ public class Player extends Entity {
             String objectName = gp.obj[i].name;
             switch (objectName) {
                 case "Key":
+                    gp.playSE(1); // them am thanh
                     hasKey++;
                     gp.obj[i] = null; // xoa object khoi mang neu da duoc nhan
                     System.out.println("So khoa hien tai: " + hasKey);
                     break;
                 case "Door":
                     if (hasKey > 0) {
+                        gp.playSE(3);
                         gp.obj[i] = null; // xoa object khoi mang neu da duoc nhan
                         hasKey--; // giam so khoa sau khi mo cua
                         System.out.println("So khoa hien tai: " + hasKey);
                     }
-
+                    break;
+                case "Boots":
+                    gp.playSE(2);
+                    speed += 2;  // tang toc do
+                    gp.obj[i] = null; // xoa object khoi mang neu da duoc nhan
+                    break;
                 default:
                     break;
             }

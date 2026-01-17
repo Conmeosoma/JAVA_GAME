@@ -33,12 +33,13 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     // World settings
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize * maxScreenCol;
-    public final int worldHeight = tileSize * maxScreenRow;
+//    public final int worldWidth = tileSize * maxScreenCol;
+//    public final int worldHeight = tileSize * maxScreenRow;
 
     // FPS
     int FPS = 60;
     TileManager tileM = new TileManager(this);
+    Sound sound = new Sound();
     Thread gamThread; // khai bao doi tuong thread cho game
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
@@ -60,6 +61,8 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     public void setupGame() { // Ham setupGame de cai dat ban dau cho game
         aSetter.setObject(); // dat cac doi tuong trong game
+        
+        playMusic(0);
     }
 
     public void startGameThread() {
@@ -153,4 +156,18 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     }
 
+    public void playMusic(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    
+    public void stopMusic(){
+        sound.stop();
+    }
+    
+    public void playSE(int i){
+        sound.setFile(i);
+        sound.play();
+    }   
 }
