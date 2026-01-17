@@ -1,3 +1,7 @@
+// CodeByConMeoSoMa
+// /\_/\  
+//( o.o ) 
+// > ^ <
 package Object;
 
 import java.nio.Buffer;
@@ -5,14 +9,18 @@ import java.nio.Buffer;
 import Main.GamePanel;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class SuperObject {
 
-  public BufferedImage image;
+  public BufferedImage image; // hinh anh cua doi tuong
   public String name;
-  public boolean collision = false;
-  public int worldX, worldY;
+  public boolean collision = false; // bien check va cham
+  public int worldX, worldY; // toa do the gioi cua doi tuong
+  public Rectangle solidArea = new Rectangle(0, 0, 48, 48); // khoi tao vung va cham mac dinh
+  public int solidAreaDefaultX = 0; // toa do mac dinh vung va cham
+  public int solidAreaDefaultY = 0; // toa do mac dinh vung va cham
 
   public void draw(Graphics2D g2, GamePanel gp) {
     // g2.drawImage(image, worldX, worldY, tileSize, tileSize, null);

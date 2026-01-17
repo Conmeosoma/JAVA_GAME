@@ -1,3 +1,7 @@
+// CodeByConMeoSoMa
+// /\_/\  
+//( o.o ) 
+// > ^ <
 package Object;
 
 import java.io.IOException;
@@ -14,6 +18,7 @@ public class OBJ_Door extends SuperObject {
       // TODO: handle exception
       e.printStackTrace();
     }
+    collision = true;
   }
 
 }
