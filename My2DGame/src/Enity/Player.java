@@ -106,6 +106,7 @@ public class Player extends Entity {
             int objIndex = gp.cChecker.checkObject(this, true);
             if (objIndex != 999) {
                 pickUpObject(objIndex);
+
             }
 
             // NEU VA CHAM LA FALSE, PLAYER CO THE DI CHUYEN
