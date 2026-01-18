@@ -26,6 +26,7 @@ public class Sound {
         soundURL[3] = getClass().getResource("/res/Sound/unlock.wav");
         soundURL[4] = getClass().getResource("/res/Sound/fanfare.wav");
     }
+    // chu y vi tri luu file res
 
     public void setFile(int i) {
         try {
