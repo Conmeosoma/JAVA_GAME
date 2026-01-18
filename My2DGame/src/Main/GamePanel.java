@@ -39,10 +39,12 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     // FPS
     int FPS = 60;
     TileManager tileM = new TileManager(this);
-    Sound sound = new Sound();
+    Sound music = new Sound();
+    Sound se = new Sound();
     Thread gamThread; // khai bao doi tuong thread cho game
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
 
@@ -151,23 +153,26 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
                 obj[i].draw(g2, this);
             }
         }
+        
+        // UI
+        ui.draw(g2);
 
         g2.dispose();// giai phong bo nho cho doi tuong g2
 
     }
 
     public void playMusic(int i){
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
     
     public void stopMusic(){
-        sound.stop();
+        music.stop();
     }
     
     public void playSE(int i){
-        sound.setFile(i);
-        sound.play();
+        se.setFile(i);
+        se.play();
     }   
 }

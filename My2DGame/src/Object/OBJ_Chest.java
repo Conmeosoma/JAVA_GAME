@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 public class OBJ_Chest extends SuperObject {
   public OBJ_Chest() {
-    name = " Chest";
+    name = "Chest";
     try {
       image = ImageIO.read(getClass().getResource("/res/Object/Chest.png"));
     } catch (IOException e) {
