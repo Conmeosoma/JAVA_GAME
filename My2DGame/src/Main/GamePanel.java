@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     int FPS = 60;
     TileManager tileM = new TileManager(this);
     Thread gamThread; // khai bao doi tuong thread cho game
+    public CollisionChecker cChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyH);
 
     // Set nhan vat toa do mac dinh

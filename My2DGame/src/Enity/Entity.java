@@ -5,6 +5,7 @@
 package Enity; // 1 goi package de to chuc ma nguon
 
 import java.awt.image.BufferedImage; // them lop BufferedIamge de xu ly hinh anh
+import java.awt.Rectangle;
 
 public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho tat ca doi tuong
     // trong game
@@ -18,5 +19,9 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public int spiteCounter = 0;
     public int spiteNum = 1;
     // ========================================
+    
+    // XAC DINH VUNG VA CHAM
+    public Rectangle solidArea;
+    public boolean collisionOn = false;
 
 }

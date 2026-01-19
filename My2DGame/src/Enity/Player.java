@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import Main.GamePanel;
 import Main.KeyHandler;
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
@@ -31,6 +32,13 @@ public class Player extends Entity {
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+        
+        solidArea = new Rectangle();
+        solidArea.x = 8;        
+        solidArea.y = 16;
+        solidArea.width = 32;
+        solidArea.height = 32;
+        
         setDefaultValues();
         getPlayerImage();
     }
@@ -78,18 +86,32 @@ public class Player extends Entity {
 
             if (keyH.upPressed == true) {
                 direction = "up"; // set huong quay len tren
-                World_Y -= speed;// di chuyen len tren
+                // World_Y -= speed;// di chuyen len tren
             } else if (keyH.downPressed == true) {
                 direction = "down"; // set
-                World_Y += speed; // di chuyen xuong duoi
+               //  World_Y += speed; // di chuyen xuong duoi
             } else if (keyH.leftPressed == true) {
                 direction = "left";
-                World_X -= speed; // di chuyen sang trai
+                // World_X -= speed; // di chuyen sang trai
             } else if (keyH.rightPressed == true) {
                 direction = "right";
-                World_X += speed; // di chuyen sang phai
+                // World_X += speed; // di chuyen sang phai
             }
 
+            // KIEM TRA VA CHAM 
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+            
+            // NEU VA CHAM LA FALSE, PLAYER CO THE DI CHUYEN
+            if (collisionOn == false){
+                switch(direction){
+                    case "up" -> World_Y -= speed;// di chuyen len tren
+                    case "down" -> World_Y += speed; // di chuyen xuong duoi
+                    case "left" -> World_X -= speed; // di chuyen sang trai
+                    case "right" -> World_X += speed; // di chuyen sang phai
+                }
+            }
+            
             // tang 4 pixel sau moi lan update neu phim duoc nhan
             // xu ly aniamtion nhan vat
             spiteCounter++;
