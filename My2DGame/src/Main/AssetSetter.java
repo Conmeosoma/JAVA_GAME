@@ -5,6 +5,7 @@ package Main;
 import Object.OBJ_Chest;
 import Object.OBJ_Door;
 import Object.OBJ_Key;
+import Object.OBJ_Boots;
 
 public class AssetSetter {
   GamePanel gp;
@@ -50,5 +51,8 @@ public class AssetSetter {
     // gp.obj[7].worldX = gp.tileSize * 23;
     // gp.obj[7].worldY = gp.tileSize * 7;
 
+    gp.obj[7] = new OBJ_Boots();
+    gp.obj[7].worldX = gp.tileSize * 37;
+    gp.obj[7].worldY = gp.tileSize * 42;
   }
 }

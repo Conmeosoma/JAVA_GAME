@@ -106,6 +106,7 @@ public class Player extends Entity {
             int objIndex = gp.cChecker.checkObject(this, true);
             if (objIndex != 999) {
                 pickUpObject(objIndex);
+
             }
 
             // NEU VA CHAM LA FALSE, PLAYER CO THE DI CHUYEN
@@ -139,17 +140,35 @@ public class Player extends Entity {
             String objectName = gp.obj[i].name;
             switch (objectName) {
                 case "Key":
+                    gp.playSE(1); // them am thanh
                     hasKey++;
                     gp.obj[i] = null; // xoa object khoi mang neu da duoc nhan
-                    System.out.println("So khoa hien tai: " + hasKey);
+                    // System.out.println("So khoa hien tai: " + hasKey);
+                    gp.ui.showMessage("You got a key!");
                     break;
                 case "Door":
                     if (hasKey > 0) {
+                        gp.playSE(3);
                         gp.obj[i] = null; // xoa object khoi mang neu da duoc nhan
                         hasKey--; // giam so khoa sau khi mo cua
-                        System.out.println("So khoa hien tai: " + hasKey);
+                        // System.out.println("So khoa hien tai: " + hasKey);
+                        gp.ui.showMessage("You opened the door!");
                     }
-
+                    else {
+                        gp.ui.showMessage("You need a key!");
+                    }
+                    break;
+                case "Boots":
+                    gp.playSE(2);
+                    speed += 2;  // tang toc do
+                    gp.obj[i] = null; // xoa object khoi mang neu da duoc nhan
+                    gp.ui.showMessage("Speed up!");
+                    break;
+                case "Chest":
+                    gp.ui.gameFinished = true;
+                    gp.stopMusic();
+                    gp.playSE(4);
+                    break;
                 default:
                     break;
             }

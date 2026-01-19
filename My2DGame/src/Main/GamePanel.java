@@ -33,15 +33,18 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     // World settings
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize * maxScreenCol;
-    public final int worldHeight = tileSize * maxScreenRow;
+//    public final int worldWidth = tileSize * maxScreenCol;
+//    public final int worldHeight = tileSize * maxScreenRow;
 
     // FPS
     int FPS = 60;
     TileManager tileM = new TileManager(this);
+    Sound music = new Sound();
+    Sound se = new Sound();
     Thread gamThread; // khai bao doi tuong thread cho game
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
 
@@ -60,6 +63,8 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     public void setupGame() { // Ham setupGame de cai dat ban dau cho game
         aSetter.setObject(); // dat cac doi tuong trong game
+        
+        playMusic(0);
     }
 
     public void startGameThread() {
@@ -148,9 +153,26 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
                 obj[i].draw(g2, this);
             }
         }
+        
+        // UI
+        ui.draw(g2);
 
         g2.dispose();// giai phong bo nho cho doi tuong g2
 
     }
 
+    public void playMusic(int i){
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+    
+    public void stopMusic(){
+        music.stop();
+    }
+    
+    public void playSE(int i){
+        se.setFile(i);
+        se.play();
+    }   
 }
