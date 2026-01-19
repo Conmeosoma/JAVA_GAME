@@ -19,9 +19,11 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public int spiteCounter = 0;
     public int spiteNum = 1;
     // ========================================
-    
+
     // XAC DINH VUNG VA CHAM
-    public Rectangle solidArea;
-    public boolean collisionOn = false;
+    public Rectangle solidArea;// hinh chu nhat vung va cha
+    public boolean collisionOn = false; // bien kiem tra va cham
+    // Toa do mac dinh cua vung va cham
+    public int solidAreaDefaultX, solidAreaDefaultY;
 
 }

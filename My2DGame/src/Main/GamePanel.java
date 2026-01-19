@@ -12,9 +12,12 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import Enity.Player;
+import Object.SuperObject;
 import Tile.Tile;
 import Tile.TileManager;
 
+// GamePanel co tac dung lam noi ve tat ca cac thanh phan trong game
+// No se chua cac thanh phan nhu tile,player,entity,object,collision checker,asser setter ...
 public class GamePanel extends JPanel implements Runnable { // khai bao lop GamePanel ke thua JPanel
     // Screen settings
 
@@ -26,18 +29,24 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixel
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixel
     KeyHandler keyH = new KeyHandler();// khoi tao doi tuong KeyHandler de bat su kien phim
+
     // World settings
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize * maxScreenCol;
-    public final int worldHeight = tileSize * maxScreenRow;
+//    public final int worldWidth = tileSize * maxScreenCol;
+//    public final int worldHeight = tileSize * maxScreenRow;
 
     // FPS
     int FPS = 60;
     TileManager tileM = new TileManager(this);
+    Sound music = new Sound();
+    Sound se = new Sound();
     Thread gamThread; // khai bao doi tuong thread cho game
     public CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
     public Player player = new Player(this, keyH);
+    public SuperObject obj[] = new SuperObject[10];
 
     // Set nhan vat toa do mac dinh
     int playerX = 100;
@@ -50,6 +59,12 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
         this.setDoubleBuffered(true); // cai dat double buffering de giam nhieu lan ve
         this.addKeyListener(keyH); // them doi tuong keyH vao de lang nghe su kien phim
         this.setFocusable(true); // panel co the nhan duoc su kien tu ban phim
+    }
+
+    public void setupGame() { // Ham setupGame de cai dat ban dau cho game
+        aSetter.setObject(); // dat cac doi tuong trong game
+        
+        playMusic(0);
     }
 
     public void startGameThread() {
@@ -128,10 +143,36 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     public void paintComponent(Graphics g) { // Phuong thuc ve len panel
         super.paintComponent(g); // goi phuong thuc paintComponent cua lop cha JPanel
         Graphics2D g2 = (Graphics2D) g; // ep kieu doi tuong g thanh Graphics2D de su dung cac tinh nang nang cao
+        // tile
         tileM.draw(g2);
+        // player
         player.draw(g2);
+        // object
+        for (int i = 0; i < obj.length; i++) {
+            if (obj[i] != null) {
+                obj[i].draw(g2, this);
+            }
+        }
+        
+        // UI
+        ui.draw(g2);
+
         g2.dispose();// giai phong bo nho cho doi tuong g2
 
     }
 
+    public void playMusic(int i){
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+    
+    public void stopMusic(){
+        music.stop();
+    }
+    
+    public void playSE(int i){
+        se.setFile(i);
+        se.play();
+    }   
 }

@@ -6,9 +6,7 @@ package Enity;
 
 import java.awt.Graphics2D;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import Main.GamePanel;
 import Main.KeyHandler;
 import java.awt.Color;
@@ -21,6 +19,7 @@ public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
+    public int hasKey = 0; // bien kiem tra so luong khoa ma nguoi choi co duoc
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -32,13 +31,15 @@ public class Player extends Entity {
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
-        
+
         solidArea = new Rectangle();
-        solidArea.x = 8;        
-        solidArea.y = 16;
-        solidArea.width = 32;
-        solidArea.height = 32;
-        
+        solidArea.x = 8; // vung va cham bat dau tu 8 pixel ben pphai
+        solidArea.y = 16; // vung va cham bat dau tu 16 pixel ben duoi
+        solidArea.width = 32; // chieu rong vung va cham
+        solidArea.height = 32; // chieu cao vung va cham
+        solidAreaDefaultX = solidArea.x; // luu toa do mac dinh
+        solidAreaDefaultY = solidArea.y; // luu toa do mac dinh
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -89,7 +90,7 @@ public class Player extends Entity {
                 // World_Y -= speed;// di chuyen len tren
             } else if (keyH.downPressed == true) {
                 direction = "down"; // set
-               //  World_Y += speed; // di chuyen xuong duoi
+                // World_Y += speed; // di chuyen xuong duoi
             } else if (keyH.leftPressed == true) {
                 direction = "left";
                 // World_X -= speed; // di chuyen sang trai
@@ -98,20 +99,26 @@ public class Player extends Entity {
                 // World_X += speed; // di chuyen sang phai
             }
 
-            // KIEM TRA VA CHAM 
+            // KIEM TRA TILE VA CHAM
             collisionOn = false;
             gp.cChecker.checkTile(this);
-            
+            // KIEM TRA VA CHAM OBJECT
+            int objIndex = gp.cChecker.checkObject(this, true);
+            if (objIndex != 999) {
+                pickUpObject(objIndex);
+
+            }
+
             // NEU VA CHAM LA FALSE, PLAYER CO THE DI CHUYEN
-            if (collisionOn == false){
-                switch(direction){
+            if (collisionOn == false) {
+                switch (direction) {
                     case "up" -> World_Y -= speed;// di chuyen len tren
                     case "down" -> World_Y += speed; // di chuyen xuong duoi
                     case "left" -> World_X -= speed; // di chuyen sang trai
                     case "right" -> World_X += speed; // di chuyen sang phai
                 }
             }
-            
+
             // tang 4 pixel sau moi lan update neu phim duoc nhan
             // xu ly aniamtion nhan vat
             spiteCounter++;
@@ -125,6 +132,47 @@ public class Player extends Entity {
             }
         }
 
+    }
+
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            // gp.obj[i] = null; // xoa object khoi mang neu da duoc nhan
+            String objectName = gp.obj[i].name;
+            switch (objectName) {
+                case "Key":
+                    gp.playSE(1); // them am thanh
+                    hasKey++;
+                    gp.obj[i] = null; // xoa object khoi mang neu da duoc nhan
+                    // System.out.println("So khoa hien tai: " + hasKey);
+                    gp.ui.showMessage("You got a key!");
+                    break;
+                case "Door":
+                    if (hasKey > 0) {
+                        gp.playSE(3);
+                        gp.obj[i] = null; // xoa object khoi mang neu da duoc nhan
+                        hasKey--; // giam so khoa sau khi mo cua
+                        // System.out.println("So khoa hien tai: " + hasKey);
+                        gp.ui.showMessage("You opened the door!");
+                    }
+                    else {
+                        gp.ui.showMessage("You need a key!");
+                    }
+                    break;
+                case "Boots":
+                    gp.playSE(2);
+                    speed += 2;  // tang toc do
+                    gp.obj[i] = null; // xoa object khoi mang neu da duoc nhan
+                    gp.ui.showMessage("Speed up!");
+                    break;
+                case "Chest":
+                    gp.ui.gameFinished = true;
+                    gp.stopMusic();
+                    gp.playSE(4);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public void draw(Graphics2D g2) {
