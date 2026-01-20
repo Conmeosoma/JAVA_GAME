@@ -1,4 +1,4 @@
-# 🎮 Blue Boy Adventure - Java 2D RPG Game
+# 🎮 HIT Adventure - Java 2D RPG Game
 
 [![Java Version](https://img.shields.io/badge/Java-8%2B-blue.svg)](https://www.oracle.com/java/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -606,7 +606,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ```
 MIT License
 
-Copyright (c) 2026 [Your Name]
+Copyright (c) 2026 meoconsomaXkdieu4
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
