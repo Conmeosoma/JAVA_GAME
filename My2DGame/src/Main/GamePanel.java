@@ -33,8 +33,8 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     // World settings
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-//    public final int worldWidth = tileSize * maxScreenCol;
-//    public final int worldHeight = tileSize * maxScreenRow;
+    // public final int worldWidth = tileSize * maxScreenCol;
+    // public final int worldHeight = tileSize * maxScreenRow;
 
     // FPS
     int FPS = 60;
@@ -63,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     public void setupGame() { // Ham setupGame de cai dat ban dau cho game
         aSetter.setObject(); // dat cac doi tuong trong game
-        
+
         playMusic(0);
     }
 
@@ -143,36 +143,53 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     public void paintComponent(Graphics g) { // Phuong thuc ve len panel
         super.paintComponent(g); // goi phuong thuc paintComponent cua lop cha JPanel
         Graphics2D g2 = (Graphics2D) g; // ep kieu doi tuong g thanh Graphics2D de su dung cac tinh nang nang cao
+
+        // DEBUG
+        long drawStart = 0; // bien luu thoi gian bat dau ve
+        if (keyH.checkDrawTime == true) {
+            drawStart = System.nanoTime();
+        }
+
         // tile
         tileM.draw(g2);
+
         // player
         player.draw(g2);
+
         // object
         for (int i = 0; i < obj.length; i++) {
             if (obj[i] != null) {
                 obj[i].draw(g2, this);
             }
         }
-        
+
         // UI
         ui.draw(g2);
+        // DEBUG
+        if (keyH.checkDrawTime == true) {
+            long drawEnd = System.nanoTime(); // bien luu thoi gian ket thu ve
+            long passed = drawEnd - drawStart; // thoi gian ve
+            g2.setColor(Color.white);
+            g2.drawString("Draw time: " + passed, 10, 400);
+            System.out.println("Draw time: " + passed);
+        }
 
         g2.dispose();// giai phong bo nho cho doi tuong g2
 
     }
 
-    public void playMusic(int i){
+    public void playMusic(int i) {
         music.setFile(i);
         music.play();
         music.loop();
     }
-    
-    public void stopMusic(){
+
+    public void stopMusic() {
         music.stop();
     }
-    
-    public void playSE(int i){
+
+    public void playSE(int i) {
         se.setFile(i);
         se.play();
-    }   
+    }
 }

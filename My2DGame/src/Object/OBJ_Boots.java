@@ -7,17 +7,23 @@ package Object;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import Main.GamePanel;
+
 /**
  *
  * @author dieu hoang
  */
-public class OBJ_Boots extends SuperObject{
-    public OBJ_Boots() {
+public class OBJ_Boots extends SuperObject {
+  GamePanel gp;
+
+  public OBJ_Boots(GamePanel gp) {
     name = "Boots";
+    this.gp = gp;
     try {
-      image = ImageIO.read(getClass().getResource("/res/Object/boots.png"));
+      image = ImageIO.read(getClass().getResourceAsStream("/res/Object/boots.png"));
+      image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
     } catch (IOException e) {
-      // TODO: handle exception 
+      // TODO: handle exception
       e.printStackTrace();
     }
   }

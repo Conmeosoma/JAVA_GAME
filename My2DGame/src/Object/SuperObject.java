@@ -7,6 +7,7 @@ package Object;
 import java.nio.Buffer;
 
 import Main.GamePanel;
+import Main.UtilityTool;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -21,7 +22,8 @@ public class SuperObject {
   public Rectangle solidArea = new Rectangle(0, 0, 48, 48); // khoi tao vung va cham mac dinh
   public int solidAreaDefaultX = 0; // toa do mac dinh vung va cham
   public int solidAreaDefaultY = 0; // toa do mac dinh vung va cham
-
+  UtilityTool uTool = new UtilityTool();
+  
   public void draw(Graphics2D g2, GamePanel gp) {
     // g2.drawImage(image, worldX, worldY, tileSize, tileSize, null);
     int screenX = worldX - gp.player.World_X + gp.player.screenX;

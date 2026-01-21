@@ -10,6 +10,8 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed; // bien kiem tra phim di chuyen
+    // DEBUG
+    boolean checkDrawTime = false;
 
     @Override
     public void keyTyped(KeyEvent e) { // phuong thuc xu ly su kien nhan phim
@@ -34,7 +36,11 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = true;
         }
+        if (code == KeyEvent.VK_T) {
+            checkDrawTime = !checkDrawTime;
+        }
     }
+    // DEBUGf
 
     @Override
     public void keyReleased(KeyEvent e) {// phuong thuc xu ly su kien tha phim

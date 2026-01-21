@@ -9,6 +9,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import Main.GamePanel;
 import Main.KeyHandler;
+import Main.UtilityTool;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -60,20 +62,51 @@ public class Player extends Entity {
         // su dung try catch de bat loi neu co
         // gan bien up1 bang hinh anh duoc tai ve
         // My2DGame\src\res\Player\Walking_sprites\boy_down_1.png
-        try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_right_2.png"));
+        // CACH 1: de lay hinh anh theo cach cu
+        // try {
+        // up1 =
+        // ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_up_1.png"));
+        // up2 =
+        // ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_up_2.png"));
+        // down1 =
+        // ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_down_1.png"));
+        // down2 =
+        // ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_down_2.png"));
+        // left1 =
+        // ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_left_1.png"));
+        // left2 =
+        // ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_left_2.png"));
+        // right1 =
+        // ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_right_1.png"));
+        // right2 =
+        // ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/boy_right_2.png"));
 
-        } catch (Exception e) {
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // }
+        up1 = setup("boy_up_1");
+        up2 = setup("boy_up_2");
+        down1 = setup("boy_down_1");
+        down2 = setup("boy_down_2");
+        left1 = setup("boy_left_1");
+        left2 = setup("boy_left_2");
+        right1 = setup("boy_right_1");
+        right2 = setup("boy_right_2");
+
+    }
+
+    public BufferedImage setup(String imageName) {
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/" + imageName + ".png"));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return image;
     }
 
     public void setDirection(String direction) {
@@ -153,14 +186,13 @@ public class Player extends Entity {
                         hasKey--; // giam so khoa sau khi mo cua
                         // System.out.println("So khoa hien tai: " + hasKey);
                         gp.ui.showMessage("You opened the door!");
-                    }
-                    else {
+                    } else {
                         gp.ui.showMessage("You need a key!");
                     }
                     break;
                 case "Boots":
                     gp.playSE(2);
-                    speed += 2;  // tang toc do
+                    speed += 3; // tang toc do
                     gp.obj[i] = null; // xoa object khoi mang neu da duoc nhan
                     gp.ui.showMessage("Speed up!");
                     break;
@@ -225,7 +257,7 @@ public class Player extends Entity {
             default:
                 break;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);// ve hinh anh nhan vat o vi tri
+        g2.drawImage(image, screenX, screenY, null);// ve hinh anh nhan vat o vi tri
 
     }
 
