@@ -1,4 +1,4 @@
-# 🎮 Blue Boy Adventure - Java 2D RPG Game
+# 🎮 HIT Adventure - Java 2D RPG Game
 
 [![Java Version](https://img.shields.io/badge/Java-8%2B-blue.svg)](https://www.oracle.com/java/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -60,21 +60,18 @@ A classic 2D top-down action RPG game inspired by retro classics like The Legend
 ### 🎮 Core Gameplay
 
 - [x] **Player System**
-
   - Smooth 4-directional movement (WASD / Arrow keys)
   - Walking animation (8 sprites: 4 directions × 2 frames)
   - Character stats (HP, Level, Attack, Defense, EXP)
   - Inventory system (20 item slots)
 
 - [x] **World & Exploration**
-
   - Large scrolling tile-based map (50×50 tiles = 2400×2400 pixels)
   - Multiple terrain types (grass, water, trees, walls, sand)
   - Camera system that follows the player
   - Smooth viewport rendering
 
 - [x] **Collision System**
-
   - Precise tile collision detection
   - Object collision (keys, doors, chests)
   - NPC and monster collision
@@ -82,7 +79,6 @@ A classic 2D top-down action RPG game inspired by retro classics like The Legend
   - Smooth corner sliding
 
 - [ ] **Interactive Objects** _(In Progress)_
-
   - 🔑 Keys - Unlock doors and chests
   - 🚪 Doors - Block pathways
   - 📦 Chests - Contain treasures
@@ -90,14 +86,12 @@ A classic 2D top-down action RPG game inspired by retro classics like The Legend
   - ❤️ Hearts - Restore HP
 
 - [ ] **NPCs & Dialogue** _(Planned)_
-
   - Multiple NPC characters
   - Branching dialogue system
   - Quest givers
   - Merchants for trading
 
 - [ ] **Combat System** _(Planned)_
-
   - Attack mechanics (Space key)
   - Monster AI with pathfinding
   - Damage calculation (Attack - Defense)
@@ -105,7 +99,6 @@ A classic 2D top-down action RPG game inspired by retro classics like The Legend
   - Death and respawn mechanics
 
 - [ ] **UI & HUD** _(Planned)_
-
   - HP display with heart icons
   - Inventory interface
   - Message log system
@@ -113,7 +106,6 @@ A classic 2D top-down action RPG game inspired by retro classics like The Legend
   - Title screen
 
 - [ ] **Audio** _(Planned)_
-
   - Background music
   - Sound effects (attack, pickup, damage)
   - Volume controls
@@ -156,12 +148,10 @@ _Debug view showing collision hitboxes_
 Before you begin, ensure you have the following installed:
 
 - **Java JDK 8 or higher**
-
   - Check version: `java -version`
   - Download: [Oracle JDK](https://www.oracle.com/java/technologies/downloads/) or [OpenJDK](https://openjdk.org/)
 
 - **IDE (Optional but recommended)**
-
   - [Eclipse IDE for Java Developers](https://www.eclipse.org/downloads/)
   - [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/)
   - [Visual Studio Code](https://code.visualstudio.com/) with Java extensions
