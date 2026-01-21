@@ -49,4 +49,16 @@ public class Sound {
     public void stop() {
         clip.stop();
     }
+
+    public void pause() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+        }
+    }
+
+    public void resume() {
+        if (clip != null && !clip.isRunning()) {
+            clip.start();
+        }
+    }
 }

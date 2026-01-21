@@ -8,10 +8,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
+    GamePanel gp;
 
     public boolean upPressed, downPressed, leftPressed, rightPressed; // bien kiem tra phim di chuyen
     // DEBUG
     boolean checkDrawTime = false;
+
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
+
+    public KeyHandler() {
+
+    }
 
     @Override
     public void keyTyped(KeyEvent e) { // phuong thuc xu ly su kien nhan phim
@@ -38,6 +47,14 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_T) {
             checkDrawTime = !checkDrawTime;
+        }
+        if (code == KeyEvent.VK_ESCAPE) {
+            if (gp.gameState == gp.playState) {
+                gp.gameState = gp.pauseState;
+            } else if (gp.gameState == gp.pauseState) {
+                gp.gameState = gp.playState;
+            }
+
         }
     }
     // DEBUGf

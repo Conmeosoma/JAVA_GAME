@@ -28,7 +28,6 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     public final int maxScreenRow = 12; // gioi han so hang cua man hinh
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixel
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixel
-    KeyHandler keyH = new KeyHandler();// khoi tao doi tuong KeyHandler de bat su kien phim
 
     // World settings
     public final int maxWorldCol = 50;
@@ -38,15 +37,25 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     // FPS
     int FPS = 60;
+
+    // SYSTEM
     TileManager tileM = new TileManager(this);
+    KeyHandler keyH = new KeyHandler(this);// khoi tao doi tuong KeyHandler de bat su kien phim
     Sound music = new Sound();
     Sound se = new Sound();
     Thread gamThread; // khai bao doi tuong thread cho game
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
+
+    // ENITY AND OBJECT
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
+
+    // GAME STATES
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
 
     // Set nhan vat toa do mac dinh
     int playerX = 100;
@@ -65,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
         aSetter.setObject(); // dat cac doi tuong trong game
 
         playMusic(0);
+        gameState = playState;
     }
 
     public void startGameThread() {
@@ -136,7 +146,14 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     }
 
     public void updated() {// phuong thuc update
-        player.update();
+        if (gameState == playState) {
+            player.update();
+            music.resume(); // Resume nhac khi choi
+        }
+        if (gameState == pauseState) {
+            // nothing
+            music.pause(); // Pause nhac khi tam dung
+        }
 
     }
 
