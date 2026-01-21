@@ -77,12 +77,17 @@ public class UI {
         } else {
             g2.setFont(arial_40);
             g2.setColor(Color.WHITE);
-            g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null); // tai hinh anh
-                                                                                                      // len
-            g2.drawString("x " + gp.player.hasKey, 74, 65); // ve chu voi (74, 65) la toa do goc duoi ben trai cua chu
+            g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+            g2.drawString("x " + gp.player.hasKey, 74, 65); // ve chu voi (74, 65) la toa
 
-            // TIME
             playTime += (double) 1 / 60;
+
+            float hue = (float) (playTime * 0.5);
+            float saturation = 1.0f; // Độ đậm (1.0 là đậm nhất)
+            float brightness = 1.0f; // Độ sáng (1.0 là sáng nhất)
+            // Tạo màu từ HSB
+            Color rainbowColor = Color.getHSBColor(hue, saturation, brightness);
+            g2.setColor(rainbowColor);
             g2.drawString("Time: " + dFormat.format(playTime), gp.tileSize * 11, 65);
 
             // MESSAGE

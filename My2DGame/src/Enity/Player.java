@@ -192,7 +192,7 @@ public class Player extends Entity {
                     break;
                 case "Boots":
                     gp.playSE(2);
-                    speed += 3; // tang toc do
+                    speed += 2.5; // tang toc do
                     gp.obj[i] = null; // xoa object khoi mang neu da duoc nhan
                     gp.ui.showMessage("Speed up!");
                     break;
