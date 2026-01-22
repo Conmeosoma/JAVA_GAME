@@ -4,6 +4,7 @@
 // > ^ <
 package Main;
 
+import Enity.Entity;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -51,6 +52,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     // ENITY AND OBJECT
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
+    public Entity npc[] = new Entity[10];
 
     // GAME STATES
     public int gameState;
@@ -72,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     public void setupGame() { // Ham setupGame de cai dat ban dau cho game
         aSetter.setObject(); // dat cac doi tuong trong game
-
+        aSetter.setNPC();
         playMusic(0);
         gameState = playState;
     }
@@ -147,8 +149,16 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     public void updated() {// phuong thuc update
         if (gameState == playState) {
+            // player
             player.update();
             music.resume(); // Resume nhac khi choi
+            
+            // NPC
+            for (int i = 0; i < npc.length; i++){
+                if (npc[i] != null){
+                    npc[i].update();
+                }
+            }
         }
         if (gameState == pauseState) {
             // nothing
@@ -170,6 +180,12 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
         // tile
         tileM.draw(g2);
 
+        // NPC
+        for (int i = 0; i < npc.length; i++){
+            if(npc[i] != null){
+                npc[i].draw(g2);
+            }
+        }
         // player
         player.draw(g2);
 

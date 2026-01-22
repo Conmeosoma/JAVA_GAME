@@ -150,4 +150,100 @@ public class CollisionChecker {
         // tra ve index cua object ma player va cham
         return index;
     }
+    
+    // NPC OR MONSTER
+    public int checkEntity(Entity entity, Entity[] target){
+         int index = 999; // gia tri mac dinh neu khong co va cham vs object nao
+
+        for (int i = 0; i < target.length; i++) { // lap qua tat ca object
+            if (target[i] != null) { // neu object khac null thi kiem tra va cham
+                // lay vi tri vung va cham cua entity
+                entity.solidArea.x = entity.World_X + entity.solidArea.x;
+                entity.solidArea.y = entity.World_Y + entity.solidArea.y;
+                // lay vi tri vung va cham cua object
+                target[i].solidArea.x = target[i].World_X + target[i].solidArea.x;
+                target[i].solidArea.y = target[i].World_Y + target[i].solidArea.y;
+
+                switch (entity.direction) { // di chuyen entity de kiem tra va cham
+                    case "up":
+                        entity.solidArea.y -= entity.speed; // di chuyen vung va cham len tren
+                        if (entity.solidArea.intersects(target[i].solidArea)) { // kiem tra va cham cua 2 vung
+                                entity.collisionOn = true; // tat ca NPC va monster la solid
+                                index = i;
+                        }
+                        break;
+                    case "down":
+                        entity.solidArea.y += entity.speed; // di chuyen vung va cham xuong duoi
+                        if (entity.solidArea.intersects(target[i].solidArea)) { // kiem tra va cham
+                             entity.collisionOn = true; // tat ca NPC va monster la solid
+                                index = i;
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x -= entity.speed; // di chuyen vung va cham sang trai
+                        if (entity.solidArea.intersects(target[i].solidArea)) { // kiem tra va cham
+                             entity.collisionOn = true; // tat ca NPC va monster la solid
+                                index = i;
+                        }
+                        break;
+                    case "right":
+                        entity.solidArea.x += entity.speed; // di chuyen vung va cham sang phai
+                        if (entity.solidArea.intersects(target[i].solidArea)) { // kiem tra va cham
+                             entity.collisionOn = true; // tat ca NPC va monster la solid
+                                index = i;
+                        }
+                        break;
+                }
+
+                // reset lai vi tri vung va cham cua entity va object sau khi kiem tra
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+                target[i].solidArea.x = target[i].solidAreaDefaultX;
+                target[i].solidArea.y = target[i].solidAreaDefaultY;
+            }
+        }
+        // tra ve index cua object ma player va cham
+        return index;
+    }
+    public void checkPlayer(Entity entity) {
+        // lay vi tri vung va cham cua entity
+        entity.solidArea.x = entity.World_X + entity.solidArea.x;
+        entity.solidArea.y = entity.World_Y + entity.solidArea.y;
+        // lay vi tri vung va cham cua object
+        gp.player.solidArea.x = gp.player.World_X + gp.player.solidArea.x;
+        gp.player.solidArea.y = gp.player.World_Y + gp.player.solidArea.y;
+
+        switch (entity.direction) { // di chuyen entity de kiem tra va cham
+            case "up":
+                entity.solidArea.y -= entity.speed; // di chuyen vung va cham len tren
+                if (entity.solidArea.intersects(gp.player.solidArea)) { // kiem tra va cham cua 2 vung
+                        entity.collisionOn = true; // tat ca NPC va monster la solid
+                }
+                break;
+            case "down":
+                entity.solidArea.y += entity.speed; // di chuyen vung va cham xuong duoi
+                if (entity.solidArea.intersects(gp.player.solidArea)) { // kiem tra va cham
+                     entity.collisionOn = true; // tat ca NPC va monster la solid
+                }
+                break;
+            case "left":
+                entity.solidArea.x -= entity.speed; // di chuyen vung va cham sang trai
+                if (entity.solidArea.intersects(gp.player.solidArea)) { // kiem tra va cham
+                     entity.collisionOn = true; // tat ca NPC va monster la solid
+                }
+                break;
+            case "right":
+                entity.solidArea.x += entity.speed; // di chuyen vung va cham sang phai
+                if (entity.solidArea.intersects(gp.player.solidArea)) { // kiem tra va cham
+                     entity.collisionOn = true; // tat ca NPC va monster la solid
+                }
+                break;
+        }
+
+        // reset lai vi tri vung va cham cua entity va object sau khi kiem tra
+        entity.solidArea.x = entity.solidAreaDefaultX;
+        entity.solidArea.y = entity.solidAreaDefaultY;
+        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+    }
 }

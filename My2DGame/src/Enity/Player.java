@@ -17,14 +17,15 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
 
-    GamePanel gp;
+//    GamePanel gp;
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
     // public int hasKey = 0; // bien kiem tra so luong khoa ma nguoi choi co duoc
 
     public Player(GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
+        super(gp);
+//        this.gp = gp;
         this.keyH = keyH;
         // cho player luon luon o giua man hinh
         // tuy nhien neu screenX, screenY / 2 thi tâm nó sẽ tính ở góc trên bên trái
@@ -84,30 +85,30 @@ public class Player extends Entity {
         // } catch (Exception e) {
         // e.printStackTrace();
         // }
-        up1 = setup("boy_up_1");
-        up2 = setup("boy_up_2");
-        down1 = setup("boy_down_1");
-        down2 = setup("boy_down_2");
-        left1 = setup("boy_left_1");
-        left2 = setup("boy_left_2");
-        right1 = setup("boy_right_1");
-        right2 = setup("boy_right_2");
+        up1 = setup("/res/Player/Walking_sprites/boy_up_1");
+        up2 = setup("/res/Player/Walking_sprites/boy_up_2");
+        down1 = setup("/res/Player/Walking_sprites/boy_down_1");
+        down2 = setup("/res/Player/Walking_sprites/boy_down_2");
+        left1 = setup("/res/Player/Walking_sprites/boy_left_1");
+        left2 = setup("/res/Player/Walking_sprites/boy_left_2");
+        right1 = setup("/res/Player/Walking_sprites/boy_right_1");
+        right2 = setup("/res/Player/Walking_sprites/boy_right_2");
 
     }
 
-    public BufferedImage setup(String imageName) {
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/" + imageName + ".png"));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
+//    public BufferedImage setup(String imageName) {
+//        UtilityTool uTool = new UtilityTool();
+//        BufferedImage image = null;
+//
+//        try {
+//            image = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/" + imageName + ".png"));
+//            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return image;
+//    }
 
     public void setDirection(String direction) {
         this.direction = direction;
@@ -146,6 +147,10 @@ public class Player extends Entity {
                 pickUpObject(objIndex);
 
             }
+            
+            // KIEM TRA VA CHAM NPC
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
 
             // NEU VA CHAM LA FALSE, PLAYER CO THE DI CHUYEN
             if (collisionOn == false) {
@@ -209,6 +214,12 @@ public class Player extends Entity {
             // default:
             // break;
             // }
+        }
+    }
+    
+    public void interactNPC(int i){
+        if (i != 999){
+            System.out.println("You are hitting an npc!");
         }
     }
 
