@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     // SYSTEM
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);// khoi tao doi tuong KeyHandler de bat su kien phim
+    public KeyHandler keyH = new KeyHandler(this);// khoi tao doi tuong KeyHandler de bat su kien phim
     Sound music = new Sound();
     Sound se = new Sound();
     Thread gamThread; // khai bao doi tuong thread cho game
@@ -58,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
+    public final int dialogueState = 3;
 
     // Set nhan vat toa do mac dinh
     int playerX = 100;

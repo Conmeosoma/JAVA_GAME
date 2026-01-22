@@ -11,7 +11,8 @@ public class KeyHandler implements KeyListener {
     GamePanel gp;
 
     public boolean upPressed, downPressed, leftPressed, rightPressed; // bien kiem tra phim di chuyen
-    // DEBUG
+    public boolean enterPressed;
+// DEBUG
     boolean checkDrawTime = false;
 
     public KeyHandler(GamePanel gp) {
@@ -32,32 +33,52 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) { // phuong thuc xu ly su kien nhan phim
         // Ngay sau khi ban nhan xuong phim
         int code = e.getKeyCode(); // lay ma phim vua nhan
-        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
-            upPressed = true;
-
-        }
-        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
-            downPressed = true;
-        }
-        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
-            leftPressed = true;
-        }
-        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
-            rightPressed = true;
-        }
-        if (code == KeyEvent.VK_T) {
-            checkDrawTime = !checkDrawTime;
-        }
-        if (code == KeyEvent.VK_ESCAPE) {
-            if (gp.gameState == gp.playState) {
+        
+        // PLAY STATE
+        if (gp.gameState == gp.playState){
+            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                upPressed = true;
+            }
+            if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                downPressed = true;
+            }
+            if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+                leftPressed = true;
+            }
+            if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+                rightPressed = true;
+            }
+            if (code == KeyEvent.VK_T) {
+                checkDrawTime = !checkDrawTime;
+            }
+            if (code == KeyEvent.VK_ESCAPE) {
                 gp.gameState = gp.pauseState;
-            } else if (gp.gameState == gp.pauseState) {
+//                if (gp.gameState == gp.playState) {
+//                    gp.gameState = gp.pauseState;
+//                } else if (gp.gameState == gp.pauseState) {
+//                    gp.gameState = gp.playState;
+//                }
+            }
+            if (code == KeyEvent.VK_ENTER){
+//                System.out.println("Enter is pressed!");
+                enterPressed = true;
+            }
+        }
+    // DEBUG
+    // PAUSE STATE
+        else if (gp.gameState == gp.pauseState){
+            if (code == KeyEvent.VK_ESCAPE) {
                 gp.gameState = gp.playState;
             }
-
+        }
+    // DIALOGUE STATE
+        else if (gp.gameState == gp.dialogueState){
+            if (code == KeyEvent.VK_ENTER){
+                gp.gameState = gp.playState;
+            }
         }
     }
-    // DEBUGf
+        
 
     @Override
     public void keyReleased(KeyEvent e) {// phuong thuc xu ly su kien tha phim

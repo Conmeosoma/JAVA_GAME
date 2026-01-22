@@ -23,6 +23,7 @@ public class NPC_OldMan extends Entity{
         speed = 1;
         
         getImage();
+        setDialogue();
     }
     
     public void getImage() {
@@ -71,7 +72,16 @@ public class NPC_OldMan extends Entity{
             } 
         // simplest AI ever
             actionLockCounter = 0; 
-
         }
+    }
+    public void setDialogue() {
+        dialogues[0] = "Xin chào, HITer!";         
+        dialogues[1] = "Vậy phải chăng bạn đến đây để \ntìm kho báu chứa cách lập trình mượt mà và không bug?";      
+        dialogues[2] = "Ta đã từng là một lập trình viên vĩ đại nhưng hiện tại.. \nTa đã quá già để đi tìm kho báu rồi.";      
+        dialogues[3] = "Chà, chúc may mắn nhé!";      
+    }
+    public void speak(){
+        // De nhan vat lam nhung viec dac biet ca nhan
+        super.speak();
     }
 }
