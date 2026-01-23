@@ -20,8 +20,8 @@ import Tile.TileManager;
 // GamePanel co tac dung lam noi ve tat ca cac thanh phan trong game
 // No se chua cac thanh phan nhu tile,player,entity,object,collision checker,asser setter ...
 public class GamePanel extends JPanel implements Runnable { // khai bao lop GamePanel ke thua JPanel
-    // Screen settings
 
+    // SCREEN SETTINGS
     final int originalTileSize = 16; // kich thuoc o ban dau 16 * 16
     final int scale = 3; // ti le phong to 3 lan
     public final int tileSize = originalTileSize * scale; // kich thuoc o hien tai 48 * 48
@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixel
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixel
 
-    // World settings
+    // WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
     // public final int worldWidth = tileSize * maxScreenCol;
@@ -56,11 +56,12 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     // GAME STATES
     public int gameState;
+    public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialogueState = 3;
 
-    // Set nhan vat toa do mac dinh
+    // PLAYER
     int playerX = 100;
     int playerY = 100;
     int playerSpeed = 4;
@@ -76,8 +77,8 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     public void setupGame() { // Ham setupGame de cai dat ban dau cho game
         aSetter.setObject(); // dat cac doi tuong trong game
         aSetter.setNPC();
-        playMusic(0);
-        gameState = playState;
+        // playMusic(0);
+        gameState = titleState;
     }
 
     public void startGameThread() {
@@ -148,15 +149,15 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     }
 
-    public void updated() {// phuong thuc update
+    public void updated() {
         if (gameState == playState) {
             // player
             player.update();
             music.resume(); // Resume nhac khi choi
-            
+
             // NPC
-            for (int i = 0; i < npc.length; i++){
-                if (npc[i] != null){
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
                     npc[i].update();
                 }
             }
@@ -169,36 +170,44 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     }
 
     public void paintComponent(Graphics g) { // Phuong thuc ve len panel
-        super.paintComponent(g); // goi phuong thuc paintComponent cua lop cha JPanel
-        Graphics2D g2 = (Graphics2D) g; // ep kieu doi tuong g thanh Graphics2D de su dung cac tinh nang nang cao
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
 
         // DEBUG
         long drawStart = 0; // bien luu thoi gian bat dau ve
         if (keyH.checkDrawTime == true) {
             drawStart = System.nanoTime();
         }
+        // TILE SCREEN
+        if (gameState == titleState) {
+            ui.draw(g2);
 
-        // tile
-        tileM.draw(g2);
+        } // OTHER
+        else {
+            // TILE
+            tileM.draw(g2);
 
-        // NPC
-        for (int i = 0; i < npc.length; i++){
-            if(npc[i] != null){
-                npc[i].draw(g2);
+            // NPC
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    npc[i].draw(g2);
+                }
             }
-        }
-        // player
-        player.draw(g2);
 
-        // object
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null) {
-                obj[i].draw(g2, this);
+            // PLAYER
+            player.draw(g2);
+
+            // OBJECT
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i] != null) {
+                    obj[i].draw(g2, this);
+                }
             }
+
+            // UI
+            ui.draw(g2);
         }
 
-        // UI
-        ui.draw(g2);
         // DEBUG
         if (keyH.checkDrawTime == true) {
             long drawEnd = System.nanoTime(); // bien luu thoi gian ket thu ve

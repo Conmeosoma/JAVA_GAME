@@ -17,7 +17,7 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
 
-//    GamePanel gp;
+    // GamePanel gp;
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
@@ -25,7 +25,7 @@ public class Player extends Entity {
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
-//        this.gp = gp;
+        // this.gp = gp;
         this.keyH = keyH;
         // cho player luon luon o giua man hinh
         // tuy nhien neu screenX, screenY / 2 thi tâm nó sẽ tính ở góc trên bên trái
@@ -96,19 +96,21 @@ public class Player extends Entity {
 
     }
 
-//    public BufferedImage setup(String imageName) {
-//        UtilityTool uTool = new UtilityTool();
-//        BufferedImage image = null;
-//
-//        try {
-//            image = ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/" + imageName + ".png"));
-//            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return image;
-//    }
+    // public BufferedImage setup(String imageName) {
+    // UtilityTool uTool = new UtilityTool();
+    // BufferedImage image = null;
+    //
+    // try {
+    // image =
+    // ImageIO.read(getClass().getResourceAsStream("/res/Player/Walking_sprites/" +
+    // imageName + ".png"));
+    // image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+    //
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    // return image;
+    // }
 
     public void setDirection(String direction) {
         this.direction = direction;
@@ -119,7 +121,7 @@ public class Player extends Entity {
         if (gp.gameState == gp.pauseState) {
             return; // khong xu ly di chuyen khi pause
         }
-        
+
         // chi di chuyen neu co phim duoc nhan
         if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true
                 || keyH.rightPressed == true) {
@@ -147,7 +149,7 @@ public class Player extends Entity {
                 pickUpObject(objIndex);
 
             }
-            
+
             // KIEM TRA VA CHAM NPC
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
@@ -216,15 +218,15 @@ public class Player extends Entity {
             // }
         }
     }
-    
-    public void interactNPC(int i){
-        if (i != 999){ // Player va cham NPC
-            if (gp.keyH.enterPressed == true){
+
+    public void interactNPC(int i) {
+        if (i != 999) { // Player va cham NPC
+            if (gp.keyH.enterPressed == true) {
                 gp.gameState = gp.dialogueState;
-                gp.npc[i].speak();    
+                gp.npc[i].speak();
             }
             gp.gameState = gp.dialogueState;
-                gp.npc[i].speak();  
+            gp.npc[i].speak();
         }
         gp.keyH.enterPressed = false;
     }

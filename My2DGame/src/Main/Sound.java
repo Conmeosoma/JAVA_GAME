@@ -20,7 +20,8 @@ public class Sound {
     URL soundURL[] = new URL[30];
 
     public Sound() {
-        soundURL[0] = getClass().getResource("/res/Sound/HITAdventure.wav");
+        // soundURL[0] = getClass().getResource("/res/Sound/HITAdventure.wav");
+        soundURL[0] = getClass().getResource("/res/Sound/Interstellar – Hans Zimmer (mp3cut.net).wav");
         soundURL[1] = getClass().getResource("/res/Sound/coin.wav");
         soundURL[2] = getClass().getResource("/res/Sound/powerup.wav");
         soundURL[3] = getClass().getResource("/res/Sound/unlock.wav");
