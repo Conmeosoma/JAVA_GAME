@@ -52,6 +52,7 @@ public class KeyHandler implements KeyListener {
                 if (code == KeyEvent.VK_ENTER) {
                     if (gp.ui.commandNum == 0) {
                         gp.ui.titleSceenState = 1;
+
                         gp.ui.commandNum = 0; // Reset commandNum
                     } else if (gp.ui.commandNum == 1) {
                         // gp.gameState = gp.LOADState;
@@ -82,18 +83,22 @@ public class KeyHandler implements KeyListener {
                         System.out.println("ADD WARRIOR");
                         // ADD WARRIOR
                         gp.gameState = gp.playState;
+                        gp.playMusic(0);
                     } else if (gp.ui.commandNum == 1) {
                         System.out.println("ADD MAGE");
                         // ADD MAGE
                         gp.gameState = gp.playState;
+                        gp.playMusic(0);
                     } else if (gp.ui.commandNum == 2) {
                         System.out.println("ADD GUNNER");
                         // ADD GUNNER
                         gp.gameState = gp.playState;
+                        gp.playMusic(0);
                     } else if (gp.ui.commandNum == 3) {
                         System.out.println("ADD ASSASSIN");
                         // ADD ASSASSIN
                         gp.gameState = gp.playState;
+                        gp.playMusic(0);
                     } else if (gp.ui.commandNum == 4) {
                         gp.ui.titleSceenState = 0;
                     }
