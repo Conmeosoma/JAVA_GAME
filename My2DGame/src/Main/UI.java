@@ -4,7 +4,9 @@
  */
 package Main;
 
+import Object.OBJ_Heart;
 import Object.OBJ_Key;
+import Object.SuperObject;
 import Enity.Entity;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -29,6 +31,7 @@ public class UI {
     Font maruMonica, purisaB;
     Font unicodeFont_40, unicodeFont_80B; // Unicode fonts for multilingual support
     Font unicodeBubbleFont; // Font for speech bubble
+    BufferedImage heart_full, heart_half, heart_blank;
     // BUFFERED IMAGE;
     public boolean messageOn = false;
     public String message = "";
@@ -74,6 +77,11 @@ public class UI {
 
         // OBJ_Key key = new OBJ_Key(gp);
         // keyImage = key.image;
+        // CREATE HEART
+        SuperObject heart = new OBJ_Heart(gp);
+        heart_full = heart.image;
+        heart_half = heart.image2;
+        heart_blank = heart.image3;
     }
 
     // Initialize fonts that support multiple languages
@@ -191,6 +199,7 @@ public class UI {
             if (showSpeechBubble && speechBubbleEntity != null) {
                 drawSpeechBubble();
             }
+            drawPlayerLife();
         }
 
         // PAUSE STATE
@@ -201,6 +210,36 @@ public class UI {
         // DIALOGUE
         if (gp.gameState == gp.dialogueState) {
             drawDialogueScreen();
+            drawPlayerLife();
+        }
+    }
+
+    public void drawPlayerLife() {
+        //gp.player.life = 3;
+        int x = gp.tileSize / 2;
+        int y = gp.tileSize / 2;
+        int i = 0;
+        // DRAW MAX HEART
+        while (i < gp.player.maxLife / 2) {
+            g2.drawImage(heart_blank, x, y, null);
+            i++;
+            x += gp.tileSize;
+        }
+        // RESET
+        x = gp.tileSize / 2;
+        y = gp.tileSize / 2;
+        i = 0;
+        // DRAW CURRENT LIFE
+        while (i < gp.player.life) {
+            if (i + 1 == gp.player.life) {
+                // Số sống lẻ - vẽ nửa trái tim
+                g2.drawImage(heart_half, x, y, null);
+            } else {
+                // Số sống chẵn - vẽ cả trái tim
+                g2.drawImage(heart_full, x, y, null);
+            }
+            i += 2;
+            x += gp.tileSize;
         }
     }
 

@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 
 public class SuperObject {
 
-  public BufferedImage image; // hinh anh cua doi tuong
+  public BufferedImage image, image2, image3; // hinh anh cua doi tuong
   public String name;
   public boolean collision = false; // bien check va cham
   public int worldX, worldY; // toa do the gioi cua doi tuong
@@ -23,7 +23,7 @@ public class SuperObject {
   public int solidAreaDefaultX = 0; // toa do mac dinh vung va cham
   public int solidAreaDefaultY = 0; // toa do mac dinh vung va cham
   UtilityTool uTool = new UtilityTool();
-  
+
   public void draw(Graphics2D g2, GamePanel gp) {
     // g2.drawImage(image, worldX, worldY, tileSize, tileSize, null);
     int screenX = worldX - gp.player.World_X + gp.player.screenX;

@@ -55,6 +55,11 @@ public class Player extends Entity {
         direction = "up";
         direction = "left";
         direction = "right";
+        // PLAYER STATUS
+        maxLife = 8;
+        // 1 trai tim = 2 max life
+        life = maxLife;
+
     }
 
     public void getPlayerImage() {
@@ -163,6 +168,10 @@ public class Player extends Entity {
                     case "right" -> World_X += speed; // di chuyen sang phai
                 }
             }
+            // CHECK EVENT
+            gp.eHander.checkEvent();
+            
+            gp.keyH.enterPressed = false;
 
             // tang 4 pixel sau moi lan update neu phim duoc nhan
             // xu ly aniamtion nhan vat
@@ -228,7 +237,7 @@ public class Player extends Entity {
             gp.gameState = gp.dialogueState;
             gp.npc[i].speak();
         }
-        gp.keyH.enterPressed = false;
+       // gp.keyH.enterPressed = false;
     }
 
     public void draw(Graphics2D g2) {

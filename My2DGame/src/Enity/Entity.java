@@ -44,6 +44,10 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public int speechBubbleCounter = 0;
     public int speechBubbleDuration = 200; // 200 frames ~3.3 seconds
 
+    // CHARATER STATUS
+    public int maxLife;
+    public int life;
+
     public Entity(GamePanel gp) {
         this.gp = gp;
     }

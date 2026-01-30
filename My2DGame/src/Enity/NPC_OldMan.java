@@ -111,13 +111,13 @@ public class NPC_OldMan extends Entity {
         speechBubble[0] = "@kdieu4";
         speechBubble[1] = "@MeoConSoMa";
         speechBubble[2] = " MTP";
-        speechBubble[3] = " Hiếu thứ 2";
-        speechBubble[4] = "SOBIN";
+        speechBubble[3] = " Hiếu Monday";
+        speechBubble[4] = "SO0BIN ck iemmmmmmm";
         speechBubble[5] = "URAAAA";
-        speechBubble[6] = "JACK";
+        speechBubble[6] = "JACK5tr";
         speechBubble[7] = "MIXI";
         speechBubble[8] = ":3";
-        speechBubble[9] = "CUTE";
+        speechBubble[9] = "Lan CUTE nhat he mat troi";
         speechBubble[10] = "APPLE MEO MEo";
     }
 

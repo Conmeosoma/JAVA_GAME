@@ -44,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     public KeyHandler keyH = new KeyHandler(this);// khoi tao doi tuong KeyHandler de bat su kien phim
     Sound music = new Sound();
     Sound se = new Sound();
+    public EventHander eHander = new EventHander(this);
     Thread gamThread; // khai bao doi tuong thread cho game
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
