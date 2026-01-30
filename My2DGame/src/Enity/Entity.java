@@ -21,7 +21,7 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
 
     public int speed;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public String direction;
+    public String direction = "down";
     // ======= XU LY ANIMATION NHAN VAT =======
     public int spiteCounter = 0;
     public int spiteNum = 1;
@@ -43,6 +43,10 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public boolean isSpeaking = false;
     public int speechBubbleCounter = 0;
     public int speechBubbleDuration = 200; // 200 frames ~3.3 seconds
+
+    public BufferedImage image, image2, image3; // hinh anh cua doi tuong
+    public String name;
+    public boolean collision = false;
 
     // CHARATER STATUS
     public int maxLife;
@@ -103,10 +107,14 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
 
         if (collisionOn == false) {
             switch (direction) {
-                case "up" -> World_Y -= speed;// di chuyen len tren
-                case "down" -> World_Y += speed; // di chuyen xuong duoi
-                case "left" -> World_X -= speed; // di chuyen sang trai
-                case "right" -> World_X += speed; // di chuyen sang phai
+                case "up" ->
+                    World_Y -= speed;// di chuyen len tren
+                case "down" ->
+                    World_Y += speed; // di chuyen xuong duoi
+                case "left" ->
+                    World_X -= speed; // di chuyen sang trai
+                case "right" ->
+                    World_X += speed; // di chuyen sang phai
             }
         }
 
@@ -141,10 +149,10 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
         int screenY = World_Y - gp.player.World_Y + gp.player.screenY;
         // tọa độ cam màn hình Y = tọa độ thế giới Y - tọa độ thế giới nhân vật Y + tọa
         // độ
-        if (World_X + gp.tileSize > gp.player.World_X - gp.player.screenX &&
-                World_X - gp.tileSize < gp.player.World_X + gp.player.screenX &&
-                World_Y + gp.tileSize > gp.player.World_Y - gp.player.screenY &&
-                World_Y - gp.tileSize < gp.player.World_Y + gp.player.screenY) {
+        if (World_X + gp.tileSize > gp.player.World_X - gp.player.screenX
+                && World_X - gp.tileSize < gp.player.World_X + gp.player.screenX
+                && World_Y + gp.tileSize > gp.player.World_Y - gp.player.screenY
+                && World_Y - gp.tileSize < gp.player.World_Y + gp.player.screenY) {
 
             switch (direction) {
                 case "up":// neu huong di chuyen la len tren thi ve hinh len tren
@@ -169,7 +177,7 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
                     break;
                 case "left": // neu huong di chuyen la trai thi ve hinh trai
                     if (spiteNum == 1) { // neu spitenum = 1 thi ve hinh left1 va dat spiteNum = 2 de lan sau ve hinh
-                                         // left2
+                        // left2
                         image = left1;
                     }
                     if (spiteNum == 2) {

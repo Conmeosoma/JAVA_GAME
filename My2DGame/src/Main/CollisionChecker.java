@@ -76,9 +76,11 @@ public class CollisionChecker {
                 entity.solidArea.x = entity.World_X + entity.solidArea.x;
                 entity.solidArea.y = entity.World_Y + entity.solidArea.y;
                 // lay vi tri vung va cham cua object
-                gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
-                gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+//                gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
+//                gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
 
+                gp.obj[i].solidArea.x = gp.obj[i].World_X + gp.obj[i].solidArea.x;
+                gp.obj[i].solidArea.y = gp.obj[i].World_Y + gp.obj[i].solidArea.y;
                 switch (entity.direction) { // di chuyen entity de kiem tra va cham
                     case "up":
                         entity.solidArea.y -= entity.speed; // di chuyen vung va cham len tren

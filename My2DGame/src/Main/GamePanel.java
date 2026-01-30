@@ -13,9 +13,12 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import Enity.Player;
-import Object.SuperObject;
-import Tile.Tile;
+//import Object.SuperObject;
+//import Tile.Tile;
 import Tile.TileManager;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 // GamePanel co tac dung lam noi ve tat ca cac thanh phan trong game
 // No se chua cac thanh phan nhu tile,player,entity,object,collision checker,asser setter ...
@@ -52,8 +55,9 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     // ENITY AND OBJECT
     public Player player = new Player(this, keyH);
-    public SuperObject obj[] = new SuperObject[10];
+    public Entity obj[] = new Entity[10];
     public Entity npc[] = new Entity[10];
+    ArrayList<Entity> entityList = new ArrayList<>();
 
     // GAME STATES
     public int gameState;
@@ -183,28 +187,60 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
         if (gameState == titleState) {
             ui.draw(g2);
 
-        } // OTHER
+        } // OTHERS
         else {
             // TILE
             tileM.draw(g2);
 
-            // NPC
+            entityList.add(player);
+
+            // ADD ENTITIES  THE LIST
             for (int i = 0; i < npc.length; i++) {
                 if (npc[i] != null) {
-                    npc[i].draw(g2);
+                    entityList.add(npc[i]);
                 }
             }
 
-            // PLAYER
-            player.draw(g2);
-
-            // OBJECT
             for (int i = 0; i < obj.length; i++) {
                 if (obj[i] != null) {
-                    obj[i].draw(g2, this);
+                    entityList.add(obj[i]);
                 }
             }
 
+            // SORT
+            Collections.sort(entityList, new Comparator<Entity>() {
+                @Override
+                public int compare(Entity e1, Entity e2){
+                    int result = Integer.compare(e1.World_Y, e2.World_Y);
+                    return 0;
+                }
+            });
+            
+            // DRAW ENTITIES
+            for (int i = 0; i < entityList.size(); i++){
+                entityList.get(i).draw(g2);
+            }
+            // EMPTY ENTITY LIST
+            for (int i = 0; i < entityList.size(); i++){
+                entityList.remove(i);
+            }
+
+//            // NPC
+//            for (int i = 0; i < npc.length; i++) {
+//                if (npc[i] != null) {
+//                    npc[i].draw(g2);
+//                }
+//            }
+//
+//            // PLAYER
+//            player.draw(g2);
+//
+//            // OBJECT
+//            for (int i = 0; i < obj.length; i++) {
+//                if (obj[i] != null) {
+//                    obj[i].draw(g2, this);
+//                }
+//            }
             // UI
             ui.draw(g2);
         }

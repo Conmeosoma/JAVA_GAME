@@ -5,8 +5,8 @@
 package Main;
 
 import Object.OBJ_Heart;
-import Object.OBJ_Key;
-import Object.SuperObject;
+//import Object.OBJ_Key;
+//import Object.SuperObject;
 import Enity.Entity;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -17,7 +17,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
-import java.text.DecimalFormat;
+//import java.text.DecimalFormat;
 
 /**
  *
@@ -55,7 +55,6 @@ public class UI {
 
     // double playTime;
     // DecimalFormat dFormat = new DecimalFormat("#0.00");
-
     public UI(GamePanel gp) {
         this.gp = gp;
         // arial_40 = new Font("Arial", Font.PLAIN, 40); // khoi tao font chu ngoai
@@ -78,7 +77,8 @@ public class UI {
         // OBJ_Key key = new OBJ_Key(gp);
         // keyImage = key.image;
         // CREATE HEART
-        SuperObject heart = new OBJ_Heart(gp);
+//        SuperObject heart = new OBJ_Heart(gp);
+        Entity heart = new OBJ_Heart(gp);
         heart_full = heart.image;
         heart_half = heart.image2;
         heart_blank = heart.image3;
@@ -112,17 +112,13 @@ public class UI {
     }
 
     // public void draw(Graphics2D g2) {
-
     // if (gameFinished == true) {
-
     // g2.setFont(arial_40);
     // g2.setColor(Color.WHITE);
-
     // String text;
     // int textlength;
     // int x;
     // int y;
-
     // text = "You found the treasure!";
     // textlength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
     // x = gp.screenWidth / 2 - textlength / 2; // can chinh de text o giua khung
@@ -130,7 +126,6 @@ public class UI {
     // y = gp.screenHeight / 2 - (gp.tileSize * 3); // can chinh de text o ben tren
     // khung hinh
     // g2.drawString(text, x, y);
-
     // text = "Your Time is: " + dFormat.format(playTime) + "!";
     // textlength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
     // x = gp.screenWidth / 2 - textlength / 2; // can chinh de text o giua khung
@@ -138,7 +133,6 @@ public class UI {
     // y = gp.screenHeight / 2 + (gp.tileSize * 4); // can chinh de text o ben tren
     // khung hinh
     // g2.drawString(text, x, y);
-
     // g2.setFont(arial_80B);
     // g2.setColor(Color.YELLOW);
     // text = "Congratulations!";
@@ -148,7 +142,6 @@ public class UI {
     // y = gp.screenHeight / 2 + (gp.tileSize * 2); // can chinh de text o ben duoi
     // khung hinh
     // g2.drawString(text, x, y);
-
     // gp.gamThread = null;
     // } else {
     // g2.setFont(arial_40);
@@ -156,9 +149,7 @@ public class UI {
     // g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize,
     // gp.tileSize, null);
     // g2.drawString("x " + gp.player.hasKey, 74, 65); // ve chu voi (74, 65) la toa
-
     // playTime += (double) 1 / 60;
-
     // float hue = (float) (playTime * 0.5);
     // float saturation = 1.0f; // Độ đậm (1.0 là đậm nhất)
     // float brightness = 1.0f; // Độ sáng (1.0 là sáng nhất)
@@ -166,14 +157,11 @@ public class UI {
     // Color rainbowColor = Color.getHSBColor(hue, saturation, brightness);
     // g2.setColor(rainbowColor);
     // g2.drawString("Time: " + dFormat.format(playTime), gp.tileSize * 11, 65);
-
     // // MESSAGE
     // if (messageOn == true) {
-
     // g2.setFont(g2.getFont().deriveFont(30F));
     // g2.drawString(message, gp.tileSize / 2, gp.tileSize * 5);
     // messageCounter++;
-
     // if (messageCounter > 120) { // Thong bao se tat sau 2s
     // messageCounter = 0;
     // messageOn = false;
@@ -407,10 +395,12 @@ public class UI {
         int bubbleHeight = textHeight + (padding * 2);
 
         // Minimum bubble size
-        if (bubbleWidth < 60)
+        if (bubbleWidth < 60) {
             bubbleWidth = 60;
-        if (bubbleHeight < 35)
+        }
+        if (bubbleHeight < 35) {
             bubbleHeight = 35;
+        }
 
         // Calculate screen position of NPC
         int screenX = speechBubbleEntity.World_X - gp.player.World_X + gp.player.screenX;
@@ -447,8 +437,8 @@ public class UI {
         g2.drawString(speechBubbleText, textX, textY);
 
         // Draw tail pointing down
-        int[] xPoints = { bubbleX + bubbleWidth / 2, bubbleX + bubbleWidth / 2 - 8, bubbleX + bubbleWidth / 2 + 8 };
-        int[] yPoints = { bubbleY + bubbleHeight, bubbleY + bubbleHeight + 12, bubbleY + bubbleHeight };
+        int[] xPoints = {bubbleX + bubbleWidth / 2, bubbleX + bubbleWidth / 2 - 8, bubbleX + bubbleWidth / 2 + 8};
+        int[] yPoints = {bubbleY + bubbleHeight, bubbleY + bubbleHeight + 12, bubbleY + bubbleHeight};
 
         g2.setColor(new Color(255, 255, 200, 240));
         g2.fillPolygon(xPoints, yPoints, 3);

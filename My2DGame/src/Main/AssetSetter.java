@@ -16,6 +16,14 @@ public class AssetSetter {
   }
 
   public void setObject() {
+      gp.obj[0] = new OBJ_Door(gp);
+      gp.obj[0].World_X = gp.tileSize * 21;
+      gp.obj[0].World_Y = gp.tileSize * 22;
+      
+      gp.obj[1] = new OBJ_Door(gp);
+      gp.obj[1].World_X = gp.tileSize * 23;
+      gp.obj[1].World_Y = gp.tileSize * 25;
+      
     // tao doi tuong key
     // dat toa do cho doi tuong key
 
@@ -60,6 +68,21 @@ public class AssetSetter {
       gp.npc[0] = new NPC_OldMan(gp);
       gp.npc[0].World_X = gp.tileSize*21;      
       gp.npc[0].World_Y = gp.tileSize*21;
-
+      
+      gp.npc[1] = new NPC_OldMan(gp);
+      gp.npc[1].World_X = gp.tileSize*11;      
+      gp.npc[1].World_Y = gp.tileSize*21;
+      
+      gp.npc[2] = new NPC_OldMan(gp);
+      gp.npc[2].World_X = gp.tileSize*31;      
+      gp.npc[2].World_Y = gp.tileSize*21;
+      
+      gp.npc[3] = new NPC_OldMan(gp);
+      gp.npc[3].World_X = gp.tileSize*21;      
+      gp.npc[3].World_Y = gp.tileSize*11;
+      
+      gp.npc[4] = new NPC_OldMan(gp);
+      gp.npc[4].World_X = gp.tileSize*21;      
+      gp.npc[4].World_Y = gp.tileSize*31;
   }
 }
