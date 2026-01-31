@@ -34,6 +34,8 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public int solidAreaDefaultX, solidAreaDefaultY;
 
     public int actionLockCounter = 0;
+    public boolean invincible = false;
+    public int invincibleCounter = 0;
     String dialogues[] = new String[20];
     String speechBubble[] = new String[20];
     int dialogueIndex = 0;
@@ -47,6 +49,8 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public BufferedImage image, image2, image3; // hinh anh cua doi tuong
     public String name;
     public boolean collision = false;
+    
+    public int type; // 0 = player, 1 = npc, 2 = monster
 
     // CHARATER STATUS
     public int maxLife;
@@ -103,7 +107,17 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
         collisionOn = false;
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
-        gp.cChecker.checkPlayer(this);
+        gp.cChecker.checkEntity(this, gp.npc);
+        gp.cChecker.checkEntity(this, gp.monster);
+        boolean contactPlayer = gp.cChecker.checkPlayer(this);
+        
+        if (this.type == 2 && contactPlayer == true){
+            if (gp.player.invincible == false){
+                // chung ta them nguy hiem
+                gp.player.life -= 1;
+                gp.player.invincible = true;
+            }
+        }
 
         if (collisionOn == false) {
             switch (direction) {
