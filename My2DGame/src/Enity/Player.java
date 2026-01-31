@@ -10,8 +10,10 @@ import javax.imageio.ImageIO;
 import Main.GamePanel;
 import Main.KeyHandler;
 import Main.UtilityTool;
-
+import java.awt.AlphaComposite;
 import java.awt.Color;
+
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -50,6 +52,8 @@ public class Player extends Entity {
     public void setDefaultValues() {
         World_X = gp.tileSize * 23;
         World_Y = gp.tileSize * 21;
+//        World_X = gp.tileSize * 10;
+//        World_Y = gp.tileSize * 13;
         speed = 4;
         direction = "down";
         direction = "up";
@@ -116,7 +120,6 @@ public class Player extends Entity {
     // }
     // return image;
     // }
-
     public void setDirection(String direction) {
         this.direction = direction;
     }
@@ -159,18 +162,26 @@ public class Player extends Entity {
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
+            // KIEM TRA VA CHAM VOI MONSTER
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            contactMonster(monsterIndex);
+
             // NEU VA CHAM LA FALSE, PLAYER CO THE DI CHUYEN
             if (collisionOn == false) {
                 switch (direction) {
-                    case "up" -> World_Y -= speed;// di chuyen len tren
-                    case "down" -> World_Y += speed; // di chuyen xuong duoi
-                    case "left" -> World_X -= speed; // di chuyen sang trai
-                    case "right" -> World_X += speed; // di chuyen sang phai
+                    case "up" ->
+                        World_Y -= speed;// di chuyen len tren
+                    case "down" ->
+                        World_Y += speed; // di chuyen xuong duoi
+                    case "left" ->
+                        World_X -= speed; // di chuyen sang trai
+                    case "right" ->
+                        World_X += speed; // di chuyen sang phai
                 }
             }
             // CHECK EVENT
             gp.eHander.checkEvent();
-            
+
             gp.keyH.enterPressed = false;
 
             // tang 4 pixel sau moi lan update neu phim duoc nhan
@@ -185,7 +196,14 @@ public class Player extends Entity {
                 spiteCounter = 0;
             }
         }
-
+        // Cái này cần ở ngoài câu lệnh if
+        if (invincible == true) {
+            invincibleCounter++;
+            if (invincibleCounter > 60) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
     }
 
     public void pickUpObject(int i) {
@@ -237,7 +255,16 @@ public class Player extends Entity {
             gp.gameState = gp.dialogueState;
             gp.npc[i].speak();
         }
-       // gp.keyH.enterPressed = false;
+        // gp.keyH.enterPressed = false;
+    }
+
+    public void contactMonster(int i) {
+        if (i != 999) {
+            if (invincible == false) {
+                life -= 1;
+                invincible = true;
+            }
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -272,7 +299,7 @@ public class Player extends Entity {
                 break;
             case "left": // neu huong di chuyen la trai thi ve hinh trai
                 if (spiteNum == 1) { // neu spitenum = 1 thi ve hinh left1 va dat spiteNum = 2 de lan sau ve hinh
-                                     // left2
+                    // left2
                     image = left1;
                 }
                 if (spiteNum == 2) {
@@ -290,8 +317,19 @@ public class Player extends Entity {
             default:
                 break;
         }
+
+        if (invincible == true) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
         g2.drawImage(image, screenX, screenY, null);// ve hinh anh nhan vat o vi tri
 
+        // Reset alpha
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        
+//      DEBUG
+//        g2.setFont(new Font("Arial", Font.PLAIN, 26));
+//        g2.setColor(Color.white);
+//        g2.drawString("Invincible: " + invincibleCounter, 10, 400);
     }
 
 }
