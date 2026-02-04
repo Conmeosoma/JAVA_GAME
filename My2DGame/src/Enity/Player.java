@@ -25,7 +25,6 @@ public class Player extends Entity {
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
         this.keyH = keyH;
-
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
@@ -142,6 +141,9 @@ public class Player extends Entity {
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             contactMonster(monsterIndex);
 
+            // KIEM TRA SU KIEN
+            gp.eHander.checkEvent();
+
             // NEU VA CHAM LA FALSE, PLAYER CO THE DI CHUYEN
             if (collisionOn == false && keyH.enterPressed == false) {
                 switch (direction) {
@@ -155,6 +157,9 @@ public class Player extends Entity {
                         World_X += speed; // di chuyen sang phai
                 }
             }
+
+            gp.keyH.enterPressed = false;
+
             if (keyH.enterPressed == true && attackCanceled == false) {
                 gp.playSE(7);
                 spiteCounter = 0;
@@ -244,6 +249,9 @@ public class Player extends Entity {
                 System.out.println("HIT");
                 gp.monster[i].life -= damage;
                 gp.ui.addMessage(damage + " damage!");
+                System.out.println("HIT ");
+//                gp.monster[i].life -= 20;
+                // Goi y: Them class de quan ly chi so: mau, toc do, tan cong 
                 gp.monster[i].invincible = true;
                 gp.monster[i].damageReaction();
                 if (gp.monster[i].life <= 0) {
@@ -260,11 +268,22 @@ public class Player extends Entity {
     }
 
     public void interactNPC(int i) {
+//        if (gp.keyH.enterPressed == true) {
+//            if (i != 999) {
+//                attackCanceled = true;
+//                gp.gameState = gp.dialogueState;
+//                gp.npc[i].speak();
+//            }
+//        }
+
         if (gp.keyH.enterPressed == true) {
             if (i != 999) {
-                attackCanceled = true;
+//                attackCanceled = true;
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
+            } else {
+                attacking = true;
+
             }
         }
     }
