@@ -25,9 +25,10 @@ public class Sound {
         soundURL[2] = getClass().getResource("/res/Sound/powerup.wav");
         soundURL[3] = getClass().getResource("/res/Sound/unlock.wav");
         soundURL[4] = getClass().getResource("/res/Sound/fanfare.wav");
-        soundURL[5] = getClass().getResource("/res/Sound/powerup.wav");
-        soundURL[6] = getClass().getResource("/res/Sound/powerup.wav");
-        soundURL[7] = getClass().getResource("/res/Sound/powerup.wav");
+        soundURL[5] = getClass().getResource("/res/Sound/hitmonster.wav");
+        soundURL[6] = getClass().getResource("/res/Sound/receivedamage.wav");
+        soundURL[7] = getClass().getResource("/res/Sound/swingweapon.wav");        
+        soundURL[8] = getClass().getResource("/res/Sound/levelup.wav");
 
     }
     // chu y vi tri luu file res

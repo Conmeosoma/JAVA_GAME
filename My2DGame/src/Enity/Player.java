@@ -247,18 +247,42 @@ public class Player extends Entity {
                 }
 
                 System.out.println("HIT");
-                gp.monster[i].life -= damage;
+                // Dieu khong hieu sao sat thuong yeu qua nen nhan damage voi 5
+                gp.monster[i].life -= damage * 5;
                 gp.ui.addMessage(damage + " damage!");
                 System.out.println("HIT ");
 //                gp.monster[i].life -= 20;
-                // Goi y: Them class de quan ly chi so: mau, toc do, tan cong 
+                // Anh Minh goi y: Them class de quan ly chi so: mau, toc do, tan cong 
                 gp.monster[i].invincible = true;
                 gp.monster[i].damageReaction();
                 if (gp.monster[i].life <= 0) {
                     gp.monster[i].dying = true;
                     gp.ui.addMessage("Killed the " + gp.monster[i].name + "!");
+                    gp.ui.addMessage("Exp " + gp.monster[i].exp);
+                    exp += gp.monster[i].exp;
+                    checkLevelUp();
                 }
             }
+        }
+    }
+
+    public void checkLevelUp() {
+        if (exp >= nextLevelExp) {
+            level++;
+            nextLevelExp = nextLevelExp * 2;
+            maxLife += 2;
+            strength++;
+            dexterity++;
+            attack = getAttack();
+            defense = getDefense();
+
+            gp.playSE(8);
+            gp.gameState = gp.dialogueState;
+            gp.ui.currentDialogue = "You fall into a pit!";
+            gp.gameState = gp.dialogueState;
+            gp.ui.currentDialogue = "You are level " + level + " now!\n"
+                    + "You feel stronger!";
+//              
         }
     }
 

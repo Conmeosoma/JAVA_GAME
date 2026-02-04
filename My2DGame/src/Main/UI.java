@@ -184,6 +184,8 @@ public class UI {
 
         for (int i = 0; i < message.size(); i++) {
             if (message.get(i) != null) {
+                g2.setColor(Color.black);
+                g2.drawString(message.get(i), messageX + 2, messageY + 2);
                 g2.setColor(Color.white);
                 g2.drawString(message.get(i), messageX, messageY);
 

@@ -64,8 +64,10 @@ public class EventHander {
     if (gp.keyH.enterPressed == true) {
       gp.gameState = gameState;
       gp.player.attackCanceled = true;
+      gp.playSE(2);
       gp.ui.currentDialogue = "You are healed!You drink the water";
       gp.player.life = gp.player.maxLife;
+      gp.aSetter.setMonster();
     }
   }
 
