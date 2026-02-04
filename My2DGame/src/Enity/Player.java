@@ -240,6 +240,15 @@ public class Player extends Entity {
         if (i != 999) {
             if (gp.monster[i].invincible == false) {
                 // gp.playSE(5);
+
+                int damage = attack - gp.monster[i].defense;
+                if (damage < 0) {
+                    damage = 0;
+                }
+
+                System.out.println("HIT");
+                gp.monster[i].life -= damage;
+                gp.ui.addMessage(damage + " damage!");
                 System.out.println("HIT ");
 //                gp.monster[i].life -= 20;
                 // Goi y: Them class de quan ly chi so: mau, toc do, tan cong 
@@ -247,6 +256,7 @@ public class Player extends Entity {
                 gp.monster[i].damageReaction();
                 if (gp.monster[i].life <= 0) {
                     gp.monster[i].dying = true;
+                    gp.ui.addMessage("Killed the " + gp.monster[i].name + "!");
                 }
             }
         }
@@ -282,6 +292,13 @@ public class Player extends Entity {
         if (i != 999) {
             if (gp.monster[i].invincible == false) {
                 gp.playSE(6);
+
+                int damage = gp.monster[i].attack - defense;
+                if (damage < 0) {
+                    damage = 0;
+                }
+
+                life -= damage;
                 gp.monster[i].life -= 1;
                 gp.monster[i].invincible = true;
                 if (gp.monster[i].life <= 0) {
