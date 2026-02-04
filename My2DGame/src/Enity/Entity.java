@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 
 public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho tat ca doi tuong
     // trong game
+
     GamePanel gp;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,
@@ -136,7 +137,14 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
         if (this.type == 2 && contactPlayer == true) {
             if (gp.player.invincible == false) {
                 gp.playSE(6);
-                gp.player.life -= 1;
+
+                int damage = attack - gp.player.defense;
+                if (damage < 0) {
+                    damage = 0;
+                }
+                gp.player.life -= damage;
+
+//                gp.player.life -= 1;
                 gp.player.invincible = true;
             }
         }

@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  *
@@ -29,8 +30,10 @@ public class UI {
     BufferedImage heart_full, heart_half, heart_blank;
     // BUFFERED IMAGE;
     public boolean messageOn = false;
-    public String message = "";
-    int messageCounter = 0; // dem so luong thong bao
+//    public String message = "";
+//    int messageCounter = 0; // dem so luong thong bao
+    ArrayList<String> message = new ArrayList<>();
+    ArrayList<Integer> messageCounter = new ArrayList<>();
     public boolean gameFinished = false;
     public String currentDialogue = "";
 
@@ -94,9 +97,9 @@ public class UI {
         }
     }
 
-    public void showMessage(String text) {
-        message = text;
-        messageOn = true;
+    public void addMessage(String text) {
+        message.add(text);
+        messageCounter.add(0);
     }
 
     // SPEECH BUBBLE METHOD
@@ -125,17 +128,19 @@ public class UI {
                 drawSpeechBubble();
             }
             drawPlayerLife();
+            drawMessage();
         }
 
         // PAUSE STATE
         if (gp.gameState == gp.pauseState) {
+            drawPlayerLife();
             drawPauseSceen();
         }
 
         // DIALOGUE
         if (gp.gameState == gp.dialogueState) {
-            drawDialogueScreen();
             drawPlayerLife();
+            drawDialogueScreen();
         }
         // CHARACTER
         if (gp.gameState == gp.characterState) {
@@ -170,6 +175,29 @@ public class UI {
             i += 2;
             x += gp.tileSize;
         }
+    }
+
+    public void drawMessage() {
+        int messageX = gp.tileSize;
+        int messageY = gp.tileSize * 4;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
+
+        for (int i = 0; i < message.size(); i++) {
+            if (message.get(i) != null) {
+                g2.setColor(Color.white);
+                g2.drawString(message.get(i), messageX, messageY);
+
+                int counter = messageCounter.get(i) + 1;  // messageCounter++
+                messageCounter.set(i, counter);  // set the counter to the array
+                messageY += 50;
+
+                if (messageCounter.get(i) > 180) {  // 3 giay
+                    message.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
+        }
+
     }
 
     public void drawTitleScreen() {
@@ -377,8 +405,8 @@ public class UI {
         g2.drawString(speechBubbleText, textX, textY);
 
         // Draw tail pointing down
-        int[] xPoints = { bubbleX + bubbleWidth / 2, bubbleX + bubbleWidth / 2 - 8, bubbleX + bubbleWidth / 2 + 8 };
-        int[] yPoints = { bubbleY + bubbleHeight, bubbleY + bubbleHeight + 12, bubbleY + bubbleHeight };
+        int[] xPoints = {bubbleX + bubbleWidth / 2, bubbleX + bubbleWidth / 2 - 8, bubbleX + bubbleWidth / 2 + 8};
+        int[] yPoints = {bubbleY + bubbleHeight, bubbleY + bubbleHeight + 12, bubbleY + bubbleHeight};
 
         g2.setColor(new Color(255, 255, 200, 240));
         g2.fillPolygon(xPoints, yPoints, 3);
@@ -425,20 +453,20 @@ public class UI {
         int valueX = frameX + frameWidth - 30;
 
         // NAMES và VALUES
-        String[] labels = { "Level", "Life", "Strength", "Dexterity", "Attack", "Defense", "EXP", "Next Level", "Coin",
-                "Weapon", "Shield" };
+        String[] labels = {"Level", "Life", "Strength", "Dexterity", "Attack", "Defense", "EXP", "Next Level", "Coin",
+            "Weapon", "Shield"};
         String[] values = {
-                String.valueOf(gp.player.level),
-                gp.player.life + "/" + gp.player.maxLife,
-                String.valueOf(gp.player.strength),
-                String.valueOf(gp.player.dexterity),
-                String.valueOf(gp.player.attack),
-                String.valueOf(gp.player.defense),
-                String.valueOf(gp.player.exp),
-                String.valueOf(gp.player.nextLevelExp),
-                String.valueOf(gp.player.coin),
-                "", // Weapon - sẽ vẽ icon
-                "" // Shield - sẽ vẽ icon
+            String.valueOf(gp.player.level),
+            gp.player.life + "/" + gp.player.maxLife,
+            String.valueOf(gp.player.strength),
+            String.valueOf(gp.player.dexterity),
+            String.valueOf(gp.player.attack),
+            String.valueOf(gp.player.defense),
+            String.valueOf(gp.player.exp),
+            String.valueOf(gp.player.nextLevelExp),
+            String.valueOf(gp.player.coin),
+            "", // Weapon - sẽ vẽ icon
+            "" // Shield - sẽ vẽ icon
         };
 
         for (int i = 0; i < labels.length; i++) {
