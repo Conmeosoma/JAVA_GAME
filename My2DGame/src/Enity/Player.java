@@ -277,9 +277,8 @@ public class Player extends Entity {
             defense = getDefense();
 
             gp.playSE(8);
-            gp.gameState = gp.dialogueState;
-            gp.ui.currentDialogue = "You fall into a pit!";
-            gp.gameState = gp.dialogueState;
+            gp.gameState = gp.dialogueState;            
+            gp.ui.addMessage("Level up!");
             gp.ui.currentDialogue = "You are level " + level + " now!\n"
                     + "You feel stronger!";
 //              
