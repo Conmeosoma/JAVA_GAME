@@ -19,7 +19,7 @@ public class OBJ_Chest extends Entity {
   public OBJ_Chest(GamePanel gp) {
     super(gp);
     name = "Chest";
-    down1 = setup("/res/Object/Chest");
+    down1 = setup("/res/Object/Chest", gp.tileSize, gp.tileSize);
 //    this.gp = gp;
 //    try {
 //      image = ImageIO.read(getClass().getResourceAsStream("/res/Object/Chest.png"));

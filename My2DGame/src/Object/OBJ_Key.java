@@ -21,7 +21,7 @@ public class OBJ_Key extends Entity {
     name = "Key";
 //    this.gp = gp;
 
-    down1 = setup("/res/Object/key");
+    down1 = setup("/res/Object/key", gp.tileSize, gp.tileSize);
 //    try {
 //      image = ImageIO.read(getClass().getResourceAsStream("/res/Object/key.png"));
 //      image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);

@@ -1,6 +1,5 @@
 package Main;
 
-import java.awt.Rectangle;
 
 public class EventHander {
   GamePanel gp;
@@ -27,7 +26,6 @@ public class EventHander {
         row++;
       }
     }
-
   }
 
   public void checkEvent() {
@@ -65,6 +63,7 @@ public class EventHander {
   public void healingPool(int col, int row, int gameState) {
     if (gp.keyH.enterPressed == true) {
       gp.gameState = gameState;
+      gp.player.attackCanceled = true;
       gp.ui.currentDialogue = "You are healed!You drink the water";
       gp.player.life = gp.player.maxLife;
     }
@@ -90,5 +89,4 @@ public class EventHander {
     eventRect[col][row].y = eventRect[col][row].eventRectDefaultY;
     return hit;
   }
-
 }

@@ -19,9 +19,9 @@ public class OBJ_Heart extends Entity {
   public OBJ_Heart(GamePanel gp) {
     super(gp);
     name = "Heart";
-    image = setup("/res/Object/heart_full");    
-    image2 = setup("/res/Object/heart_half");
-    image3 = setup("/res/Object/heart_blank");
+    image = setup("/res/Object/heart_full", gp.tileSize, gp.tileSize);    
+    image2 = setup("/res/Object/heart_half", gp.tileSize, gp.tileSize);
+    image3 = setup("/res/Object/heart_blank", gp.tileSize, gp.tileSize);
 
 //    this.gp = gp;
 //    try {

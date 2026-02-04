@@ -5,19 +5,14 @@
 package Main;
 
 import Object.OBJ_Heart;
-//import Object.OBJ_Key;
-//import Object.SuperObject;
 import Enity.Entity;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
-//import java.text.DecimalFormat;
 
 /**
  *
@@ -77,7 +72,7 @@ public class UI {
         // OBJ_Key key = new OBJ_Key(gp);
         // keyImage = key.image;
         // CREATE HEART
-//        SuperObject heart = new OBJ_Heart(gp);
+        // SuperObject heart = new OBJ_Heart(gp);
         Entity heart = new OBJ_Heart(gp);
         heart_full = heart.image;
         heart_half = heart.image2;
@@ -111,64 +106,6 @@ public class UI {
         showSpeechBubble = true;
     }
 
-    // public void draw(Graphics2D g2) {
-    // if (gameFinished == true) {
-    // g2.setFont(arial_40);
-    // g2.setColor(Color.WHITE);
-    // String text;
-    // int textlength;
-    // int x;
-    // int y;
-    // text = "You found the treasure!";
-    // textlength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-    // x = gp.screenWidth / 2 - textlength / 2; // can chinh de text o giua khung
-    // hinh theo chieu rong
-    // y = gp.screenHeight / 2 - (gp.tileSize * 3); // can chinh de text o ben tren
-    // khung hinh
-    // g2.drawString(text, x, y);
-    // text = "Your Time is: " + dFormat.format(playTime) + "!";
-    // textlength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-    // x = gp.screenWidth / 2 - textlength / 2; // can chinh de text o giua khung
-    // hinh theo chieu rong
-    // y = gp.screenHeight / 2 + (gp.tileSize * 4); // can chinh de text o ben tren
-    // khung hinh
-    // g2.drawString(text, x, y);
-    // g2.setFont(arial_80B);
-    // g2.setColor(Color.YELLOW);
-    // text = "Congratulations!";
-    // textlength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-    // x = gp.screenWidth / 2 - textlength / 2; // can chinh de text o giua khung
-    // hinh theo chieu rong
-    // y = gp.screenHeight / 2 + (gp.tileSize * 2); // can chinh de text o ben duoi
-    // khung hinh
-    // g2.drawString(text, x, y);
-    // gp.gamThread = null;
-    // } else {
-    // g2.setFont(arial_40);
-    // g2.setColor(Color.WHITE);
-    // g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize,
-    // gp.tileSize, null);
-    // g2.drawString("x " + gp.player.hasKey, 74, 65); // ve chu voi (74, 65) la toa
-    // playTime += (double) 1 / 60;
-    // float hue = (float) (playTime * 0.5);
-    // float saturation = 1.0f; // Độ đậm (1.0 là đậm nhất)
-    // float brightness = 1.0f; // Độ sáng (1.0 là sáng nhất)
-    // // Tạo màu từ HSB
-    // Color rainbowColor = Color.getHSBColor(hue, saturation, brightness);
-    // g2.setColor(rainbowColor);
-    // g2.drawString("Time: " + dFormat.format(playTime), gp.tileSize * 11, 65);
-    // // MESSAGE
-    // if (messageOn == true) {
-    // g2.setFont(g2.getFont().deriveFont(30F));
-    // g2.drawString(message, gp.tileSize / 2, gp.tileSize * 5);
-    // messageCounter++;
-    // if (messageCounter > 120) { // Thong bao se tat sau 2s
-    // messageCounter = 0;
-    // messageOn = false;
-    // }
-    // }
-    // }
-    // }
     public void draw(Graphics2D g2) {
         this.g2 = g2;
         // g2.setFont(maruMonica);
@@ -200,10 +137,14 @@ public class UI {
             drawDialogueScreen();
             drawPlayerLife();
         }
+        // CHARACTER
+        if (gp.gameState == gp.characterState) {
+            drawCharacterScreen();
+        }
     }
 
     public void drawPlayerLife() {
-        //gp.player.life = 3;
+        // gp.player.life = 3;
         int x = gp.tileSize / 2;
         int y = gp.tileSize / 2;
         int i = 0;
@@ -235,7 +176,6 @@ public class UI {
         if (titleSceenState == 0) {// COLOR BACKGROUND
             g2.setColor(new Color(255, 200, 160, 255));
             g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-
             // TITLE NAME
             g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 60F));
             String text = "HIT ADVENTURE";
@@ -250,7 +190,6 @@ public class UI {
             // HIT BOY IMAGE with animation
             x = gp.screenWidth / 2 - (gp.tileSize * 2);
             y = gp.tileSize * 3;
-
             // Sprite animation counter
             spriteCounter++;
             if (spriteCounter > 45) { // Change sprite every 10 frames
@@ -261,14 +200,12 @@ public class UI {
                 }
                 spriteCounter = 0;
             }
-
             // Draw the appropriate sprite
             if (spriteNum == 1) {
                 g2.drawImage(gp.player.down1, x, y, gp.tileSize * 4, gp.tileSize * 4, null);
             } else {
                 g2.drawImage(gp.player.down2, x, y, gp.tileSize * 4, gp.tileSize * 4, null);
             }
-
             // MENU
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
             text = "NEW GAME";
@@ -279,55 +216,52 @@ public class UI {
                 g2.drawString(">", x - gp.tileSize, y);
                 g2.drawString("<", (int) (x + gp.tileSize * 5.55), y);
             }
-
             text = "LOAD GAME";
             x = getXforCenteredText(text);
             y += gp.tileSize;
             g2.drawString(text, x, y);
             if (commandNum == 1) {
                 g2.drawString(">", x - gp.tileSize, y);
-                g2.drawString("<", (int) (x + gp.tileSize * 6.2), y);
+                g2.drawString("<", (int) (x + gp.tileSize * 5.9), y);
             }
-
-            text = "OPTIONS";
+            text = "OPTION";
             x = getXforCenteredText(text);
             y += gp.tileSize;
             g2.drawString(text, x, y);
             if (commandNum == 2) {
                 g2.drawString(">", x - gp.tileSize, y);
-                g2.drawString("<", (int) (x + gp.tileSize * 4.9), y);
+                g2.drawString("<", (int) (x + gp.tileSize * 4.4), y);
             }
-
-            text = "QUIT GAME";
+            text = "EXIT";
             x = getXforCenteredText(text);
             y += gp.tileSize;
             g2.drawString(text, x, y);
             if (commandNum == 3) {
                 g2.drawString(">", x - gp.tileSize, y);
-                g2.drawString("<", (int) (x + gp.tileSize * 6.1), y);
+                g2.drawString("<", (int) (x + gp.tileSize * 2.7), y);
             }
-
         } else if (titleSceenState == 1) {
+            // COLOR BACKGROUND
             g2.setColor(new Color(255, 200, 160, 255));
             g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
             // CLASS SELECTION SCREEN
             g2.setColor(new Color(78, 52, 46, 255));
-            g2.setColor(new Color(0, 0, 0, 128));
-
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
-            String text = "Select your class:";
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 42F));
+            String text = "CHOOSE YOUR CLASS";
             int x = getXforCenteredText(text);
-            int y = gp.tileSize * 3;
+            int y = gp.tileSize * 2;
             g2.drawString(text, x, y);
 
+            // CLASS MENU
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 30F));
             text = "Warrior";
             x = getXforCenteredText(text);
-            y += gp.tileSize * 2;
+            y += gp.tileSize * 3;
             g2.drawString(text, x, y);
             if (commandNum == 0) {
                 g2.drawString(">", x - gp.tileSize, y);
-                g2.drawString("<", (int) (x + gp.tileSize * 4), y);
+                g2.drawString("<", (int) (x + gp.tileSize * 4.3), y);
             }
 
             text = "Mage";
@@ -345,7 +279,7 @@ public class UI {
             g2.drawString(text, x, y);
             if (commandNum == 2) {
                 g2.drawString(">", x - gp.tileSize, y);
-                g2.drawString("<", (int) (x + gp.tileSize * 3.8), y);
+                g2.drawString("<", (int) (x + gp.tileSize * 4.3), y);
             }
 
             text = "Assassin";
@@ -354,7 +288,7 @@ public class UI {
             g2.drawString(text, x, y);
             if (commandNum == 3) {
                 g2.drawString(">", x - gp.tileSize, y);
-                g2.drawString("<", (int) (x + gp.tileSize * 4.2), y);
+                g2.drawString("<", (int) (x + gp.tileSize * 5.2), y);
             }
 
             text = "Back";
@@ -372,6 +306,12 @@ public class UI {
     public int getXforCenteredText(String text) {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.screenWidth / 2 - length / 2;
+        return x;
+    }
+
+    public int getXforAlignToRightText(String text, int tailX) {
+        int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = tailX - length;
         return x;
     }
 
@@ -437,8 +377,8 @@ public class UI {
         g2.drawString(speechBubbleText, textX, textY);
 
         // Draw tail pointing down
-        int[] xPoints = {bubbleX + bubbleWidth / 2, bubbleX + bubbleWidth / 2 - 8, bubbleX + bubbleWidth / 2 + 8};
-        int[] yPoints = {bubbleY + bubbleHeight, bubbleY + bubbleHeight + 12, bubbleY + bubbleHeight};
+        int[] xPoints = { bubbleX + bubbleWidth / 2, bubbleX + bubbleWidth / 2 - 8, bubbleX + bubbleWidth / 2 + 8 };
+        int[] yPoints = { bubbleY + bubbleHeight, bubbleY + bubbleHeight + 12, bubbleY + bubbleHeight };
 
         g2.setColor(new Color(255, 255, 200, 240));
         g2.fillPolygon(xPoints, yPoints, 3);
@@ -464,6 +404,62 @@ public class UI {
             g2.drawString(line, x, y);
             y += 40;
         }
+    }
+
+    public void drawCharacterScreen() {
+        final int frameX = gp.tileSize;
+        final int frameY = gp.tileSize;
+        final int frameWidth = gp.tileSize * 5;
+        final int frameHeight = gp.tileSize * 10;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        // TEXT
+        g2.setColor(Color.WHITE);
+        g2.setFont(g2.getFont().deriveFont(28F));
+
+        int textX = frameX + 20;
+        int textY = frameY + gp.tileSize;
+        final int lineHeight = 38;
+
+        // Vị trí cột giá trị (căn phải)
+        int valueX = frameX + frameWidth - 30;
+
+        // NAMES và VALUES
+        String[] labels = { "Level", "Life", "Strength", "Dexterity", "Attack", "Defense", "EXP", "Next Level", "Coin",
+                "Weapon", "Shield" };
+        String[] values = {
+                String.valueOf(gp.player.level),
+                gp.player.life + "/" + gp.player.maxLife,
+                String.valueOf(gp.player.strength),
+                String.valueOf(gp.player.dexterity),
+                String.valueOf(gp.player.attack),
+                String.valueOf(gp.player.defense),
+                String.valueOf(gp.player.exp),
+                String.valueOf(gp.player.nextLevelExp),
+                String.valueOf(gp.player.coin),
+                "", // Weapon - sẽ vẽ icon
+                "" // Shield - sẽ vẽ icon
+        };
+
+        for (int i = 0; i < labels.length; i++) {
+            // Vẽ label
+            g2.drawString(labels[i], textX, textY);
+
+            // Vẽ value (nếu không phải weapon/shield)
+            if (i < 9) {
+                int valueTextX = getXforAlignToRightText(values[i], valueX);
+                g2.drawString(values[i], valueTextX, textY);
+            }
+
+            textY += lineHeight;
+        }
+
+        // Vẽ Weapon và Shield icons
+        int weaponY = frameY + gp.tileSize + (lineHeight * 9) - 10;
+        int shieldY = frameY + gp.tileSize + (lineHeight * 10) - 10;
+
+        g2.drawImage(gp.player.currentWeapon.down1, valueX - gp.tileSize + 5, weaponY, null);
+        g2.drawImage(gp.player.currentShield.down1, valueX - gp.tileSize + 5, shieldY, null);
     }
 
     // DRAW SUB WINDOW

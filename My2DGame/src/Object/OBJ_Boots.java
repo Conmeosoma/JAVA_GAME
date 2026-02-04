@@ -21,7 +21,7 @@ public class OBJ_Boots extends Entity {
     public OBJ_Boots(GamePanel gp) {
         super(gp);
         name = "Boots";
-        down1 = setup("/res/Object/boots");
+        down1 = setup("/res/Object/boots", gp.tileSize, gp.tileSize);
 //    this.gp = gp;
 //    try {
 //      image = ImageIO.read(getClass().getResourceAsStream("/res/Object/boots.png"));

@@ -18,7 +18,7 @@ public class OBJ_Door extends Entity {
     public OBJ_Door(GamePanel gp) {
         super(gp);
         name = "Door";
-        down1 = setup("/res/Object/door");
+        down1 = setup("/res/Object/door", gp.tileSize, gp.tileSize);
 //    this.gp = gp;
 //        try {
 //            image = ImageIO.read(getClass().getResourceAsStream("/res/Object/door.png"));

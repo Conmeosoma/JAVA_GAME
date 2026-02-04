@@ -9,20 +9,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import javax.swing.JPanel;
-
 import Enity.Player;
-//import Object.SuperObject;
-//import Tile.Tile;
 import Tile.TileManager;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-// GamePanel co tac dung lam noi ve tat ca cac thanh phan trong game
-// No se chua cac thanh phan nhu tile,player,entity,object,collision checker,asser setter ...
-public class GamePanel extends JPanel implements Runnable { // khai bao lop GamePanel ke thua JPanel
+public class GamePanel extends JPanel implements Runnable { 
 
     // SCREEN SETTINGS
     final int originalTileSize = 16; // kich thuoc o ban dau 16 * 16
@@ -36,8 +30,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     // WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    // public final int worldWidth = tileSize * maxScreenCol;
-    // public final int worldHeight = tileSize * maxScreenRow;
+
 
     // FPS
     int FPS = 60;
@@ -66,6 +59,8 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialogueState = 3;
+    public final int characterState = 4;
+    
 
     // PLAYER
     int playerX = 100;
@@ -170,13 +165,25 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
             }
             for (int i = 0; i < monster.length; i++) {
                 if (monster[i] != null) {
-                    monster[i].update();
+                    if (monster[i].alive == true && monster[i].dying == false) {
+                        monster[i].update();
+                    }
+                    if (monster[i].alive == false) {
+                        monster[i] = null;
+                    }
                 }
             }
         }
         if (gameState == pauseState) {
             // nothing
             music.pause(); // Pause nhac khi tam dung
+        }
+        if (gameState == dialogueState) {
+            // Xu ly Exit dialogue state khi nhan Enter
+            if (keyH.enterPressed == true) {
+                gameState = playState;
+                keyH.enterPressed = false;
+            }
         }
 
     }
@@ -201,7 +208,7 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
             entityList.add(player);
 
-            // ADD ENTITIES  THE LIST
+            // ADD ENTITIES THE LIST
             for (int i = 0; i < npc.length; i++) {
                 if (npc[i] != null) {
                     entityList.add(npc[i]);
@@ -234,26 +241,24 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
                 entityList.get(i).draw(g2);
             }
             // EMPTY ENTITY LIST
-            for (int i = 0; i < entityList.size(); i++) {
-                entityList.remove(i);
-            }
+            entityList.clear();
 
-//            // NPC
-//            for (int i = 0; i < npc.length; i++) {
-//                if (npc[i] != null) {
-//                    npc[i].draw(g2);
-//                }
-//            }
-//
-//            // PLAYER
-//            player.draw(g2);
-//
-//            // OBJECT
-//            for (int i = 0; i < obj.length; i++) {
-//                if (obj[i] != null) {
-//                    obj[i].draw(g2, this);
-//                }
-//            }
+            // // NPC
+            // for (int i = 0; i < npc.length; i++) {
+            // if (npc[i] != null) {
+            // npc[i].draw(g2);
+            // }
+            // }
+            //
+            // // PLAYER
+            // player.draw(g2);
+            //
+            // // OBJECT
+            // for (int i = 0; i < obj.length; i++) {
+            // if (obj[i] != null) {
+            // obj[i].draw(g2, this);
+            // }
+            // }
             // UI
             ui.draw(g2);
         }
