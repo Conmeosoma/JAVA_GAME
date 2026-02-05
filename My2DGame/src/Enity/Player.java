@@ -7,12 +7,14 @@ package Enity;
 import java.awt.Graphics2D;
 import Main.GamePanel;
 import Main.KeyHandler;
+import Object.OBJ_Key;
 import Object.OBJ_Shield_Normal;
 import Object.OBJ_Weapon_Normal;
 
 import java.awt.AlphaComposite;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Player extends Entity {
 
@@ -21,6 +23,8 @@ public class Player extends Entity {
     public final int screenY;
     int standCounter = 0;
     public boolean attackCanceled = false;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -40,6 +44,7 @@ public class Player extends Entity {
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
+        setItems();
     }
 
     public void setDefaultValues() {
@@ -61,6 +66,12 @@ public class Player extends Entity {
         currentShield = new OBJ_Shield_Normal(gp);
         attack = getAttack();
         defense = getDefense();
+    }
+
+    public void setItems() {
+        inventory.add(currentWeapon);
+        inventory.add(currentShield);
+        inventory.add(new OBJ_Key(gp));
     }
 
     public int getAttack() {
@@ -277,7 +288,7 @@ public class Player extends Entity {
             defense = getDefense();
 
             gp.playSE(8);
-            gp.gameState = gp.dialogueState;            
+            gp.gameState = gp.dialogueState;
             gp.ui.addMessage("Level up!");
             gp.ui.currentDialogue = "You are level " + level + " now!\n"
                     + "You feel stronger!";
