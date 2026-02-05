@@ -8,12 +8,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
+
     GamePanel gp;
 
     public boolean upPressed, downPressed, leftPressed, rightPressed; // bien kiem tra phim di chuyen
     public boolean enterPressed;
     // DEBUG
-    boolean checkDrawTime = false;
+//    boolean checkDrawTime = false;    
+    boolean showDebugText = false;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -37,20 +39,16 @@ public class KeyHandler implements KeyListener {
         if (gp.gameState == gp.titleState) {
             // SCENE MENU
             titleState(code);
-        }
-        // PLAY STATE
+        } // PLAY STATE
         else if (gp.gameState == gp.playState) {
             playState(code);
-        }
-        // PAUSE STATE
+        } // PAUSE STATE
         else if (gp.gameState == gp.pauseState) {
             pauseState(code);
-        }
-        // DIALOGUE STATE
+        } // DIALOGUE STATE
         else if (gp.gameState == gp.dialogueState) {
             dialogueState(code);
-        }
-        // CHARACTER STATE
+        } // CHARACTER STATE
         else if (gp.gameState == gp.characterState) {
             characterState(code);
         }
@@ -82,9 +80,7 @@ public class KeyHandler implements KeyListener {
                     System.exit(0);
                 }
             }
-        }
-
-        // SCENE CHOSE CHARACTER
+        } // SCENE CHOSE CHARACTER
         else if (gp.ui.titleSceenState == 1) {
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                 gp.ui.commandNum--;
@@ -140,8 +136,19 @@ public class KeyHandler implements KeyListener {
             rightPressed = true;
         }
         if (code == KeyEvent.VK_T) {
-            checkDrawTime = !checkDrawTime;
+//            checkDrawTime = !checkDrawTime;
+            if (showDebugText == false) {
+                showDebugText = true;
+            } else if (showDebugText == true) {
+                showDebugText = false;
+            }
         }
+        
+        if (code == KeyEvent.VK_R){  // refresh
+            gp.tileM.loadMap("/res/maps/worldV2.txt");
+            
+        }
+        
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.pauseState;
         }

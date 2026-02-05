@@ -21,9 +21,9 @@ public class AssetSetter {
         // tao doi tuong key
         // dat toa do cho doi tuong key
         // KEY 1
-        // gp.obj[0] = new OBJ_Key(gp);
-        // gp.obj[0].worldX = gp.tileSize * 23;
-        // gp.obj[0].worldY = gp.tileSize * 7;
+         gp.obj[0] = new OBJ_Key(gp);
+         gp.obj[0].World_X = gp.tileSize * 25;
+         gp.obj[0].World_Y = gp.tileSize * 19;
         // // KEY 2
         // gp.obj[1] = new OBJ_Key(gp);
         // gp.obj[1].worldX = gp.tileSize * 23;

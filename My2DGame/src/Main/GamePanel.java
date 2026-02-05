@@ -12,11 +12,12 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import Enity.Player;
 import Tile.TileManager;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class GamePanel extends JPanel implements Runnable { 
+public class GamePanel extends JPanel implements Runnable {
 
     // SCREEN SETTINGS
     final int originalTileSize = 16; // kich thuoc o ban dau 16 * 16
@@ -30,7 +31,6 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-
 
     // FPS
     int FPS = 60;
@@ -60,7 +60,6 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int characterState = 4;
-    
 
     // PLAYER
     int playerX = 100;
@@ -194,7 +193,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         // DEBUG
         long drawStart = 0; // bien luu thoi gian bat dau ve
-        if (keyH.checkDrawTime == true) {
+        if (keyH.showDebugText == true) {
             drawStart = System.nanoTime();
         }
         // TILE SCREEN
@@ -264,11 +263,33 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         // DEBUG
-        if (keyH.checkDrawTime == true) {
+//        if (keyH.checkDrawTime == true) {
+//            long drawEnd = System.nanoTime(); // bien luu thoi gian ket thu ve
+//            long passed = drawEnd - drawStart; // thoi gian ve
+//            g2.setColor(Color.white);
+//            g2.drawString("Draw time: " + passed, 10, 400);
+//            System.out.println("Draw time: " + passed);
+//        }
+//        
+        if (keyH.showDebugText == true) {
             long drawEnd = System.nanoTime(); // bien luu thoi gian ket thu ve
             long passed = drawEnd - drawStart; // thoi gian ve
+
+            g2.setFont(new Font("Arial", Font.PLAIN, 20));
             g2.setColor(Color.white);
-            g2.drawString("Draw time: " + passed, 10, 400);
+            int x = 10;
+            int y = 400;
+            int lineHeight = 20;
+            g2.drawString("WorldX " + player.World_X, x, y);
+            y += lineHeight;
+            g2.drawString("WorldY " + player.World_Y, x, y);
+            y += lineHeight;
+            g2.drawString("Col " + (player.World_X + player.solidArea.x) / tileSize, x, y);
+            y += lineHeight;
+            g2.drawString("Row " + (player.World_Y + player.solidArea.y) / tileSize, x, y);
+            y += lineHeight;
+
+            g2.drawString("Draw time: " + passed, x, y);
             System.out.println("Draw time: " + passed);
         }
 
