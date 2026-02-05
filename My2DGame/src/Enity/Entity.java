@@ -73,6 +73,8 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     //ITEM
     public int attackValue;
     public int defenseValue;
+    
+    public String description = "";
 
     public Entity(GamePanel gp) {
         this.gp = gp;
