@@ -4,23 +4,22 @@
 // > ^ <
 package Main;
 
+import Enity.Entity;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import javax.swing.JPanel;
-
 import Enity.Player;
-import Object.SuperObject;
-import Tile.Tile;
 import Tile.TileManager;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
-// GamePanel co tac dung lam noi ve tat ca cac thanh phan trong game
-// No se chua cac thanh phan nhu tile,player,entity,object,collision checker,asser setter ...
-public class GamePanel extends JPanel implements Runnable { // khai bao lop GamePanel ke thua JPanel
-    // Screen settings
+public class GamePanel extends JPanel implements Runnable {
 
+    // SCREEN SETTINGS
     final int originalTileSize = 16; // kich thuoc o ban dau 16 * 16
     final int scale = 3; // ti le phong to 3 lan
     public final int tileSize = originalTileSize * scale; // kich thuoc o hien tai 48 * 48
@@ -28,27 +27,41 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
     public final int maxScreenRow = 12; // gioi han so hang cua man hinh
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixel
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixel
-    KeyHandler keyH = new KeyHandler();// khoi tao doi tuong KeyHandler de bat su kien phim
 
-    // World settings
+    // WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-//    public final int worldWidth = tileSize * maxScreenCol;
-//    public final int worldHeight = tileSize * maxScreenRow;
 
     // FPS
     int FPS = 60;
+
+    // SYSTEM
     TileManager tileM = new TileManager(this);
+    public KeyHandler keyH = new KeyHandler(this);// khoi tao doi tuong KeyHandler de bat su kien phim
     Sound music = new Sound();
     Sound se = new Sound();
+    public EventHander eHander = new EventHander(this);
     Thread gamThread; // khai bao doi tuong thread cho game
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
-    public Player player = new Player(this, keyH);
-    public SuperObject obj[] = new SuperObject[10];
 
-    // Set nhan vat toa do mac dinh
+    // ENITY AND OBJECT
+    public Player player = new Player(this, keyH);
+    public Entity obj[] = new Entity[10];
+    public Entity npc[] = new Entity[10];
+    public Entity monster[] = new Entity[20];
+    ArrayList<Entity> entityList = new ArrayList<>();
+
+    // GAME STATES
+    public int gameState;
+    public final int titleState = 0;
+    public final int playState = 1;
+    public final int pauseState = 2;
+    public final int dialogueState = 3;
+    public final int characterState = 4;
+
+    // PLAYER
     int playerX = 100;
     int playerY = 100;
     int playerSpeed = 4;
@@ -63,8 +76,10 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     public void setupGame() { // Ham setupGame de cai dat ban dau cho game
         aSetter.setObject(); // dat cac doi tuong trong game
-        
-        playMusic(0);
+        aSetter.setNPC();
+        aSetter.setMonster();
+        // playMusic(0);
+        gameState = titleState;
     }
 
     public void startGameThread() {
@@ -135,44 +150,165 @@ public class GamePanel extends JPanel implements Runnable { // khai bao lop Game
 
     }
 
-    public void updated() {// phuong thuc update
-        player.update();
+    public void updated() {
+        if (gameState == playState) {
+            // player
+            player.update();
+            music.resume(); // Resume nhac khi choi
+
+            // NPC
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    npc[i].update();
+                }
+            }
+            for (int i = 0; i < monster.length; i++) {
+                if (monster[i] != null) {
+                    if (monster[i].alive == true && monster[i].dying == false) {
+                        monster[i].update();
+                    }
+                    if (monster[i].alive == false) {
+                        monster[i] = null;
+                    }
+                }
+            }
+        }
+        if (gameState == pauseState) {
+            // nothing
+            music.pause(); // Pause nhac khi tam dung
+        }
+        if (gameState == dialogueState) {
+            // Xu ly Exit dialogue state khi nhan Enter
+            if (keyH.enterPressed == true) {
+                gameState = playState;
+                keyH.enterPressed = false;
+            }
+        }
 
     }
 
     public void paintComponent(Graphics g) { // Phuong thuc ve len panel
-        super.paintComponent(g); // goi phuong thuc paintComponent cua lop cha JPanel
-        Graphics2D g2 = (Graphics2D) g; // ep kieu doi tuong g thanh Graphics2D de su dung cac tinh nang nang cao
-        // tile
-        tileM.draw(g2);
-        // player
-        player.draw(g2);
-        // object
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null) {
-                obj[i].draw(g2, this);
-            }
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+
+        // DEBUG
+        long drawStart = 0; // bien luu thoi gian bat dau ve
+        if (keyH.showDebugText == true) {
+            drawStart = System.nanoTime();
         }
-        
-        // UI
-        ui.draw(g2);
+        // TILE SCREEN
+        if (gameState == titleState) {
+            ui.draw(g2);
+
+        } // OTHERS
+        else {
+            // TILE
+            tileM.draw(g2);
+
+            entityList.add(player);
+
+            // ADD ENTITIES THE LIST
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    entityList.add(npc[i]);
+                }
+            }
+
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i] != null) {
+                    entityList.add(obj[i]);
+                }
+            }
+
+            for (int i = 0; i < monster.length; i++) {
+                if (monster[i] != null) {
+                    entityList.add(monster[i]);
+                }
+            }
+
+            // SORT
+            Collections.sort(entityList, new Comparator<Entity>() {
+                @Override
+                public int compare(Entity e1, Entity e2) {
+                    int result = Integer.compare(e1.World_Y, e2.World_Y);
+                    return 0;
+                }
+            });
+
+            // DRAW ENTITIES
+            for (int i = 0; i < entityList.size(); i++) {
+                entityList.get(i).draw(g2);
+            }
+            // EMPTY ENTITY LIST
+            entityList.clear();
+
+            // // NPC
+            // for (int i = 0; i < npc.length; i++) {
+            // if (npc[i] != null) {
+            // npc[i].draw(g2);
+            // }
+            // }
+            //
+            // // PLAYER
+            // player.draw(g2);
+            //
+            // // OBJECT
+            // for (int i = 0; i < obj.length; i++) {
+            // if (obj[i] != null) {
+            // obj[i].draw(g2, this);
+            // }
+            // }
+            // UI
+            ui.draw(g2);
+        }
+
+        // DEBUG
+//        if (keyH.checkDrawTime == true) {
+//            long drawEnd = System.nanoTime(); // bien luu thoi gian ket thu ve
+//            long passed = drawEnd - drawStart; // thoi gian ve
+//            g2.setColor(Color.white);
+//            g2.drawString("Draw time: " + passed, 10, 400);
+//            System.out.println("Draw time: " + passed);
+//        }
+//        
+        if (keyH.showDebugText == true) {
+            long drawEnd = System.nanoTime(); // bien luu thoi gian ket thu ve
+            long passed = drawEnd - drawStart; // thoi gian ve
+
+            g2.setFont(new Font("Arial", Font.PLAIN, 20));
+            g2.setColor(Color.white);
+            int x = 10;
+            int y = 400;
+            int lineHeight = 20;
+            g2.drawString("WorldX " + player.World_X, x, y);
+            y += lineHeight;
+            g2.drawString("WorldY " + player.World_Y, x, y);
+            y += lineHeight;
+            g2.drawString("Col " + (player.World_X + player.solidArea.x) / tileSize, x, y);
+            y += lineHeight;
+            g2.drawString("Row " + (player.World_Y + player.solidArea.y) / tileSize, x, y);
+            y += lineHeight;
+
+            g2.drawString("Draw time: " + passed, x, y);
+            System.out.println("Draw time: " + passed);
+        }
 
         g2.dispose();// giai phong bo nho cho doi tuong g2
 
     }
 
-    public void playMusic(int i){
+    public void playMusic(int i) {
         music.setFile(i);
         music.play();
         music.loop();
     }
-    
-    public void stopMusic(){
+
+    public void stopMusic() {
         music.stop();
     }
-    
-    public void playSE(int i){
+
+    public void playSE(int i) {
         se.setFile(i);
         se.play();
-    }   
+    }
 }
