@@ -5,8 +5,6 @@
 package Object;
 
 import Enity.Entity;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 import Main.GamePanel;
 

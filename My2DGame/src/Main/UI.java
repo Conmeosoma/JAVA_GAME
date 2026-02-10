@@ -30,8 +30,8 @@ public class UI {
     BufferedImage heart_full, heart_half, heart_blank;
     // BUFFERED IMAGE;
     public boolean messageOn = false;
-//    public String message = "";
-//    int messageCounter = 0; // dem so luong thong bao
+    // public String message = "";
+    // int messageCounter = 0; // dem so luong thong bao
     ArrayList<String> message = new ArrayList<>();
     ArrayList<Integer> messageCounter = new ArrayList<>();
     public boolean gameFinished = false;
@@ -194,11 +194,11 @@ public class UI {
                 g2.setColor(Color.white);
                 g2.drawString(message.get(i), messageX, messageY);
 
-                int counter = messageCounter.get(i) + 1;  // messageCounter++
-                messageCounter.set(i, counter);  // set the counter to the array
+                int counter = messageCounter.get(i) + 1; // messageCounter++
+                messageCounter.set(i, counter); // set the counter to the array
                 messageY += 50;
 
-                if (messageCounter.get(i) > 180) {  // 3 giay
+                if (messageCounter.get(i) > 180) { // 3 giay
                     message.remove(i);
                     messageCounter.remove(i);
                 }
@@ -412,8 +412,8 @@ public class UI {
         g2.drawString(speechBubbleText, textX, textY);
 
         // Draw tail pointing down
-        int[] xPoints = {bubbleX + bubbleWidth / 2, bubbleX + bubbleWidth / 2 - 8, bubbleX + bubbleWidth / 2 + 8};
-        int[] yPoints = {bubbleY + bubbleHeight, bubbleY + bubbleHeight + 12, bubbleY + bubbleHeight};
+        int[] xPoints = { bubbleX + bubbleWidth / 2, bubbleX + bubbleWidth / 2 - 8, bubbleX + bubbleWidth / 2 + 8 };
+        int[] yPoints = { bubbleY + bubbleHeight, bubbleY + bubbleHeight + 12, bubbleY + bubbleHeight };
 
         g2.setColor(new Color(255, 255, 200, 240));
         g2.fillPolygon(xPoints, yPoints, 3);
@@ -460,20 +460,20 @@ public class UI {
         int valueX = frameX + frameWidth - 30;
 
         // NAMES và VALUES
-        String[] labels = {"Level", "Life", "Strength", "Dexterity", "Attack", "Defense", "EXP", "Next Level", "Coin",
-            "Weapon", "Shield"};
+        String[] labels = { "Level", "Life", "Strength", "Dexterity", "Attack", "Defense", "EXP", "Next Level", "Coin",
+                "Weapon", "Shield" };
         String[] values = {
-            String.valueOf(gp.player.level),
-            gp.player.life + "/" + gp.player.maxLife,
-            String.valueOf(gp.player.strength),
-            String.valueOf(gp.player.dexterity),
-            String.valueOf(gp.player.attack),
-            String.valueOf(gp.player.defense),
-            String.valueOf(gp.player.exp),
-            String.valueOf(gp.player.nextLevelExp),
-            String.valueOf(gp.player.coin),
-            "", // Weapon - sẽ vẽ icon
-            "" // Shield - sẽ vẽ icon
+                String.valueOf(gp.player.level),
+                gp.player.life + "/" + gp.player.maxLife,
+                String.valueOf(gp.player.strength),
+                String.valueOf(gp.player.dexterity),
+                String.valueOf(gp.player.attack),
+                String.valueOf(gp.player.defense),
+                String.valueOf(gp.player.exp),
+                String.valueOf(gp.player.nextLevelExp),
+                String.valueOf(gp.player.coin),
+                "", // Weapon - sẽ vẽ icon
+                "" // Shield - sẽ vẽ icon
         };
 
         for (int i = 0; i < labels.length; i++) {
@@ -520,6 +520,13 @@ public class UI {
 
         // DRAW PLAYER'S ITEMS
         for (int i = 0; i < gp.player.inventory.size(); i++) {
+
+            // Equip cursor
+            if( gp.player.inventory.get(i) == gp.player.currentWeapon ||
+                gp.player.inventory.get(i) == gp.player.currentShield) {
+                g2.setColor(new Color(240, 190,90)); // Yellow with transparency
+                g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+            }
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
             slotX += slotSize;
             if (i == 4 || i == 9 || i == 14) {
@@ -533,21 +540,21 @@ public class UI {
         g2.setStroke(new BasicStroke(3));
         g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
 
-        // DESCRIPTION FRAME
-        int dFrameX = frameX;
-        int dFrameY = frameY + frameHeight;
-        int dFrameWidth = frameWidth;
-        int dFrameHeight = gp.tileSize * 3;
-        drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
-
-        // DRAW DESCRIPTION TEXT
-        int textX = dFrameX + 20;
-        int textY = dFrameY + gp.tileSize;
-        // Dieu muon dung tieng Viet
-        g2.setFont(unicodeFont_40.deriveFont(28F));
-
+        // DESCRIPTION FRAME - Chỉ hiện khi có item
         int itemIndex = getItemIndexOnSlot();
         if (itemIndex < gp.player.inventory.size()) {
+            int dFrameX = frameX;
+            int dFrameY = frameY + frameHeight;
+            int dFrameWidth = frameWidth;
+            int dFrameHeight = gp.tileSize * 3;
+            drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+
+            // DRAW DESCRIPTION TEXT
+            int textX = dFrameX + 20;
+            int textY = dFrameY + gp.tileSize;
+            // Dieu muon dung tieng Viet
+            g2.setFont(unicodeFont_40.deriveFont(28F));
+
             for (String line : gp.player.inventory.get(itemIndex).description.split("\n")) {
                 g2.drawString(line, textX, textY);
                 textY += 32;

@@ -55,10 +55,12 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public boolean collision = false;
 
     // CHARATER ATTRIBUTES
-    public int type; // 0 = player, 1 = npc, 2 = monster
+
     public int speed;
     public int maxLife;
     public int life;
+    public int maxMana;
+    public int mana;
     public String name;
     public int level;
     public int strength;
@@ -73,12 +75,25 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     //ITEM
     public int attackValue;
     public int defenseValue;
-    
     public String description = "";
+    public int useCost;
+    // TYPE
+    public int type; // 0 = player, 1 = npc, 2 = monster
+    public final int type_player = 0;
+    public final int type_npc = 1;
+    public final int type_monster = 2;
+    public final int type_sword = 3;
+    public final int type_axe = 4;
+    public final int type_shield = 5;
+    public final int type_consumable = 6;
+
 
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
+    public void use(Entity entity) {
+    }
+    
 
     public void setAction() {
 
@@ -136,7 +151,7 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
         gp.cChecker.checkEntity(this, gp.monster);
         boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
-        if (this.type == 2 && contactPlayer == true) {
+        if (this.type == type_monster && contactPlayer == true) {
             if (gp.player.invincible == false) {
                 gp.playSE(6);
 
@@ -305,7 +320,7 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
             changeAlpha(g2, 1f);
         }
         if (dyingCounter > i * 8) {
-            dying = false;
+
             alive = false;
         }
     }

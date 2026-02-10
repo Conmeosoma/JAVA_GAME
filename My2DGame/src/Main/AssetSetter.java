@@ -2,10 +2,10 @@
 package Main;
 
 import Enity.NPC_OldMan;
-import Object.OBJ_Chest;
-import Object.OBJ_Door;
+import Object.OBJ_Axe;
 import Object.OBJ_Key;
-import Object.OBJ_Boots;
+import Object.OBJ_Potion_Red;
+import Object.OBJ_Shield_Blue;
 import monster.MON_GreenSlime;
 
 public class AssetSetter {
@@ -17,38 +17,31 @@ public class AssetSetter {
     }
 
     public void setObject() {
-
-        // tao doi tuong key
-        // dat toa do cho doi tuong key
-        // KEY 1
-         gp.obj[0] = new OBJ_Key(gp);
-         gp.obj[0].World_X = gp.tileSize * 25;
-         gp.obj[0].World_Y = gp.tileSize * 19;
-        // // KEY 2
-        // gp.obj[1] = new OBJ_Key(gp);
-        // gp.obj[1].worldX = gp.tileSize * 23;
-        // gp.obj[1].worldY = gp.tileSize * 40;
-        // gp.obj[2] = new OBJ_Key(gp);
-        // gp.obj[2].worldX = gp.tileSize * 38;
-        // gp.obj[2].worldY = gp.tileSize * 8;
-        // gp.obj[3] = new OBJ_Door(gp);
-        // gp.obj[3].worldX = gp.tileSize * 10;
-        // gp.obj[3].worldY = gp.tileSize * 11;
-        // gp.obj[4] = new OBJ_Door(gp);
-        // gp.obj[4].worldX = gp.tileSize * 8;
-        // gp.obj[4].worldY = gp.tileSize * 28;
-        // gp.obj[5] = new OBJ_Door(gp);
-        // gp.obj[5].worldX = gp.tileSize * 12;
-        // gp.obj[5].worldY = gp.tileSize * 22;
-        // gp.obj[6] = new OBJ_Chest(gp);
-        // gp.obj[6].worldX = gp.tileSize * 10;
-        // gp.obj[6].worldY = gp.tileSize * 7;
-        // // gp.obj[7] = new OBJ_Key();
-        // // gp.obj[7].worldX = gp.tileSize * 23;
-        // // gp.obj[7].worldY = gp.tileSize * 7;
-        // gp.obj[7] = new OBJ_Boots(gp);
-        // gp.obj[7].worldX = gp.tileSize * 37;
-        // gp.obj[7].worldY = gp.tileSize * 42;
+        int i = 0;
+        gp.obj[i] = new OBJ_Key(gp);
+        gp.obj[i].World_X = gp.tileSize * 25;
+        gp.obj[i].World_Y = gp.tileSize * 23;
+        i++;
+        gp.obj[i] = new OBJ_Key(gp);
+        gp.obj[i].World_X = gp.tileSize * 21;
+        gp.obj[i].World_Y = gp.tileSize * 19;
+        i++;
+        gp.obj[i] = new OBJ_Key(gp);
+        gp.obj[i].World_X = gp.tileSize * 26;
+        gp.obj[i].World_Y = gp.tileSize * 21;
+        i++;
+        gp.obj[i] = new OBJ_Axe(gp);
+        gp.obj[i].World_X = gp.tileSize * 33;
+        gp.obj[i].World_Y = gp.tileSize * 21;
+        i++;
+        gp.obj[i] = new OBJ_Shield_Blue(gp);
+        gp.obj[i].World_X = gp.tileSize * 35;
+        gp.obj[i].World_Y = gp.tileSize * 21;
+        i++;
+        gp.obj[i] = new OBJ_Potion_Red(gp);
+        gp.obj[i].World_X = gp.tileSize * 22;
+        gp.obj[i].World_Y = gp.tileSize * 27;
+        i++;
     }
 
     public void setNPC() {
@@ -56,9 +49,9 @@ public class AssetSetter {
         gp.npc[0] = new NPC_OldMan(gp);
         gp.npc[0].World_X = gp.tileSize * 21;
         gp.npc[0].World_Y = gp.tileSize * 21;
-//        gp.npc[0] = new NPC_OldMan(gp);
-//        gp.npc[0].World_X = gp.tileSize * 9;
-//        gp.npc[0].World_Y = gp.tileSize * 10;
+        // gp.npc[0] = new NPC_OldMan(gp);
+        // gp.npc[0].World_X = gp.tileSize * 9;
+        // gp.npc[0].World_Y = gp.tileSize * 10;
 
     }
 
@@ -85,13 +78,12 @@ public class AssetSetter {
         gp.monster[i].World_Y = gp.tileSize * 42;
         i++;
 
-
-//        gp.monster[0] = new MON_GreenSlime(gp);
-//        gp.monster[0].World_X = gp.tileSize * 11;
-//        gp.monster[0].World_Y = gp.tileSize * 10;
-//
-//        gp.monster[1] = new MON_GreenSlime(gp);
-//        gp.monster[1].World_X = gp.tileSize * 11;
-//        gp.monster[1].World_Y = gp.tileSize * 11;
+        // gp.monster[0] = new MON_GreenSlime(gp);
+        // gp.monster[0].World_X = gp.tileSize * 11;
+        // gp.monster[0].World_Y = gp.tileSize * 10;
+        //
+        // gp.monster[1] = new MON_GreenSlime(gp);
+        // gp.monster[1].World_X = gp.tileSize * 11;
+        // gp.monster[1].World_Y = gp.tileSize * 11;
     }
 }

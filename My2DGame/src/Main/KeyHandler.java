@@ -14,7 +14,7 @@ public class KeyHandler implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed; // bien kiem tra phim di chuyen
     public boolean enterPressed;
     // DEBUG
-//    boolean checkDrawTime = false;    
+    // boolean checkDrawTime = false;
     boolean showDebugText = false;
 
     public KeyHandler(GamePanel gp) {
@@ -136,7 +136,7 @@ public class KeyHandler implements KeyListener {
             rightPressed = true;
         }
         if (code == KeyEvent.VK_T) {
-//            checkDrawTime = !checkDrawTime;
+            // checkDrawTime = !checkDrawTime;
             if (showDebugText == false) {
                 showDebugText = true;
             } else if (showDebugText == true) {
@@ -144,7 +144,7 @@ public class KeyHandler implements KeyListener {
             }
         }
 
-        if (code == KeyEvent.VK_R) {  // refresh
+        if (code == KeyEvent.VK_R) { // refresh
             gp.tileM.loadMap("/res/maps/worldV2.txt");
 
         }
@@ -152,7 +152,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.pauseState;
         }
-        if (code == KeyEvent.VK_C) {
+        if (code == KeyEvent.VK_I) {
             gp.gameState = gp.characterState;
 
         }
@@ -174,7 +174,7 @@ public class KeyHandler implements KeyListener {
     }
 
     public void characterState(int code) {
-        if (code == KeyEvent.VK_C) {
+        if (code == KeyEvent.VK_I) {
             gp.gameState = gp.playState;
         }
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
@@ -200,6 +200,9 @@ public class KeyHandler implements KeyListener {
                 gp.ui.slotCol++;
                 gp.playSE(9);
             }
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            gp.player.selectItem();
         }
     }
 

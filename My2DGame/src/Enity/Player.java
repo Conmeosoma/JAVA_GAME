@@ -39,8 +39,7 @@ public class Player extends Entity {
         solidArea.height = 32; // chieu cao vung va cham
         solidAreaDefaultX = solidArea.x; // luu toa do mac dinh
         solidAreaDefaultY = solidArea.y; // luu toa do mac dinh
-        attackArea.width = 36;
-        attackArea.height = 36;
+
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
@@ -54,8 +53,7 @@ public class Player extends Entity {
         direction = "down";
         // PLAYER STATUS
         level = 1;
-        maxLife = 8;
-        // 1 trai tim = 2 max life
+        maxLife = 8; // 1 trai tim = 2 max life
         life = maxLife;
         strength = 1;
         dexterity = 1;
@@ -75,6 +73,7 @@ public class Player extends Entity {
     }
 
     public int getAttack() {
+        attackArea = currentWeapon.attackArea;
         return attack = strength * currentWeapon.attackValue;
     }
 
@@ -95,14 +94,26 @@ public class Player extends Entity {
     }
 
     public void getPlayerAttackImage() {
-        attackUp1 = setup("/res/Player/Attacking_sprites/boy_attack_up_1", gp.tileSize, gp.tileSize * 2);
-        attackUp2 = setup("/res/Player/Attacking_sprites/boy_attack_up_2", gp.tileSize, gp.tileSize * 2);
-        attackDown1 = setup("/res/Player/Attacking_sprites/boy_attack_down_1", gp.tileSize, gp.tileSize * 2);
-        attackDown2 = setup("/res/Player/Attacking_sprites/boy_attack_down_2", gp.tileSize, gp.tileSize * 2);
-        attackLeft1 = setup("/res/Player/Attacking_sprites/boy_attack_left_1", gp.tileSize * 2, gp.tileSize);
-        attackLeft2 = setup("/res/Player/Attacking_sprites/boy_attack_left_2", gp.tileSize * 2, gp.tileSize);
-        attackRight1 = setup("/res/Player/Attacking_sprites/boy_attack_right_1", gp.tileSize * 2, gp.tileSize);
-        attackRight2 = setup("/res/Player/Attacking_sprites/boy_attack_right_2", gp.tileSize * 2, gp.tileSize);
+        if (currentWeapon.type == type_sword) {
+            attackUp1 = setup("/res/Player/Attacking_sprites/boy_attack_up_1", gp.tileSize, gp.tileSize * 2);
+            attackUp2 = setup("/res/Player/Attacking_sprites/boy_attack_up_2", gp.tileSize, gp.tileSize * 2);
+            attackDown1 = setup("/res/Player/Attacking_sprites/boy_attack_down_1", gp.tileSize, gp.tileSize * 2);
+            attackDown2 = setup("/res/Player/Attacking_sprites/boy_attack_down_2", gp.tileSize, gp.tileSize * 2);
+            attackLeft1 = setup("/res/Player/Attacking_sprites/boy_attack_left_1", gp.tileSize * 2, gp.tileSize);
+            attackLeft2 = setup("/res/Player/Attacking_sprites/boy_attack_left_2", gp.tileSize * 2, gp.tileSize);
+            attackRight1 = setup("/res/Player/Attacking_sprites/boy_attack_right_1", gp.tileSize * 2, gp.tileSize);
+            attackRight2 = setup("/res/Player/Attacking_sprites/boy_attack_right_2", gp.tileSize * 2, gp.tileSize);
+        }
+        if (currentWeapon.type == type_axe) {
+            attackUp1 = setup("/res/Player/Attacking_sprites/boy_axe_up_1", gp.tileSize, gp.tileSize * 2);
+            attackUp2 = setup("/res/Player/Attacking_sprites/boy_axe_up_2", gp.tileSize, gp.tileSize * 2);
+            attackDown1 = setup("/res/Player/Attacking_sprites/boy_axe_down_1", gp.tileSize, gp.tileSize * 2);
+            attackDown2 = setup("/res/Player/Attacking_sprites/boy_axe_down_2", gp.tileSize, gp.tileSize * 2);
+            attackLeft1 = setup("/res/Player/Attacking_sprites/boy_axe_left_1", gp.tileSize * 2, gp.tileSize);
+            attackLeft2 = setup("/res/Player/Attacking_sprites/boy_axe_left_2", gp.tileSize * 2, gp.tileSize);
+            attackRight1 = setup("/res/Player/Attacking_sprites/boy_axe_right_1", gp.tileSize * 2, gp.tileSize);
+            attackRight2 = setup("/res/Player/Attacking_sprites/boy_axe_right_2", gp.tileSize * 2, gp.tileSize);
+        }
     }
 
     public void setDirection(String direction) {
@@ -262,8 +273,8 @@ public class Player extends Entity {
                 gp.monster[i].life -= damage * 5;
                 gp.ui.addMessage(damage + " damage!");
                 System.out.println("HIT ");
-//                gp.monster[i].life -= 20;
-                // Anh Minh goi y: Them class de quan ly chi so: mau, toc do, tan cong 
+                // gp.monster[i].life -= 20;
+                // Anh Minh goi y: Them class de quan ly chi so: mau, toc do, tan cong
                 gp.monster[i].invincible = true;
                 gp.monster[i].damageReaction();
                 if (gp.monster[i].life <= 0) {
@@ -292,27 +303,58 @@ public class Player extends Entity {
             gp.ui.addMessage("Level up!");
             gp.ui.currentDialogue = "You are level " + level + " now!\n"
                     + "You feel stronger!";
-//              
+        }
+    }
+
+    public void selectItem() {
+        int itemIndex = gp.ui.getItemIndexOnSlot();
+        if (itemIndex < inventory.size()) {
+            Entity selectedItem = inventory.get(itemIndex);
+            if (selectedItem.type == type_sword || selectedItem.type == type_axe) {
+                currentWeapon = selectedItem;
+                attack = getAttack();
+                getPlayerAttackImage();
+            }
+            if (selectedItem.type == type_shield) {
+                currentShield = selectedItem;
+                defense = getDefense();
+            }
+            if (selectedItem.type == type_consumable) {
+                selectedItem.use(this);
+                inventory.remove(itemIndex);
+
+            }
+
         }
     }
 
     public void pickUpObject(int i) {
         if (i != 999) {
+            String text;
+            if (inventory.size() != maxInventorySize) {
+                inventory.add(gp.obj[i]);
+                gp.playSE(1);
+                text = "Got a " + gp.obj[i].name + "!";
+            } else {
+                text = "You can't carry any more!";
+            }
+            gp.ui.addMessage(text);
+            gp.obj[i] = null;
         }
     }
 
     public void interactNPC(int i) {
-//        if (gp.keyH.enterPressed == true) {
-//            if (i != 999) {
-//                attackCanceled = true;
-//                gp.gameState = gp.dialogueState;
-//                gp.npc[i].speak();
-//            }
-//        }
+        // if (gp.keyH.enterPressed == true) {
+        // if (i != 999) {
+        // attackCanceled = true;
+        // gp.gameState = gp.dialogueState;
+        // gp.npc[i].speak();
+        // }
+        // }
 
         if (gp.keyH.enterPressed == true) {
             if (i != 999) {
-//                attackCanceled = true;
+                // attackCanceled = true;
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
             } else {
@@ -324,7 +366,7 @@ public class Player extends Entity {
 
     public void contactMonster(int i) {
         if (i != 999) {
-            if (gp.monster[i].invincible == false) {
+            if (invincible == false && gp.monster[i].dying == false) {
                 gp.playSE(6);
 
                 int damage = gp.monster[i].attack - defense;
