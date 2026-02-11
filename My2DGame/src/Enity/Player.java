@@ -7,6 +7,7 @@ package Enity;
 import java.awt.Graphics2D;
 import Main.GamePanel;
 import Main.KeyHandler;
+import Object.OBJ_Axe;
 import Object.OBJ_FireBall;
 import Object.OBJ_Key;
 import Object.OBJ_Rock;
@@ -65,7 +66,8 @@ public class Player extends Entity {
         exp = 0;
         nextLevelExp = 5;
         coin = 0;
-        currentWeapon = new OBJ_Weapon_Normal(gp);
+        currentWeapon = new OBJ_Axe(gp);
+//        currentWeapon = new OBJ_Weapon_Normal(gp);
         currentShield = new OBJ_Shield_Normal(gp);
         projectile = new OBJ_FireBall(gp);
         attack = getAttack();
@@ -169,6 +171,9 @@ public class Player extends Entity {
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             contactMonster(monsterIndex);
 
+            // KIEM TRA VA CHAM VOI TILE TUONG TAC
+            int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+
             // KIEM TRA SU KIEN
             gp.eHander.checkEvent();
 
@@ -249,6 +254,7 @@ public class Player extends Entity {
     }
 
     public void attacking() {
+//        gp.playSE(7);
         spiteCounter++;
         if (spiteCounter <= 5) {
             spiteNum = 1;
@@ -281,6 +287,9 @@ public class Player extends Entity {
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             damageMonster(monsterIndex, attack);
 
+            int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+            damageInteractiveTile(iTileIndex);
+
             World_X = currentWorldX;
             World_Y = currentWorldY;
             solidArea.width = solidAreaWidth;
@@ -297,7 +306,7 @@ public class Player extends Entity {
     public void damageMonster(int i, int attack) {
         if (i != 999) {
             if (gp.monster[i].invincible == false) {
-                // gp.playSE(5);
+//                 gp.playSE(7);
 
                 int damage = attack - gp.monster[i].defense;
                 if (damage < 0) {
@@ -320,6 +329,18 @@ public class Player extends Entity {
                     exp += gp.monster[i].exp;
                     checkLevelUp();
                 }
+            }
+        }
+    }
+
+    public void damageInteractiveTile(int i) {
+        if (i != 999 && gp.iTile[i].destructible == true 
+                && gp.iTile[i].isCorrectItem(this) == true && gp.iTile[i].invincible == false) {
+            gp.iTile[i].playSE();
+            gp.iTile[i].life--;
+            gp.iTile[i].invincible = true;
+            if (gp.iTile[i].life == 0) {
+                gp.iTile[i] = gp.iTile[i].getDestroyedForm();
             }
         }
     }

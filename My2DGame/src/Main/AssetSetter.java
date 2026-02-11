@@ -10,6 +10,7 @@ import Object.OBJ_ManaCrystal;
 import Object.OBJ_Potion_Red;
 import Object.OBJ_Shield_Blue;
 import monster.MON_GreenSlime;
+import tile_interactive.IT_DryTree;
 
 public class AssetSetter {
 
@@ -96,5 +97,44 @@ public class AssetSetter {
         // gp.monster[1] = new MON_GreenSlime(gp);
         // gp.monster[1].World_X = gp.tileSize * 11;
         // gp.monster[1].World_Y = gp.tileSize * 11;
+    }
+
+    public void setInteractiveTile() {
+        int i = 0;
+        gp.iTile[i] = new IT_DryTree(gp, 27, 12);
+        i++;
+        gp.iTile[i] = new IT_DryTree(gp, 28, 12);
+        i++;
+        gp.iTile[i] = new IT_DryTree(gp, 29, 12);
+        i++;
+        gp.iTile[i] = new IT_DryTree(gp, 30, 12);
+        i++;
+        gp.iTile[i] = new IT_DryTree(gp, 31, 12);
+        i++;
+        gp.iTile[i] = new IT_DryTree(gp, 32, 12);
+        i++;
+        gp.iTile[i] = new IT_DryTree(gp, 33, 12);
+        i++;
+
+        gp.iTile[i] = new IT_DryTree(gp, 20, 20);
+        i++;
+        gp.iTile[i] = new IT_DryTree(gp, 20, 21);
+        i++;
+        gp.iTile[i] = new IT_DryTree(gp, 20, 22);
+        i++;
+
+        gp.iTile[i] = new IT_DryTree(gp, 30, 20);
+        i++;
+        gp.iTile[i] = new IT_DryTree(gp, 30, 21);
+        i++;
+        gp.iTile[i] = new IT_DryTree(gp, 30, 22);
+        i++;
+
+        gp.iTile[i] = new IT_DryTree(gp, 22, 24);
+        i++;
+        gp.iTile[i] = new IT_DryTree(gp, 23, 24);
+        i++;
+        gp.iTile[i] = new IT_DryTree(gp, 24, 24);
+        i++;
     }
 }
