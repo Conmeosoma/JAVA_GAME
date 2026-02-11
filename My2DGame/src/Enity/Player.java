@@ -209,14 +209,14 @@ public class Player extends Entity {
         // CHECK EVENT
         gp.eHander.checkEvent();
 
-        if (gp.keyH.shotKeyPressed == true && projectile.alive == false 
+        if (gp.keyH.shotKeyPressed == true && projectile.alive == false
                 && shotAvailableCounter == 30 && projectile.haveResource(this) == true) {
             // THIET LAP TOA DO, HUONG VA NGUOI DUNG MAC DINH
             projectile.set(World_X, World_Y, direction, true, this);
-               
+
             // TRU DI GIA TRI (MANA, AMMO...)
             projectile.subtractResources(this);
-            
+
             // THEM VAO DANH SACH
             gp.projectileList.add(projectile);
             shotAvailableCounter = 0;
@@ -235,6 +235,16 @@ public class Player extends Entity {
         // SAU 30 FRAMES THI MOI BAN DUOC DAN KHAC
         if (shotAvailableCounter < 30) {
             shotAvailableCounter++;
+        }
+
+        if (gp.player.life > gp.player.maxLife) {
+            gp.player.life = gp.player.maxLife;
+        }
+        if (life > maxLife) {
+            life = maxLife;
+        }
+        if (mana > maxMana) {
+            mana = maxMana;
         }
     }
 
@@ -356,16 +366,23 @@ public class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) {
-            String text;
-            if (inventory.size() != maxInventorySize) {
-                inventory.add(gp.obj[i]);
-                gp.playSE(1);
-                text = "Got a " + gp.obj[i].name + "!";
-            } else {
-                text = "You can't carry any more!";
+            // PICKUP ONLY ITEMS
+            if (gp.obj[i].type == type_pickupOnly) {
+                gp.obj[i].use(this);
+                gp.obj[i] = null;
+            } // INVENTORY ITEMS
+            else {
+                String text;
+                if (inventory.size() != maxInventorySize) {
+                    inventory.add(gp.obj[i]);
+                    gp.playSE(1);
+                    text = "Got a " + gp.obj[i].name + "!";
+                } else {
+                    text = "You can't carry any more!";
+                }
+                gp.ui.addMessage(text);
+                gp.obj[i] = null;
             }
-            gp.ui.addMessage(text);
-            gp.obj[i] = null;
         }
     }
 

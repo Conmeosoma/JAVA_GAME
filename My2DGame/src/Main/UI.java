@@ -507,7 +507,7 @@ public class UI {
             g2.drawString(labels[i], textX, textY);
 
             // Vẽ value (nếu không phải weapon/shield)
-            if (i < 9) {
+            if (i < 10) {
                 int valueTextX = getXforAlignToRightText(values[i], valueX);
                 g2.drawString(values[i], valueTextX, textY);
             }

@@ -2,6 +2,9 @@ package monster;
 
 import Enity.Entity;
 import Main.GamePanel;
+import Object.OBJ_Coin_Bronze;
+import Object.OBJ_Heart;
+import Object.OBJ_ManaCrystal;
 import Object.OBJ_Rock;
 import java.util.Random;
 
@@ -172,6 +175,22 @@ public class MON_GreenSlime extends Entity {
             } else {
                 direction = yDiff > 0 ? "up" : "down"; // Ngược lại
             }
+        }
+    }
+    
+    public void checkDrop(){
+        // CAST A SIE
+        int i = new Random().nextInt(100) + 1;
+        
+        // SET THE MONSTER DROP
+        if (i < 50){
+            dropItem(new OBJ_Coin_Bronze(gp));
+        }
+        if (i >= 50 && i < 75){
+            dropItem(new OBJ_Heart(gp));
+        }
+        if (i >= 75 && i < 100){
+            dropItem(new OBJ_ManaCrystal(gp));
         }
     }
 }

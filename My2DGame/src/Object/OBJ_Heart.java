@@ -14,14 +14,19 @@ import Main.GamePanel;
 //public class OBJ_Heart extends SuperObject {
 public class OBJ_Heart extends Entity {
 
-//  GamePanel gp;
+    GamePanel gp;
 
-  public OBJ_Heart(GamePanel gp) {
-    super(gp);
-    name = "Heart";
-    image = setup("/res/Object/heart_full", gp.tileSize, gp.tileSize);    
-    image2 = setup("/res/Object/heart_half", gp.tileSize, gp.tileSize);
-    image3 = setup("/res/Object/heart_blank", gp.tileSize, gp.tileSize);
+    public OBJ_Heart(GamePanel gp) {
+        super(gp);
+        this.gp = gp;
+
+        type = type_pickupOnly;
+        value = 2;
+        name = "Heart";
+        down1 = setup("/res/Object/heart_full", gp.tileSize, gp.tileSize);
+        image = setup("/res/Object/heart_full", gp.tileSize, gp.tileSize);
+        image2 = setup("/res/Object/heart_half", gp.tileSize, gp.tileSize);
+        image3 = setup("/res/Object/heart_blank", gp.tileSize, gp.tileSize);
 
 //    this.gp = gp;
 //    try {
@@ -34,7 +39,15 @@ public class OBJ_Heart extends Entity {
 //    } catch (IOException e) {
 //      e.printStackTrace();
 //    }
-    collision = true;
-  }
+        collision = true;
+    }
 
+    public void use(Entity entity) {
+        gp.playSE(2);
+        gp.ui.addMessage("Life +" + value);
+        entity.life += value;
+//        if (entity.life > entity.maxLife) {
+//            entity.life = entity.maxLife;
+//        }
+    }
 }

@@ -3,7 +3,10 @@ package Main;
 
 import Enity.NPC_OldMan;
 import Object.OBJ_Axe;
+import Object.OBJ_Coin_Bronze;
+import Object.OBJ_Heart;
 import Object.OBJ_Key;
+import Object.OBJ_ManaCrystal;
 import Object.OBJ_Potion_Red;
 import Object.OBJ_Shield_Blue;
 import monster.MON_GreenSlime;
@@ -18,15 +21,15 @@ public class AssetSetter {
 
     public void setObject() {
         int i = 0;
-        gp.obj[i] = new OBJ_Key(gp);
+        gp.obj[i] = new OBJ_Coin_Bronze(gp);
         gp.obj[i].World_X = gp.tileSize * 25;
         gp.obj[i].World_Y = gp.tileSize * 23;
         i++;
-        gp.obj[i] = new OBJ_Key(gp);
+        gp.obj[i] = new OBJ_Coin_Bronze(gp);
         gp.obj[i].World_X = gp.tileSize * 21;
         gp.obj[i].World_Y = gp.tileSize * 19;
         i++;
-        gp.obj[i] = new OBJ_Key(gp);
+        gp.obj[i] = new OBJ_Coin_Bronze(gp);
         gp.obj[i].World_X = gp.tileSize * 26;
         gp.obj[i].World_Y = gp.tileSize * 21;
         i++;
@@ -41,6 +44,14 @@ public class AssetSetter {
         gp.obj[i] = new OBJ_Potion_Red(gp);
         gp.obj[i].World_X = gp.tileSize * 22;
         gp.obj[i].World_Y = gp.tileSize * 27;
+        i++;
+        gp.obj[i] = new OBJ_Heart(gp);
+        gp.obj[i].World_X = gp.tileSize * 22;
+        gp.obj[i].World_Y = gp.tileSize * 29;
+        i++;
+        gp.obj[i] = new OBJ_ManaCrystal(gp);
+        gp.obj[i].World_X = gp.tileSize * 22;
+        gp.obj[i].World_Y = gp.tileSize * 31;
         i++;
     }
 
