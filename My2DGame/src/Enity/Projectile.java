@@ -20,18 +20,22 @@ public class Projectile extends Entity {
     }
 
     public void update() {
-        if (user == gp.player){
+        if (user == gp.player) {
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            if (monsterIndex != 999){
+            if (monsterIndex != 999) {
                 gp.player.damageMonster(monsterIndex, attack);
                 alive = false;
             }
         }
-        
-        if (user != gp.player){
-            
+
+        if (user != gp.player) {
+            boolean contactPlayer = gp.cChecker.checkPlayer(this);
+            if (gp.player.invincible == false && contactPlayer == true) {
+                damagePlayer(attack);
+                alive = false;
+            }
         }
-        
+
         switch (direction) {
             case "up":
                 World_Y -= speed;
@@ -61,7 +65,12 @@ public class Projectile extends Entity {
             }
             spiteCounter = 0;
         }
-
     }
 
+    public boolean haveResource(Entity user) {
+        boolean haveResource = false;
+        return haveResource;
+    }
+
+    public void subtractResources(Entity user) {}
 }

@@ -9,6 +9,7 @@ import Main.GamePanel;
 import Main.KeyHandler;
 import Object.OBJ_FireBall;
 import Object.OBJ_Key;
+import Object.OBJ_Rock;
 import Object.OBJ_Shield_Normal;
 import Object.OBJ_Weapon_Normal;
 
@@ -56,6 +57,9 @@ public class Player extends Entity {
         level = 1;
         maxLife = 8; // 1 trai tim = 2 max life
         life = maxLife;
+        maxMana = 4;
+        mana = maxMana;
+        ammo = 10;
         strength = 1;
         dexterity = 1;
         exp = 0;
@@ -205,10 +209,14 @@ public class Player extends Entity {
         // CHECK EVENT
         gp.eHander.checkEvent();
 
-        if (gp.keyH.shotKeyPressed == true && projectile.alive == false && shotAvailableCounter == 30) {
+        if (gp.keyH.shotKeyPressed == true && projectile.alive == false 
+                && shotAvailableCounter == 30 && projectile.haveResource(this) == true) {
             // THIET LAP TOA DO, HUONG VA NGUOI DUNG MAC DINH
             projectile.set(World_X, World_Y, direction, true, this);
-
+               
+            // TRU DI GIA TRI (MANA, AMMO...)
+            projectile.subtractResources(this);
+            
             // THEM VAO DANH SACH
             gp.projectileList.add(projectile);
             shotAvailableCounter = 0;

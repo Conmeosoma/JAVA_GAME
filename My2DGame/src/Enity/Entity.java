@@ -56,12 +56,12 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public boolean collision = false;
 
     // CHARATER ATTRIBUTES
-
     public int speed;
     public int maxLife;
     public int life;
     public int maxMana;
     public int mana;
+    public int ammo;
     public String name;
     public int level;
     public int strength;
@@ -89,13 +89,12 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public final int type_shield = 5;
     public final int type_consumable = 6;
 
-
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
+
     public void use(Entity entity) {
     }
-    
 
     public void setAction() {
 
@@ -155,16 +154,20 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
 
         if (this.type == type_monster && contactPlayer == true) {
             if (gp.player.invincible == false) {
-                gp.playSE(6);
+                damagePlayer(attack);
+//                gp.playSE(6);
+//
+//                int damage = attack - gp.player.defense;
+//                if (damage < 0) {
+//                    damage = 0;
+//                }
+//                gp.player.life -= damage;
+//
 
-                int damage = attack - gp.player.defense;
-                if (damage < 0) {
-                    damage = 0;
-                }
-                gp.player.life -= damage;
-
-//                gp.player.life -= 1;
-                gp.player.invincible = true;
+            
+        
+        ////                gp.player.life -= 1;
+//                gp.player.invincible = true;
             }
         }
 
@@ -208,6 +211,22 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
                 speechBubbleCounter = 0;
             }
         }
+        if (shotAvailableCounter < 30) {
+            shotAvailableCounter++;
+        }
+    }
+
+    public void damagePlayer(int attack) {
+        gp.playSE(6);
+
+        int damage = attack - gp.player.defense;
+        if (damage < 0) {
+            damage = 0;
+        }
+        gp.player.life -= damage;
+
+//                gp.player.life -= 1;
+        gp.player.invincible = true;
     }
 
     public void draw(Graphics2D g2) {

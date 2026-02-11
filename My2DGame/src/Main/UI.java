@@ -6,6 +6,7 @@ package Main;
 
 import Object.OBJ_Heart;
 import Enity.Entity;
+import Object.OBJ_ManaCrystal;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -27,7 +28,7 @@ public class UI {
     Font maruMonica, purisaB;
     Font unicodeFont_40, unicodeFont_80B; // Unicode fonts for multilingual support
     Font unicodeBubbleFont; // Font for speech bubble
-    BufferedImage heart_full, heart_half, heart_blank;
+    BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_blank;
     // BUFFERED IMAGE;
     public boolean messageOn = false;
     // public String message = "";
@@ -84,6 +85,9 @@ public class UI {
         heart_full = heart.image;
         heart_half = heart.image2;
         heart_blank = heart.image3;
+        Entity crystal = new OBJ_ManaCrystal(gp);
+        crystal_full = crystal.image;
+        crystal_blank = crystal.image2;
     }
 
     // Initialize fonts that support multiple languages
@@ -179,6 +183,26 @@ public class UI {
             }
             i += 2;
             x += gp.tileSize;
+        }
+
+        // DRAW MAX MANA
+        x = gp.tileSize / 2 - 5;
+        y = (int) (gp.tileSize * 1.5);
+        i = 0;
+        while (i < gp.player.maxMana) {
+            g2.drawImage(crystal_blank, x, y, null);
+            i++;
+            x += 35;
+        }
+
+        // DRAW MANA
+        x = gp.tileSize / 2 - 5;
+        y = (int) (gp.tileSize * 1.5);
+        i = 0;
+        while (i < gp.player.mana) {
+            g2.drawImage(crystal_full, x, y, null);
+            i++;
+            x += 35;
         }
     }
 
@@ -412,8 +436,8 @@ public class UI {
         g2.drawString(speechBubbleText, textX, textY);
 
         // Draw tail pointing down
-        int[] xPoints = { bubbleX + bubbleWidth / 2, bubbleX + bubbleWidth / 2 - 8, bubbleX + bubbleWidth / 2 + 8 };
-        int[] yPoints = { bubbleY + bubbleHeight, bubbleY + bubbleHeight + 12, bubbleY + bubbleHeight };
+        int[] xPoints = {bubbleX + bubbleWidth / 2, bubbleX + bubbleWidth / 2 - 8, bubbleX + bubbleWidth / 2 + 8};
+        int[] yPoints = {bubbleY + bubbleHeight, bubbleY + bubbleHeight + 12, bubbleY + bubbleHeight};
 
         g2.setColor(new Color(255, 255, 200, 240));
         g2.fillPolygon(xPoints, yPoints, 3);
@@ -460,24 +484,26 @@ public class UI {
         int valueX = frameX + frameWidth - 30;
 
         // NAMES và VALUES
-        String[] labels = { "Level", "Life", "Strength", "Dexterity", "Attack", "Defense", "EXP", "Next Level", "Coin",
-                "Weapon", "Shield" };
+        String[] labels = {"Level", "Life", "Mana", "Strength", "Dexterity", "Attack", "Defense", "EXP", "Next Level", "Coin",
+            "Weapon", "Shield"};
         String[] values = {
-                String.valueOf(gp.player.level),
-                gp.player.life + "/" + gp.player.maxLife,
-                String.valueOf(gp.player.strength),
-                String.valueOf(gp.player.dexterity),
-                String.valueOf(gp.player.attack),
-                String.valueOf(gp.player.defense),
-                String.valueOf(gp.player.exp),
-                String.valueOf(gp.player.nextLevelExp),
-                String.valueOf(gp.player.coin),
-                "", // Weapon - sẽ vẽ icon
-                "" // Shield - sẽ vẽ icon
+            String.valueOf(gp.player.level),
+            gp.player.life + "/" + gp.player.maxLife,
+            gp.player.mana + "/" + gp.player.maxMana,
+            String.valueOf(gp.player.strength),
+            String.valueOf(gp.player.dexterity),
+            String.valueOf(gp.player.attack),
+            String.valueOf(gp.player.defense),
+            String.valueOf(gp.player.exp),
+            String.valueOf(gp.player.nextLevelExp),
+            String.valueOf(gp.player.coin),
+            "", // Weapon - sẽ vẽ icon
+            "" // Shield - sẽ vẽ icon
         };
 
         for (int i = 0; i < labels.length; i++) {
             // Vẽ label
+//            g2.setFont(unicodeFont_40.deriveFont(28F));
             g2.drawString(labels[i], textX, textY);
 
             // Vẽ value (nếu không phải weapon/shield)
@@ -491,7 +517,7 @@ public class UI {
 
         // Vẽ Weapon và Shield icons
         int weaponY = frameY + gp.tileSize + (lineHeight * 9) - 10;
-        int shieldY = frameY + gp.tileSize + (lineHeight * 10) - 10;
+        int shieldY = frameY + gp.tileSize + (lineHeight * 10) - 5;
 
         g2.drawImage(gp.player.currentWeapon.down1, valueX - gp.tileSize + 5, weaponY, null);
         g2.drawImage(gp.player.currentShield.down1, valueX - gp.tileSize + 5, shieldY, null);
@@ -522,9 +548,9 @@ public class UI {
         for (int i = 0; i < gp.player.inventory.size(); i++) {
 
             // Equip cursor
-            if( gp.player.inventory.get(i) == gp.player.currentWeapon ||
-                gp.player.inventory.get(i) == gp.player.currentShield) {
-                g2.setColor(new Color(240, 190,90)); // Yellow with transparency
+            if (gp.player.inventory.get(i) == gp.player.currentWeapon
+                    || gp.player.inventory.get(i) == gp.player.currentShield) {
+                g2.setColor(new Color(240, 190, 90)); // Yellow with transparency
                 g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
             }
             g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);

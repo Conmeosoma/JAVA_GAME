@@ -1,5 +1,6 @@
 package Object;
 
+import Enity.Entity;
 import Enity.Projectile;
 import Main.GamePanel;
 
@@ -31,4 +32,14 @@ public class OBJ_FireBall extends Projectile {
         right2 = setup("/res/projectile/fireball_right_2", gp.tileSize, gp.tileSize);
     }
 
+    public boolean haveResource(Entity user) {
+        boolean haveResource = false;
+        if (user.mana > useCost) {
+            haveResource = true;
+        }
+        return haveResource;
+    }
+    public void subtractResources(Entity user){
+        user.mana -= useCost;
+    }
 }
