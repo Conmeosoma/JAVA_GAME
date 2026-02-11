@@ -7,6 +7,7 @@ package Enity;
 import java.awt.Graphics2D;
 import Main.GamePanel;
 import Main.KeyHandler;
+import Object.OBJ_FireBall;
 import Object.OBJ_Key;
 import Object.OBJ_Shield_Normal;
 import Object.OBJ_Weapon_Normal;
@@ -62,6 +63,7 @@ public class Player extends Entity {
         coin = 0;
         currentWeapon = new OBJ_Weapon_Normal(gp);
         currentShield = new OBJ_Shield_Normal(gp);
+        projectile = new OBJ_FireBall(gp);
         attack = getAttack();
         defense = getDefense();
     }
@@ -202,6 +204,17 @@ public class Player extends Entity {
         }
         // CHECK EVENT
         gp.eHander.checkEvent();
+
+        if (gp.keyH.shotKeyPressed == true && projectile.alive == false && shotAvailableCounter == 30) {
+            // THIET LAP TOA DO, HUONG VA NGUOI DUNG MAC DINH
+            projectile.set(World_X, World_Y, direction, true, this);
+
+            // THEM VAO DANH SACH
+            gp.projectileList.add(projectile);
+            shotAvailableCounter = 0;
+            gp.playSE(10);
+        }
+
         // Cái này cần ở ngoài câu lệnh if
         if (invincible == true) {
             invincibleCounter++;
@@ -209,6 +222,11 @@ public class Player extends Entity {
                 invincible = false;
                 invincibleCounter = 0;
             }
+        }
+
+        // SAU 30 FRAMES THI MOI BAN DUOC DAN KHAC
+        if (shotAvailableCounter < 30) {
+            shotAvailableCounter++;
         }
     }
 
@@ -243,7 +261,7 @@ public class Player extends Entity {
             solidArea.width = attackArea.width;
             solidArea.height = attackArea.height;
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            damageMonster(monsterIndex);
+            damageMonster(monsterIndex, attack);
 
             World_X = currentWorldX;
             World_Y = currentWorldY;
@@ -258,7 +276,7 @@ public class Player extends Entity {
         }
     }
 
-    public void damageMonster(int i) {
+    public void damageMonster(int i, int attack) {
         if (i != 999) {
             if (gp.monster[i].invincible == false) {
                 // gp.playSE(5);

@@ -45,6 +45,7 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public int spiteCounter = 0;
     public int actionLockCounter = 0;
     public int invincibleCounter = 0;
+    public int shotAvailableCounter = 0;
     int dyingCounter = 0;
     int hpBarCounter = 0;
 
@@ -72,6 +73,7 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
+    public Projectile projectile;
     //ITEM
     public int attackValue;
     public int defenseValue;

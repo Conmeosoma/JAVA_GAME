@@ -13,6 +13,7 @@ public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed; // bien kiem tra phim di chuyen
     public boolean enterPressed;
+    public boolean shotKeyPressed;
     // DEBUG
     // boolean checkDrawTime = false;
     boolean showDebugText = false;
@@ -135,6 +136,10 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = true;
         }
+        if (code == KeyEvent.VK_F){
+            shotKeyPressed = true;
+        }
+        // DEBUG
         if (code == KeyEvent.VK_T) {
             // checkDrawTime = !checkDrawTime;
             if (showDebugText == false) {
@@ -220,6 +225,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = false;
+        }
+        if (code == KeyEvent.VK_F){
+            shotKeyPressed = false;
         }
     }
 }
