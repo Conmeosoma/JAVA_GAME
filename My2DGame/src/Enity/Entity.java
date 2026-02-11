@@ -45,6 +45,7 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public int spiteCounter = 0;
     public int actionLockCounter = 0;
     public int invincibleCounter = 0;
+    public int shotAvailableCounter = 0;
     int dyingCounter = 0;
     int hpBarCounter = 0;
 
@@ -55,12 +56,12 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public boolean collision = false;
 
     // CHARATER ATTRIBUTES
-
     public int speed;
     public int maxLife;
     public int life;
     public int maxMana;
     public int mana;
+    public int ammo;
     public String name;
     public int level;
     public int strength;
@@ -72,7 +73,9 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
+    public Projectile projectile;
     //ITEM
+    public int value;
     public int attackValue;
     public int defenseValue;
     public String description = "";
@@ -86,14 +89,14 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public final int type_axe = 4;
     public final int type_shield = 5;
     public final int type_consumable = 6;
-
+    public final int type_pickupOnly = 7;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
+
     public void use(Entity entity) {
     }
-    
 
     public void setAction() {
 
@@ -140,6 +143,56 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
         gp.ui.setSpeechBubble(text, this);
     }
 
+    public void checkDrop() {
+    }
+
+    public void dropItem(Entity droppedItem) {
+        for (int i = 0; i < gp.obj.length; i++) {
+            if (gp.obj[i] == null) {
+                gp.obj[i] = droppedItem;
+                gp.obj[i].World_X = World_X; // Quai vat chet tai World_X
+                gp.obj[i].World_Y = World_Y;
+                break;
+            }
+        }
+    }
+
+    public Color getParticleColor() {
+        Color color = null;
+        return color;
+    }
+
+    public int getParticleSize() {
+        int size = 0;
+        return size;
+    }
+
+    public int getParticleSpeed() {
+        int speed = 0;
+        return speed;
+    }
+
+    public int getParticleMaxLife() {
+        int maxLife = 0;
+        return maxLife;
+    }
+    
+    public void generateParticle(Entity generator, Entity target){
+        Color color = generator.getParticleColor();
+        int size = generator.getParticleSize();
+        int speed = generator.getParticleSpeed();
+        int maxLife = generator.getParticleMaxLife();
+        
+        Particle p1 = new Particle(gp, generator, color, size, speed, maxLife, -2, -1);
+        Particle p2 = new Particle(gp, generator, color, size, speed, maxLife, 2, -1);
+        Particle p3 = new Particle(gp, generator, color, size, speed, maxLife, -2, 1);
+        Particle p4 = new Particle(gp, generator, color, size, speed, maxLife, 2, 1);
+        gp.particleList.add(p1);
+        gp.particleList.add(p2);
+        gp.particleList.add(p3);
+        gp.particleList.add(p4);
+    }
+    
     public void update() {
 
         setAction();
@@ -149,20 +202,25 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
         gp.cChecker.checkObject(this, false);
         gp.cChecker.checkEntity(this, gp.npc);
         gp.cChecker.checkEntity(this, gp.monster);
+        gp.cChecker.checkEntity(this, gp.iTile);
         boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
         if (this.type == type_monster && contactPlayer == true) {
             if (gp.player.invincible == false) {
-                gp.playSE(6);
+                damagePlayer(attack);
+//                gp.playSE(6);
+//
+//                int damage = attack - gp.player.defense;
+//                if (damage < 0) {
+//                    damage = 0;
+//                }
+//                gp.player.life -= damage;
+//
 
-                int damage = attack - gp.player.defense;
-                if (damage < 0) {
-                    damage = 0;
-                }
-                gp.player.life -= damage;
-
-//                gp.player.life -= 1;
-                gp.player.invincible = true;
+            
+        
+        ////                gp.player.life -= 1;
+//                gp.player.invincible = true;
             }
         }
 
@@ -206,6 +264,22 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
                 speechBubbleCounter = 0;
             }
         }
+        if (shotAvailableCounter < 30) {
+            shotAvailableCounter++;
+        }
+    }
+
+    public void damagePlayer(int attack) {
+        gp.playSE(6);
+
+        int damage = attack - gp.player.defense;
+        if (damage < 0) {
+            damage = 0;
+        }
+        gp.player.life -= damage;
+
+//                gp.player.life -= 1;
+        gp.player.invincible = true;
     }
 
     public void draw(Graphics2D g2) {
@@ -285,10 +359,8 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
             if (dying == true) {
                 dyingAnimation(g2);
             }
-            g2.drawImage(image, screenX, screenY, gp.tileSize,
-                    gp.tileSize, null);
+            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             changeAlpha(g2, 1f);
-            ;
         }
     }
 

@@ -30,6 +30,8 @@ public class Sound {
         soundURL[7] = getClass().getResource("/res/Sound/swingweapon.wav");        
         soundURL[8] = getClass().getResource("/res/Sound/levelup.wav");        
         soundURL[9] = getClass().getResource("/res/Sound/cursor.wav");
+        soundURL[10] = getClass().getResource("/res/Sound/burning.wav");
+        soundURL[11] = getClass().getResource("/res/Sound/cuttree.wav");
     }
     // chu y vi tri luu file res
 

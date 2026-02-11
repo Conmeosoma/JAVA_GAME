@@ -7,7 +7,10 @@ package Enity;
 import java.awt.Graphics2D;
 import Main.GamePanel;
 import Main.KeyHandler;
+import Object.OBJ_Axe;
+import Object.OBJ_FireBall;
 import Object.OBJ_Key;
+import Object.OBJ_Rock;
 import Object.OBJ_Shield_Normal;
 import Object.OBJ_Weapon_Normal;
 
@@ -55,13 +58,18 @@ public class Player extends Entity {
         level = 1;
         maxLife = 8; // 1 trai tim = 2 max life
         life = maxLife;
+        maxMana = 4;
+        mana = maxMana;
+        ammo = 10;
         strength = 1;
         dexterity = 1;
         exp = 0;
         nextLevelExp = 5;
         coin = 0;
+//        currentWeapon = new OBJ_Axe(gp);
         currentWeapon = new OBJ_Weapon_Normal(gp);
         currentShield = new OBJ_Shield_Normal(gp);
+        projectile = new OBJ_FireBall(gp);
         attack = getAttack();
         defense = getDefense();
     }
@@ -163,6 +171,9 @@ public class Player extends Entity {
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             contactMonster(monsterIndex);
 
+            // KIEM TRA VA CHAM VOI TILE TUONG TAC
+            int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+
             // KIEM TRA SU KIEN
             gp.eHander.checkEvent();
 
@@ -202,6 +213,21 @@ public class Player extends Entity {
         }
         // CHECK EVENT
         gp.eHander.checkEvent();
+
+        if (gp.keyH.shotKeyPressed == true && projectile.alive == false
+                && shotAvailableCounter == 30 && projectile.haveResource(this) == true) {
+            // THIET LAP TOA DO, HUONG VA NGUOI DUNG MAC DINH
+            projectile.set(World_X, World_Y, direction, true, this);
+
+            // TRU DI GIA TRI (MANA, AMMO...)
+            projectile.subtractResources(this);
+
+            // THEM VAO DANH SACH
+            gp.projectileList.add(projectile);
+            shotAvailableCounter = 0;
+            gp.playSE(10);
+        }
+
         // Cái này cần ở ngoài câu lệnh if
         if (invincible == true) {
             invincibleCounter++;
@@ -210,9 +236,25 @@ public class Player extends Entity {
                 invincibleCounter = 0;
             }
         }
+
+        // SAU 30 FRAMES THI MOI BAN DUOC DAN KHAC
+        if (shotAvailableCounter < 30) {
+            shotAvailableCounter++;
+        }
+
+        if (gp.player.life > gp.player.maxLife) {
+            gp.player.life = gp.player.maxLife;
+        }
+        if (life > maxLife) {
+            life = maxLife;
+        }
+        if (mana > maxMana) {
+            mana = maxMana;
+        }
     }
 
     public void attacking() {
+//        gp.playSE(7);
         spiteCounter++;
         if (spiteCounter <= 5) {
             spiteNum = 1;
@@ -243,7 +285,10 @@ public class Player extends Entity {
             solidArea.width = attackArea.width;
             solidArea.height = attackArea.height;
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            damageMonster(monsterIndex);
+            damageMonster(monsterIndex, attack);
+
+            int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+            damageInteractiveTile(iTileIndex);
 
             World_X = currentWorldX;
             World_Y = currentWorldY;
@@ -258,10 +303,10 @@ public class Player extends Entity {
         }
     }
 
-    public void damageMonster(int i) {
+    public void damageMonster(int i, int attack) {
         if (i != 999) {
             if (gp.monster[i].invincible == false) {
-                // gp.playSE(5);
+//                 gp.playSE(7);
 
                 int damage = attack - gp.monster[i].defense;
                 if (damage < 0) {
@@ -284,6 +329,22 @@ public class Player extends Entity {
                     exp += gp.monster[i].exp;
                     checkLevelUp();
                 }
+            }
+        }
+    }
+
+    public void damageInteractiveTile(int i) {
+        if (i != 999 && gp.iTile[i].destructible == true 
+                && gp.iTile[i].isCorrectItem(this) == true && gp.iTile[i].invincible == false) {
+            gp.iTile[i].playSE();
+            gp.iTile[i].life--;
+            gp.iTile[i].invincible = true;
+            
+            // Tao hieu ung bui
+            generateParticle(gp.iTile[i], gp.iTile[i]);
+            
+            if (gp.iTile[i].life == 0) {
+                gp.iTile[i] = gp.iTile[i].getDestroyedForm();
             }
         }
     }
@@ -330,16 +391,23 @@ public class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) {
-            String text;
-            if (inventory.size() != maxInventorySize) {
-                inventory.add(gp.obj[i]);
-                gp.playSE(1);
-                text = "Got a " + gp.obj[i].name + "!";
-            } else {
-                text = "You can't carry any more!";
+            // PICKUP ONLY ITEMS
+            if (gp.obj[i].type == type_pickupOnly) {
+                gp.obj[i].use(this);
+                gp.obj[i] = null;
+            } // INVENTORY ITEMS
+            else {
+                String text;
+                if (inventory.size() != maxInventorySize) {
+                    inventory.add(gp.obj[i]);
+                    gp.playSE(1);
+                    text = "Got a " + gp.obj[i].name + "!";
+                } else {
+                    text = "You can't carry any more!";
+                }
+                gp.ui.addMessage(text);
+                gp.obj[i] = null;
             }
-            gp.ui.addMessage(text);
-            gp.obj[i] = null;
         }
     }
 

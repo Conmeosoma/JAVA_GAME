@@ -2,6 +2,10 @@ package monster;
 
 import Enity.Entity;
 import Main.GamePanel;
+import Object.OBJ_Coin_Bronze;
+import Object.OBJ_Heart;
+import Object.OBJ_ManaCrystal;
+import Object.OBJ_Rock;
 import java.util.Random;
 
 /**
@@ -9,6 +13,7 @@ import java.util.Random;
  * @author dieu hoang
  */
 public class MON_GreenSlime extends Entity {
+
     GamePanel gp;
 
     public MON_GreenSlime(GamePanel gp) {
@@ -23,7 +28,8 @@ public class MON_GreenSlime extends Entity {
         attack = 5;
         defense = 0;
         exp = 2;
-        
+        projectile = new OBJ_Rock(gp);
+
         solidArea.x = 3;
         solidArea.y = 10;
         solidArea.width = 42;
@@ -95,8 +101,7 @@ public class MON_GreenSlime extends Entity {
                         }
                     }
                 }
-            }
-            // CHẾ ĐỘ 2: NẾU HP THẤP (dưới 40%) - CHẠY TRỐN
+            } // CHẾ ĐỘ 2: NẾU HP THẤP (dưới 40%) - CHẠY TRỐN
             else if (life < maxLife * 0.4) {
                 // Chạy ngược hướng với player
                 int xDiff = gp.player.World_X - World_X;
@@ -115,8 +120,7 @@ public class MON_GreenSlime extends Entity {
                         direction = "down";
                     }
                 }
-            }
-            // CHẾ ĐỘ 3: PLAYER Ở XA - DI CHUYỂN NGẪU NHIÊN (patrol)
+            } // CHẾ ĐỘ 3: PLAYER Ở XA - DI CHUYỂN NGẪU NHIÊN (patrol)
             else {
                 int i = random.nextInt(100) + 1;
 
@@ -132,6 +136,12 @@ public class MON_GreenSlime extends Entity {
             }
 
             actionLockCounter = 0;
+        }
+        int i = new Random().nextInt(100) + 1;
+        if (i > 99 && projectile.alive == false && shotAvailableCounter == 30){
+            projectile.set(World_X, World_Y, direction, true, this);
+            gp.projectileList.add(projectile);
+            shotAvailableCounter = 0;
         }
     }
 
@@ -154,8 +164,7 @@ public class MON_GreenSlime extends Entity {
             } else {
                 direction = yDiff > 0 ? "down" : "up";
             }
-        }
-        // NẾU HP THẤP - LÙI LẠI
+        } // NẾU HP THẤP - LÙI LẠI
         else {
             // Lùi lại theo hướng ngược player
             int xDiff = gp.player.World_X - World_X;
@@ -166,6 +175,22 @@ public class MON_GreenSlime extends Entity {
             } else {
                 direction = yDiff > 0 ? "up" : "down"; // Ngược lại
             }
+        }
+    }
+    
+    public void checkDrop(){
+        // CAST A SIE
+        int i = new Random().nextInt(100) + 1;
+        
+        // SET THE MONSTER DROP
+        if (i < 50){
+            dropItem(new OBJ_Coin_Bronze(gp));
+        }
+        if (i >= 50 && i < 75){
+            dropItem(new OBJ_Heart(gp));
+        }
+        if (i >= 75 && i < 100){
+            dropItem(new OBJ_ManaCrystal(gp));
         }
     }
 }
