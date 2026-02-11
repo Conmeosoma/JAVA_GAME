@@ -66,8 +66,8 @@ public class Player extends Entity {
         exp = 0;
         nextLevelExp = 5;
         coin = 0;
-        currentWeapon = new OBJ_Axe(gp);
-//        currentWeapon = new OBJ_Weapon_Normal(gp);
+//        currentWeapon = new OBJ_Axe(gp);
+        currentWeapon = new OBJ_Weapon_Normal(gp);
         currentShield = new OBJ_Shield_Normal(gp);
         projectile = new OBJ_FireBall(gp);
         attack = getAttack();
@@ -339,6 +339,10 @@ public class Player extends Entity {
             gp.iTile[i].playSE();
             gp.iTile[i].life--;
             gp.iTile[i].invincible = true;
+            
+            // Tao hieu ung bui
+            generateParticle(gp.iTile[i], gp.iTile[i]);
+            
             if (gp.iTile[i].life == 0) {
                 gp.iTile[i] = gp.iTile[i].getDestroyedForm();
             }

@@ -2,6 +2,7 @@ package tile_interactive;
 
 import Enity.Entity;
 import Main.GamePanel;
+import java.awt.Color;
 
 /**
  *
@@ -40,5 +41,25 @@ public class IT_DryTree extends InteractiveTile {
     public InteractiveTile getDestroyedForm() {
         InteractiveTile tile = new IT_Trunk(gp, World_X / gp.tileSize, World_Y / gp.tileSize);
         return tile;
+    }
+
+    public Color getParticleColor() {
+        Color color = new Color(65, 50, 30);
+        return color;
+    }
+
+    public int getParticleSize() {
+        int size = 6;
+        return size;
+    }
+
+    public int getParticleSpeed() {
+        int speed = 1;
+        return speed;
+    }
+
+    public int getParticleMaxLife() {
+        int maxLife = 20;
+        return maxLife;
     }
 }
