@@ -1,6 +1,7 @@
 package Tile;
 
 import Main.GamePanel;
+import Main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,40 +23,88 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[50];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("/res/maps/world01.txt");
+        loadMap("/res/maps/worldV2.txt");
         // My2DGame\src\res\maps\world01.txt
     }
 
     public void getTileImage() {
+
+        // BufferedImage scaledImage = new BufferedImage(gp.tileSize, gp.tileSize,
+        // tile[0].image.getType());
+        // // tao anh moi voi kich thuoc la tileSize
+        // Graphics2D g2 = scaledImage.createGraphics(); // tao doi tuong grapic2d de ve
+        // tren anh moi
+        // g2.drawImage(tile[0].image, 0, 0, gp.tileSize, gp.tileSize, null); // ve anh
+        // vao anh moi voi kich thuoc moi
+        // tile[0].image = scaledImage; // gan lai anh da duoc phong to cho tile[0]
+        /*
+         * Viec lam tren giup anh duoc phong to hoac thu nho ve kich thuoc mang la voi
+         * kich thuoc tileSize de tranh viec anh bi mo hoac bi cat khi ve tren man hinh.
+         */
+        // PLACEHOLDER FOR TILES
+        setup(0, "grass00", false);
+        setup(1, "grass00", false);
+        setup(2, "grass00", false);
+        setup(3, "grass00", false);
+        setup(4, "grass00", false);
+        setup(5, "grass00", false);
+        setup(6, "grass00", false);
+        setup(7, "grass00", false);
+        setup(8, "grass00", false);
+        setup(9, "grass00", false);
+
+        setup(10, "grass00", false);
+        setup(11, "grass01", false);
+        setup(12, "water00", true);
+        setup(13, "water01", true);
+        setup(14, "water02", true);
+        setup(15, "water03", true);
+        setup(16, "water04", true);
+        setup(17, "water05", true);
+        setup(18, "water06", true);
+        setup(19, "water07", true);
+        setup(20, "water08", true);
+        setup(21, "water09", true);
+        setup(22, "water10", true);
+        setup(23, "water11", true);
+        setup(24, "water12", true);
+        setup(25, "water13", true);
+        setup(26, "road00", false);
+        setup(27, "road01", false);
+        setup(28, "road02", false);
+        setup(29, "road03", false);
+        setup(30, "road04", false);
+        setup(31, "road05", false);
+        setup(32, "road06", false);
+        setup(33, "road07", false);
+        setup(34, "road08", false);
+        setup(35, "road09", false);
+        setup(36, "road10", false);
+        setup(37, "road11", false);
+        setup(38, "road12", false);
+        setup(39, "earth", false);
+        setup(40, "wall", true);
+        setup(41, "tree", true);
+
+    }
+
+    public void setup(int index, String imageName, boolean collision) {
+        UtilityTool uTool = new UtilityTool();
         try {
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/grass.png"));
-
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall.png"));
-            tile[1].collision = true;
-
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/water.png"));
-            tile[2].collision = true;
-
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/earth.png"));
-
-            tile[4] = new Tile();
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/tree.png"));
-            tile[4].collision = true;
-
-            tile[5] = new Tile();
-            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/sand.png"));
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/" + imageName + ".png"));
+            tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+            tile[index].collision = collision;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            // TODO: handle exception
+            e.printStackTrace();// in ra loi neu co
         }
+
     }
 
     public void loadMap(String filePath) {
@@ -122,9 +171,7 @@ public class TileManager {
 
             if (worldCol == gp.maxWorldCol) {
                 worldCol = 0;
-
                 worldRow++;
-
             }
         }
     }

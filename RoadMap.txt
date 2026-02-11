@@ -5,6 +5,7 @@
 	- Display background tiles
 	- Display objects
 	- Complete the game 
+	
 2. Action RPG Game
 	- Create monsters
 	- Create battle system
