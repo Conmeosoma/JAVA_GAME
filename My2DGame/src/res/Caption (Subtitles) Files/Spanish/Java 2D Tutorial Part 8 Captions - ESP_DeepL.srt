@@ -1,0 +1,696 @@
+1
+00:00:00,480 --> 00:00:06,879
+Hola chicos, soy RyiSnow 
+
+2
+00:00:03,679 --> 00:00:10,080
+la última vez, creamos algunos objetos y los mostramos en la pantalla
+
+4
+00:00:08,400 --> 00:00:16,960
+pero ahora, no pasa nada aunque lo toques
+
+6
+00:00:13,440 --> 00:00:25,920
+así que esta vez, implementaremos la colisión de objetos y también las reacciones de estos objetos
+
+9
+00:00:22,800 --> 00:00:34,719
+ya hemos hecho la colisión de baldosas, así que usamos esta clase CollisionChecker de nuevo
+
+12
+00:00:30,960 --> 00:00:39,280
+pero esta vez, utilizamos un método diferente para comprobar la colisión
+
+14
+00:00:36,320 --> 00:00:44,879
+y para comprobar la colisión de objetos, tenemos que hacer un poco de preparación
+
+16
+00:00:42,480 --> 00:00:46,399
+En primer lugar, abrir esta clase Entidad
+
+17
+00:00:44,879 --> 00:00:54,800
+y después de esta solidArea, vamos a añadir dos variables enteras
+
+31
+00:01:07,200 --> 00:01:11,200
+y vamos a esta clase Player
+
+32
+00:01:11,280 --> 00:01:20,159
+añadimos este solidAreaDefaultX
+
+36
+00:01:19,280 --> 00:01:25,240
+así que básicamente, defaultX es este
+
+52
+00:02:00,560 --> 00:02:10,560
+la razón por la que hacemos esto es que queremos registrar los valores por defecto
+
+54
+00:02:06,799 --> 00:02:14,879
+porque vamos a cambiar estos valores x e y más tarde
+
+56
+00:02:11,760 --> 00:02:16,160
+y vamos a este SuperObjeto
+
+57
+00:02:14,879 --> 00:02:28,160
+y aquí, creamos un Rectangle y lo instanciamos
+
+64
+00:02:37,519 --> 00:02:46,080
+como el personaje del jugador, cada objeto tiene esta solidArea
+
+66
+00:02:43,599 --> 00:02:47,519
+y utilizo el valor por defecto 
+
+67
+00:02:46,080 --> 00:02:55,440
+así que básicamente, todo el azulejo, todo este azulejo objeto es sólido
+
+70
+00:02:52,239 --> 00:03:01,280
+pero si quieres establecer el solidArea específico para cada objeto, puedes hacerlo
+
+72
+00:02:58,879 --> 00:03:06,879
+en ese caso, por ejemplo, abres este OBJ_Key y...
+
+78
+00:03:11,760 --> 00:03:16,400
+algo como esto
+
+79
+00:03:13,519 --> 00:03:22,720
+pero esta vez, no establecemos un solidArea específico para cada objeto
+
+81
+00:03:19,440 --> 00:03:25,120
+pero todos los objetos usan la misma solidArea
+
+88
+00:03:34,239 --> 00:03:39,840
+y en este caso, 0
+
+92
+00:03:42,239 --> 00:03:49,599
+esto también es 0
+
+93
+00:03:47,920 --> 00:03:54,720
+abramos esta clase de Puerta
+
+95
+00:03:51,360 --> 00:03:57,519
+queremos hacer esto sólido así que añadimos...
+
+99
+00:03:58,840 --> 00:04:05,840
+ok creo que eso es todo para la preparación
+
+100
+00:04:02,720 --> 00:04:10,959
+así que vamos a este CollisionChecker
+
+102
+00:04:08,080 --> 00:04:12,080
+vamos a crear un nuevo método
+
+103
+00:04:10,959 --> 00:04:17,359
+esta vez, no checkTile sino checkObject
+
+105
+00:04:14,879 --> 00:04:21,680
+además este método no es void sino integer
+
+109
+00:04:23,840 --> 00:04:30,000
+y recibimos una Entidad
+
+112
+00:04:30,000 --> 00:04:36,639
+y también un booleano
+
+114
+00:04:33,600 --> 00:04:39,120
+Voy a nombrar a este jugador
+
+115
+00:04:36,639 --> 00:04:44,160
+primero recibimos una Entidad, así que jugador o quizás otros personajes
+
+117
+00:04:42,560 --> 00:04:52,880
+y también vamos a comprobar si esta Entidad es jugador o no
+
+120
+00:04:50,000 --> 00:04:58,000
+y como esto es "int", necesitamos devolver un entero
+
+122
+00:04:55,680 --> 00:05:00,160
+así que primero, creamos este entero
+
+124
+00:04:59,120 --> 00:05:04,080
+y lo llamamos "índice
+
+129
+00:05:08,960 --> 00:05:13,440
+y devolvemos este índice
+
+131
+00:05:15,120 --> 00:05:24,560
+Así que lo que hacemos en este método es, comprobar si el jugador está golpeando cualquier objeto
+
+133
+00:05:21,759 --> 00:05:27,840
+y si es así, devolvemos el índice del objeto
+
+136
+00:05:27,840 --> 00:05:34,000
+para que podamos procesar la reacción en consecuencia
+
+137
+00:05:32,160 --> 00:05:38,960
+bien a continuación, creamos un bucle for
+
+142
+00:05:54,400 --> 00:05:58,880
+vamos a escanear este array de objetos
+
+143
+00:05:59,360 --> 00:06:05,720
+Sí, este
+
+144
+00:06:01,360 --> 00:06:12,240
+entonces primero, comprobamos si es "null" o no
+
+147
+00:06:13,039 --> 00:06:17,039
+si no es nulo,
+
+148
+00:06:14,960 --> 00:06:27,440
+entonces necesitamos saber la posición del área sólida de la Entidad
+
+154
+00:06:24,960 --> 00:06:37,280
+además, necesitamos obtener la posición solidArea del objeto
+
+176
+00:07:18,319 --> 00:07:21,199
+ok
+
+177
+00:07:19,360 --> 00:07:29,199
+la última vez, intentamos averiguar esta columna y los números de fila
+
+180
+00:07:27,120 --> 00:07:32,400
+pero esta vez, no necesitamos hacer eso
+
+181
+00:07:29,199 --> 00:07:35,840
+sólo necesitamos averiguar los valores x e y del solidArea
+
+184
+00:07:35,840 --> 00:07:41,120
+entonces vamos a averiguar los valores x e y del objeto
+
+189
+00:07:46,319 --> 00:07:51,759
+así que básicamente es lo mismo
+
+209
+00:08:26,160 --> 00:08:32,159
+Sí, eso es.
+
+210
+00:08:28,160 --> 00:08:36,159
+hemos encontrado la posición solidArea de la entidad y del objeto
+
+212
+00:08:34,719 --> 00:08:44,240
+y ahora, creamos un interruptor y comprobamos la dirección de la Entidad
+
+221
+00:09:05,200 --> 00:09:13,040
+así que después de que suba, ¿dónde estará?
+
+223
+00:09:09,279 --> 00:09:14,160
+lo descubriremos así que...
+
+226
+00:09:17,120 --> 00:09:24,560
+ya que está subiendo así que menos y
+
+228
+00:09:24,720 --> 00:09:30,000
+y si está bajando...
+
+233
+00:09:38,720 --> 00:09:43,760
+y si va hacia la izquierda entonces...
+
+242
+00:10:01,519 --> 00:10:12,640
+así que esta es la posición y en la que estará esta entidad después de moverse
+
+245
+00:10:09,040 --> 00:10:14,399
+esta clase rectángulo tiene un hermoso método llamado "intersecta"
+
+249
+00:10:17,519 --> 00:10:22,959
+déjame escribir primero
+
+259
+00:10:39,760 --> 00:10:45,120
+para que puedas escribir así
+
+260
+00:10:42,560 --> 00:10:56,399
+esto comprueba automáticamente si estos dos rectángulos están colisionando o no
+
+264
+00:10:53,519 --> 00:11:03,760
+para usar esta intersección necesitamos saber la posición actual de estas solidAreas
+
+268
+00:11:01,279 --> 00:11:07,760
+si la Entidad está tocando este objeto entonces uh...
+
+270
+00:11:04,800 --> 00:11:08,560
+Bien, para probar, vamos a mostrar algo de texto
+
+272
+00:11:08,560 --> 00:11:16,160
+"¡arriba colisión!" o algo así
+
+273
+00:11:12,880 --> 00:11:24,320
+así que básicamente podemos copiar esto en cada caso
+
+283
+00:11:36,480 --> 00:11:49,519
+Muy bien, y después de esta sentencia switch, tenemos que restablecer el solidArea de esta entidad y del objeto
+
+287
+00:11:47,360 --> 00:11:55,760
+de lo contrario x e y seguirán aumentando
+
+289
+00:11:51,680 --> 00:11:59,360
+así que tenemos que restablecer estos números después de esta sentencia switch
+
+299
+00:12:09,200 --> 00:12:13,279
+esta vez podemos usar esto...
+
+317
+00:13:01,360 --> 00:13:04,079
+ok
+
+319
+00:13:04,079 --> 00:13:09,040
+Sí, esto está bien por ahora
+
+320
+00:13:06,399 --> 00:13:13,279
+Llamemos a este método checkObject
+
+322
+00:13:10,480 --> 00:13:14,720
+así que vamos a esta clase Player
+
+324
+00:13:14,720 --> 00:13:28,480
+y después de comprobar esta colisión de baldosas, vamos a comprobar la colisión de objetos
+
+332
+00:13:32,959 --> 00:13:43,120
+y pasaremos esta clase Player como una Entidad
+
+335
+00:13:39,120 --> 00:13:51,839
+y el booleano de jugador es... ya que esto es jugador entonces el booleano es true
+
+338
+00:13:48,079 --> 00:13:59,040
+ah y también, ya que esto devuelve el índice como un entero así que vamos a conseguirlo
+
+346
+00:14:04,959 --> 00:14:08,399
+así
+
+347
+00:14:06,079 --> 00:14:13,680
+pero antes de usar esto, comprobemos el programa actual 
+
+349
+00:14:11,600 --> 00:14:18,639
+y ver si la colisión está realmente funcionando o no
+
+354
+00:14:24,240 --> 00:14:36,399
+tocando una tecla. arriba, izquierda, derecha... y abajo
+
+359
+00:14:34,639 --> 00:14:38,000
+arriba
+
+360
+00:14:36,399 --> 00:14:40,320
+derecha
+
+361
+00:14:38,000 --> 00:14:40,320
+izquierda
+
+362
+00:14:40,399 --> 00:14:44,800
+OK, así que está funcionando
+
+363
+00:14:42,880 --> 00:14:47,120
+vamos a quitar este texto
+
+365
+00:14:48,720 --> 00:14:54,560
+y en su lugar, otra sentencia if
+
+368
+00:14:54,560 --> 00:15:02,639
+así que vamos a comprobar si este objeto es un objeto sólido o no
+
+370
+00:15:03,680 --> 00:15:09,519
+así que primero, lo comprobamos y si es sólido entonces...
+
+374
+00:15:16,639 --> 00:15:24,040
+también vamos a comprobar si esto es jugador o no
+
+377
+00:15:26,320 --> 00:15:30,240
+así que esto es booleano
+
+379
+00:15:30,240 --> 00:15:43,759
+si esto es jugador, obtenemos este índice y lo devolvemos
+
+382
+00:15:40,880 --> 00:15:53,199
+pero si no es jugador, por ejemplo, si es un NPC o un monstruo entonces no hacemos nada
+
+385
+00:15:49,279 --> 00:15:54,560
+y podemos copiar esto y pegar
+
+388
+00:15:57,759 --> 00:16:04,480
+Muy bien, creo que este método está hecho
+
+389
+00:16:01,600 --> 00:16:13,759
+Si, como dije, este método es diferente del método checkTile
+
+392
+00:16:09,920 --> 00:16:17,279
+me gusta este intersects
+
+393
+00:16:13,759 --> 00:16:19,519
+es muy cómodo y limpio
+
+394
+00:16:17,279 --> 00:16:26,320
+así que tal vez usted piensa, ¿por qué no utilizar esto para la comprobación de colisión azulejo también
+
+396
+00:16:22,959 --> 00:16:28,560
+la razón por la que no usé esto para la colisión de baldosas es
+
+397
+00:16:26,320 --> 00:16:34,079
+para este objeto, sólo necesitamos escanear un número limitado de objetos
+
+399
+00:16:31,920 --> 00:16:43,440
+en este caso, hasta 10 objetos por lo que no se necesita mucho
+
+403
+00:16:39,279 --> 00:16:52,079
+pero si hacemos esto para los azulejos de fondo, básicamente tenemos que escanear todos los azulejos en la pantalla
+
+406
+00:16:48,480 --> 00:16:57,279
+y comprobar uno a uno si alguno de ellos está tocando el área sólida de esta entidad
+
+409
+00:16:57,279 --> 00:17:05,760
+está bien y creo que nuestro programa sigue funcionando bien
+
+412
+00:17:03,279 --> 00:17:16,000
+pero si utilizamos nuestro método actual, sólo tenemos que comprobar dos baldosas para cada dirección
+
+416
+00:17:12,959 --> 00:17:19,919
+por eso no usé intersecciones para comprobar las baldosas
+
+419
+00:17:19,919 --> 00:17:25,120
+pero realmente depende creo
+
+420
+00:17:22,720 --> 00:17:32,640
+de cualquier manera funciona por lo que realmente depende de cómo se construye su juego
+
+423
+00:17:29,919 --> 00:17:36,240
+Muy bien, esto está hecho así que vamos a volver a esta clase Player
+
+426
+00:17:36,240 --> 00:17:47,280
+entonces, basándonos en este número de índice, escribimos lo que va a pasar si el jugador toca este objeto
+
+429
+00:17:44,000 --> 00:17:55,679
+podemos escribirlo aqui pero creo que seria mejor si lo manejamos en un metodo separado
+
+432
+00:17:52,480 --> 00:17:55,679
+creamos un nuevo método
+
+433
+00:17:55,840 --> 00:18:01,280
+después de esto, creo
+
+438
+00:18:05,760 --> 00:18:11,200
+y obtenemos un índice
+
+442
+00:18:13,600 --> 00:18:24,400
+así que llamemos a esto y pasemos objIndex
+
+446
+00:18:31,679 --> 00:18:38,320
+y primero, creamos una sentencia if
+
+451
+00:18:43,840 --> 00:18:53,039
+si este índice es 999, significa que no hemos tocado ningún objeto
+
+453
+00:18:49,760 --> 00:18:56,559
+pero si el índice no es 999, entonces hemos tocado un objeto
+
+456
+00:18:56,559 --> 00:19:02,880
+así que podemos hacer algo al respecto
+
+457
+00:18:59,679 --> 00:19:08,400
+y creo que la reacción más simple sería así
+
+463
+00:19:12,960 --> 00:19:23,640
+esto simplemente borrar el objeto que acabamos de tocar
+
+466
+00:19:18,880 --> 00:19:23,640
+veamos como queda
+
+467
+00:19:26,320 --> 00:19:29,280
+Sí, así
+
+469
+00:19:34,559 --> 00:19:39,120
+así que la llave desapareció
+
+470
+00:19:36,720 --> 00:19:45,360
+pero por supuesto, esta reacción es demasiado simple
+
+472
+00:19:41,919 --> 00:19:50,000
+así que vamos a establecer reacciones específicas en cada objeto
+
+474
+00:19:46,720 --> 00:19:54,000
+Ok, primero, vamos a crear un entero
+
+477
+00:19:54,000 --> 00:20:00,080
+voy a llamarlo "hasKey"
+
+480
+00:20:00,080 --> 00:20:10,799
+esto indica cuantas teclas tiene actualmente el jugador
+
+483
+00:20:07,200 --> 00:20:16,240
+volver a este pickUpObject
+
+485
+00:20:13,360 --> 00:20:17,919
+así que ya no necesitamos esto
+
+487
+00:20:17,919 --> 00:20:22,159
+obtenemos este nombre de objeto
+
+491
+00:20:28,000 --> 00:20:39,760
+hemos introducido un nombre así que es el momento de usarlo
+
+494
+00:20:36,720 --> 00:20:42,559
+así que tenemos un nombre
+
+497
+00:20:46,880 --> 00:20:51,280
+y el caso es "Key"
+
+498
+00:20:52,000 --> 00:20:56,480
+y también "Puerta"
+
+500
+00:20:57,760 --> 00:21:04,960
+si era "Llave" entonces hasLlave++
+
+505
+00:21:11,280 --> 00:21:17,120
+queremos hacerlo desaparecer
+
+507
+00:21:17,120 --> 00:21:21,760
+ocupémonos también de esta puerta
+
+508
+00:21:19,760 --> 00:21:28,080
+así que primero, comprobamos si el jugador tiene una llave o llaves
+
+516
+00:21:36,159 --> 00:21:42,320
+así que este objeto puerta desaparecerá
+
+520
+00:21:48,240 --> 00:21:54,159
+así
+
+521
+00:21:50,159 --> 00:21:59,120
+bien, vamos a mostrar algo de información en la consola 
+
+525
+00:22:01,760 --> 00:22:08,960
+para saber cuantas llaves tenemos ahora mismo
+
+530
+00:22:12,720 --> 00:22:18,159
+Sí, vamos a comprobarlo
+
+532
+00:22:18,159 --> 00:22:23,120
+dejame ver la consola
+
+534
+00:22:23,120 --> 00:22:26,080
+vamos a por la llave
+
+535
+00:22:33,679 --> 00:22:40,799
+ok ahora vamos a abrir la puerta
+
+536
+00:22:37,440 --> 00:22:41,680
+abre la puerta
+
+537
+00:22:40,799 --> 00:22:44,809
+abrir la puerta
+
+539
+00:22:45,120 --> 00:22:50,799
+y no podemos abrir esta porque no tenemos llave
+
+540
+00:22:48,000 --> 00:22:57,440
+así que necesitamos conseguir otra llave para abrir esta puerta
+
+542
+00:22:53,760 --> 00:23:00,640
+Creo que esto funciona bien
+
+543
+00:22:57,440 --> 00:23:04,159
+ahora el jugador puede conseguir llaves y abrir puertas
+
+545
+00:23:02,320 --> 00:23:10,080
+pero aún así, esta es una forma muy simple de manejar las reacciones de los objetos
+
+547
+00:23:07,600 --> 00:23:17,200
+crearemos un sistema más organizado para manejar esto en el segundo capítulo de esta serie de tutoriales
+
+550
+00:23:15,039 --> 00:23:23,679
+como, conseguir artículos en su inventario y cosas por el estilo
+
+552
+00:23:20,400 --> 00:23:26,159
+pero por ahora esto debería ser suficiente
+
+553
+00:23:23,679 --> 00:23:29,039
+bien, esto es todo por ahora
+
+554
+00:23:26,159 --> 00:23:40,280
+en el proximo video, añadiremos un item mas, musica y efecto de sonido
+
+557
+00:23:35,440 --> 00:23:40,280
+gracias por ver y hasta la próxima
+
+558
+00:23:43,300 --> 00:23:49,920
+[Music]
+

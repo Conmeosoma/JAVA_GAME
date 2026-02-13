@@ -1,0 +1,736 @@
+1
+00:00:00,240 --> 00:00:05,600
+hi guys, this is RyiSnow
+
+2
+00:00:02,399 --> 00:00:09,760
+last time we implemented collision detection
+
+4
+00:00:06,879 --> 00:00:13,440
+so now, the player character cannot walk through solid tiles
+
+5
+00:00:11,760 --> 00:00:19,600
+and this time, we will create some objects and display them on the screen
+
+7
+00:00:16,000 --> 00:00:23,800
+so first, we prepare some object images
+
+9
+00:00:31,279 --> 00:00:36,680
+okay i think... so this is door
+
+10
+00:00:38,530 --> 00:00:54,280
+[Music]
+
+11
+00:00:49,600 --> 00:00:54,280
+something like this... so key
+
+12
+00:00:55,640 --> 00:01:16,240
+[Music]
+
+13
+00:01:13,600 --> 00:01:20,600
+okay something like this
+
+14
+00:01:16,240 --> 00:01:20,600
+so...treasure chest
+
+15
+00:01:23,080 --> 00:01:38,560
+[Music]
+
+16
+00:01:35,119 --> 00:01:41,600
+this is not so bad
+
+17
+00:01:38,560 --> 00:01:44,560
+okay so this is boots
+
+18
+00:01:41,600 --> 00:01:47,600
+so i have prepared these four objects
+
+20
+00:01:45,840 --> 00:01:55,920
+so inside of this "res" folder let's create another package
+
+23
+00:01:53,680 --> 00:01:58,560
+and i'm gonna name this "objects"
+
+25
+00:01:59,119 --> 00:02:05,680
+and we're gonna copy these four images to this "objects"
+
+27
+00:02:07,200 --> 00:02:18,160
+then inside of this source folder, create another package
+
+29
+00:02:11,200 --> 00:02:18,160
+and name this "object"
+
+31
+00:02:18,720 --> 00:02:25,840
+inside of this package, create a class
+
+33
+00:02:23,360 --> 00:02:29,680
+and i'm gonna name this SuperObject
+
+36
+00:02:29,920 --> 00:02:42,080
+so this will be a parent class of all object classes that we will create later
+
+39
+00:02:38,480 --> 00:02:47,440
+kind of similar to this Entity class and this Player class
+
+41
+00:02:44,560 --> 00:02:53,840
+and inside of this SuperObject we declare some classes and object variables
+
+53
+00:03:09,360 --> 00:03:14,400
+and the default is "false"
+
+57
+00:03:19,440 --> 00:03:25,360
+and import BufferedImage
+
+58
+00:03:22,959 --> 00:03:29,519
+alright that's all for now
+
+59
+00:03:25,360 --> 00:03:32,799
+so let's create an object class
+
+60
+00:03:29,519 --> 00:03:37,280
+so inside of this object package, create a class
+
+62
+00:03:34,400 --> 00:03:41,120
+and i'm gonna name it OBJ_Key
+
+65
+00:03:41,280 --> 00:03:51,760
+you can just type Key but i kind of like adding this kind of abbreviation
+
+68
+00:03:49,120 --> 00:03:55,760
+so it's really clear that this is an object class
+
+70
+00:03:54,319 --> 00:04:05,200
+and this OBJ_Key class extends SuperObject
+
+75
+00:04:02,560 --> 00:04:07,840
+and constructor
+
+78
+00:04:11,360 --> 00:04:19,359
+and inside of this constructor, first we set the name
+
+81
+00:04:19,359 --> 00:04:28,040
+and then we're gonna load the image
+
+93
+00:04:51,840 --> 00:04:58,160
+and here we're gonna type the file path
+
+95
+00:04:56,320 --> 00:05:02,400
+it's inside of this objects folder so...
+
+103
+00:05:08,639 --> 00:05:13,919
+okay now let's go to this GamePanel
+
+106
+00:05:15,440 --> 00:05:18,880
+around here
+
+107
+00:05:16,960 --> 00:05:22,960
+we're gonna use this SuperObject
+
+111
+00:05:22,960 --> 00:05:29,039
+and we're gonna use this as an array
+
+115
+00:05:31,759 --> 00:05:36,360
+the size is... i choose 10
+
+116
+00:05:38,240 --> 00:05:46,320
+so this 10 means, we prepare 10 slots for object
+
+119
+00:05:45,520 --> 00:05:55,120
+so we have 10 slots, but we can replace the content during the game
+
+123
+00:05:51,759 --> 00:06:02,160
+so this doesn't mean we can only create 10 objects in the game
+
+125
+00:05:58,560 --> 00:06:06,960
+this just means we can display up to 10 objects at the same time
+
+127
+00:06:04,080 --> 00:06:13,520
+for example, if you pick up an objectA, the objectA disappears from the screen
+
+129
+00:06:09,680 --> 00:06:18,720
+so we can add a new object in the vacant slot
+
+131
+00:06:15,440 --> 00:06:24,560
+i just chose 10 because displaying too many objects at the same time can slow down the game
+
+134
+00:06:23,600 --> 00:06:33,199
+but if you think 10 is not enough, you can always increase this number
+
+137
+00:06:29,919 --> 00:06:39,360
+you can decide the number as checking your game's performers
+
+139
+00:06:35,600 --> 00:06:48,400
+alright, next we will instantiate some objects and place them on the map
+
+142
+00:06:44,800 --> 00:06:52,000
+we can do it in this GamePanel class by creating a method
+
+144
+00:06:50,880 --> 00:07:01,199
+but i think it would be better to create a specific class and let it handle all the placement stuff
+
+148
+00:07:00,319 --> 00:07:08,560
+so inside of this "main" package let's create a class
+
+151
+00:07:05,440 --> 00:07:17,440
+and i'm gonna name this AssetSetter
+
+155
+00:07:12,960 --> 00:07:19,840
+or whatever name you like
+
+157
+00:07:19,840 --> 00:07:24,800
+we're gonna use GamePanel
+
+158
+00:07:22,479 --> 00:07:26,560
+and the constructor
+
+162
+00:07:29,680 --> 00:07:38,319
+so we're gonna receive GamePanel
+
+164
+00:07:39,840 --> 00:07:49,120
+okay so inside of this GamePanel let's instantiate this AssetSetter
+
+166
+00:07:46,080 --> 00:07:50,800
+maybe after this CollisionChecker
+
+175
+00:08:04,479 --> 00:08:12,479
+and pass this GamePanel class
+
+176
+00:08:08,319 --> 00:08:14,479
+okay so go back to this AssetSetter
+
+177
+00:08:12,479 --> 00:08:16,720
+now create a method
+
+181
+00:08:19,680 --> 00:08:28,479
+so here we're gonna instantiate some default objects and place them on the map
+
+184
+00:08:26,800 --> 00:08:35,839
+so we're going to use this object array
+
+190
+00:08:42,320 --> 00:08:47,600
+we're going to use this key object class
+
+192
+00:08:49,040 --> 00:08:59,839
+since this OBJ_Key is a subclass of this SuperObject class
+
+195
+00:08:56,720 --> 00:09:04,080
+so you can instantiate it as one of this array
+
+197
+00:09:01,680 --> 00:09:06,480
+and next
+
+200
+00:09:07,519 --> 00:09:17,680
+and here we're gonna set this object's worldX and the worldY
+
+203
+00:09:17,760 --> 0:09:26,959
+i wanna place this key here
+
+207
+00:09:22,880 --> 00:09:31,920
+in front of this lake or pond
+
+208
+00:09:26,959 --> 00:09:34,160
+let's open this map file
+
+209
+00:09:31,920 --> 00:09:35,200
+so this point
+
+211
+00:09:35,200 --> 00:09:42,320
+okay i'm gonna change this to the grass tile
+
+212
+00:09:37,920 --> 00:09:44,399
+and so col 23 and row seven
+
+222
+00:10:08,160 --> 00:10:12,560
+okay let's create one more key
+
+224
+00:10:12,560 --> 00:10:18,000
+so we're gonna put index 1
+
+227
+00:10:21,120 --> 00:10:24,000
+so one more key
+
+229
+00:10:32,560 --> 00:10:39,680
+this time i want to place it around here
+
+232
+00:10:43,360 --> 00:10:57,440
+so we instantiated these two keys and also set their default location
+
+237
+00:10:53,279 --> 00:10:58,640
+now let's call this setObject method
+
+239
+00:10:58,640 --> 00:11:04,079
+go to GamePanel
+
+240
+00:11:02,000 --> 00:11:05,920
+somewhere around here
+
+243
+00:11:07,120 --> 00:11:18,079
+i'm gonna name this method setupGame or something like that
+
+245
+00:11:14,800 --> 00:11:28,399
+so from here we're gonna call setObject
+
+248
+00:11:24,800 --> 00:11:35,760
+and we want to call this set object method before this game starts
+
+252
+00:11:32,560 --> 00:11:43,120
+so we're gonna call this setupGame method probably from this Main class
+
+255
+00:11:41,120 --> 00:11:46,480
+and before starting this game thread so...
+
+260
+00:11:54,240 --> 00:11:58,399
+yeah so we call this setObject method
+
+261
+00:11:56,959 --> 00:12:06,320
+and now these key objects get its wordX and worldY
+
+263
+00:12:02,000 --> 00:12:11,040
+now let's draw these objects on the screen
+
+265
+00:12:07,760 --> 00:12:14,800
+to draw these objects, we go to this SuperObject class
+
+267
+00:12:13,360 --> 00:12:20,800
+and create a draw method here
+
+270
+00:12:22,639 --> 00:12:30,480
+and here we get Graphics2D
+
+275
+00:12:32,240 --> 00:12:38,480
+and also i think we need GamePanel
+
+278
+00:12:38,480 --> 00:12:40,880
+alright
+
+279
+00:12:42,800 --> 00:12:54,639
+what we're gonna do here is almost identical to what we did for background tiles
+
+283
+00:12:50,839 --> 00:13:04,320
+like this one. so we need to find out object's image and screenX and the screenY
+
+287
+00:13:01,440 --> 00:13:12,240
+this time we don't need to do this kind of while loop and scan all the tiles like this
+
+290
+00:13:10,639 --> 00:13:17,920
+but instead... okay we copy only this part
+
+294
+00:13:17,920 --> 00:13:22,079
+and paste here
+
+296
+00:13:21,040 --> 00:13:30,800
+and instead of this tile[tileNum].image, just "image"
+
+300
+00:13:28,800 --> 00:13:36,240
+so this one, the object's image
+
+302
+00:13:33,600 --> 00:13:43,600
+other than this, it's same so we don't need to change anything
+
+305
+00:13:39,760 --> 00:13:46,320
+if we know this object... whatever it is...
+
+306
+00:13:43,600 --> 00:13:50,880
+if we know this object's worldX and worldY
+
+308
+00:13:48,240 --> 00:13:56,639
+then we can find out it's screenX and screenY based on player's worldX and worldY
+
+310
+00:13:54,639 --> 00:13:58,720
+and the screen position
+
+311
+00:13:56,639 --> 00:14:02,240
+so we can draw it on the screen
+
+312
+00:13:58,720 --> 00:14:07,760
+so let's call this draw method
+
+314
+00:14:04,560 --> 00:14:11,199
+i'll go to this GamePanel class
+
+315
+00:14:07,760 --> 00:14:15,160
+since it's drawing so we go to this paintComponent method
+
+321
+00:14:26,480 --> 00:14:34,800
+yeah i think it should be here, after tile and before player
+
+323
+00:14:32,000 --> 00:14:38,240
+we're gonna call that draw method in this SuperObject class
+
+325
+00:14:37,360 --> 00:14:47,519
+but this time we cannot simply call it like this or this
+
+329
+00:14:44,720 --> 00:14:53,440
+first we need to know what kind of object we are going to draw
+
+331
+00:14:50,240 --> 00:14:56,240
+so type like this...
+
+337
+00:15:07,680 --> 0:15:17,839
+so this obj is... this one so SuperObject array
+
+340
+00:15:18,399 --> 00:15:28,480
+so basically we scan this SuperObject array one by one
+
+349
+00:15:40,000 --> 00:15:47,680
+we gonna call this draw method
+
+350
+00:15:43,839 --> 00:15:51,360
+and pass Graphics2D and this GamePanel
+
+352
+00:15:49,600 --> 00:15:55,600
+yeah that's it
+
+353
+00:15:51,360 --> 00:16:01,839
+this length is 10 so we're gonna scan from 0 to 9
+
+355
+00:15:58,079 --> 00:16:06,959
+and check if any object is inside of this array
+
+357
+00:16:03,600 --> 00:16:13,600
+we need to check if the slot is null or not otherwise we might get a NullPointer error 
+
+359
+00:16:10,959 --> 00:16:14,800
+so make sure to check it
+
+361
+00:16:14,800 --> 00:16:27,839
+alright so now we should be able to draw objects so let's check
+
+365
+00:16:28,240 --> 00:16:32,800
+yes, we found a key
+
+367
+00:16:34,480 --> 00:16:40,480
+this doesn't look so bad
+
+368
+00:16:36,720 --> 00:16:43,199
+this looks better than i thought
+
+369
+00:16:40,480 --> 00:16:43,199
+another one
+
+370
+00:16:44,000 --> 00:16:47,759
+yep another key is here
+
+371
+00:16:48,160 --> 00:16:53,759
+nothing happens yet though
+
+372
+00:16:50,880 --> 00:16:58,639
+so two keys are displayed so this is working good
+
+374
+00:16:55,279 --> 00:17:00,880
+okay let's create some more objects
+
+375
+00:16:58,639 --> 00:17:07,280
+so first inside of this object package, create a new class
+
+378
+00:17:05,679 --> 00:17:11,679
+i'm gonna name this OBJ_Door
+
+381
+00:17:12,400 --> 00:17:19,839
+and i think we can copy this
+
+389
+00:17:32,559 --> 00:17:38,240
+and the name is "Door"
+
+390
+00:17:34,559 --> 00:17:40,480
+we're gonna use this name a bit later
+
+391
+00:17:38,240 --> 00:17:47,280
+and the image is "door"
+
+393
+00:17:42,880 --> 00:17:48,320
+okay let's create one more class
+
+405
+00:18:08,080 --> 00:18:18,559
+so i'm gonna create three doors and place around here
+
+408
+00:18:16,160 --> 00:18:21,280
+and also around here
+
+410
+00:18:21,760 --> 00:18:26,480
+and also here
+
+411
+00:18:24,960 --> 00:18:33,280
+and place the treasure chest around here
+
+414
+00:18:30,640 --> 00:18:36,400
+okay so AssetSetter
+
+417
+00:18:36,400 --> 00:18:40,080
+i wanna create one more key
+
+418
+00:18:41,039 --> 00:18:47,440
+and i'm gonna place it somewhere around here
+
+423
+00:18:55,120 --> 00:19:01,760
+then create 3 doors
+
+432
+00:19:20,720 --> 00:19:26,799
+and also treasure chest
+
+437
+00:19:38,080 --> 00:19:43,280
+okay so coordinate
+
+438
+00:19:41,679 --> 00:19:44,880
+column 10
+
+439
+00:19:43,280 --> 00:19:46,000
+row 9
+
+443
+00:19:50,080 --> 00:19:56,960
+and the chest is column 10 and row 7
+
+446
+00:19:59,440 --> 00:20:05,200
+so let's check this
+
+447
+00:20:03,039 --> 00:20:09,600
+okay so first let's check the third key
+
+450
+00:20:12,240 --> 00:20:18,240
+oop i was expecting around here so...
+
+454
+00:20:24,159 --> 00:20:31,200
+okay so let's check the doors
+
+456
+00:20:28,799 --> 00:20:33,440
+okay so doors
+
+457
+00:20:31,200 --> 00:20:36,480
+the first door
+
+458
+00:20:33,440 --> 00:20:36,480
+the second door
+
+459
+00:20:36,720 --> 00:20:40,080
+and oh oh
+
+460
+00:20:40,320 --> 00:20:47,120
+not here it was supposed to be here
+
+461
+00:20:43,679 --> 00:20:50,640
+the chest is okay so let's adjust the placement
+
+463
+00:20:49,440 --> 00:20:56,640
+so 2 tiles to the bottom
+
+467
+00:20:56,640 --> 00:21:06,000
+okay so door is here and the chest is here
+
+469
+00:21:02,480 --> 00:21:08,720
+so now we got 3 keys, 3 doors and 1 chest
+
+472
+00:21:08,720 --> 00:21:17,440
+at the beginning of this series, i said we are going to make a simple treasure hunting game
+
+474
+00:21:14,240 --> 00:21:25,360
+and we are closing to the end of the first chapter of this tutorial
+
+477
+00:21:21,679 --> 00:21:28,080
+so the idea is... it's very simple
+
+478
+00:21:25,360 --> 00:21:33,120
+first we pick 3 keys, and open 3 doors, and get the treasure
+
+480
+00:21:32,000 --> 00:21:38,640
+right now, there is no collision and you can just walk through this door
+
+484
+00:21:38,640 --> 00:21:43,520
+but we are going to add collision to this door
+
+485
+00:21:40,960 --> 00:21:51,520
+and change the settings so we can open this door only when you have a key
+
+488
+00:21:48,880 --> 00:21:54,080
+there are 3 doors, so you need 3 keys
+
+489
+00:21:51,520 --> 00:21:58,520
+so that's what we're gonna do next
+
+491
+00:21:55,919 --> 00:22:10,369
+thanks for watching and until next time
+
+492
+00:21:58,520 --> 00:22:10,369
+[Music]
+

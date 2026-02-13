@@ -251,8 +251,8 @@ public class Player extends Entity {
                 gp.monster[i].life -= damage * 5;
                 gp.ui.addMessage(damage + " damage!");
                 System.out.println("HIT ");
-//                gp.monster[i].life -= 20;
-                // Anh Minh goi y: Them class de quan ly chi so: mau, toc do, tan cong 
+                // gp.monster[i].life -= 20;
+                // Anh Minh goi y: Them class de quan ly chi so: mau, toc do, tan cong
                 gp.monster[i].invincible = true;
                 gp.monster[i].damageReaction();
                 if (gp.monster[i].life <= 0) {
@@ -277,11 +277,11 @@ public class Player extends Entity {
             defense = getDefense();
 
             gp.playSE(8);
-            gp.gameState = gp.dialogueState;            
+            gp.gameState = gp.dialogueState;
             gp.ui.addMessage("Level up!");
             gp.ui.currentDialogue = "You are level " + level + " now!\n"
                     + "You feel stronger!";
-//              
+            //
         }
     }
 
@@ -291,17 +291,17 @@ public class Player extends Entity {
     }
 
     public void interactNPC(int i) {
-//        if (gp.keyH.enterPressed == true) {
-//            if (i != 999) {
-//                attackCanceled = true;
-//                gp.gameState = gp.dialogueState;
-//                gp.npc[i].speak();
-//            }
-//        }
+        // if (gp.keyH.enterPressed == true) {
+        // if (i != 999) {
+        // attackCanceled = true;
+        // gp.gameState = gp.dialogueState;
+        // gp.npc[i].speak();
+        // }
+        // }
 
         if (gp.keyH.enterPressed == true) {
             if (i != 999) {
-//                attackCanceled = true;
+                // attackCanceled = true;
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
             } else {

@@ -1,0 +1,696 @@
+1
+00:00:00,480 --> 00:00:06,879
+hi guys, this is RyiSnow 
+
+2
+00:00:03,679 --> 00:00:10,080
+last time, we created some objects and displayed them on the screen
+
+4
+00:00:08,400 --> 00:00:16,960
+but now, nothing happens even if you touch it
+
+6
+00:00:13,440 --> 00:00:25,920
+so this time, we will implement object collision and also the reactions of these objects
+
+9
+00:00:22,800 --> 00:00:34,719
+we've already done tile collision so we use this CollisionChecker class again
+
+12
+00:00:30,960 --> 00:00:39,280
+but this time, we use a different method to check collision
+
+14
+00:00:36,320 --> 00:00:44,879
+and to check object collision, we need to do a little preparation
+
+16
+00:00:42,480 --> 00:00:46,399
+first, open this Entity class
+
+17
+00:00:44,879 --> 00:00:54,800
+and after this solidArea, we're gonna add two integer variable
+
+31
+00:01:07,200 --> 00:01:11,200
+and go to this Player class
+
+32
+00:01:11,280 --> 00:01:20,159
+we add this solidAreaDefaultX
+
+36
+00:01:19,280 --> 00:01:25,240
+so basically, defaultX is this one
+
+52
+00:02:00,560 --> 00:02:10,560
+the reason we do this is, we want to record the default values
+
+54
+00:02:06,799 --> 00:02:14,879
+because we're gonna change these x and y values later
+
+56
+00:02:11,760 --> 00:02:16,160
+and go to this SuperObject
+
+57
+00:02:14,879 --> 00:02:28,160
+and here, we create a Rectangle and instantiate it
+
+64
+00:02:37,519 --> 00:02:46,080
+so like player character, each object has this solidArea
+
+66
+00:02:43,599 --> 00:02:47,519
+and i use the default value 
+
+67
+00:02:46,080 --> 00:02:55,440
+so basically, the whole tile, all this object tile is solid
+
+70
+00:02:52,239 --> 00:03:01,280
+but if you want to set the specific solidArea for each object, you can do that
+
+72
+00:02:58,879 --> 00:03:06,879
+in that case, for example, you open this OBJ_Key and...
+
+78
+00:03:11,760 --> 00:03:16,400
+something like this
+
+79
+00:03:13,519 --> 00:03:22,720
+but this time, we don't set specific solidArea for each object
+
+81
+00:03:19,440 --> 00:03:25,120
+but all the objects use the same this solidArea
+
+88
+00:03:34,239 --> 00:03:39,840
+and in this case, 0
+
+92
+00:03:42,239 --> 00:03:49,599
+this is also 0
+
+93
+00:03:47,920 --> 00:03:54,720
+let's open this Door class
+
+95
+00:03:51,360 --> 00:03:57,519
+we want to make this solid so we add...
+
+99
+00:03:58,840 --> 00:04:05,840
+okay i think that's all for the preparation
+
+100
+00:04:02,720 --> 00:04:10,959
+so let's go to this CollisionChecker
+
+102
+00:04:08,080 --> 00:04:12,080
+we're gonna create a new method
+
+103
+00:04:10,959 --> 00:04:17,359
+this time, not checkTile but checkObject
+
+105
+00:04:14,879 --> 00:04:21,680
+also this method is not void but the integer
+
+109
+00:04:23,840 --> 00:04:30,000
+and we receive an Entity
+
+112
+00:04:30,000 --> 00:04:36,639
+and also a boolean
+
+114
+00:04:33,600 --> 00:04:39,120
+i'm gonna name this player
+
+115
+00:04:36,639 --> 00:04:44,160
+first we receive an Entity, so player or maybe other characters
+
+117
+00:04:42,560 --> 00:04:52,880
+and also we're gonna check if this Entity is player or not
+
+120
+00:04:50,000 --> 00:04:58,000
+and since this is "int", we need to return integer
+
+122
+00:04:55,680 --> 00:05:00,160
+so first, we create this integer
+
+124
+00:04:59,120 --> 00:05:04,080
+and name this "index"
+
+129
+00:05:08,960 --> 00:05:13,440
+and return this index
+
+131
+00:05:15,120 --> 00:05:24,560
+so what we do in this method is, we check if player is hitting any object
+
+133
+00:05:21,759 --> 00:05:27,840
+and if he is, we return the index of the object
+
+136
+00:05:27,840 --> 00:05:34,000
+so we can process the reaction accordingly
+
+137
+00:05:32,160 --> 00:05:38,960
+okay next, we create a for loop
+
+142
+00:05:54,400 --> 00:05:58,880
+we're gonna scan this object array
+
+143
+00:05:59,360 --> 00:06:05,720
+yeah this one
+
+144
+00:06:01,360 --> 00:06:12,240
+then first, we check if it is "null" or not
+
+147
+00:06:13,039 --> 00:06:17,039
+if it's not null,
+
+148
+00:06:14,960 --> 00:06:27,440
+then we need to know the Entity's solidArea posision
+
+154
+00:06:24,960 --> 00:06:37,280
+also, we need to get the object's solidArea position
+
+176
+00:07:18,319 --> 00:07:21,199
+okay
+
+177
+00:07:19,360 --> 00:07:29,199
+last time, we tried to find out this column and the row numbers
+
+180
+00:07:27,120 --> 00:07:32,400
+but this time, we don't need to do that
+
+181
+00:07:29,199 --> 00:07:35,840
+we only need to find out the solidArea's x and y
+
+184
+00:07:35,840 --> 00:07:41,120
+then we're going to find out the object's x and y
+
+189
+00:07:46,319 --> 00:07:51,759
+so basically it's the same
+
+209
+00:08:26,160 --> 00:08:32,159
+yeah that's it
+
+210
+00:08:28,160 --> 00:08:36,159
+so we found out entity's and object's solidArea position
+
+212
+00:08:34,719 --> 00:08:44,240
+and now, we create a switch and check the Entity's direction
+
+221
+00:09:05,200 --> 00:09:13,040
+so after it goes up, where it will be?
+
+223
+00:09:09,279 --> 00:09:14,160
+we find it out so...
+
+226
+00:09:17,120 --> 00:09:24,560
+since it's going up so minus y
+
+228
+00:09:24,720 --> 00:09:30,000
+and if it's going down...
+
+233
+00:09:38,720 --> 00:09:43,760
+and if it's going left then...
+
+242
+00:10:01,519 --> 00:10:12,640
+so this is the y position this entity will be after it moved
+
+245
+00:10:09,040 --> 00:10:14,399
+this rectangle class has a beautiful method called "intersects"
+
+249
+00:10:17,519 --> 00:10:22,959
+let me type first
+
+259
+00:10:39,760 --> 00:10:45,120
+so you can type like this
+
+260
+00:10:42,560 --> 00:10:56,399
+this automatically checks if these two rectangles are colliding or not
+
+264
+00:10:53,519 --> 00:11:03,760
+to use this intersects we needed to find out these solidAreas' current position
+
+268
+00:11:01,279 --> 00:11:07,760
+if the Entity is touching this object then uh...
+
+270
+00:11:04,800 --> 00:11:08,560
+okay so for testing, let's show some text
+
+272
+00:11:08,560 --> 00:11:16,160
+"up collision!" or something
+
+273
+00:11:12,880 --> 00:11:24,320
+so basically we can copy this to each case
+
+283
+00:11:36,480 --> 00:11:49,519
+alright and after this switch statement, we need to reset this entity's and object's solidArea
+
+287
+00:11:47,360 --> 00:11:55,760
+otherwise this x and y keep increasing
+
+289
+00:11:51,680 --> 00:11:59,360
+so we need to reset these numbers after this switch statement
+
+299
+00:12:09,200 --> 00:12:13,279
+this time we can use this...
+
+317
+00:13:01,360 --> 00:13:04,079
+okay
+
+319
+00:13:04,079 --> 00:13:09,040
+yeah this is okay for now
+
+320
+00:13:06,399 --> 00:13:13,279
+let's call this checkObject method
+
+322
+00:13:10,480 --> 00:13:14,720
+so go to this Player class
+
+324
+00:13:14,720 --> 00:13:28,480
+and after checking this tile collision, we're gonna check object collision
+
+332
+00:13:32,959 --> 00:13:43,120
+and pass this Player class as an Entity
+
+335
+00:13:39,120 --> 00:13:51,839
+and player boolean is... since this is player so the boolean is true
+
+338
+00:13:48,079 --> 00:13:59,040
+ah and also, since this returns index as an integer so let's get it
+
+346
+00:14:04,959 --> 00:14:08,399
+like this
+
+347
+00:14:06,079 --> 00:14:13,680
+but before using this, let's check the current program 
+
+349
+00:14:11,600 --> 00:14:18,639
+and see if the collision is really working or not
+
+354
+00:14:24,240 --> 00:14:36,399
+touching a key. up, left, right... and down
+
+359
+00:14:34,639 --> 00:14:38,000
+up
+
+360
+00:14:36,399 --> 00:14:40,320
+right
+
+361
+00:14:38,000 --> 00:14:40,320
+left
+
+362
+00:14:40,399 --> 00:14:44,800
+okay so it's working
+
+363
+00:14:42,880 --> 00:14:47,120
+so let's remove this text
+
+365
+00:14:48,720 --> 00:14:54,560
+and instead, another if statement
+
+368
+00:14:54,560 --> 00:15:02,639
+so we're gonna check if this object is a solid object or not
+
+370
+00:15:03,680 --> 00:15:09,519
+so first, we check it and if it's solid then...
+
+374
+00:15:16,639 --> 00:15:24,040
+also we're gonna check if this is player or not
+
+377
+00:15:26,320 --> 00:15:30,240
+so this one is boolean
+
+379
+00:15:30,240 --> 00:15:43,759
+if this is player, we get this index and return it
+
+382
+00:15:40,880 --> 00:15:53,199
+but if it's not player, for example, if it is an NPC or a monster then we don't do anything
+
+385
+00:15:49,279 --> 00:15:54,560
+and we can copy this and paste
+
+388
+00:15:57,759 --> 00:16:04,480
+alright, i think this method is done
+
+389
+00:16:01,600 --> 00:16:13,759
+yeah like i said, this method is different from this checkTile method
+
+392
+00:16:09,920 --> 00:16:17,279
+i like this intersects
+
+393
+00:16:13,759 --> 00:16:19,519
+it's very convenient and clean
+
+394
+00:16:17,279 --> 00:16:26,320
+so maybe you think, why I didn't use this for checking tile collision as well
+
+396
+00:16:22,959 --> 00:16:28,560
+the reason i didn't use this for tile collision is
+
+397
+00:16:26,320 --> 00:16:34,079
+for this object, we only need to scan a limited number of object
+
+399
+00:16:31,920 --> 00:16:43,440
+in this case, up to 10 objects so it doesn't take much
+
+403
+00:16:39,279 --> 00:16:52,079
+but if we do this for background tiles, we basically need to scan all the tiles on the screen
+
+406
+00:16:48,480 --> 00:16:57,279
+and check one by one if any of them is touching this entity's solidArea
+
+409
+00:16:57,279 --> 00:17:05,760
+that's okay and i believe our program still works just fine
+
+412
+00:17:03,279 --> 00:17:16,000
+but if we use our current method, we only need to check two tiles for each direction
+
+416
+00:17:12,959 --> 00:17:19,919
+so that's why i didn't use intersects for checking tiles
+
+419
+00:17:19,919 --> 00:17:25,120
+but it really depends i think
+
+420
+00:17:22,720 --> 00:17:32,640
+either way works so it really depends on how your game is constructed
+
+423
+00:17:29,919 --> 00:17:36,240
+alright, this is done so let's go back to this Player class
+
+426
+00:17:36,240 --> 00:17:47,280
+then based on this index number, we type what's going to happen if player touches this object
+
+429
+00:17:44,000 --> 00:17:55,679
+we can type it here but i think it would be better if we handle it in a separated method
+
+432
+00:17:52,480 --> 00:17:55,679
+so we create a new method
+
+433
+00:17:55,840 --> 00:18:01,280
+after this, i think
+
+438
+00:18:05,760 --> 00:18:11,200
+and we get an index
+
+442
+00:18:13,600 --> 00:18:24,400
+so let's call this and pass objIndex
+
+446
+00:18:31,679 --> 00:18:38,320
+okay and first, create an if statement
+
+451
+00:18:43,840 --> 00:18:53,039
+if this index is 999, that means we didn't touch any object
+
+453
+00:18:49,760 --> 00:18:56,559
+but if the index is not 999, then we have touched an object
+
+456
+00:18:56,559 --> 00:19:02,880
+so we can do something about it
+
+457
+00:18:59,679 --> 00:19:08,400
+and i think the simplest reaction would be like this
+
+463
+00:19:12,960 --> 00:19:23,640
+this simply delete the object that we just touched
+
+466
+00:19:18,880 --> 00:19:23,640
+so let's see how it looks
+
+467
+00:19:26,320 --> 00:19:29,280
+yeah, like this
+
+469
+00:19:34,559 --> 00:19:39,120
+so the key just disappeared
+
+470
+00:19:36,720 --> 00:19:45,360
+but of course, this reaction is just too simple
+
+472
+00:19:41,919 --> 00:19:50,000
+so let's set specific reactions on each object
+
+474
+00:19:46,720 --> 00:19:54,000
+okay first, let's create an integer
+
+477
+00:19:54,000 --> 00:20:00,080
+i'm gonna name this "hasKey"
+
+480
+00:20:00,080 --> 00:20:10,799
+so this indicates how many keys the player currently has
+
+483
+00:20:07,200 --> 00:20:16,240
+go back to this pickUpObject
+
+485
+00:20:13,360 --> 00:20:17,919
+so we don't need this anymore
+
+487
+00:20:17,919 --> 00:20:22,159
+we get this object name
+
+491
+00:20:28,000 --> 00:20:39,760
+we have input a name so it's time to use this
+
+494
+00:20:36,720 --> 00:20:42,559
+so we got a name
+
+497
+00:20:46,880 --> 00:20:51,280
+and the case is "Key"
+
+498
+00:20:52,000 --> 00:20:56,480
+and also "Door"
+
+500
+00:20:57,760 --> 00:21:04,960
+if it was "Key" then hasKey++
+
+505
+00:21:11,280 --> 00:21:17,120
+we want to make it disappear
+
+507
+00:21:17,120 --> 00:21:21,760
+let's take care of this door too
+
+508
+00:21:19,760 --> 00:21:28,080
+so first, we check if player has a key or keys
+
+516
+00:21:36,159 --> 00:21:42,320
+so this door object will disappear
+
+520
+00:21:48,240 --> 00:21:54,159
+like this
+
+521
+00:21:50,159 --> 00:21:59,120
+okay, let's display some information on console 
+
+525
+00:22:01,760 --> 00:22:08,960
+so we know how many keys we have right now
+
+530
+00:22:12,720 --> 00:22:18,159
+yeah let's check this
+
+532
+00:22:18,159 --> 00:22:23,120
+let me see the console
+
+534
+00:22:23,120 --> 00:22:26,080
+let's get the key
+
+535
+00:22:33,679 --> 00:22:40,799
+okay now let's open the door
+
+536
+00:22:37,440 --> 00:22:41,680
+open the door
+
+537
+00:22:40,799 --> 00:22:44,809
+open the door
+
+539
+00:22:45,120 --> 00:22:50,799
+and we cannot open this one because we have no key
+
+540
+00:22:48,000 --> 00:22:57,440
+so we need to get another key to open this door
+
+542
+00:22:53,760 --> 00:23:00,640
+i think this is working good
+
+543
+00:22:57,440 --> 00:23:04,159
+so now the player can get keys and open doors
+
+545
+00:23:02,320 --> 00:23:10,080
+but still, this is a very simple way to handle objects' reactions
+
+547
+00:23:07,600 --> 00:23:17,200
+we will create more organized system to handle this in the second chapter of this tutorial series
+
+550
+00:23:15,039 --> 00:23:23,679
+like, getting items in your inventory and stuff like that
+
+552
+00:23:20,400 --> 00:23:26,159
+but for now this should be enough
+
+553
+00:23:23,679 --> 00:23:29,039
+okay, so that's it for now
+
+554
+00:23:26,159 --> 00:23:40,280
+in the next video, we will add one more item, music, and sound effect
+
+557
+00:23:35,440 --> 00:23:40,280
+thanks for watching and until next time
+
+558
+00:23:43,300 --> 00:23:49,920
+[Music]
+

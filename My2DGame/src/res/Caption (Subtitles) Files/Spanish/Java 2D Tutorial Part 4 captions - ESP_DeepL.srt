@@ -1,0 +1,992 @@
+1
+00:00:00,560 --> 00:00:07,839
+la última vez que cargamos los sprites de los personajes
+
+3
+00:00:05,279 --> 00:00:16,240
+e implementamos un sencillo sistema de animación para poder controlar a nuestro personaje jugador
+
+6
+00:00:12,559 --> 00:00:18,720
+ahora vamos a dibujar algunos azulejos de fondo 
+
+7
+00:00:16,240 --> 00:00:27,599
+por cierto, ya no necesitamos estas variables ya que nos encargamos del movimiento del jugador en la clase Player
+
+10
+00:00:25,039 --> 00:00:27,599
+así que puedes borrar esto
+
+11
+00:00:27,760 --> 00:00:37,760
+así que primero necesitamos algunas imágenes de azulejos de fondo
+
+13
+00:00:33,840 --> 00:00:41,280
+así que he preparado tres azulejos
+
+14
+00:00:37,760 --> 00:00:45,840
+añadiremos más baldosas más tarde pero por ahora tres baldosas deberían ser suficientes
+
+16
+00:00:43,040 --> 00:00:50,559
+dentro de este paquete de recursos vamos a crear otro paquete
+
+18
+00:00:48,079 --> 00:00:53,039
+Voy a llamarlo "azulejos"
+
+20
+00:00:54,399 --> 00:01:04,399
+y vamos a copiar estas imágenes de azulejos al paquete de azulejos
+
+24
+00:01:07,360 --> 00:01:15,920
+y luego desde esta carpeta fuente vamos a crear otro paquete
+
+27
+00:01:17,680 --> 00:01:27,560
+y dentro de este paquete tile, crearemos una clase llamada Tile
+
+31
+00:01:28,560 --> 00:01:37,600
+y esta es una clase que representa un solo azulejo
+
+33
+00:01:34,079 --> 00:01:38,840
+y por ahora añadimos dos elementos 
+
+34
+00:01:37,600 --> 00:01:42,159
+el uno es...
+
+38
+00:01:47,119 --> 00:01:51,680
+y el otro es...
+
+43
+00:02:01,759 --> 00:02:07,439
+asi que esta clase esta bien por ahora
+
+44
+00:02:04,320 --> 00:02:10,959
+ahora vamos a crear otra clase
+
+45
+00:02:07,439 --> 00:02:13,120
+dentro de este paquete tile
+
+46
+00:02:10,959 --> 00:02:17,280
+Voy a llamar a esto TileManager
+
+49
+00:02:17,360 --> 00:02:24,239
+En esta clase, primero vamos a utilizar GamePanel
+
+52
+00:02:24,239 --> 00:02:30,000
+y también esta clase Tile
+
+55
+00:02:30,000 --> 00:02:37,840
+creamos este Tile como un callejón y lo nombramos "tile"
+
+57
+00:02:38,319 --> 00:02:44,319
+import GamePanel
+
+58
+00:02:40,480 --> 00:02:46,879
+entonces vamos a crear un constructor
+
+60
+00:02:46,879 --> 00:02:53,200
+y vamos a obtener GamePanel como "gp"
+
+64
+00:02:58,800 --> 00:03:06,080
+también vamos a establecer el tamaño de este Tile array
+
+67
+00:03:06,080 --> 00:03:11,360
+Voy a elegir 10 por ahora 
+
+68
+00:03:10,319 --> 00:03:16,319
+esto significa que vamos a crear 10 tipos de baldosas
+
+70
+00:03:13,120 --> 00:03:22,000
+como un azulejo de cristal, un azulejo de agua, un azulejo de pared...
+
+72
+00:03:19,440 --> 00:03:31,120
+si necesitamos mas, siempre podemos cambiar este numero a 15 o 20
+
+75
+00:03:27,599 --> 00:03:35,200
+pero creo que 10 es suficiente
+
+76
+00:03:31,120 --> 00:03:39,120
+a continuación, cree un método
+
+78
+00:03:41,040 --> 00:03:48,480
+y vamos a llamar a este método desde este constructor
+
+81
+00:03:48,720 --> 00:03:54,560
+similar a la clase Player
+
+82
+00:03:51,920 --> 00:04:01,840
+así que vamos a cargar estas imágenes de azulejos en este método getTileImage 
+
+84
+00:03:58,319 --> 00:04:01,840
+así que de nuevo, prueba y captura
+
+88
+00:04:14,560 --> 00:04:22,400
+y aquí vamos a instanciar este array Tile
+
+101
+00:04:46,880 --> 00:04:53,280
+y luego escribiremos la ruta del archivo
+
+103
+00:04:50,080 --> 00:04:58,000
+así que la ruta del archivo será... ya que estos están dentro de este paquete de azulejos así que...
+
+108
+00:05:03,520 --> 00:05:12,240
+creamos este BufferedImage dentro de esta clase Tile
+
+111
+00:05:10,720 --> 00:05:20,240
+vamos a poner esta imagen de archivo tile dentro de este BufferedImage
+
+114
+00:05:17,520 --> 00:05:24,639
+vamos a copiar esto y pegarlo
+
+119
+00:05:28,560 --> 00:05:36,840
+y la baldosa[1] será pared
+
+121
+00:05:33,360 --> 00:05:42,160
+y la baldosa[2] será agua
+
+123
+00:05:39,759 --> 00:05:44,479
+la instanciación está hecha
+
+124
+00:05:42,160 --> 00:05:54,560
+y también creamos un método draw dentro de este TileManager
+
+132
+00:06:00,479 --> 00:06:06,639
+import
+
+133
+00:06:02,720 --> 00:06:09,919
+así que vamos a dibujar un azulejo para la prueba
+
+134
+00:06:06,639 --> 00:06:11,440
+para dibujar una baldosa, escribe así 
+
+139
+00:06:17,520 --> 00:06:24,639
+primero un BufferedImage
+
+141
+00:06:20,400 --> 00:06:25,759
+así que vamos a dibujar este mosaico de hierba
+
+144
+00:06:27,280 --> 00:06:34,560
+y luego x e y, 0 y 0
+
+146
+00:06:32,160 --> 00:06:44,000
+y anchura y altura, gp.tileSize y gp.tileSize
+
+149
+00:06:38,639 --> 00:06:46,479
+y el ImageObserver es null
+
+151
+00:06:46,720 --> 00:06:52,639
+y ahora vamos a esta clase GamePanel
+
+153
+00:06:52,639 --> 00:07:00,840
+instanciamos este TileManager
+
+160
+00:07:06,319 --> 00:07:14,160
+y pasa esta clase GamePanel
+
+163
+00:07:14,160 --> 00:07:22,880
+luego dentro de este paintComponent vamos a escribir...
+
+167
+00:07:22,880 --> 00:07:30,400
+vamos a llamar al método draw dentro del TileManager
+
+170
+00:07:28,639 --> 00:07:38,560
+y asegúrate de escribir esta línea antes de "player.draw(g2)"
+
+173
+00:07:35,440 --> 00:07:43,919
+es como una capa. en este caso dibujamos primero las baldosas, luego el jugador
+
+175
+00:07:41,680 --> 00:07:55,360
+si es al revés, los azulejos del fondo ocultarán al personaje del jugador para que no podamos verlo
+
+179
+00:07:51,120 --> 00:07:58,840
+así que asegúrate de dibujar las baldosas antes que el jugador
+
+180
+00:07:55,360 --> 00:07:58,840
+comprobemos esto
+
+181
+00:07:58,960 --> 00:08:04,800
+Sí, de acuerdo.
+
+182
+00:08:00,879 --> 00:08:06,879
+así que nuestro primer azulejo se muestra
+
+183
+00:08:04,800 --> 00:08:09,599
+así que vamos a dibujar algunos azulejos más
+
+184
+00:08:06,879 --> 00:08:13,120
+volvemos a la clase TileManager
+
+185
+00:08:09,599 --> 00:08:16,479
+copiamos esto y lo pegamos
+
+187
+00:08:15,039 --> 00:08:24,960
+dibuja un azulejo de pared y un azulejo de agua
+
+190
+00:08:20,960 --> 00:08:29,840
+pero tenemos que cambiar este x y y de lo contrario es sólo sobrescribir
+
+192
+00:08:28,160 --> 00:08:34,560
+así que vamos a añadir un tamaño de mosaico a x
+
+195
+00:08:34,560 --> 00:08:46,480
+y añadimos el tamaño de la baldosa de nuevo así 48 más 48 será 96
+
+198
+00:08:44,080 --> 00:08:49,279
+Bien, comprobemos esto
+
+199
+00:08:46,480 --> 00:08:56,560
+Bien. Hemos dibujado una baldosa de hierba, una de pared y una de agua.
+
+204
+00:08:56,560 --> 00:09:01,640
+así, podemos dibujar baldosas en la pantalla
+
+207
+00:09:14,560 --> 00:09:17,680
+así que vamos a comprobar esto
+
+208
+00:09:18,800 --> 00:09:21,360
+de acuerdo
+
+210
+00:09:23,519 --> 00:09:33,200
+Acabo de crear 5 azulejos horizontalmente, 5 azulejos verticalmente
+
+213
+00:09:30,720 --> 00:09:34,399
+eso es lo que he escrito
+
+214
+00:09:33,200 --> 00:09:44,320
+pero obviamente esta no es la forma más eficiente de escribir o dibujar
+
+218
+00:09:41,279 --> 00:09:46,160
+es demasiado teclear
+
+219
+00:09:44,320 --> 00:09:53,279
+así que necesitamos un sistema de dibujo de azulejos más eficiente
+
+221
+00:09:50,560 --> 00:09:57,120
+así que no hagamos esto
+
+222
+00:09:53,279 --> 00:10:00,399
+en su lugar, vamos a crear un bucle while
+
+223
+00:09:57,120 --> 00:10:06,399
+y automatizaremos el proceso para evitar teclear mucho
+
+225
+00:10:02,959 --> 00:10:08,720
+primero crear algunas variables
+
+235
+00:10:25,839 --> 00:10:30,800
+luego crea un bucle while
+
+237
+00:10:30,880 --> 00:10:41,920
+entonces este bucle continua si col es menor que gp.max...
+
+241
+00:10:39,839 --> 00:10:43,120
+oh ok
+
+242
+00:10:41,920 --> 00:10:46,640
+ah lo siento
+
+243
+00:10:43,120 --> 00:10:50,480
+necesitamos cambiar estas variables a "public"
+
+253
+00:11:02,959 --> 00:11:08,680
+y también esta fila de enteros es más pequeña que...
+
+258
+00:11:14,399 --> 00:11:20,959
+así que dentro de este bucle vamos a dibujar los azulejos
+
+262
+00:11:23,040 --> 00:11:29,839
+así que por ahora vamos a dibujar una baldosa de hierba
+
+268
+00:11:36,399 --> 00:11:41,120
+estas son las variables
+
+271
+00:11:46,560 --> 00:11:48,959
+ok
+
+272
+00:11:48,079 --> 00:11:53,600
+primero, col es 0 y row es 0 
+
+274
+00:11:51,519 --> 00:11:56,639
+y x es 0 y y es 0
+
+275
+00:11:53,600 --> 00:12:00,399
+básicamente esto es 0:0
+
+276
+00:11:56,639 --> 00:12:02,720
+así que va a dibujar un azulejo en 0:0
+
+277
+00:12:00,399 --> 00:12:02,720
+aquí
+
+278
+00:12:02,959 --> 00:12:09,920
+después de eso vamos a aumentar este col en 1
+
+280
+00:12:08,240 --> 00:12:12,560
+y después vamos a incrementar esta x
+
+288
+00:12:30,240 --> 00:12:36,720
+así que aumentamos este col de uno en uno 
+
+289
+00:12:33,360 --> 00:12:43,120
+y si esto alcanza este maxScreenCol que es 16
+
+291
+00:12:39,360 --> 00:12:49,120
+entonces vamos a resetear este col y también este x
+
+293
+00:12:46,720 --> 00:12:54,639
+y luego incrementamos esta fila en 1
+
+295
+00:12:50,720 --> 00:12:56,160
+y también aumentar esta posición y
+
+299
+00:13:02,880 --> 00:13:08,880
+Ok, creo. Comprobemos esto
+
+301
+00:13:11,200 --> 00:13:20,160
+así que hemos conseguido colocar baldosas en toda la pantalla
+
+304
+00:13:16,800 --> 00:13:22,320
+pero sólo estamos usando la baldosa de hierba
+
+305
+00:13:20,160 --> 00:13:27,519
+para renderizar un mapa real, primero creamos un mapa de datos
+
+307
+00:13:26,560 --> 00:13:34,399
+luego dejamos que este bucle lea los datos
+
+309
+00:13:30,480 --> 00:13:38,480
+y para almacenar estos datos del mapa usamos un archivo de texto
+
+311
+00:13:35,600 --> 00:13:44,560
+es un método simple pero también bastante popular y efectivo
+
+313
+00:13:41,839 --> 00:13:50,000
+primero abre este bloc de notas
+
+315
+00:13:47,199 --> 00:13:51,279
+y luego vamos a escribir...
+
+320
+00:14:00,399 --> 00:14:10,399
+y vamos a copiar esto y pegarlo 11 veces
+
+323
+00:14:10,399 --> 00:14:18,720
+así que una sola línea tiene 16 ceros y tiene 12 líneas
+
+325
+00:14:16,800 --> 00:14:24,320
+y cada número representa un azulejo
+
+327
+00:14:20,880 --> 00:14:33,040
+así que este es un mapa de 16x12 azulejos que es el mismo tamaño que nuestra pantalla
+
+329
+00:14:28,000 --> 00:14:38,320
+y este 0 significa número de mosaico, así que es un mosaico de hierba
+
+331
+00:14:35,920 --> 00:14:42,800
+así que si quieres colocar una baldosa de pared sólo tienes que cambiar esto a 1
+
+334
+00:14:42,839 --> 00:14:52,160
+y si queremos colocar una baldosa de agua, cambiamos el número a 2
+
+338
+00:14:52,160 --> 00:14:57,639
+déjame crear un mapa de ejemplo muy rápido
+
+340
+00:15:08,480 --> 00:15:13,839
+algo como esto
+
+341
+00:15:10,000 --> 00:15:13,839
+ahora vamos a guardar el archivo
+
+342
+00:15:14,320 --> 00:15:23,040
+voy a llamarlo simplemente "map01.txt"
+
+346
+00:15:24,839 --> 00:15:31,440
+entonces dentro de esta carpeta res, crea otro paquete
+
+349
+00:15:32,560 --> 00:15:37,920
+Voy a llamarlo "mapas".
+
+351
+00:15:38,800 --> 00:15:46,240
+¿dónde está el archivo?
+
+354
+00:15:46,240 --> 00:15:54,600
+Bien, vamos a copiar este archivo de mapa a la carpeta "maps".
+
+358
+00:15:54,880 --> 00:16:03,839
+así que tenemos este archivo de datos de mapa así que vamos a cargar estos datos
+
+360
+00:16:01,440 --> 00:16:06,839
+primero, crea una variable
+
+367
+00:16:13,920 --> 00:16:20,959
+y esto va a ser una matriz
+
+369
+00:16:18,480 --> 00:16:27,839
+y dentro de este constructor vamos a instanciar este mapTileNum
+
+373
+00:16:29,839 --> 00:16:33,600
+y el tamaño es...
+
+379
+00:16:42,160 --> 00:16:54,959
+así que básicamente vamos a poner todos estos números en esta matriz mapTileNum
+
+383
+00:16:52,800 --> 00:16:59,519
+para ello, vamos a crear otro método
+
+388
+00:17:04,559 --> 00:17:08,240
+así que otro try y catch
+
+389
+00:17:10,400 --> 00:17:15,120
+esta vez sólo "Exception e"
+
+392
+00:17:20,720 --> 00:17:26,480
+vamos a utilizar esta clase InputStream
+
+397
+00:17:31,120 --> 00:17:41,520
+y aquí vamos a escribir la ruta de este archivo de texto
+
+406
+00:17:49,840 --> 00:17:55,360
+e importaremos este InputStream
+
+421
+00:18:16,160 --> 00:18:21,280
+importa esto
+
+423
+00:18:19,440 --> 00:18:23,520
+y también esto
+
+426
+00:18:23,520 --> 00:18:33,840
+así que usamos este InputStream para importar este archivo de texto
+
+428
+00:18:30,960 --> 00:18:42,400
+y vamos a utilizar este BufferedReader para leer el contenido de este archivo de texto
+
+431
+00:18:39,039 --> 00:18:45,760
+es sólo un formato para leer este archivo de texto
+
+433
+00:18:43,520 --> 00:18:53,520
+y después de esto, de nuevo vamos a crear un entero "col"
+
+436
+00:18:49,600 --> 00:18:57,440
+empezar desde 0 y una fila entera, empezar desde 0
+
+438
+00:18:54,960 --> 00:18:59,760
+y bucle while de nuevo
+
+441
+00:19:03,840 --> 00:19:08,559
+así que más pequeño que maxScreenColl 
+
+442
+00:19:07,360 --> 00:19:19,280
+y también row es menor que gp.maxScreenRow
+
+447
+00:19:17,039 --> 00:19:22,840
+dentro de este bucle while vamos a leer este archivo de texto
+
+449
+00:19:21,919 --> 00:19:30,080
+y maxScreenCol o maxScreenRow es el límite de este bucle
+
+451
+00:19:26,720 --> 00:19:35,360
+porque no tiene datos más allá de ese límite
+
+459
+00:19:46,160 --> 00:19:51,600
+así que este BufferedReader puede leer archivos de texto
+
+460
+00:19:48,400 --> 00:20:02,000
+y este readLine significa que va a leer una sola línea
+
+463
+00:19:57,440 --> 00:20:05,679
+y la pondrá en esta cadena "line"
+
+464
+00:20:02,000 --> 00:20:14,559
+y una vez leída la línea, entramos en otro bucle while
+
+477
+00:20:31,600 --> 00:20:40,000
+y comillas dobles y un espacio
+
+479
+00:20:36,799 --> 00:20:43,600
+así que lo que estamos haciendo aquí es,
+
+480
+00:20:40,000 --> 00:20:49,840
+de la línea que acabamos de leer, vamos a obtener estos números uno por uno
+
+483
+00:20:49,840 --> 00:20:56,320
+y ponerlos en este callejón
+
+485
+00:20:55,200 --> 00:21:03,480
+y luego vamos a crear esta variable entera y nombrarla "num"
+
+493
+00:21:13,840 --> 00:21:20,159
+y el índice es "col"
+
+494
+00:21:17,840 --> 00:21:27,760
+así que básicamente estamos cambiando esto de String a Integer
+
+496
+00:21:23,600 --> 00:21:31,679
+este readLine sólo obtiene los datos como String
+
+497
+00:21:27,760 --> 00:21:37,919
+y dividimos esta línea y esto también es String 
+
+499
+00:21:35,039 --> 00:21:41,120
+así que tenemos que cambiar esto de String a Integer
+
+500
+00:21:37,919 --> 00:21:43,360
+para que podamos utilizarlos como un número
+
+502
+00:21:42,320 --> 00:21:49,120
+entonces vamos a utilizar este entero mapTileNum
+
+508
+00:21:54,080 --> 00:21:57,679
+el índice es col y row
+
+511
+00:21:59,280 --> 00:22:04,960
+después de esto vamos a aumentar este col en 1
+
+513
+00:22:03,760 --> 00:22:13,720
+y entonces si este col alcanza el maxScreenCol
+
+525
+00:22:28,559 --> 00:22:37,679
+finalmente vamos a cerrar este BufferedReader porque no vamos a usar este
+
+528
+00:22:34,559 --> 00:22:43,039
+Así que básicamente vamos a escanear este archivo de texto línea por línea
+
+530
+00:22:41,200 --> 00:22:48,799
+así que primero esta línea y dividirlo a cada número
+
+532
+00:22:44,480 --> 00:22:54,880
+y llevarlos a la mapTileNum
+
+534
+00:22:51,520 --> 00:22:57,200
+y una vez terminada esta línea entonces 
+
+535
+00:22:54,880 --> 00:23:00,080
+pasa a la siguiente línea y a la siguiente...
+
+537
+00:23:00,080 --> 00:23:04,000
+hasta que este bucle termine
+
+538
+00:23:04,480 --> 00:23:11,840
+así que ahora deberíamos ser capaces de cargar estos datos del mapa
+
+540
+00:23:10,320 --> 00:23:19,360
+vamos a dibujar los datos del mapa cargado
+
+542
+00:23:15,760 --> 00:23:20,159
+sólo tenemos que arreglar este bucle while un poco
+
+543
+00:23:19,360 --> 00:23:28,480
+en lugar de esta imagen fija, primero borramos esta 
+
+545
+00:23:24,000 --> 00:23:31,280
+y también creo que vamos a crear un entero
+
+553
+00:23:41,360 --> 00:23:46,000
+así que de nuevo empezamos desde 0
+
+556
+00:23:47,360 --> 00:23:57,360
+vamos a extraer un número de este mapTileNum y obtener esto como un número de baldosa
+
+559
+00:23:55,840 --> 00:24:00,720
+luego vamos a dibujar una imagen
+
+563
+00:24:02,799 --> 00:24:12,720
+así que esto va a funcionar como un índice de esta matriz Tile
+
+569
+00:24:15,600 --> 00:24:23,360
+así que si obtenemos el número 0 de este
+
+572
+00:24:20,799 --> 00:24:26,799
+va a dibujar una baldosa de hierba 
+
+573
+00:24:23,360 --> 00:24:28,960
+y si obtenemos 1 de este callejón entonces
+
+574
+00:24:26,799 --> 00:24:31,679
+va a dibujar un azulejo de la pared
+
+575
+00:24:28,960 --> 00:24:33,440
+si era 2 entonces va a dibujar un azulejo de agua
+
+576
+00:24:31,679 --> 00:24:41,919
+Así que todo se almacena dentro de esta matriz mapTileNum
+
+580
+00:24:39,600 --> 00:24:44,400
+ahora esto debería estar bien así que vamos a comprobarlo
+
+582
+00:24:45,360 --> 00:24:48,240
+oops
+
+583
+00:24:46,400 --> 00:24:50,480
+por qué
+
+584
+00:24:48,240 --> 00:24:50,480
+ah
+
+585
+00:24:50,559 --> 00:25:02,400
+ok no hemos llamado a este método de mapa de carga
+
+589
+00:25:02,799 --> 00:25:06,240
+esto debería estar bien
+
+590
+00:25:04,320 --> 00:25:07,279
+Comprobemos
+
+591
+00:25:06,240 --> 00:25:09,120
+de acuerdo
+
+594
+00:25:10,720 --> 00:25:18,080
+así que hemos conseguido dibujar un archivo de mapa
+
+596
+00:25:23,840 --> 00:25:26,880
+se ve bien creo
+
+597
+00:25:27,360 --> 00:25:34,000
+también acabo de recordar una cosa más
+
+600
+00:25:34,000 --> 00:25:41,279
+si esto esta bien pero...
+
+602
+00:25:37,760 --> 00:25:48,400
+probablemente sería mejor si pasamos un String aquí
+
+606
+00:25:46,559 --> 00:25:55,440
+vamos a pasar esta información de la ruta desde aquí y obtenerla como una cadena
+
+613
+00:26:02,559 --> 00:26:05,440
+y la pondremos aquí
+
+614
+00:26:04,240 --> 00:26:14,000
+porque quizás crees un mapa diferente más tarde
+
+618
+00:26:11,200 --> 00:26:16,480
+así que mapa02, mapa03 mapa04...
+
+619
+00:26:14,000 --> 00:26:20,960
+y cuando quieras cargar un mapa diferente
+
+621
+00:26:18,480 --> 00:26:25,360
+sólo tienes que llamar a este loadMap y escriba la ruta del archivo aquí
+
+623
+00:26:23,520 --> 00:26:27,840
+para no tener que crear otro método loadMap
+
+627
+00:26:34,159 --> 00:26:42,159
+de todas formas hemos conseguido cargar nuestro fichero de mapa y dibujar las baldosas en la pantalla
+
+630
+00:26:43,039 --> 00:26:49,440
+pero sigue siendo un mapa pequeño
+
+631
+00:26:45,520 --> 00:26:54,159
+es tan grande como una sola pantalla
+
+633
+00:26:52,960 --> 00:27:05,360
+así que la próxima vez vamos a crear un mapa del mundo que realmente vamos a utilizar en nuestro juego
+
+636
+00:27:00,080 --> 00:27:14,880
+e implementaremos una cámara de juego para que los azulejos del fondo cambien según el movimiento del personaje del jugador
+
+640
+00:27:12,480 --> 00:27:17,880
+gracias por mirar y hasta la proxima
+
+642
+00:27:21,090 --> 00:27:27,760
+[Música]vamos a comprobar
+
+591
+00:25:06,240 --> 00:25:09,120
+de acuerdo
+
+594
+00:25:10,720 --> 00:25:18,080
+así que hemos conseguido dibujar un archivo de mapa
+
+596
+00:25:23,840 --> 00:25:26,880
+se ve bien creo
+
+597
+00:25:27,360 --> 00:25:34,000
+también acabo de recordar una cosa más
+
+600
+00:25:34,000 --> 00:25:41,279
+si esto esta bien pero...
+
+602
+00:25:37,760 --> 00:25:48,400
+probablemente sería mejor si pasamos un String aquí
+
+606
+00:25:46,559 --> 00:25:55,440
+vamos a pasar esta información de la ruta desde aquí y obtenerla como una cadena
+
+613
+00:26:02,559 --> 00:26:05,440
+y la pondremos aquí
+
+614
+00:26:04,240 --> 00:26:14,000
+porque quizás crees un mapa diferente más tarde
+
+618
+00:26:11,200 --> 00:26:16,480
+así que mapa02, mapa03 mapa04...
+
+619
+00:26:14,000 --> 00:26:20,960
+y cuando quieras cargar un mapa diferente
+
+621
+00:26:18,480 --> 00:26:25,360
+sólo tienes que llamar a este loadMap y escriba la ruta del archivo aquí
+
+623
+00:26:23,520 --> 00:26:27,840
+para no tener que crear otro método loadMap
+
+627
+00:26:34,159 --> 00:26:42,159
+de todas formas hemos conseguido cargar nuestro fichero de mapa y dibujar las baldosas en la pantalla
+
+630
+00:26:43,039 --> 00:26:49,440
+pero sigue siendo un mapa pequeño
+
+631
+00:26:45,520 --> 00:26:54,159
+es tan grande como una sola pantalla
+
+633
+00:26:52,960 --> 00:27:05,360
+así que la próxima vez vamos a crear un mapa del mundo que realmente vamos a utilizar en nuestro juego
+
+636
+00:27:00,080 --> 00:27:14,880
+e implementaremos una cámara de juego para que los azulejos del fondo cambien según el movimiento del personaje del jugador
+
+640
+00:27:12,480 --> 00:27:17,880
+gracias por mirar y hasta la proxima
+
+642
+00:27:21,090 --> 00:27:27,760
+[Music]
+

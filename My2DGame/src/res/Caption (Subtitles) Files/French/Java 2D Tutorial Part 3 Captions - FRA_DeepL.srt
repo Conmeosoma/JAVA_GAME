@@ -1,0 +1,632 @@
+1
+00:00:01,360 --> 00:00:04,240
+Oui, comme ça.
+
+2
+00:00:06,879 --> 00:00:16,560
+Vous pouvez voir que le programme maintient 60 fps, donc ça marche bien.
+
+5
+00:00:14,400 --> 00:00:21,760
+ok maintenant nous allons créer la classe Player
+
+7
+00:00:18,160 --> 00:00:21,760
+d'abord, créez un autre paquet
+
+8
+00:00:22,560 --> 00:00:29,199
+et je vais le nommer "entité".
+
+10
+00:00:27,119 --> 00:00:35,760
+donc nous allons créer toutes les classes de caractères
+
+12
+00:00:33,840 --> 00:00:38,719
+joueur, monstre, npc, des trucs comme ça.
+
+13
+00:00:35,760 --> 00:00:40,800
+puis à l'intérieur de ce paquet d'entités
+
+14
+00:00:38,719 --> 00:00:43,360
+créez une classe appelée Entity
+
+16
+00:00:43,440 --> 00:00:54,399
+Cette classe sera la classe parente de la classe Player et de toutes les autres classes de personnages.
+
+19
+00:00:52,079 --> 00:00:58,399
+et à l'intérieur de cette classe Entity, nous créons quelques variables
+
+26
+00:01:07,920 --> 00:01:12,560
+OK, c'est tout pour le moment
+
+27
+00:01:10,720 --> 00:01:15,600
+maintenant, créons la classe Player
+
+29
+00:01:14,400 --> 00:01:22,240
+donc à l'intérieur de ce paquetage d'entités, créez Player
+
+33
+00:01:22,960 --> 00:01:35,200
+et ceci étend l'entité
+
+36
+00:01:30,000 --> 00:01:36,720
+et nous allons utiliser cette classe GamePanel
+
+37
+00:01:35,200 --> 00:01:40,360
+et aussi KeyHandler
+
+39
+00:01:40,560 --> 00:01:50,240
+donc import...celui-ci je pense
+
+42
+00:01:49,360 --> 00:01:53,119
+et constructeur
+
+46
+00:01:55,040 --> 00:02:03,040
+et nous obtenons GamePanel, ainsi que KeyHandler
+
+53
+00:02:16,080 --> 00:02:21,840
+et on retourne à cette classe GamePanel
+
+54
+00:02:19,520 --> 00:02:26,400
+nous allons instancier cette classe Player
+
+59
+00:02:29,680 --> 00:02:37,239
+et nous allons passer cette classe GamePanel et KeyHandler
+
+62
+00:02:40,800 --> 00:02:49,360
+donc maintenant nous pouvons utiliser cette classe GamePanel et KeyHandler dans cette classe Player
+
+64
+00:02:47,760 --> 00:02:53,760
+et ensuite nous allons créer une méthode
+
+71
+00:03:01,519 --> 00:03:07,840
+et à l'intérieur nous allons définir les valeurs par défaut du joueur
+
+73
+00:03:06,080 --> 00:03:12,720
+et la première, x égale 100 pour le moment
+
+76
+00:03:11,519 --> 00:03:17,360
+et y égal 100
+
+79
+00:03:15,680 --> 00:03:20,239
+et vitesse égale à 4
+
+81
+00:03:20,319 --> 00:03:26,080
+alors peut-être avez-vous remarqué
+
+83
+00:03:24,000 --> 00:03:34,159
+ce que nous faisons ici est identique à ce que nous avons fait dans la classe GamePanel
+
+86
+00:03:30,879 --> 00:03:36,319
+mais c'était juste pour tester
+
+87
+00:03:34,159 --> 00:03:47,599
+bien que nous mettions à jour les informations sur le joueur et dessinions le joueur dans cette classe GamePanel 
+
+90
+00:03:42,879 --> 00:03:50,480
+pour l'instant, il ne s'agit que du joueur 
+
+91
+00:03:47,599 --> 00:03:57,040
+mais dans le futur nous mettrons à jour et dessinerons plus de choses comme des tuiles de fond ou des monstres ou des npcs.
+
+94
+00:03:56,000 --> 00:04:05,840
+si on tape tout ici, ça va être un gros morceau de code
+
+98
+00:04:03,920 --> 00:04:13,040
+vous pouvez le faire mais ce serait mieux si nous pouvions le gérer d'une manière un peu plus organisée
+
+101
+00:04:11,920 --> 00:04:25,440
+donc nous créons cette méthode de mise à jour dans la classe Player aussi
+
+106
+00:04:22,639 --> 00:04:29,400
+et aussi la méthode draw
+
+108
+00:04:29,600 --> 00:04:36,800
+et nous copions tout à l'intérieur de cette mise à jour
+
+110
+00:04:36,960 --> 00:04:44,720
+copier... ou déplacer tout ici
+
+113
+00:04:43,280 --> 00:04:50,320
+et aussi celui-ci
+
+116
+00:04:48,080 --> 00:04:57,840
+nous allons déplacer ces deux lignes à l'intérieur de la méthode draw
+
+119
+00:05:00,160 --> 00:05:06,880
+et ici, on tape juste
+
+123
+00:05:06,880 --> 00:05:13,520
+Nous appelons donc cette méthode à l'intérieur de la classe Player.
+
+128
+00:05:19,039 --> 00:05:25,680
+et on s'assure de passer ce Graphics2D
+
+129
+00:05:22,800 --> 00:05:27,280
+sans cela, nous ne pouvons rien dessiner
+
+130
+00:05:25,680 --> 00:05:35,840
+Nous recevons donc ce Graphics2D ici
+
+136
+00:05:36,639 --> 00:05:44,320
+donc maintenant nous pouvons utiliser ce g2 à l'intérieur de cette classe Player également
+
+138
+00:05:41,520 --> 00:05:49,840
+maintenant nous voyons des erreurs et nous devons faire un petit ajustement
+
+140
+00:05:46,639 --> 00:05:54,240
+donc cette fois-ci, au lieu de ce playerY, playerX, ou playerSpeed
+
+142
+00:05:51,600 --> 00:06:04,440
+nous allons utiliser y et x et speed
+
+151
+00:06:15,759 --> 00:06:25,120
+nous allons juste utiliser tileSize dans cette classe GamePanel
+
+153
+00:06:21,440 --> 00:06:28,080
+OK, je pense que nous devons rendre cette classe publique
+
+156
+00:06:35,759 --> 00:06:43,520
+ceci doit être public, sinon la classe Player ne pourra pas y accéder
+
+159
+00:06:43,520 --> 00:06:49,039
+donc nous avons nommé ceci juste x, y, et vitesse 
+
+160
+00:06:46,080 --> 00:06:51,919
+pas playerX, playerY, playerSpeed
+
+161
+00:06:49,039 --> 00:07:00,560
+car d'autres personnages non-joueurs utilisent également ces variables
+
+163
+00:06:56,080 --> 00:07:03,840
+appelons aussi cette méthode depuis ce constructeur
+
+165
+00:07:04,639 --> 00:07:11,599
+Nous allons donc définir ces valeurs par défaut
+
+166
+00:07:07,759 --> 00:07:11,599
+OK, vérifions ceci
+
+168
+00:07:13,680 --> 00:07:18,720
+donc le rectangle se déplace comme avant
+
+170
+00:07:19,280 --> 00:07:25,039
+mais déplacer un rectangle n'est pas si amusant
+
+171
+00:07:21,840 --> 00:07:27,199
+alors remplaçons-le par des sprites de personnages
+
+174
+00:07:27,199 --> 00:07:36,639
+J'ai préparé ceci pour que ce soit les sprites du personnage du joueur que j'ai fait.
+
+176
+00:07:32,720 --> 00:07:41,440
+J'ai préparé 8 images. 2 pour le bas et 2 pour la gauche
+
+177
+00:07:36,639 --> 00:07:44,240
+et 2 pour la droite et 2 pour le haut
+
+178
+00:07:41,440 --> 00:07:50,800
+2 images pour chaque direction afin de pouvoir créer une petite animation
+
+181
+00:07:47,360 --> 00:07:57,440
+Je sais que mes compétences en pixel art sont assez rudimentaires, donc je pense que tu peux en créer de meilleures.
+
+184
+00:07:54,800 --> 00:08:00,319
+pour créer ces sprites, vous pouvez utiliser n'importe quel logiciel
+
+185
+00:07:57,440 --> 00:08:06,000
+vous pouvez utiliser Paint, Photoshop, Gimp, tout est bon à prendre
+
+188
+00:08:02,800 --> 00:08:11,280
+Je vais peut-être créer une petite vidéo pour montrer comment je fais ces sprites plus tard.
+
+191
+00:08:11,280 --> 00:08:22,240
+Assurez-vous simplement que la taille est de 16 par 16 et que le fond est transparent.
+
+194
+00:08:19,280 --> 00:08:23,440
+et enregistrez-la au format PNG
+
+195
+00:08:22,240 --> 00:08:29,520
+Nous allons créer un dossier "res".
+
+199
+00:08:32,479 --> 00:08:37,279
+et à l'intérieur de celui-ci, nous allons créer un package
+
+201
+00:08:36,000 --> 00:08:42,159
+nous le nommerons " player ".
+
+203
+00:08:40,240 --> 00:08:51,360
+nous allons copier ces images dans ce package player
+
+208
+00:08:52,839 --> 00:08:57,760
+alors maintenant allons dans cette Entité
+
+209
+00:08:56,480 --> 00:09:01,839
+et nous ajoutons une autre variable
+
+220
+00:09:16,720 --> 00:09:22,640
+et une autre variable
+
+226
+00:09:30,800 --> 00:09:37,200
+et importez BufferedImage
+
+227
+00:09:34,480 --> 00:09:39,600
+OK, passons à la classe Player
+
+228
+00:09:37,200 --> 00:09:40,560
+et maintenant créons une autre méthode
+
+241
+00:10:06,240 --> 00:10:14,000
+et à l'intérieur de ce try and catch nous allons charger ces images
+
+249
+00:10:27,519 --> 00:10:34,480
+et à l'intérieur de cette parenthèse nous tapons le chemin du fichier
+
+251
+00:10:31,360 --> 00:10:40,399
+et puisque c'est à l'intérieur de ce paquet de lecteur dans ce dossier res
+
+260
+00:10:52,399 --> 00:10:59,040
+alors copions
+
+279
+00:11:26,959 --> 00:11:32,320
+ok et appelons cette méthode
+
+282
+00:11:35,120 --> 00:11:41,360
+définissons également la direction par défaut
+
+288
+00:11:48,959 --> 00:11:56,959
+à l'intérieur de cette déclaration if, nous ajoutons des informations sur la direction
+
+291
+00:11:55,680 --> 00:11:58,639
+donc si on appuie sur up, la direction est up
+
+295
+00:12:03,200 --> 00:12:12,160
+et si vous appuyez sur le bouton " down ", la direction est vers le bas
+
+303
+00:12:26,000 --> 00:12:30,320
+et passe à cette méthode de dessin
+
+305
+00:12:30,320 --> 00:12:37,320
+nous n'allons plus l'utiliser
+
+306
+00:12:33,200 --> 00:12:37,320
+nous n'utiliserons plus ce rectangle
+
+312
+00:12:51,040 --> 00:13:00,560
+créez une instruction switch ou une instruction if... l'une ou l'autre est parfaite
+
+315
+00:12:59,200 --> 00:13:03,040
+nous allons vérifier la direction
+
+318
+00:13:03,040 --> 00:13:09,519
+si la direction est en place...
+
+321
+00:13:13,440 --> 00:13:18,399
+et si la direction est vers le bas...
+
+326
+00:13:46,480 --> 00:13:54,720
+Voici donc les BufferedImages que nous avons chargées il y a quelques instants.
+
+329
+00:13:53,920 --> 00:14:00,639
+donc, en fonction de cette direction, nous choisissons une autre image
+
+331
+00:13:57,360 --> 00:14:06,240
+et enfin nous allons dessiner des images
+
+337
+00:14:10,959 --> 00:14:17,839
+nous allons taper x et y
+
+339
+00:14:14,880 --> 00:14:21,680
+et aussi la largeur et la hauteur
+
+340
+00:14:17,839 --> 00:14:23,279
+donc nous allons juste utiliser ce tileSize
+
+345
+00:14:34,560 --> 00:14:45,360
+Ceci est appelé ImageObserver et vous pouvez juste taper "null" ici.
+
+348
+00:14:41,760 --> 00:14:51,120
+donc nous allons dessiner l'image en x et y avec cette taille
+
+350
+00:14:48,160 --> 00:14:51,120
+alors vérifions ceci
+
+354
+00:14:56,880 --> 00:15:01,839
+Alors ce Blue Boy est apparu
+
+355
+00:14:59,519 --> 00:15:03,519
+le personnage du joueur est apparu
+
+356
+00:15:01,839 --> 00:15:10,399
+donc maintenant au lieu d'un rectangle blanc, nous pouvons contrôler ce garçon bleu 
+
+360
+00:15:10,839 --> 00:15:21,920
+mais il n'a pas l'air de marcher.
+
+363
+00:15:18,079 --> 00:15:24,320
+on dirait plutôt qu'il dérape ou quelque chose comme ça.
+
+364
+00:15:21,920 --> 00:15:32,959
+c'est parce que nous n'avons utilisé que les mouvements haut1, bas1, gauche1, droite1.
+
+366
+00:15:28,079 --> 00:15:40,800
+nous n'avons pas utilisé ce up2, down2, left2, right2
+
+370
+00:15:38,079 --> 00:15:48,800
+nous allons donc utiliser ces images numéro deux et créer une animation fonctionnelle
+
+374
+00:15:48,800 --> 00:15:56,560
+Revenons à la classe Entity.
+
+379
+00:15:59,920 --> 00:16:05,920
+et recommençons à zéro
+
+386
+00:16:13,199 --> 00:16:16,639
+retourner à cette classe de joueur
+
+387
+00:16:17,040 --> 00:16:25,040
+à l'intérieur de cette méthode de dessin, nous allons ajouter une petite instruction if
+
+406
+00:16:58,160 --> 00:17:02,720
+Je pense que je vais juste copier
+
+421
+00:17:52,400 --> 00:18:00,720
+et maintenant nous allons créer un simple changeur de sprite ou quelque chose comme ça
+
+424
+00:17:59,600 --> 00:18:10,480
+donc à l'intérieur de cette mise à jour, nous allons d'abord ajouter spriteCounter
+
+454
+00:18:59,120 --> 00:19:06,799
+et après cela nous réinitialisons ce compteur de sprites
+
+457
+00:19:08,400 --> 00:19:12,720
+Je vais vous expliquer un peu 
+
+458
+00:19:11,280 --> 00:19:20,640
+cette méthode de mise à jour est appelée 60 fois par seconde
+
+462
+00:19:20,640 --> 00:19:24,240
+uh ici
+
+463
+00:19:21,840 --> 00:19:33,440
+Parce que c'est à l'intérieur de cette boucle de jeu. Elle est appelée 60 fois par seconde.
+
+466
+00:19:29,840 --> 00:19:39,840
+donc à chaque image, elle est appelée et augmente ce compteur de 1
+
+469
+00:19:38,960 --> 00:19:43,679
+et s'il atteint 10
+
+471
+00:19:41,840 --> 00:19:46,640
+il change le sprite
+
+472
+00:19:43,679 --> 00:19:48,960
+donc 1 à 2 ou 2 à 1
+
+473
+00:19:46,640 --> 00:19:55,520
+cela signifie que l'image du joueur change toutes les 10 images
+
+475
+00:19:53,360 --> 00:20:02,679
+et cela va dessiner l'image1 ou l'image2 sur l'écran
+
+477
+00:19:57,600 --> 00:20:02,679
+Alors vérifions ceci
+
+478
+00:20:02,960 --> 00:20:05,960
+hmm
+
+479
+00:20:10,080 --> 00:20:19,480
+OK, peut-être que 10 est un peu trop rapide, alors changeons ça en 12.
+
+482
+00:20:26,000 --> 00:20:28,880
+Je pense que c'est bon.
+
+483
+00:20:29,600 --> 00:20:35,120
+mais il y a toujours un petit problème ici
+
+484
+00:20:32,320 --> 00:20:39,760
+Comme vous pouvez le voir, le personnage du joueur bouge alors que vous n'appuyez sur aucune touche.
+
+488
+00:20:39,760 --> 00:20:47,280
+si vous êtes d'accord avec cela, alors ok
+
+489
+00:20:42,720 --> 00:20:50,559
+En fait, certains jeux rétro sont comme ça.
+
+490
+00:20:47,280 --> 00:20:55,520
+mais si tu n'aimes pas ça, on peut arranger ça
+
+492
+00:20:52,320 --> 00:21:00,960
+Actuellement, le compteur de sprites augmente à chaque fois que cette mise à jour est appelée.
+
+494
+00:20:57,520 --> 00:21:05,280
+mais nous allons ajouter cette instruction if
+
+509
+00:21:48,000 --> 00:21:59,159
+et nous allons tout déplacer à l'intérieur de cette instruction if
+
+511
+00:22:01,440 --> 00:22:13,840
+donc maintenant ce compteur de sprites n'augmente que lorsque vous appuyez sur une de ces touches
+
+515
+00:22:10,640 --> 00:22:19,679
+donc le sprite du joueur ne change pas à moins que vous n'appuyiez sur une touche
+
+517
+00:22:16,559 --> 00:22:19,679
+Oui, vérifions ceci
+
+518
+00:22:19,840 --> 00:22:24,000
+Donc en ce moment, il ne bouge pas 
+
+519
+00:22:22,799 --> 00:22:29,679
+mais si vous appuyez sur une touche
+
+521
+00:22:26,559 --> 00:22:29,679
+il se déplace comme ceci
+
+522
+00:22:39,760 --> 00:22:45,919
+Ok, maintenant notre personnage se déplace
+
+524
+00:22:43,280 --> 00:22:49,280
+Ensuite, je pense que nous allons implémenter des tuiles d'arrière-plan.
+
+526
+00:22:47,919 --> 00:22:54,200
+donc plus de fond noir
+
+528
+00:22:52,559 --> 00:23:06,060
+alors faisons cela
+
+529
+00:22:54,200 --> 00:23:06,060
+[Musique]
+

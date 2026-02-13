@@ -1,0 +1,1187 @@
+1
+00:00:01,120 --> 00:00:08,080
+hi guys, this is RyiSnow 
+
+2
+00:00:04,319 --> 00:00:13,599
+last time, we implemented boots that increase the player speed
+
+4
+00:00:10,000 --> 00:00:18,720
+and also implemented the music and sound effects
+
+6
+00:00:15,120 --> 00:00:21,760
+in this video, we will add on-screen UI
+
+7
+00:00:18,720 --> 00:00:26,480
+and complete this simple treasure hunting game
+
+9
+00:00:24,000 --> 00:00:29,599
+so let's start
+
+10
+00:00:26,480 --> 00:00:36,800
+but first, let me edit the current code a little bit since i found a little bug
+
+12
+00:00:33,600 --> 00:00:43,120
+we used this Sound class for both playing music and sound effects
+
+14
+00:00:39,520 --> 00:00:46,160
+but i guess that wasn't a good idea 
+
+15
+00:00:43,120 --> 00:00:51,760
+i've noticed, when the program tries to stop a music and play a sound effect at the same time
+
+18
+00:00:49,920 --> 00:00:55,760
+it only process one of them, not both
+
+22
+00:00:55,760 --> 00:01:02,239
+like, it plays sound effect but the music doesn't stop
+
+24
+00:00:59,440 --> 00:01:05,760
+so i decided to instantiate one more Sound class
+
+27
+00:01:05,760 --> 00:01:12,560
+name this "Music"
+
+29
+00:01:08,880 --> 00:01:14,400
+and the other one is renamed to SE
+
+32
+00:01:15,840 --> 00:01:19,439
+and call them separately
+
+33
+00:01:19,920 --> 00:01:27,080
+so for playing music and stoping music, we call this "music"
+
+35
+00:01:28,320 --> 00:01:36,720
+and for playing SE, we use this "se"
+
+37
+00:01:33,439 --> 00:01:46,079
+this way, even if we try to stop a music and play a sound effect at the same time, these classes handle it separately
+
+40
+00:01:43,840 --> 00:01:49,200
+okay let's continue
+
+41
+00:01:46,079 --> 00:01:52,240
+first, we create a new class inside of this "main" package
+
+43
+00:01:53,280 --> 00:01:57,920
+and i'm gonna name this UI
+
+45
+00:01:58,240 --> 00:02:06,799
+and this class basically handle all the on-screen UI
+
+47
+00:02:03,600 --> 00:02:12,800
+so we can display text message and item icons or stuff like that
+
+51
+00:02:14,319 --> 00:02:21,200
+and the constructor
+
+59
+00:02:37,760 --> 00:02:43,280
+so what are we gonna draw?
+
+60
+00:02:40,319 --> 00:02:52,400
+since we get keys to open doors, let's display the number of the keys that player currently has
+
+63
+00:02:49,519 --> 00:02:56,720
+and we can draw texts with this Graphics2D
+
+65
+00:02:53,760 --> 00:02:59,120
+but first, we need to set up font
+
+66
+00:02:56,720 --> 00:03:07,760
+to do that, we use this setFont method and pass a font here
+
+69
+00:03:04,640 --> 00:03:10,959
+you can set a font by typing like this
+
+77
+00:03:20,080 --> 00:03:26,560
+the first parameter is the font name
+
+78
+00:03:23,920 --> 00:03:32,360
+so you can use whatever font you want as long as it is supported by your computer
+
+80
+00:03:32,200 --> 00:03:38,720
+and the second parameter is font style
+
+82
+00:03:36,400 --> 00:03:47,080
+so you can choose PLAIN or ITALIC or BOLD...
+
+85
+00:03:42,799 --> 00:03:47,080
+so you can choose a font style
+
+86
+00:03:47,360 --> 00:03:55,519
+and the third parameter is font size
+
+87
+00:03:52,080 --> 00:03:59,360
+so usually this is how you set the font on this Graphics2D
+
+90
+00:03:59,360 --> 00:04:06,080
+but i don't recommend to create a new instance in game loop
+
+92
+00:04:06,760 --> 00:04:12,080
+because creating instance takes time
+
+94
+00:04:09,200 --> 00:04:20,560
+this draw method will be included in the game loop, so this will get called 60 times per second
+
+97
+00:04:17,600 --> 00:04:27,680
+and that means, it will create this new instance 60 times per second
+
+100
+00:04:24,000 --> 00:04:28,479
+and it will consume time and resource
+
+102
+00:04:28,479 --> 00:04:33,440
+so this is actually a bad example
+
+103
+00:04:31,919 --> 00:04:38,240
+so instead we declare the font here
+
+106
+00:04:38,240 --> 00:04:47,680
+so font and the name is like Arial 40 or something
+
+108
+00:04:44,960 --> 00:04:49,199
+then instantiate it
+
+118
+00:05:02,160 --> 00:05:10,800
+so we can finish the instantiation before the game loop starts
+
+120
+00:05:07,120 --> 00:05:14,400
+so now we just need to type the font name here
+
+122
+00:05:12,720 --> 00:05:18,240
+then we choose a font color
+
+126
+00:05:21,120 --> 00:05:25,720
+i'm going to choose white
+
+128
+00:05:27,840 --> 00:05:32,560
+okay now let's draw some text
+
+131
+00:05:34,880 --> 00:05:41,680
+and the first parameter is text, and x and y
+
+133
+00:05:39,360 --> 00:05:45,520
+so for the text, it will be like this
+
+137
+00:05:47,280 --> 00:05:52,960
+we're gonna display key number so...
+
+140
+00:05:55,759 --> 00:06:00,000
+okay this needs to be "public"
+
+141
+00:06:02,800 --> 00:06:08,240
+and x and y
+
+142
+00:06:05,520 --> 00:06:09,520
+maybe somewhere around here
+
+146
+00:06:14,160 --> 00:06:21,280
+now let's go to this GamePanel
+
+147
+00:06:17,120 --> 00:06:23,360
+and instantiate the UI class
+
+148
+00:06:21,280 --> 00:06:25,199
+somewhere around here
+
+153
+00:06:29,520 --> 00:06:34,400
+and pass this GamePanel
+
+155
+00:06:34,400 --> 00:06:45,600
+then inside of this paintComponent, we call the draw method
+
+158
+00:06:41,840 --> 00:06:50,400
+since usually UI comes at the top of the layers
+
+160
+00:06:46,880 --> 00:06:54,479
+so UI shouldn't be hidden by tiles or player, right?
+
+161
+00:06:50,400 --> 00:06:58,319
+so we call it after this player
+
+166
+00:07:04,000 --> 00:07:07,199
+okay let's check this
+
+168
+00:07:11,199 --> 00:07:18,000
+so the text is displayed
+
+169
+00:07:13,840 --> 00:07:19,440
+but there is a catch here 
+
+170
+00:07:18,000 --> 00:07:26,280
+although we typed x50 and y50, but this doesn't look like it
+
+173
+00:07:23,680 --> 00:07:33,440
+that's because this drawString's y-coordinate works in a bit different way 
+
+175
+00:07:29,280 --> 00:07:40,160
+usually in Java, when you set y, it indicates the top of the image or object
+
+178
+00:07:38,560 --> 00:07:44,080
+but for some reason, 
+
+179
+00:07:40,160 --> 00:07:49,199
+when you use drawString the y indicates not the top but the baseline of the text
+
+181
+00:07:48,160 --> 00:07:53,039
+
+
+182
+00:07:49,199 --> 00:07:59,120
+so drawImages y and drawString's y indicate different spots
+
+185
+00:07:56,400 --> 00:08:02,479
+so this is really confusing
+
+186
+00:07:59,120 --> 00:08:08,160
+if it indicates a bottom of the object, it's still relatively easy to handle
+
+188
+00:08:05,919 --> 00:08:13,599
+but as you can see from this image, the baseline is not the bottom
+
+190
+00:08:10,879 --> 00:08:17,840
+it's somewhere slightly higher than the bottom
+
+192
+00:08:14,800 --> 00:08:24,840
+i don't know why it works this way but sadly that's how it works
+
+194
+00:08:21,759 --> 00:08:27,919
+so we need to keep this in mind and adjust the position
+
+196
+00:08:26,479 --> 00:08:29,360
+
+
+197
+00:08:27,919 --> 00:08:33,360
+so maybe i want to move this to the left a little bit
+
+200
+00:08:33,360 --> 00:08:38,240
+so i think i'm going to decrease this x a little bit
+
+202
+00:08:38,959 --> 00:08:44,720
+yeah i think i like this better
+
+203
+00:08:41,919 --> 00:08:50,080
+but still this looks kind of too generic 
+
+205
+00:08:46,959 --> 00:08:55,680
+so i think it might be better if we display a key image instead of this text
+
+207
+00:08:53,600 --> 00:09:04,880
+and we can get it from this OBJ_Key class
+
+211
+00:09:01,279 --> 00:09:09,040
+but again, don't instantiate the class here
+
+213
+00:09:06,080 --> 00:09:13,440
+instead, let's declare a BufferedImage here
+
+217
+00:09:17,279 --> 00:09:23,200
+and then instantiate the key class here
+
+224
+00:09:34,959 --> 00:09:40,640
+and get the key image
+
+227
+00:09:43,040 --> 00:09:53,680
+so we can prepare this image before the game loop starts
+
+229
+00:09:49,360 --> 00:09:56,480
+then we're gonna draw this image
+
+232
+00:09:58,959 --> 00:10:07,279
+and x and y will be something like half tile size
+
+234
+00:10:08,720 --> 00:10:11,600
+something like this
+
+236
+00:10:16,160 --> 00:10:21,440
+so it means 24 pixels
+
+241
+00:10:30,079 --> 00:10:35,519
+so after this image we add a text
+
+242
+00:10:33,839 --> 00:10:42,560
+we don't need this but instead something like this
+
+245
+00:10:40,160 --> 00:10:49,440
+so x is 24+48, so 72
+
+250
+00:10:51,839 --> 00:10:57,600
+we add 2 pixel space
+
+251
+00:10:55,040 --> 00:11:03,440
+and Y is... i don't know, let's check
+
+254
+00:11:03,440 --> 00:11:06,600
+so bit lower
+
+255
+00:11:05,440 --> 00:11:10,320
+maybe 65 or something
+
+257
+00:11:11,760 --> 00:11:16,800
+yeah something like this
+
+260
+00:11:22,320 --> 00:11:25,200
+okay looks good
+
+262
+00:11:25,200 --> 00:11:32,959
+now let's display some notification message
+
+263
+00:11:28,640 --> 00:11:40,000
+when we pick up these keys or boots or when we try to open the door
+
+266
+00:11:36,800 --> 00:11:45,519
+so inside of this UI class, we create some variables
+
+272
+00:11:51,279 --> 00:11:54,800
+the default is false
+
+276
+00:12:03,200 --> 00:12:08,959
+blank for now
+
+277
+00:12:05,279 --> 00:12:10,959
+and then create a method
+
+281
+00:12:15,360 --> 00:12:18,720
+we get a String
+
+292
+00:12:32,880 --> 00:12:38,560
+and now go to this Player class
+
+295
+00:12:38,560 --> 00:12:42,880
+when we get the key...
+
+296
+00:12:41,360 --> 00:12:46,160
+we don't need this System.out.println anymore
+
+299
+00:12:46,160 --> 00:12:54,160
+so when we get the key, we call this showMessage method
+
+302
+00:12:52,720 --> 00:12:58,800
+and pass some text... whatever you want to display
+
+305
+00:12:57,760 --> 00:13:03,440
+so like "you got a key!"
+
+309
+00:13:06,800 --> 00:13:19,360
+so this method receives the text, and put it in this message string
+
+313
+00:13:15,440 --> 00:13:22,800
+and change this messageOn to "true"
+
+314
+00:13:19,360 --> 00:13:28,639
+now inside of this draw method, we create an if statement
+
+320
+00:13:38,079 --> 00:13:42,480
+then we draw the message
+
+326
+00:13:51,839 --> 00:13:58,720
+so i wanna display it somewhere around here
+
+331
+00:14:02,480 --> 00:14:07,360
+half tileSize or something
+
+332
+00:14:05,040 --> 00:14:13,760
+but basically you can type any number so it's totally up to you
+
+339
+00:14:21,040 --> 00:14:26,079
+5 tiles to the bottom
+
+340
+00:14:22,880 --> 00:14:31,120
+and also maybe reduce the font size a little bit
+
+342
+00:14:27,519 --> 00:14:35,279
+so we can create another font and change the size
+
+344
+00:14:33,199 --> 00:14:45,760
+but if a font is already set, we can change the size by typing like this
+
+352
+00:14:49,360 --> 00:14:54,000
+so we get the current font and then...
+
+356
+00:14:55,680 --> 00:15:04,880
+and here we type number and it accepts "float" so we add "f"
+
+360
+00:15:05,199 --> 00:15:09,800
+alright let's check this
+
+363
+00:15:17,680 --> 00:15:25,760
+so the message is displayed but right now, it keeps staying on the screen
+
+365
+00:15:24,800 --> 00:15:33,360
+so i think it would be better if the message disappears after a while
+
+368
+00:15:31,360 --> 00:15:37,279
+so let's do that
+
+369
+00:15:33,360 --> 00:15:37,279
+we're gonna create another variable
+
+373
+00:15:43,519 --> 00:15:48,560
+and start from 0
+
+375
+00:15:48,560 --> 00:15:55,839
+so every time this draw method gets called, we increase the counter
+
+384
+00:16:06,399 --> 00:16:15,040
+when the counter hits a certain number, we stop displaying the text
+
+394
+00:16:26,000 --> 00:16:33,360
+so this means 120 frames 
+
+395
+00:16:30,240 --> 00:16:37,920
+and this is 60 frames per second so this means 2 seconds
+
+397
+00:16:34,320 --> 00:16:38,959
+so the text disappears after 2 seconds
+
+399
+00:16:38,959 --> 00:16:42,000
+so let's check this
+
+400
+00:16:45,470 --> 00:16:48,690
+[Music]
+
+402
+00:16:50,800 --> 00:16:56,000
+yeah looks good
+
+403
+00:16:52,720 --> 00:16:59,279
+let's add some more text
+
+404
+00:16:56,000 --> 00:17:01,360
+when you open the door...
+
+407
+00:17:03,440 --> 00:17:10,640
+"You opened the door!"
+
+412
+00:17:13,760 --> 00:17:21,520
+also, when you don't have a key...
+
+413
+00:17:17,199 --> 00:17:21,520
+okay let's create "else"
+
+414
+00:17:23,919 --> 00:17:28,640
+"You need a key!"
+
+415
+00:17:30,400 --> 00:17:38,720
+and when you get the boots... "Speed up!"
+
+417
+00:17:38,799 --> 00:17:41,919
+okay let's check
+
+427
+00:18:12,720 --> 00:18:18,720
+alright looking good 
+
+428
+00:18:15,280 --> 00:18:21,520
+so now we only need to take care of this treasure chest
+
+431
+00:18:22,880 --> 00:18:28,480
+so let's create the final case
+
+436
+00:18:39,360 --> 00:18:45,919
+so if you get this treasure chest, you beat the game
+
+438
+00:18:44,640 --> 00:18:49,039
+so we want to stop the game
+
+442
+00:18:50,240 --> 00:18:52,520
+let's go to the UI class 
+
+443
+00:18:53,280 --> 00:19:02,600
+and in this UI class, we need to tell the program the game is finished
+
+452
+00:19:09,039 --> 00:19:15,039
+and the default is false
+
+453
+00:19:11,919 --> 00:19:17,600
+and go back to this Player class
+
+454
+00:19:15,039 --> 00:19:22,000
+and when you get this treasure chest...
+
+459
+00:19:25,919 --> 00:19:33,039
+and also we're gonna stop the music
+
+461
+00:19:33,520 --> 00:19:41,679
+and play a sound effect
+
+466
+00:19:46,000 --> 00:19:50,960
+so this one... "fanfare"
+
+469
+00:19:50,960 --> 00:19:54,559
+so the index is 4
+
+470
+00:19:55,200 --> 00:20:00,240
+not playerSE
+
+471
+00:19:57,760 --> 00:20:02,799
+playSE
+
+473
+00:20:02,799 --> 00:20:08,559
+let's not forget to "break"
+
+475
+00:20:08,559 --> 00:20:16,559
+in this UI class, we check if the game is finished or not
+
+483
+00:20:24,240 --> 00:20:28,480
+then we do something
+
+485
+00:20:29,280 --> 00:20:35,840
+so we put everything else in this "else"
+
+487
+00:20:37,280 --> 00:20:47,440
+okay here, we're gonna display some congratulations kind of message
+
+489
+00:20:44,240 --> 00:20:52,799
+and we want to display this message around the center of the screen
+
+491
+00:20:50,559 --> 00:20:59,120
+we can find out the coordinates of the center by typing like this
+
+500
+00:21:14,480 --> 00:21:25,120
+but this doesn't work because, this means the text starts from here
+
+504
+00:21:22,640 --> 00:21:33,039
+so the text will be displayed at the right side of the screen
+
+507
+00:21:29,120 --> 00:21:36,640
+so we need to do a little adjustment
+
+508
+00:21:33,039 --> 00:21:42,799
+first, we find out the length of the text that we're gonna display
+
+510
+00:21:39,440 --> 00:21:44,400
+so let me create some more variables
+
+519
+00:22:03,280 --> 00:22:07,600
+like this
+
+521
+00:22:07,600 --> 00:22:14,320
+also let's copy these two lines
+
+523
+00:22:15,440 --> 00:22:23,919
+we need to set a font and a font color
+
+525
+00:22:19,600 --> 00:22:23,919
+and we input some text
+
+527
+00:22:25,280 --> 00:22:34,000
+"You found the treasure!"
+
+528
+00:22:30,720 --> 00:22:38,080
+now we're gonna check the length of this text
+
+530
+00:22:36,080 --> 00:22:39,679
+to do that...
+
+543
+00:22:58,880 --> 00:23:04,559
+and here, first we're gonna pass this text
+
+547
+00:23:11,360 --> 00:23:17,600
+and the context is g2
+
+552
+00:23:21,039 --> 00:23:34,559
+it looks a bit complicated but basically this returns the length of this text
+
+556
+00:23:30,720 --> 00:23:46,640
+and now we subtract... the half of this text length
+
+559
+00:23:43,600 --> 00:23:51,760
+so this way the text will be aligned to the center
+
+562
+00:23:51,760 --> 00:23:57,200
+let's adjust this y coordinates as well
+
+563
+00:23:54,799 --> 00:24:02,559
+because the player character is displayed at the center
+
+565
+00:23:59,760 --> 00:24:06,720
+and i don't want to hide him with the text
+
+567
+00:24:03,679 --> 00:24:10,880
+so we decrease the Y a little bit
+
+572
+00:24:18,799 --> 00:24:26,159
+we can adjust it later 
+
+573
+00:24:21,760 --> 00:24:27,120
+so we can finally draw the string
+
+577
+00:24:30,000 --> 00:24:36,799
+the first one is text and x and y
+
+580
+00:24:38,000 --> 00:24:46,640
+we're gonna display one more line, "congratulations"-kind of message
+
+582
+00:24:44,159 --> 00:24:51,279
+and for this one i think we're gonna use a bit larger font
+
+587
+00:24:52,559 --> 00:24:58,320
+first let's declare another font
+
+591
+00:25:01,279 --> 00:25:05,200
+and we're gonna use not PLAIN but BOLD
+
+593
+00:25:05,200 --> 00:25:14,880
+i'm gonna name this "80B" so it's easy to understand what it is
+
+596
+00:25:12,799 --> 00:25:17,440
+and instantiate the font
+
+599
+00:25:19,919 --> 00:25:26,559
+the size is 80 and the style is BOLD
+
+606
+00:25:34,320 --> 00:25:42,080
+after displaying this "You found the treasure!"...
+
+608
+00:25:38,640 --> 00:25:43,919
+okay let's copy this
+
+609
+00:25:42,080 --> 00:25:49,039
+so change it to arial_80B
+
+613
+00:25:49,039 --> 00:25:56,880
+and let's change the font color as well
+
+616
+00:25:56,880 --> 00:26:04,640
+i think we can copy this and the paste
+
+619
+00:26:01,919 --> 00:26:10,720
+the text is "Congratulations!"
+
+621
+00:26:07,600 --> 00:26:13,919
+and get the text length
+
+622
+00:26:10,720 --> 00:26:17,600
+x is the same and we only need to adjust this y
+
+625
+00:26:17,600 --> 00:26:23,400
+so this time, we gonna display a bit lower than the center
+
+627
+00:26:24,720 --> 00:26:30,480
+so not minus but plus... probably 2 tiles
+
+630
+00:26:30,799 --> 00:26:38,720
+and finally, we're gonna stop the game
+
+632
+00:26:35,840 --> 00:26:46,799
+so after drawing these strings, we're gonna call this gameThread and put "null"
+
+637
+00:26:47,120 --> 00:26:51,039
+so this stops the thread
+
+639
+00:26:53,120 --> 00:26:57,039
+we are done
+
+640
+00:26:54,400 --> 00:26:57,039
+let's check
+
+651
+00:27:29,360 --> 00:27:34,559
+everything works good
+
+652
+00:27:31,360 --> 00:27:39,520
+we found three keys, opened three doors, and found the treasure
+
+654
+00:27:36,799 --> 00:27:44,559
+so basically this is it, but i want to add a final touch
+
+656
+00:27:42,880 --> 00:27:51,760
+what we're gonna do is, displaying the playtime on the screen
+
+658
+00:27:48,720 --> 00:27:54,480
+so you can see how long it took to find the treasure
+
+661
+00:27:54,480 --> 00:27:58,159
+so inside of this UI class...
+
+665
+00:28:03,120 --> 00:28:10,240
+we use double so we can display decimal too
+
+667
+00:28:07,440 --> 00:28:13,039
+i think that's more interesting
+
+669
+00:28:13,039 --> 00:28:18,960
+somewhere around here i think
+
+671
+00:28:18,960 --> 00:28:34,720
+we gonna add 1/60 seconds to this playTime
+
+675
+00:28:32,080 --> 00:28:37,799
+this draw method gets called 60 times per second
+
+677
+00:28:36,159 --> 00:28:43,039
+so we add 1/60 seconds in every loop
+
+680
+00:28:43,039 --> 00:28:48,799
+then we're going to display the time on the screen
+
+687
+00:29:01,200 --> 00:29:07,440
+i think i want to display it around here so
+
+690
+00:29:09,760 --> 00:29:20,240
+and screen width is 16 tiles so... minus 5?
+
+692
+00:29:17,600 --> 00:29:22,000
+11 tiles to the right
+
+694
+00:29:22,000 --> 00:29:30,480
+we're going to use the same y-coordinates as this key
+
+697
+00:29:30,480 --> 00:29:36,640
+something like this
+
+698
+00:29:33,679 --> 00:29:37,919
+okay let's check this
+
+702
+00:29:40,640 --> 00:29:44,559
+so the playtime is displayed
+
+704
+00:29:44,559 --> 00:29:49,840
+but so many decimals
+
+705
+00:29:46,480 --> 00:29:52,840
+this doesn't look so good
+
+706
+00:29:49,840 --> 00:29:57,600
+so let's format this number a little bit
+
+707
+00:29:52,840 --> 00:30:02,320
+and to format this decimal values, there is a nice class
+
+714
+00:30:09,600 --> 00:30:16,960
+so we're gonna use this class to format
+
+717
+00:30:16,960 --> 00:30:23,840
+and inside of this constructor we can type like this
+
+721
+00:30:27,760 --> 00:30:37,679
+so this means, we display up to tow places of decimals
+
+724
+00:30:34,960 --> 00:30:40,640
+so if you want to display three, then you can type like this
+
+726
+00:30:41,120 --> 00:30:45,120
+and let's edit this
+
+727
+00:30:45,520 --> 00:30:56,559
+not just playtime but we use this dFormat
+
+734
+00:31:00,320 --> 00:31:06,060
+so let's check this
+
+735
+00:31:05,200 --> 00:31:07,919
+alright
+
+737
+00:31:07,919 --> 00:31:19,840
+and finally, i wanna display your playtime when you finish the game
+
+740
+00:31:16,320 --> 00:31:19,840
+so let's copy
+
+750
+00:31:40,399 --> 00:31:51,279
+the place is... around here
+
+758
+00:31:59,760 --> 00:32:05,600
+plus 3 tiles i guess
+
+759
+00:32:02,960 --> 00:32:05,600
+maybe 4
+
+761
+00:32:08,960 --> 00:32:15,840
+i guess this is everything
+
+762
+00:32:11,919 --> 00:32:15,840
+okay so let's check
+
+764
+00:32:17,919 --> 00:32:23,349
+so how long it's gonna take
+
+765
+00:32:20,040 --> 00:32:23,349
+[Music]
+
+766
+00:32:26,000 --> 00:32:30,799
+i think this is the fastest route 
+
+767
+00:32:28,640 --> 00:32:33,710
+so first you get the boots
+
+768
+00:32:30,799 --> 00:32:39,600
+and get two other keys
+
+769
+00:32:33,710 --> 00:32:40,840
+[Music]
+
+772
+00:32:42,399 --> 00:32:45,039
+oh come on
+
+773
+00:32:45,200 --> 00:32:48,240
+i'm losing time
+
+775
+00:32:54,320 --> 00:33:01,760
+okay so my time was 35.93 seconds
+
+778
+00:33:00,399 --> 00:33:03,360
+alright
+
+781
+00:33:05,360 --> 00:33:11,640
+let me try this again 
+
+782
+00:33:08,320 --> 00:33:11,640
+i think i can do this better
+
+783
+00:33:13,310 --> 00:33:16,520
+[Music]
+
+784
+00:33:19,540 --> 00:33:31,519
+[Music]
+
+786
+00:33:33,120 --> 00:33:35,679
+alright
+
+787
+00:33:33,520 --> 00:33:37,840
+[Music]
+
+788
+00:33:35,679 --> 00:33:40,960
+looking good
+
+789
+00:33:37,840 --> 00:33:40,960
+okay looks good
+
+790
+00:33:41,840 --> 00:33:46,360
+oh
+
+791
+00:33:42,960 --> 00:33:51,120
+much better, 31.70 seconds
+
+793
+00:33:49,279 --> 00:33:53,200
+okay so that's it
+
+794
+00:33:51,120 --> 00:33:57,679
+you know the game is pretty straightforward
+
+796
+00:33:55,279 --> 00:34:03,679
+but depending on how you construct your map or game
+
+799
+00:34:00,720 --> 00:34:09,679
+you might be able to enjoy kind of intense time attack gameplay or something
+
+802
+00:34:07,120 --> 00:34:14,879
+anyway, this is the end of the first half of this Java 2D game tutorial
+
+804
+00:34:12,639 --> 00:34:17,679
+thank you so much for watching 
+
+805
+00:34:14,879 --> 00:34:20,159
+in the second half we will add a lot more elements
+
+806
+00:34:17,679 --> 00:34:24,639
+such as NPCs and monsters and the battle...
+
+808
+00:34:22,399 --> 00:34:28,960
+and change this into action RPG
+
+810
+00:34:26,399 --> 00:34:32,159
+so if you are interested please keep watching
+
+812
+00:34:30,159 --> 00:34:33,839
+i promise it will be pretty good
+
+813
+00:34:34,159 --> 00:34:36,079
+alright that's it for now
+
+814
+00:34:35,839 --> 00:34:41,079
+thanks again and until next time
+
+815
+00:34:44,230 --> 00:34:50,879
+[Music]

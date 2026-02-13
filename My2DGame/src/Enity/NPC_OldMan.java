@@ -24,7 +24,7 @@ public class NPC_OldMan extends Entity {
 
         getImage();
         setDialogue();
-//        setSpeechBubble();
+        // setSpeechBubble();
     }
 
     public void getImage() {

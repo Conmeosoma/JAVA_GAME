@@ -1,0 +1,1176 @@
+1
+00:00:00,320 --> 00:00:04,960
+hi guys here's another extra video of my 2D game tutorial
+
+3
+00:00:04,960 --> 00:00:10,880
+although we will edit our code a little bit at the end
+
+5
+00:00:10,880 --> 00:00:16,720
+the main theme of this video is pixel art
+
+7
+00:00:16,720 --> 00:00:22,320
+so you can continue tutorial without applying the changes in this video so don't worry
+
+9
+00:00:22,320 --> 00:00:28,160
+but if you are interested in pixel art or how the game's graphics have changed, please keep watching
+
+11
+00:00:28,160 --> 00:00:34,239
+if you have been checking the community tab on my channel you might know that i've been working on the pixel art of the game for a while
+
+14
+00:00:36,719 --> 00:00:40,559
+i kind of like the original look of the game
+
+17
+00:00:42,719 --> 00:00:47,760
+it's simple, blocky, and very 8-bit
+
+19
+00:00:47,760 --> 00:00:53,280
+and to be honest, i was never really interested in drawing pixel art
+
+22
+00:00:54,160 --> 00:01:02,000
+i was more into programming
+
+24
+00:01:02,000 --> 00:01:06,320
+and also drawing pixel art looked very difficult and require some special skill and talent
+
+26
+00:01:06,320 --> 00:01:10,720
+but then i stumbled upon youtube channels such as pixel pete or adam she units
+
+32
+00:01:16,640 --> 00:01:22,400
+these channels provide really good pixel art tutorials 
+
+34
+00:01:22,400 --> 00:01:26,720
+and made me feel maybe i can also improve my tiles a little bit
+
+36
+00:01:26,720 --> 00:01:32,640
+so they actually picked my interest in drawing pixel art
+
+38
+00:01:32,640 --> 00:01:37,119
+so first of all i wanna say huge thanks to these channels
+
+40
+00:01:37,119 --> 00:01:41,840
+i think this didn't happen if i didn't find their channels
+
+42
+00:01:41,840 --> 00:01:48,560
+so i decided to work on my tiles and i had these six tiles
+
+44
+00:01:48,560 --> 00:01:52,640
+and first i started working on the grass tile
+
+46
+00:01:52,640 --> 00:01:56,880
+so instead of putting these random dots 
+
+47
+00:01:55,520 --> 00:01:59,280
+throughout the
+
+48
+00:01:56,880 --> 00:01:59,280
+tile
+
+49
+00:01:59,759 --> 00:02:05,640
+so i decided to draw three glasses like
+
+50
+00:02:02,640 --> 00:02:05,640
+this
+
+51
+00:02:13,120 --> 00:02:16,319
+yeah something like this
+
+52
+00:02:17,520 --> 00:02:21,200
+so it looks like this but i felt this
+
+53
+00:02:19,920 --> 00:02:22,879
+was a
+
+54
+00:02:21,200 --> 00:02:26,400
+a bit too much
+
+55
+00:02:22,879 --> 00:02:26,400
+so i also created
+
+56
+00:02:26,800 --> 00:02:30,720
+this totally blank
+
+57
+00:02:28,560 --> 00:02:31,680
+all green grass style
+
+58
+00:02:30,720 --> 00:02:34,319
+and
+
+59
+00:02:31,680 --> 00:02:36,080
+decided to use this as the main grass
+
+60
+00:02:34,319 --> 00:02:39,280
+style and
+
+61
+00:02:36,080 --> 00:02:41,040
+so use this one as kind of an accent
+
+62
+00:02:39,280 --> 00:02:43,280
+tile so
+
+63
+00:02:41,040 --> 00:02:45,920
+i changed every grass tile to the blank
+
+64
+00:02:43,280 --> 00:02:50,360
+green tile and at the
+
+65
+00:02:45,920 --> 00:02:50,360
+accent tile here and there
+
+66
+00:02:51,280 --> 00:02:56,080
+so it looked like this
+
+67
+00:02:53,280 --> 00:02:59,599
+so now we have two graph styles
+
+68
+00:02:56,080 --> 00:03:02,879
+so blank one and uh accent one
+
+69
+00:02:59,599 --> 00:03:06,000
+then i worked on the tree tile not much
+
+70
+00:03:02,879 --> 00:03:08,319
+change but i deleted this
+
+71
+00:03:06,000 --> 00:03:08,319
+dot
+
+72
+00:03:09,760 --> 00:03:16,599
+and changed the color and also edited
+
+73
+00:03:12,640 --> 00:03:16,599
+the shading a little bit
+
+74
+00:03:24,640 --> 00:03:30,400
+so yeah i'm still not really satisfied
+
+75
+00:03:27,840 --> 00:03:31,120
+with how this shading looks
+
+76
+00:03:30,400 --> 00:03:34,640
+but
+
+77
+00:03:31,120 --> 00:03:38,239
+yeah for now this is how it looks
+
+78
+00:03:34,640 --> 00:03:38,239
+yeah so like this
+
+79
+00:03:38,959 --> 00:03:45,120
+then i started working on the water tile
+
+80
+00:03:41,920 --> 00:03:46,480
+and this was quite a work because
+
+81
+00:03:45,120 --> 00:03:48,879
+i wanted to
+
+82
+00:03:46,480 --> 00:03:50,640
+take care of the edge
+
+83
+00:03:48,879 --> 00:03:54,000
+of these tiles
+
+84
+00:03:50,640 --> 00:03:57,360
+and for this one pixel pead has made an
+
+85
+00:03:54,000 --> 00:03:59,519
+amazing water tile tutorial so
+
+86
+00:03:57,360 --> 00:04:01,439
+i recommend you to check that
+
+87
+00:03:59,519 --> 00:04:04,239
+so anyway to take care of the edge
+
+88
+00:04:01,439 --> 00:04:07,360
+nicely we need to create several
+
+89
+00:04:04,239 --> 00:04:09,680
+patterns first i deleted this
+
+90
+00:04:07,360 --> 00:04:13,040
+white dot
+
+91
+00:04:09,680 --> 00:04:14,959
+and also changed the watercolor a little
+
+92
+00:04:13,040 --> 00:04:17,040
+bit
+
+93
+00:04:14,959 --> 00:04:18,479
+and then pick the color from the glass
+
+94
+00:04:17,040 --> 00:04:23,440
+tile
+
+95
+00:04:18,479 --> 00:04:23,440
+and draw the edge of the land like this
+
+96
+00:04:27,280 --> 00:04:32,479
+then created the earth part like this
+
+97
+00:04:41,360 --> 00:04:47,440
+then choose a bit darker color and
+
+98
+00:04:44,560 --> 00:04:47,440
+create shadow
+
+99
+00:04:49,040 --> 00:04:53,720
+and then randomize it a little bit
+
+100
+00:04:56,960 --> 00:05:02,080
+yeah something like this
+
+101
+00:04:59,040 --> 00:05:04,240
+so then choose a dark green color so
+
+102
+00:05:02,080 --> 00:05:07,120
+darker than this gray style
+
+103
+00:05:04,240 --> 00:05:10,440
+and draw the edge of this glass
+
+104
+00:05:07,120 --> 00:05:10,440
+like this
+
+105
+00:05:18,720 --> 00:05:21,360
+like this
+
+106
+00:05:20,160 --> 00:05:25,199
+and uh
+
+107
+00:05:21,360 --> 00:05:28,720
+to create a bit more smooth transition i
+
+108
+00:05:25,199 --> 00:05:31,360
+picked a bit lighter green than this
+
+109
+00:05:28,720 --> 00:05:33,600
+and put it here and there
+
+110
+00:05:31,360 --> 00:05:33,600
+like
+
+111
+00:05:36,840 --> 00:05:44,240
+this then pick the watercolor again and
+
+112
+00:05:40,720 --> 00:05:44,240
+choose a bit darker
+
+113
+00:05:45,919 --> 00:05:50,720
+this time
+
+114
+00:05:48,320 --> 00:05:52,880
+to create some shadow
+
+115
+00:05:50,720 --> 00:05:55,440
+oops
+
+116
+00:05:52,880 --> 00:05:55,440
+like this
+
+117
+00:05:59,680 --> 00:06:03,759
+and i also used a bit
+
+118
+00:06:02,160 --> 00:06:05,520
+lighter color
+
+119
+00:06:03,759 --> 00:06:06,720
+than this
+
+120
+00:06:05,520 --> 00:06:08,880
+and
+
+121
+00:06:06,720 --> 00:06:11,360
+add some accent
+
+122
+00:06:08,880 --> 00:06:12,639
+accent to here something
+
+123
+00:06:11,360 --> 00:06:15,600
+like this
+
+124
+00:06:12,639 --> 00:06:15,600
+a bit darker
+
+125
+00:06:16,160 --> 00:06:18,800
+something like
+
+126
+00:06:18,840 --> 00:06:24,160
+this very subtle
+
+127
+00:06:21,919 --> 00:06:27,120
+yeah
+
+128
+00:06:24,160 --> 00:06:28,960
+okay so let's expand this image a little
+
+129
+00:06:27,120 --> 00:06:33,080
+bit so
+
+130
+00:06:28,960 --> 00:06:33,080
+place this here
+
+131
+00:06:34,000 --> 00:06:38,960
+okay
+
+132
+00:06:35,120 --> 00:06:41,960
+and for the opposite bank
+
+133
+00:06:38,960 --> 00:06:41,960
+so
+
+134
+00:06:52,560 --> 00:06:58,360
+okay
+
+135
+00:06:54,319 --> 00:06:58,360
+and for the side bunks
+
+136
+00:07:18,880 --> 00:07:24,240
+something like this so for the
+
+137
+00:07:20,720 --> 00:07:25,520
+cyberbunks i included the earth or dart
+
+138
+00:07:24,240 --> 00:07:27,440
+a little bit
+
+139
+00:07:25,520 --> 00:07:30,240
+but i think either way is fine i've
+
+140
+00:07:27,440 --> 00:07:31,440
+noticed some games show ours on the
+
+141
+00:07:30,240 --> 00:07:34,319
+cyberbunk
+
+142
+00:07:31,440 --> 00:07:36,800
+and some games don't so just show the
+
+143
+00:07:34,319 --> 00:07:39,039
+grasses and water
+
+144
+00:07:36,800 --> 00:07:42,800
+and now create
+
+145
+00:07:39,039 --> 00:07:46,360
+a tile which connects this top bank and
+
+146
+00:07:42,800 --> 00:07:46,360
+this cyberpunk
+
+147
+00:07:48,080 --> 00:07:51,300
+[Music]
+
+148
+00:08:23,440 --> 00:08:27,440
+okay
+
+149
+00:08:24,720 --> 00:08:33,160
+then create a tile which connects this
+
+150
+00:08:27,440 --> 00:08:33,160
+bottom bunk and this side bunk
+
+151
+00:08:41,919 --> 00:08:46,959
+okay
+
+152
+00:08:44,560 --> 00:08:46,959
+and then
+
+153
+00:08:47,839 --> 00:08:53,279
+so you can
+
+154
+00:08:49,519 --> 00:08:55,839
+flip these images horizontally
+
+155
+00:08:53,279 --> 00:08:55,839
+like this
+
+156
+00:09:02,720 --> 00:09:07,480
+and then we create four more tiles
+
+157
+00:09:14,800 --> 00:09:17,800
+so
+
+158
+00:09:45,040 --> 00:09:51,839
+so i chose several colors between white
+
+159
+00:09:47,920 --> 00:09:53,519
+and this watercolor and created a little
+
+160
+00:09:51,839 --> 00:09:56,160
+gradation
+
+161
+00:09:53,519 --> 00:09:57,680
+yeah so that's it for the
+
+162
+00:09:56,160 --> 00:10:00,880
+water tile
+
+163
+00:09:57,680 --> 00:10:02,839
+so in the end i created uh
+
+164
+00:10:00,880 --> 00:10:06,880
+14
+
+165
+00:10:02,839 --> 00:10:09,920
+variations okay so the next is this sand
+
+166
+00:10:06,880 --> 00:10:11,360
+tile i was using this sand tile as a
+
+167
+00:10:09,920 --> 00:10:13,120
+kind of a
+
+168
+00:10:11,360 --> 00:10:16,480
+you know load
+
+169
+00:10:13,120 --> 00:10:17,839
+so i decided to make this look more like
+
+170
+00:10:16,480 --> 00:10:21,120
+a load
+
+171
+00:10:17,839 --> 00:10:23,839
+so i first i deleted the dot then i
+
+172
+00:10:21,120 --> 00:10:25,120
+picked a little darker color than this
+
+173
+00:10:23,839 --> 00:10:29,320
+base color
+
+174
+00:10:25,120 --> 00:10:29,320
+and created some pattern
+
+175
+00:10:33,839 --> 00:10:36,839
+dude
+
+176
+00:10:48,959 --> 00:10:53,519
+and what i did was basically the same as
+
+177
+00:10:51,600 --> 00:10:57,200
+the water tiles
+
+178
+00:10:53,519 --> 00:11:00,560
+so i created 11 patterns
+
+179
+00:10:57,200 --> 00:11:02,800
+so it can handles most of the
+
+180
+00:11:00,560 --> 00:11:04,000
+situation
+
+181
+00:11:02,800 --> 00:11:06,000
+and now
+
+182
+00:11:04,000 --> 00:11:09,200
+as for that tile
+
+183
+00:11:06,000 --> 00:11:12,560
+and for this one i just i don't know i
+
+184
+00:11:09,200 --> 00:11:14,959
+didn't i didn't have any good idea so i
+
+185
+00:11:12,560 --> 00:11:16,560
+just uh you know randomize the pattern
+
+186
+00:11:14,959 --> 00:11:20,110
+basically
+
+187
+00:11:16,560 --> 00:11:23,299
+it's like uh really randomly
+
+188
+00:11:20,110 --> 00:11:23,299
+[Music]
+
+189
+00:11:23,760 --> 00:11:29,120
+yeah something like this
+
+190
+00:11:26,240 --> 00:11:31,360
+and finally the wall tile
+
+191
+00:11:29,120 --> 00:11:33,120
+i decided to keep using this brick
+
+192
+00:11:31,360 --> 00:11:37,399
+pattern and
+
+193
+00:11:33,120 --> 00:11:37,399
+make it a bit more detailed
+
+194
+00:11:42,480 --> 00:11:49,079
+so basically i change the brightness of
+
+195
+00:11:45,519 --> 00:11:49,079
+this gray color
+
+196
+00:12:04,399 --> 00:12:07,399
+so
+
+197
+00:12:28,959 --> 00:12:33,519
+yes something like this
+
+198
+00:12:31,680 --> 00:12:36,639
+so i used a
+
+199
+00:12:33,519 --> 00:12:40,639
+gray color and changed the
+
+200
+00:12:36,639 --> 00:12:41,920
+like a brightness and so created some
+
+201
+00:12:40,639 --> 00:12:44,000
+shadows and
+
+202
+00:12:41,920 --> 00:12:45,839
+gradation
+
+203
+00:12:44,000 --> 00:12:47,600
+and so and kind of london right
+
+204
+00:12:45,839 --> 00:12:48,560
+randomize it
+
+205
+00:12:47,600 --> 00:12:49,440
+yeah
+
+206
+00:12:48,560 --> 00:12:51,760
+so
+
+207
+00:12:49,440 --> 00:12:53,120
+that's everything i think
+
+208
+00:12:51,760 --> 00:12:55,600
+i ended up
+
+209
+00:12:53,120 --> 00:12:57,839
+creating 32 tiles
+
+210
+00:12:55,600 --> 00:13:00,959
+yeah let's implement these styles and
+
+211
+00:12:57,839 --> 00:13:03,279
+see how they look like in the game
+
+212
+00:13:00,959 --> 00:13:06,800
+and first we need to
+
+213
+00:13:03,279 --> 00:13:08,560
+increase the size of this tile array
+
+214
+00:13:06,800 --> 00:13:12,079
+you know since we have more than 10
+
+215
+00:13:08,560 --> 00:13:14,000
+tiles now so like
+
+216
+00:13:12,079 --> 00:13:16,320
+yeah 50
+
+217
+00:13:14,000 --> 00:13:18,240
+should be enough for now and
+
+218
+00:13:16,320 --> 00:13:21,440
+yeah we can always increase the size
+
+219
+00:13:18,240 --> 00:13:26,240
+whenever we want then we can add new
+
+220
+00:13:21,440 --> 00:13:29,519
+tiles to like a atari index 678
+
+221
+00:13:26,240 --> 00:13:30,959
+yeah that's basically it but um i
+
+222
+00:13:29,519 --> 00:13:34,959
+decided to
+
+223
+00:13:30,959 --> 00:13:37,120
+not to use this you know index 0 to 9
+
+224
+00:13:34,959 --> 00:13:39,440
+tiles so
+
+225
+00:13:37,120 --> 00:13:40,560
+7 8 9
+
+226
+00:13:39,440 --> 00:13:42,639
+8
+
+227
+00:13:40,560 --> 00:13:45,639
+9
+
+228
+00:13:42,639 --> 00:13:45,639
+sold
+
+229
+00:13:54,000 --> 00:13:56,800
+so i just put the
+
+230
+00:13:55,680 --> 00:13:59,040
+this
+
+231
+00:13:56,800 --> 00:14:03,040
+blank grass style to
+
+232
+00:13:59,040 --> 00:14:06,720
+index 0 to 9 as a placeholder
+
+233
+00:14:03,040 --> 00:14:09,040
+and we're going to start from uh
+
+234
+00:14:06,720 --> 00:14:12,639
+index 10
+
+235
+00:14:09,040 --> 00:14:14,720
+and this is also a paragraph style but
+
+236
+00:14:12,639 --> 00:14:16,480
+this is the actual graph style we're
+
+237
+00:14:14,720 --> 00:14:19,680
+going to use and
+
+238
+00:14:16,480 --> 00:14:21,760
+these nine tiles we don't use
+
+239
+00:14:19,680 --> 00:14:24,639
+but i put this grass style as a
+
+240
+00:14:21,760 --> 00:14:25,920
+placeholder because otherwise you know
+
+241
+00:14:24,639 --> 00:14:29,120
+it can get
+
+242
+00:14:25,920 --> 00:14:32,240
+not point except exception error and i
+
+243
+00:14:29,120 --> 00:14:35,519
+need to add an extra code to avoid that
+
+244
+00:14:32,240 --> 00:14:37,440
+and that's a little bit too much pain
+
+245
+00:14:35,519 --> 00:14:39,360
+and the reason
+
+246
+00:14:37,440 --> 00:14:42,079
+i wanted to start from
+
+247
+00:14:39,360 --> 00:14:44,880
+index 10 is pretty simple
+
+248
+00:14:42,079 --> 00:14:46,079
+right now we are only using single digit
+
+249
+00:14:44,880 --> 00:14:49,360
+number
+
+250
+00:14:46,079 --> 00:14:52,560
+to create this world map but uh
+
+251
+00:14:49,360 --> 00:14:57,000
+if we add two digit numbers too
+
+252
+00:14:52,560 --> 00:14:57,000
+then it becomes like this
+
+253
+00:14:58,720 --> 00:15:04,639
+so single digit number and the two digit
+
+254
+00:15:01,440 --> 00:15:06,880
+numbers are mixed like this then uh
+
+255
+00:15:04,639 --> 00:15:08,320
+it kind of disturbs the placement of
+
+256
+00:15:06,880 --> 00:15:10,720
+these numbers
+
+257
+00:15:08,320 --> 00:15:13,680
+and make it a bit
+
+258
+00:15:10,720 --> 00:15:16,800
+harder to read or look
+
+259
+00:15:13,680 --> 00:15:18,160
+so program-wise it still works just fine
+
+260
+00:15:16,800 --> 00:15:20,000
+no problem
+
+261
+00:15:18,160 --> 00:15:23,519
+so it's purely
+
+262
+00:15:20,000 --> 00:15:23,519
+like appearance reason
+
+263
+00:15:25,600 --> 00:15:31,279
+so
+
+264
+00:15:26,800 --> 00:15:34,880
+i update new tiles like this
+
+265
+00:15:31,279 --> 00:15:34,880
+so these are placeholder
+
+266
+00:15:35,759 --> 00:15:40,880
+so from here so these are the tiles
+
+267
+00:15:38,560 --> 00:15:43,759
+we're gonna use
+
+268
+00:15:40,880 --> 00:15:47,440
+yeah and this is the new map file
+
+269
+00:15:43,759 --> 00:15:51,440
+so every number is two digit like this
+
+270
+00:15:47,440 --> 00:15:52,839
+and i also changed the map a little bit
+
+271
+00:15:51,440 --> 00:15:56,639
+so in the old
+
+272
+00:15:52,839 --> 00:15:59,680
+map the world was surrounded by these
+
+273
+00:15:56,639 --> 00:16:02,079
+trees so as if we are in uh
+
+274
+00:15:59,680 --> 00:16:04,560
+like a big forest or something
+
+275
+00:16:02,079 --> 00:16:08,399
+but i thought it's a bit boring so i
+
+276
+00:16:04,560 --> 00:16:10,800
+decided to surround the land by water
+
+277
+00:16:08,399 --> 00:16:12,160
+so now our world became an
+
+278
+00:16:10,800 --> 00:16:15,040
+island
+
+279
+00:16:12,160 --> 00:16:18,320
+so yeah okay let's delete
+
+280
+00:16:15,040 --> 00:16:22,839
+these all old tiles
+
+281
+00:16:18,320 --> 00:16:22,839
+and copy these new tiles
+
+282
+00:16:23,120 --> 00:16:25,759
+and also
+
+283
+00:16:24,800 --> 00:16:30,079
+yeah
+
+284
+00:16:25,759 --> 00:16:33,120
+now we're gonna use this word world b2
+
+285
+00:16:30,079 --> 00:16:34,839
+file so let's change the
+
+286
+00:16:33,120 --> 00:16:38,000
+file path to
+
+287
+00:16:34,839 --> 00:16:42,160
+word with two
+
+288
+00:16:38,000 --> 00:16:46,199
+okay so i think everything is ready so
+
+289
+00:16:42,160 --> 00:16:46,199
+yeah let's take a look
+
+290
+00:16:53,120 --> 00:16:57,600
+yeah
+
+291
+00:16:54,560 --> 00:17:01,220
+yeah like this so now
+
+292
+00:16:57,600 --> 00:17:07,679
+it's surrounded by water
+
+293
+00:17:01,220 --> 00:17:09,589
+[Music]
+
+294
+00:17:07,679 --> 00:17:27,549
+so
+
+295
+00:17:09,589 --> 00:17:27,549
+[Music]
+
+296
+00:17:29,440 --> 00:17:32,440
+hmm
+
+297
+00:17:34,000 --> 00:17:37,840
+yeah i think this looks better
+
+298
+00:17:39,679 --> 00:17:45,600
+yeah and this is where we
+
+299
+00:17:42,960 --> 00:17:47,760
+we found a treasure chest
+
+300
+00:17:45,600 --> 00:17:49,760
+but in the second half we're gonna place
+
+301
+00:17:47,760 --> 00:17:51,300
+a different thing
+
+302
+00:17:49,760 --> 00:17:54,000
+looks good
+
+303
+00:17:51,300 --> 00:17:56,480
+[Music]
+
+304
+00:17:54,000 --> 00:17:59,480
+so yeah i think everything is placed
+
+305
+00:17:56,480 --> 00:17:59,480
+correctly
+
+306
+00:18:00,000 --> 00:18:05,679
+yeah so this is the new look of the game
+
+307
+00:18:03,520 --> 00:18:09,200
+it took about a week to create those
+
+308
+00:18:05,679 --> 00:18:11,919
+tiles but uh i think it was worth it
+
+309
+00:18:09,200 --> 00:18:15,200
+and like before i'm gonna upload this
+
+310
+00:18:11,919 --> 00:18:16,400
+new tileset on my drive so so if you're
+
+311
+00:18:15,200 --> 00:18:19,919
+using
+
+312
+00:18:16,400 --> 00:18:22,799
+my tileset and wants to update to this
+
+313
+00:18:19,919 --> 00:18:24,559
+new one you can download it and
+
+314
+00:18:22,799 --> 00:18:28,400
+so i'm going to upload the
+
+315
+00:18:24,559 --> 00:18:29,600
+new map file too so you can use this
+
+316
+00:18:28,400 --> 00:18:31,840
+style set
+
+317
+00:18:29,600 --> 00:18:34,799
+in your environment too
+
+318
+00:18:31,840 --> 00:18:39,580
+anyway that's uh that's it for now so
+
+319
+00:18:34,799 --> 00:18:49,360
+thanks for watching and until next time
+
+320
+00:18:39,580 --> 00:18:51,440
+[Music]
+

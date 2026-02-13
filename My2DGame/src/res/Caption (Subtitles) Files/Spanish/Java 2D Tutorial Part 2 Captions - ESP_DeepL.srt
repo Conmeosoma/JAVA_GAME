@@ -1,0 +1,1269 @@
+1
+00:00:00,160 --> 00:00:10,240
+en este método de ejecución, crearemos un bucle de juego que será el núcleo de nuestro juego
+
+3
+00:00:07,200 --> 00:00:12,240
+ok, primero creamos este bucle while
+
+7
+00:00:20,640 --> 00:00:25,439
+esto significa
+
+8
+00:00:21,920 --> 00:00:29,199
+mientras exista este gameThread
+
+9
+00:00:25,439 --> 00:00:33,520
+se repite el proceso que está escrito dentro de este paréntesis
+
+11
+00:00:31,679 --> 00:00:36,079
+para probar que
+
+12
+00:00:33,520 --> 00:00:37,600
+vamos a mostrar algunos textos
+
+18
+00:00:45,280 --> 00:00:49,920
+y bien llamemos a este método
+
+19
+00:00:50,160 --> 00:00:52,480
+tal vez desde aquí
+
+23
+00:00:59,840 --> 00:01:02,960
+ok vamos a comprobarlo
+
+25
+00:01:07,520 --> 00:01:12,960
+como puedes ver
+
+26
+00:01:09,360 --> 00:01:17,920
+el programa repite este proceso
+
+28
+00:01:15,119 --> 00:01:20,240
+esto es solo una prueba pero en el juego real
+
+29
+00:01:17,920 --> 00:01:22,040
+hay dos cosas que vamos a hacer en este bucle
+
+31
+00:01:22,280 --> 00:01:26,040
+una es actualizar
+
+38
+00:01:39,840 --> 00:01:43,840
+el otro es
+
+44
+00:01:55,520 --> 00:02:00,799
+por ejemplo
+
+45
+00:01:57,119 --> 00:02:08,479
+digamos que tu personaje jugador está en x 100 y y 100 en la pantalla
+
+47
+00:02:05,360 --> 00:02:12,480
+si el jugador pulsa la tecla abajo que debería hacer que el personaje jugador baje
+
+49
+00:02:11,200 --> 00:02:20,120
+así que tal vez añadimos 3 a la coordenada y
+
+51
+00:02:17,360 --> 00:02:23,760
+entonces la coordenada y del jugador es 103 ahora
+
+52
+00:02:20,120 --> 00:02:30,959
+y eso significa que actualizamos la información del jugador
+
+54
+00:02:27,520 --> 00:02:33,280
+entonces basado en esta información actualizada
+
+55
+00:02:30,959 --> 00:02:37,040
+redibujamos la pantalla
+
+56
+00:02:33,280 --> 00:02:43,599
+ahora dibujamos el personaje del jugador en x 100 y y 103
+
+58
+00:02:40,560 --> 00:02:46,080
+si el jugador sigue pulsando la tecla abajo
+
+59
+00:02:43,599 --> 00:02:55,519
+seguimos actualizando las coordenadas y del personaje como 106 109 112 115
+
+61
+00:02:52,640 --> 00:03:02,000
+y volvemos a dibujar el personaje con las coordenadas actualizadas
+
+63
+00:02:58,640 --> 00:03:08,720
+repetimos esto. comprobamos la actualización y dibujamos la pantalla
+
+65
+00:03:04,400 --> 00:03:11,920
+y si establecemos los FPS del juego en 30
+
+66
+00:03:08,720 --> 00:03:18,720
+entonces hacemos esta actualización y dibujamos 30 veces por segundo
+
+68
+00:03:14,239 --> 00:03:23,120
+y si FPS es 60 hacemos esto 60 veces por segundo
+
+70
+00:03:19,920 --> 00:03:27,840
+y para hacer esta actualización y dibujar creamos dos métodos
+
+72
+00:03:24,879 --> 00:03:30,400
+uno se llama update
+
+74
+00:03:30,720 --> 00:03:38,879
+y el otro se llama paintComponent
+
+
+76
+00:03:40,959 --> 00:03:52,319
+este paintComponent es en realidad un método incorporado en Java por lo que este no es mi nombre original ni nada por el estilo
+
+78
+00:03:46,879 --> 00:03:56,319
+así que es uno de los métodos estándar para dibujar cosas en JPanel
+
+81
+00:03:54,080 --> 00:04:00,560
+hay otras formas de dibujar pero esta vez usaremos este paintComponent
+
+83
+00:03:59,680 --> 00:04:08,319
+y también utilizamos esta clase Graphics
+
+85
+00:04:04,319 --> 00:04:08,319
+así que recibimos Graphics como g
+
+86
+00:04:10,480 --> 00:04:15,040
+y luego añadimos esta línea
+
+90
+00:04:18,400 --> 00:04:27,360
+por lo que es sólo un formato cada vez que utilice este método paintComponent en JPanel
+
+93
+00:04:25,280 --> 00:04:30,080
+necesitas escribir esto
+
+94
+00:04:27,360 --> 00:04:35,680
+this super significa la clase padre de esta clase
+
+96
+00:04:32,639 --> 00:04:38,320
+y en este caso la clase padre es JPanel
+
+97
+00:04:35,680 --> 00:04:41,360
+porque este GamePanel es una subclase de JPanel
+
+98
+00:04:38,320 --> 00:04:46,800
+es una práctica establecida por Java para que esto funcione
+
+100
+00:04:43,600 --> 00:04:50,160
+así que creamos este método update y paintComponent
+
+101
+00:04:46,800 --> 00:04:52,800
+ahora volvamos a nuestro bucle de juego
+
+103
+00:04:51,600 --> 00:04:58,160
+y llamemos a estos dos métodos
+
+105
+00:04:54,400 --> 00:05:00,000
+primer tipo de actualización
+
+106
+00:04:58,160 --> 00:05:02,800
+y luego escribe repintar
+
+108
+00:05:03,680 --> 00:05:09,120
+no paintComponent sino repaint
+
+110
+00:05:07,280 --> 00:05:11,440
+es un poco confuso
+
+111
+00:05:09,120 --> 00:05:15,039
+pero así es como se llama a este método paintComponent
+
+113
+00:05:13,840 --> 00:05:21,680
+así que ahora mientras este bucle de juego continúe
+
+115
+00:05:18,160 --> 00:05:24,080
+sigue llamando a esta actualización y repintado
+
+116
+00:05:21,680 --> 00:05:28,720
+actualizar y repintar y actualizar y repintar
+
+118
+00:05:25,600 --> 00:05:32,080
+vamos a dibujar algo en la pantalla
+
+119
+00:05:28,720 --> 00:05:36,080
+y para dibujar algo usamos este paintComponent
+
+121
+00:05:33,199 --> 00:05:39,680
+y esta clase Graphics
+
+122
+00:05:36,080 --> 00:05:44,240
+imagina que este Graphics es tu lápiz o pincel
+
+125
+00:05:41,840 --> 00:05:45,360
+y antes de usar este Graphics 
+
+126
+00:05:44,240 --> 00:05:52,800
+vamos a convertir este Graphics a la clase Graphics2D
+
+135
+00:06:00,880 --> 00:06:10,960
+esto significa que cambiamos este Graphics g a esta clase Graphics2D
+
+138
+00:06:07,840 --> 00:06:14,160
+estos Graphics y Graphics2D son bastante similares
+
+139
+00:06:10,960 --> 00:06:21,759
+pero este Graphics2D tiene un poco más de funciones para que podamos utilizarlo y dibujar cosas
+
+142
+00:06:19,280 --> 00:06:29,120
+pero esta vez vamos a usar este vaso Graphics2D porque tiene algunas funciones que quiero usar más tarde
+
+145
+00:06:27,680 --> 00:06:33,360
+Muy bien, primero vamos a establecer el color
+
+152
+00:06:39,759 --> 00:06:45,919
+uh vamos a usar el blanco por ahora
+
+154
+00:06:43,120 --> 00:06:48,479
+entonces vamos a dibujar un rectángulo en la pantalla
+
+160
+00:06:53,120 --> 00:07:00,000
+este método fillRect va a dibujar un rectángulo en la pantalla
+
+162
+00:06:58,080 --> 00:07:03,840
+y cuando dibujes algo en la pantalla
+
+163
+00:07:00,000 --> 00:07:10,319
+este Graphics o Graphics2D te pide sus coordenadas x e y
+
+165
+00:07:07,440 --> 00:07:15,759
+y también su anchura y altura del objeto por lo que este rectángulo
+
+167
+00:07:13,280 --> 00:07:22,560
+digamos que x es 100 y y es 100
+
+170
+00:07:20,800 --> 00:07:23,440
+y el ancho
+
+172
+00:07:23,440 --> 00:07:32,000
+por el momento vamos a usar esto como personaje jugador
+
+174
+00:07:29,360 --> 00:07:37,759
+así que vamos a utilizar este tamaño de azulejo
+
+176
+00:07:34,080 --> 00:07:37,759
+así que 48 por 48
+
+177
+00:07:38,319 --> 00:07:47,520
+así que la anchura es el tamaño de la baldosa y la altura es también el tamaño de la baldosa
+
+179
+00:07:42,880 --> 00:07:47,520
+y cuando el dibujo está hecho
+
+180
+00:07:48,400 --> 00:07:53,759
+nos deshacemos de este Graphics2D
+
+182
+00:07:51,840 --> 00:07:56,400
+el programa sigue funcionando sin esta línea
+
+183
+00:07:53,759 --> 00:08:01,440
+pero es una buena práctica para ahorrar memoria
+
+184
+00:07:56,400 --> 00:08:01,440
+así que sí, vale, veamos
+
+186
+00:08:04,080 --> 00:08:17,599
+dibujamos un rectángulo de color blanco de 48 x 48 en x 100 y y 100
+
+191
+00:08:14,479 --> 00:08:22,960
+así que podemos dibujar cosas usando este Graphics2D
+
+193
+00:08:19,360 --> 00:08:27,840
+ahora queremos mover o controlar este rectángulo
+
+195
+00:08:25,120 --> 00:08:31,880
+y para ello necesitamos aceptar la entrada del teclado
+
+196
+00:08:27,840 --> 00:08:41,440
+para que cuando el jugador pulse las teclas wasd el rectángulo suba, baje, vaya a la izquierda o a la derecha
+
+199
+00:08:38,640 --> 00:08:46,160
+así que vamos a crear otra clase para manejar esta entrada clave
+
+201
+00:08:43,519 --> 00:08:48,560
+dentro de este paquete principal
+
+202
+00:08:46,160 --> 00:08:53,120
+creamos una clase a la que llamaremos KeyHandler
+
+206
+00:08:53,600 --> 00:08:58,720
+y este KeyListener
+
+211
+00:09:06,959 --> 00:09:15,760
+y entonces sí te pide que añadas estos métodos no implementados
+
+214
+00:09:13,519 --> 00:09:18,480
+keyTyped, keyPressed, y keyReleased
+
+215
+00:09:15,760 --> 00:09:25,200
+así que cuando implementes este KeyListener tienes que añadir estos tres métodos
+
+218
+00:09:23,120 --> 00:09:31,440
+y no usamos keyTyped para nada
+
+221
+00:09:29,519 --> 00:09:37,000
+sólo utilizamos keyPressed y keyReleased
+
+227
+00:09:44,080 --> 00:09:54,880
+así que este e dot getkeyCode básicamente devuelve un número de la tecla que fue presionada
+
+230
+00:09:51,839 --> 00:09:56,080
+y vamos a comprobar
+
+234
+00:10:02,640 --> 00:10:09,600
+lo que significa que si el usuario pulsa la tecla w
+
+235
+00:10:07,839 --> 00:10:15,440
+entonces uh bien vamos a añadir tres más
+
+242
+00:10:19,839 --> 00:10:26,240
+y también vamos a crear uh algunos booleanos
+
+253
+00:10:40,399 --> 00:10:47,440
+y si la tecla pulsada es w 
+
+263
+00:11:08,480 --> 00:11:14,880
+Sí, esto está hecho por ahora
+
+264
+00:11:11,200 --> 00:11:17,519
+así que vamos a ocuparnos de esta llave liberada
+
+265
+00:11:14,880 --> 00:11:18,800
+así que primero obtenemos este código clave
+
+270
+00:11:23,279 --> 00:11:30,000
+Bien, copiemos esto y peguémoslo
+
+272
+00:11:28,959 --> 00:11:37,519
+así que ahora no es keyPressed sino keyReleased así que
+
+274
+00:11:33,040 --> 00:11:39,920
+si la tecla liberada fue w entonces upPressed es falso
+
+278
+00:11:44,720 --> 00:11:49,200
+y esto también es falso
+
+279
+00:11:47,519 --> 00:11:50,480
+no flase
+
+282
+00:11:51,920 --> 00:12:01,680
+Sí, eso es todo sobre esta clase KeyHandler por ahora
+
+285
+00:11:58,000 --> 00:12:01,680
+Volvamos al GamePanel
+
+286
+00:12:02,639 --> 00:12:08,079
+vamos a instanciar este keyhandler
+
+290
+00:12:16,720 --> 00:12:26,079
+y vamos a añadir este KeyHandler a este GamePanel
+
+295
+00:12:29,519 --> 00:12:39,120
+para que este GamePanel pueda reconocer la entrada de teclas
+
+297
+00:12:34,399 --> 00:12:40,560
+y también añadimos una línea más
+
+304
+00:12:49,200 --> 00:12:54,880
+vamos a crear algunas variables
+
+316
+00:13:10,320 --> 00:13:16,880
+y también vamos a decidir la velocidad del jugador
+
+318
+00:13:17,120 --> 00:13:23,920
+y voy a poner cuatro
+
+319
+00:13:21,040 --> 00:13:26,240
+luego vamos al método paintComponent
+
+322
+00:13:26,240 --> 00:13:31,360
+en lugar de este 100 100
+
+323
+00:13:29,360 --> 00:13:41,440
+vamos a escribir jugador x y jugador y aquí
+
+327
+00:13:36,720 --> 00:13:48,800
+así que ahora no son números fijos sino variables para que podamos cambiar la posición del jugador
+
+330
+00:13:45,760 --> 00:13:50,240
+¿dónde cambiamos la posición del jugador?
+
+331
+00:13:48,800 --> 00:13:54,720
+vamos a hacerlo dentro de esta actualización
+
+337
+00:14:03,279 --> 00:14:10,880
+keyH significa KeyHandler
+
+338
+00:14:06,720 --> 00:14:12,880
+si upPressed es verdadero
+
+339
+00:14:10,880 --> 00:14:19,360
+entonces queremos hacer que el personaje suba
+
+345
+00:14:24,399 --> 00:14:31,760
+así que menos igual o también puedes escribir así
+
+348
+00:14:39,760 --> 00:14:46,000
+es lo mismo esta es una forma corta de escribir
+
+349
+00:14:42,880 --> 00:14:50,639
+estamos restando la velocidad de este jugador de la coordenada y de este jugador
+
+355
+00:15:00,399 --> 00:15:05,760
+va a ser opuesta así que
+
+374
+00:15:44,639 --> 00:15:51,759
+así que en este caso este jugador velocidad 4 significa 4 píxeles
+
+376
+00:15:49,759 --> 00:15:59,600
+así que cuando el usuario pulsa la tecla abajo o la tecla s
+
+378
+00:15:56,480 --> 00:16:04,720
+entonces las coordenadas y del jugador se incrementan en 4 pixels
+
+380
+00:16:00,800 --> 00:16:08,880
+entonces cada vez que el jugador pulsa estas teclas
+
+381
+00:16:04,720 --> 00:16:11,360
+la entrada de la tecla es capturada por KeyHandler
+
+382
+00:16:08,880 --> 00:16:15,600
+y este método de actualización actualiza las coordenadas del jugador
+
+384
+00:16:14,240 --> 00:16:22,560
+y después de esta actualización va a llamar a este paintComponent
+
+387
+00:16:19,920 --> 00:16:30,959
+y este paintComponent dibuja un rectángulo con las posiciones x e y actualizadas del jugador
+
+390
+00:16:28,160 --> 00:16:33,680
+pero todavía hay un problema
+
+391
+00:16:30,959 --> 00:16:35,600
+te mostraré lo que ocurre ahora
+
+394
+00:16:36,720 --> 00:16:42,880
+si por ejemplo pulso la tecla s
+
+397
+00:16:42,880 --> 00:16:51,040
+entonces el rectángulo desaparece cuando pulso la tecla
+
+399
+00:16:46,959 --> 00:16:54,079
+dejame explicarte lo que acaba de pasar
+
+400
+00:16:51,040 --> 00:17:02,399
+creamos este bucle de juego y esto repite esta actualización y repintado
+
+403
+00:16:58,560 --> 00:17:09,600
+pero como no hemos establecido ningún intervalo específico entre cada actualización y dibujo
+
+405
+00:17:06,000 --> 00:17:14,240
+así que tu ordenador hace este proceso tan rápido como puede
+
+407
+00:17:11,679 --> 00:17:17,120
+así que como ahora estamos dibujando un simple rectángulo 
+
+408
+00:17:14,240 --> 00:17:23,360
+no es nada pesado para la CPU de los ordenadores modernos
+
+410
+00:17:20,319 --> 00:17:29,760
+así que probablemente pueda repetir el proceso como un millón de veces por segundo
+
+413
+00:17:26,319 --> 00:17:32,960
+así que cuando ejecutamos este programa y pulsamos la tecla abajo
+
+414
+00:17:29,760 --> 00:17:38,559
+el rectángulo se mueve como varios millones de píxeles durante un segundo
+
+416
+00:17:36,160 --> 00:17:43,919
+y ya que esta ventana tiene sólo como varios cientos de píxeles de ancho y alto
+
+418
+00:17:40,799 --> 00:17:46,559
+por lo que el rectángulo rápidamente salió del marco
+
+419
+00:17:43,919 --> 00:17:50,960
+y por eso parecía que el rectángulo simplemente desaparecía
+
+421
+00:17:50,160 --> 00:17:59,919
+así que lo que tenemos que hacer es establecer una especie de restricción
+
+424
+00:17:56,240 --> 00:18:03,520
+ordenamos el programa como 
+
+425
+00:17:59,919 --> 00:18:10,480
+"hey baja la velocidad, solo actualiza y dibuja la pantalla 60 veces por segundo y no más"
+
+427
+00:18:07,280 --> 00:18:14,880
+y para hacer eso primero necesitamos saber que hora es ahora
+
+429
+00:18:11,679 --> 00:18:17,600
+entonces también necesitamos saber cuánto tiempo ha pasado
+
+430
+00:18:14,880 --> 00:18:23,360
+entre aquí y después de esta actualización y el repintado
+
+432
+00:18:20,240 --> 00:18:29,840
+así que sin esta información no podemos decirle a nuestro programa cuando actualizar o dibujar
+
+435
+00:18:30,960 --> 00:18:36,400
+y para comprobar la hora actual escribimos así
+
+443
+00:18:45,200 --> 00:18:52,320
+así que usaremos el nanosegundo para comprobar la hora actual del sistema
+
+445
+00:18:50,240 --> 00:19:02,559
+nano es una unidad muy muy pequeña y básicamente 1 billón de nanosegundos es igual a 1 segundo
+
+448
+00:18:59,840 --> 00:19:02,559
+también podemos usar esta
+
+449
+00:19:08,960 --> 00:19:17,120
+y esto devuelve la hora actual en milisegundos
+
+451
+00:19:15,120 --> 00:19:21,039
+esto también está bien
+
+452
+00:19:17,120 --> 00:19:21,039
+pero nano es más preciso
+
+453
+00:19:21,600 --> 00:19:26,880
+déjame mostrarte un ejemplo
+
+456
+00:19:30,400 --> 00:19:33,200
+vamos a mostrar la hora actual
+
+458
+00:19:36,960 --> 00:19:39,840
+muy bien vamos a comprobarlo
+
+460
+00:19:44,720 --> 00:19:53,760
+este es el tiempo actual del sistema en nanosegundos
+
+462
+00:19:50,799 --> 00:19:56,480
+como puedes ver el tiempo está aumentando
+
+463
+00:19:53,760 --> 00:20:00,960
+así que cuando necesitemos comprobar la hora actual podemos hacerlo escribiendo así
+
+465
+00:20:04,400 --> 00:20:13,200
+Ok, ahora vamos a configurar los FPS para nuestro juego
+
+466
+00:20:10,000 --> 00:20:19,760
+y creo que 60 FPS es lo suficientemente decente por lo que elegimos que
+
+469
+00:20:17,679 --> 00:20:21,919
+después de esto
+
+474
+00:20:29,440 --> 00:20:33,080
+borremos esto
+
+475
+00:20:36,080 --> 00:20:43,039
+ahora una parte un poco complicada
+
+476
+00:20:39,440 --> 00:20:47,520
+¿cómo crear esta restricción para que se produzcan 60 FPS?
+
+478
+00:20:45,679 --> 00:20:54,400
+hay varias formas de construir un grupo de juego decente
+
+480
+00:20:51,120 --> 00:20:57,919
+y voy a presentar dos populares aquí
+
+481
+00:20:54,400 --> 00:21:02,880
+ambos son métodos establecidos y ampliamente utilizados
+
+483
+00:20:58,960 --> 00:21:05,679
+he probado ambos y confirmado que ambos funcionan bien
+
+484
+00:21:02,880 --> 00:21:10,240
+así que puedes elegir el que quieras
+
+486
+00:21:07,440 --> 00:21:14,840
+Empecemos con el primero. Lo llamo "método del sueño".
+
+488
+00:21:12,000 --> 00:21:19,760
+Ok, primero creamos variables, fuera de este bucle while
+
+495
+00:21:26,880 --> 00:21:34,000
+dividido por FPS
+
+496
+00:21:30,799 --> 00:21:37,679
+sí wow eso es un montón de ceros en realidad
+
+497
+00:21:34,000 --> 00:21:42,880
+tiene nueve ceros por lo que es mil millones y esto significa un segundo
+
+500
+00:21:40,640 --> 00:21:47,120
+así que usamos nanosegundos como unidad de cálculo en este bucle del juego
+
+502
+00:21:45,760 --> 00:21:53,360
+así que aquí es un segundo pero también mil millones de nanosegundos
+
+505
+00:21:51,280 --> 00:22:01,440
+tal vez es un poco confuso al principio, pero es todo para un cálculo preciso
+
+508
+00:21:58,640 --> 00:22:08,720
+así que estamos dividiendo un segundo o mil millones de nanosegundos por 60
+
+511
+00:22:05,760 --> 00:22:15,520
+lo que es uno, dos, tres, cuatro, cinco, seis, siete... dividido por sesenta
+
+514
+00:22:13,919 --> 00:22:22,480
+igual a dieciséis millones
+
+516
+00:22:17,600 --> 00:22:23,280
+seis, seis, seis... uh nanosegundos o
+
+517
+00:22:22,480 --> 00:22:29,919
+así que uno dividido por sesenta
+
+519
+00:22:25,840 --> 00:22:32,240
+es lo mismo así que 0.01666 segundos
+
+520
+00:22:29,919 --> 00:22:34,960
+así que ese es el intervalo de dibujo
+
+521
+00:22:32,240 --> 00:22:42,159
+esto significa que dibujamos la pantalla cada 0.016 segundos
+
+523
+00:22:37,960 --> 00:22:46,159
+así que podemos dibujar la pantalla 60 veces por segundo
+
+527
+00:22:53,200 --> 00:22:58,080
+y luego la siguiente variable
+
+538
+00:23:10,640 --> 00:23:19,600
+así que como hicimos antes este sistema punto nano tiempo devuelve la hora actual del sistema
+
+541
+00:23:17,280 --> 00:23:25,760
+digamos que si dibujamos la pantalla ahora mismo
+
+543
+00:23:22,799 --> 00:23:34,400
+entonces el siguiente tiempo de dibujado será el tiempo actual más este drawInterval
+
+546
+00:23:30,480 --> 00:23:35,120
+así que 0.016 segundos más tarde
+
+547
+00:23:34,400 --> 00:23:40,159
+así que podemos decirle a nuestro programa 
+
+549
+00:23:37,360 --> 00:23:46,400
+que cuando la hora de su sistema interno llegue a este tiempo entonces dibuje la pantalla de nuevo
+
+554
+00:23:46,400 --> 00:23:55,360
+y después de establecer este nextDrawTime el bucle del juego comienza
+
+556
+00:23:52,159 --> 00:23:59,440
+y el programa hace esta actualización y repintado
+
+558
+00:23:57,600 --> 00:24:10,159
+y en este punto debe haber pasado algún tiempo desde entonces
+
+563
+00:24:07,279 --> 00:24:13,360
+así que lo que necesitamos saber es
+
+564
+00:24:10,159 --> 00:24:15,120
+después de esta actualización y repintado
+
+565
+00:24:13,360 --> 00:24:20,559
+cuánto tiempo queda hasta el próximo tiempo de dibujo
+
+568
+00:24:18,559 --> 00:24:21,919
+vamos a comprobarlo
+
+577
+00:24:33,760 --> 00:24:40,880
+así que restamos el tiempo actual de nextDrawTime
+
+578
+00:24:37,520 --> 00:24:47,360
+esto nos devuelve el tiempo restante hasta el próximo tiempo de dibujo
+
+580
+00:24:44,559 --> 00:24:53,360
+y tenemos que dejar que el hilo duerma durante el tiempo restante
+
+582
+00:24:49,919 --> 00:24:53,360
+así que escribimos así
+
+588
+00:25:04,000 --> 00:25:12,960
+pero como este método sleep sólo acepta long
+
+590
+00:25:10,080 --> 00:25:15,200
+así que vamos a lanzar esto
+
+591
+00:25:12,960 --> 00:25:19,679
+y también creo que tenemos que rodear esto con try and catch
+
+593
+00:25:20,400 --> 00:25:29,840
+y también vamos a mover este remainingTime también a este try and catch
+
+596
+00:25:30,080 --> 00:25:36,880
+así que este sleep básicamente pausa el bucle del juego
+
+597
+00:25:33,120 --> 00:25:41,279
+por lo que no hará nada hasta que este tiempo de suspensión termine
+
+599
+00:25:39,840 --> 00:25:46,640
+pero hay otra trampa aquí
+
+601
+00:25:43,360 --> 00:25:49,360
+como se puede ver en esta descripción
+
+602
+00:25:46,640 --> 00:25:53,679
+este método sleep acepta el número en milisegundos
+
+604
+00:25:51,919 --> 00:25:58,400
+y como hemos hecho estos cálculos con nanosegundos
+
+606
+00:25:57,120 --> 00:26:06,400
+necesitamos convertir el tiempo restante de nano a milisegundo
+
+612
+00:26:16,480 --> 00:26:23,520
+así que dividimos este remainingTime por un millón
+
+614
+00:26:20,799 --> 00:26:27,600
+así que ahora podemos aceptar este remainingTime como milisegundos
+
+616
+00:26:25,279 --> 00:26:29,760
+Sí, es un poco confuso
+
+617
+00:26:27,600 --> 00:26:35,360
+pero así es como se hace cuando se utiliza este nanotiempo y también este método de sueño
+
+620
+00:26:34,080 --> 00:26:39,679
+también añadimos esta sentencia if
+
+630
+00:26:52,960 --> 00:27:03,200
+así que si esta actualización en el repintado tardó más que este drawInterval
+
+632
+00:27:00,080 --> 00:27:06,559
+entonces no queda tiempo
+
+633
+00:27:03,200 --> 00:27:09,600
+este hilo no necesita dormir puesto que ya hemos usado el tiempo asignado
+
+634
+00:27:06,559 --> 00:27:13,600
+así que ponemos 0 al tiempo restante
+
+636
+00:27:11,200 --> 00:27:18,159
+dudo que esto ocurra en nuestro pequeño juego 2D pero por si acaso
+
+639
+00:27:18,159 --> 00:27:22,000
+y finalmente
+
+641
+00:27:22,000 --> 00:27:29,440
+cuando termina el tiempo de sueño y el hilo se despierta
+
+643
+00:27:25,679 --> 00:27:36,720
+vamos a establecer un nuevo nextDrawTime
+
+646
+00:27:32,840 --> 00:27:39,919
+así que básicamente vamos a añadir drawInterval
+
+648
+00:27:41,120 --> 00:27:52,000
+lo que significa que 0.01666 segundos después será el nextDrawTime
+
+652
+00:27:49,200 --> 00:27:55,039
+Ok, creo que este bucle del juego está hecho
+
+653
+00:27:52,000 --> 00:27:55,039
+vamos a comprobarlo
+
+654
+00:27:56,159 --> 00:28:00,840
+Ok, voy a pulsar la tecla S
+
+655
+00:28:00,000 --> 00:28:03,919
+Tecla D
+
+656
+00:28:00,840 --> 00:28:07,200
+Tecla W, Tecla A
+
+657
+00:28:03,919 --> 00:28:09,919
+esta funcionando asi que nuestro bucle de juego esta funcionando de maravilla
+
+658
+00:28:07,200 --> 00:28:12,640
+y ya podemos mover al personaje
+
+660
+00:28:13,360 --> 00:28:19,520
+si, todo esto esta bien pero
+
+661
+00:28:16,320 --> 00:28:21,520
+déjame introducir otro bucle de juego
+
+662
+00:28:19,520 --> 00:28:26,960
+y este es el llamado "método delta o acumulador"
+
+664
+00:28:24,640 --> 00:28:30,799
+así que este es otro método popular para crear un bucle de juego decente
+
+666
+00:28:29,600 --> 00:28:36,640
+ahora voy a comentar
+
+674
+00:28:48,240 --> 00:28:54,559
+FPS, esto es lo mismo
+
+675
+00:28:51,600 --> 00:28:59,600
+y luego vamos a crear esta variable delta
+
+677
+00:28:56,799 --> 00:29:01,600
+y 0 por ahora
+
+685
+00:29:13,520 --> 00:29:18,080
+ok voy a escribir todo primero
+
+712
+00:30:08,960 --> 00:30:13,520
+si, eso es, vamos a comprobarlo
+
+713
+00:30:16,640 --> 00:30:22,080
+funciona esto tambien funciona
+
+714
+00:30:19,360 --> 00:30:25,440
+así que al principio del bucle comprobamos la hora actual
+
+716
+00:30:24,240 --> 00:30:32,399
+y luego restamos este último tiempo del tiempo actual
+
+719
+00:30:30,080 --> 00:30:37,120
+lo que básicamente significa cuánto tiempo ha pasado
+
+721
+00:30:34,720 --> 00:30:42,799
+y también dividirlo por este drawInterval
+
+723
+00:30:39,679 --> 00:30:46,799
+y añádelo a este delta
+
+724
+00:30:42,799 --> 00:30:49,679
+y la hora actual se convierte en la hora pasada
+
+725
+00:30:46,799 --> 00:30:53,360
+y esta sentencia if
+
+726
+00:30:49,679 --> 00:30:56,720
+este 1 es igual a este drawInterval
+
+728
+00:30:54,640 --> 00:30:58,399
+así que lo que estamos haciendo aquí es
+
+729
+00:30:56,720 --> 00:31:08,399
+así que en cada bucle sumamos el tiempo pasado dividido por drawInterval a delta
+
+733
+00:31:04,559 --> 00:31:12,799
+y cuando este delta alcanza este drawInterval
+
+735
+00:31:09,840 --> 00:31:18,559
+entonces actualizamos y repintamos y reiniciamos este delta
+
+737
+00:31:15,919 --> 00:31:22,399
+esta es otra forma de actualizar y dibujar en cada drawInterval
+
+739
+00:31:21,600 --> 00:31:30,880
+y para comprobar si realmente está dibujando la pantalla 60 veces por segundo
+
+743
+00:31:28,720 --> 00:31:34,080
+podemos mostrar FPS
+
+744
+00:31:30,880 --> 00:31:36,880
+para comprobar FPS
+
+745
+00:31:34,080 --> 00:31:38,799
+vamos a añadir un poco más de variable
+
+753
+00:31:48,240 --> 00:32:00,840
+cada vez que se actualice y repinte aumentamos este drawCount en 1
+
+758
+00:32:00,880 --> 00:32:05,279
+y aumentamos el temporizador
+
+763
+00:32:13,200 --> 00:32:19,679
+así que esto significa tiempo pasado
+
+764
+00:32:16,320 --> 00:32:22,720
+así que en cada bucle añadimos el tiempo pasado a este temporizador
+
+766
+00:32:21,519 --> 00:32:32,080
+y cuando este temporizador llega a un segundo
+
+771
+00:32:28,720 --> 00:32:35,519
+así que uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve...
+
+772
+00:32:32,080 --> 00:32:35,519
+mil millones de nanosegundos
+
+773
+00:32:36,399 --> 00:32:39,840
+vamos a mostrar FPS
+
+777
+00:32:42,799 --> 00:32:52,559
+cuantas veces se ha actualizado y repintado hasta llegar a un segundo
+
+780
+00:32:50,000 --> 00:32:58,399
+y entonces vamos a reiniciar este drawCount y el temporizador
+
+783
+00:33:00,559 --> 00:33:04,480
+Sí, vale, vamos a comprobarlo
+
+784
+00:33:08,399 --> 00:33:11,840
+Sí, así
+
+785
+00:33:17,279 --> 00:33:24,480
+así que puedes ver que el programa mantiene 60 FPS
+
+787
+00:33:21,200 --> 00:33:30,480
+así que el programa está dibujando la pantalla 60 veces por segundo
+
+789
+00:33:27,840 --> 00:33:30,480
+así que esto funciona bien
+
+790
+00:33:31,600 --> 00:33:38,320
+así que hemos conseguido crear nuestro bucle de juego
+
+792
+00:33:35,919 --> 00:33:43,519
+y en este tutorial continuaremos con este bucle de juego delta
+
+794
+00:33:41,200 --> 00:33:47,919
+pero puedes elegir entre este método sleep o el método delta
+
+796
+00:33:46,320 --> 00:33:50,399
+cualquiera de los dos está bien
+
+797
+00:33:47,919 --> 00:33:58,720
+y no vamos a editar más estos game loops así que ambos funcionan bien a lo largo de este tutorial
+
+800
+00:33:55,919 --> 00:34:05,679
+algunas personas prefieren este delta a este método de sueño
+
+803
+00:34:03,039 --> 00:34:12,639
+porque, no estoy muy seguro pero, algunos dicen que este hilo de sueño no es completamente exacto
+
+806
+00:34:09,919 --> 00:34:18,399
+por lo que a veces se crea una diferencia de unos pocos milisegundos o algo así
+
+808
+00:34:15,679 --> 00:34:21,359
+no estoy muy seguro de ello
+
+809
+00:34:18,399 --> 00:34:22,720
+tal vez puedas probar ambos
+
+810
+00:34:21,359 --> 00:34:30,079
+y ver cual funciona mejor para tu juego
+
+812
+00:34:26,399 --> 00:34:32,800
+ok ahora la parte complicada esta hecha
+
+813
+00:34:30,079 --> 00:34:36,320
+ahora vamos a crear un personaje jugador
+
+814
+00:34:32,800 --> 00:34:49,409
+y mostrar los sprites del jugador en la pantalla
+
+816
+00:34:37,570 --> 00:34:49,409
+[Música]
+

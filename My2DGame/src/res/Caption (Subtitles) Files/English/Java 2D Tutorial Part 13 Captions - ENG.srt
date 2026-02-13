@@ -1,0 +1,1532 @@
+1
+00:00:00,240 --> 00:00:06,000
+hi guys this is roy snow so
+
+2
+00:00:03,439 --> 00:00:08,400
+after finishing our first game i
+
+3
+00:00:06,000 --> 00:00:11,519
+uploaded some sort of modification
+
+4
+00:00:08,400 --> 00:00:14,960
+videos such as improving rendering speed
+
+5
+00:00:11,519 --> 00:00:17,680
+and pixel art but from this video we
+
+6
+00:00:14,960 --> 00:00:20,240
+actually resume the development and
+
+7
+00:00:17,680 --> 00:00:23,119
+starts the second half
+
+8
+00:00:20,240 --> 00:00:24,400
+as i said in the very first video of
+
+9
+00:00:23,119 --> 00:00:28,320
+this series
+
+10
+00:00:24,400 --> 00:00:32,239
+we will turn this into an action rpg
+
+11
+00:00:28,320 --> 00:00:33,760
+so no simple key finding demonstration
+
+12
+00:00:32,239 --> 00:00:36,559
+game anymore
+
+13
+00:00:33,760 --> 00:00:38,239
+and here's a bit more detailed load map
+
+14
+00:00:36,559 --> 00:00:41,200
+of the second half
+
+15
+00:00:38,239 --> 00:00:44,559
+we set game state so we can handle
+
+16
+00:00:41,200 --> 00:00:48,160
+various situations in the game we create
+
+17
+00:00:44,559 --> 00:00:49,200
+an npc and dialog system so we can talk
+
+18
+00:00:48,160 --> 00:00:52,399
+to them
+
+19
+00:00:49,200 --> 00:00:55,920
+we create more detailed player stats
+
+20
+00:00:52,399 --> 00:00:58,480
+such as player life level attack defense
+
+21
+00:00:55,920 --> 00:01:00,879
+experience stuff like that
+
+22
+00:00:58,480 --> 00:01:03,280
+we create monsters and
+
+23
+00:01:00,879 --> 00:01:07,119
+implement a simple ai
+
+24
+00:01:03,280 --> 00:01:09,840
+so they spawn on the map and move around
+
+25
+00:01:07,119 --> 00:01:13,360
+and we implement a battle system so
+
+26
+00:01:09,840 --> 00:01:16,400
+player can attack and receive damage
+
+27
+00:01:13,360 --> 00:01:19,600
+then we implement inventory so we are
+
+28
+00:01:16,400 --> 00:01:20,720
+not just adding plus one to integer
+
+29
+00:01:19,600 --> 00:01:21,600
+variable
+
+30
+00:01:20,720 --> 00:01:23,520
+but
+
+31
+00:01:21,600 --> 00:01:27,200
+handle this in more
+
+32
+00:01:23,520 --> 00:01:29,680
+object oriented way this will be a bit
+
+33
+00:01:27,200 --> 00:01:30,960
+tricky one but i will explain step by
+
+34
+00:01:29,680 --> 00:01:31,840
+step
+
+35
+00:01:30,960 --> 00:01:35,439
+and
+
+36
+00:01:31,840 --> 00:01:39,040
+we also add them merchant npc so we can
+
+37
+00:01:35,439 --> 00:01:42,240
+buy and sell items with them
+
+38
+00:01:39,040 --> 00:01:43,520
+and uh we create title screen and game
+
+39
+00:01:42,240 --> 00:01:47,119
+over screen
+
+40
+00:01:43,520 --> 00:01:50,320
+we handle this by switching game state
+
+41
+00:01:47,119 --> 00:01:52,960
+and uh we also implement a little
+
+42
+00:01:50,320 --> 00:01:57,040
+interaction with environment
+
+43
+00:01:52,960 --> 00:02:00,079
+not gonna go too deep into this area but
+
+44
+00:01:57,040 --> 00:02:02,320
+a twist will be able to cut trees with
+
+45
+00:02:00,079 --> 00:02:06,280
+an axe
+
+46
+00:02:02,320 --> 00:02:06,280
+and there's some more
+
+47
+00:02:08,479 --> 00:02:14,319
+and besides this i might add other stuff
+
+48
+00:02:11,599 --> 00:02:17,280
+if i come up with some ideas or receive
+
+49
+00:02:14,319 --> 00:02:18,160
+some ideas through comments
+
+50
+00:02:17,280 --> 00:02:20,319
+so
+
+51
+00:02:18,160 --> 00:02:23,360
+in any case feel free to leave a comment
+
+52
+00:02:20,319 --> 00:02:24,319
+whenever you don't understand something
+
+53
+00:02:23,360 --> 00:02:26,879
+or
+
+54
+00:02:24,319 --> 00:02:29,200
+you have some features to implement
+
+55
+00:02:26,879 --> 00:02:30,080
+anything is fine
+
+56
+00:02:29,200 --> 00:02:32,800
+okay
+
+57
+00:02:30,080 --> 00:02:33,599
+in this first episode of the second half
+
+58
+00:02:32,800 --> 00:02:34,840
+we
+
+59
+00:02:33,599 --> 00:02:36,879
+implement
+
+60
+00:02:34,840 --> 00:02:39,120
+gamestate and
+
+61
+00:02:36,879 --> 00:02:43,200
+as a part of this game state we
+
+62
+00:02:39,120 --> 00:02:46,879
+implement a pause screen so we can pause
+
+63
+00:02:43,200 --> 00:02:50,160
+the game and while implementing this we
+
+64
+00:02:46,879 --> 00:02:52,879
+also do a little housekeeping and delete
+
+65
+00:02:50,160 --> 00:02:55,200
+stuff that we don't use anymore
+
+66
+00:02:52,879 --> 00:02:58,959
+so let's start
+
+67
+00:02:55,200 --> 00:03:00,319
+okay so first we create some integers
+
+68
+00:02:58,959 --> 00:03:02,720
+this is
+
+69
+00:03:00,319 --> 00:03:02,720
+game
+
+70
+00:03:02,840 --> 00:03:09,200
+statement and public hint
+
+71
+00:03:06,080 --> 00:03:09,200
+game state
+
+72
+00:03:09,760 --> 00:03:13,519
+and also public
+
+73
+00:03:11,680 --> 00:03:18,800
+final in
+
+74
+00:03:13,519 --> 00:03:21,760
+a play state equal one
+
+75
+00:03:18,800 --> 00:03:25,040
+and public final int
+
+76
+00:03:21,760 --> 00:03:26,640
+power power state
+
+77
+00:03:25,040 --> 00:03:27,360
+equal to
+
+78
+00:03:26,640 --> 00:03:29,280
+so
+
+79
+00:03:27,360 --> 00:03:31,040
+what is game state
+
+80
+00:03:29,280 --> 00:03:34,640
+when you play a game
+
+81
+00:03:31,040 --> 00:03:37,200
+usually it has various game situations
+
+82
+00:03:34,640 --> 00:03:39,360
+such as title screen
+
+83
+00:03:37,200 --> 00:03:40,720
+the main gameplay screen
+
+84
+00:03:39,360 --> 00:03:42,720
+or
+
+85
+00:03:40,720 --> 00:03:44,480
+in game menu screen
+
+86
+00:03:42,720 --> 00:03:47,040
+stuff like that
+
+87
+00:03:44,480 --> 00:03:49,440
+and depending on the situation
+
+88
+00:03:47,040 --> 00:03:50,560
+the program draws different things on
+
+89
+00:03:49,440 --> 00:03:53,439
+the screen
+
+90
+00:03:50,560 --> 00:03:55,360
+and often receive different
+
+91
+00:03:53,439 --> 00:03:56,879
+key input
+
+92
+00:03:55,360 --> 00:03:59,519
+for example
+
+93
+00:03:56,879 --> 00:04:02,159
+you can swing your sword by pressing
+
+94
+00:03:59,519 --> 00:04:05,280
+enter in gameplay state
+
+95
+00:04:02,159 --> 00:04:08,000
+but maybe enter works as confirmation
+
+96
+00:04:05,280 --> 00:04:11,599
+key in many screen
+
+97
+00:04:08,000 --> 00:04:14,400
+so we handle this by telling our program
+
+98
+00:04:11,599 --> 00:04:15,360
+what kind of game state we are in right
+
+99
+00:04:14,400 --> 00:04:19,040
+now
+
+100
+00:04:15,360 --> 00:04:20,639
+so i just put one to this play state and
+
+101
+00:04:19,040 --> 00:04:23,759
+the two to
+
+102
+00:04:20,639 --> 00:04:26,000
+this pulse state but basically you can
+
+103
+00:04:23,759 --> 00:04:29,520
+choose any number
+
+104
+00:04:26,000 --> 00:04:31,280
+and for now we start the game with this
+
+105
+00:04:29,520 --> 00:04:32,720
+play state
+
+106
+00:04:31,280 --> 00:04:34,639
+so
+
+107
+00:04:32,720 --> 00:04:37,040
+in this setup game
+
+108
+00:04:34,639 --> 00:04:39,360
+we set the default game state
+
+109
+00:04:37,040 --> 00:04:43,280
+game state
+
+110
+00:04:39,360 --> 00:04:45,600
+equal play state
+
+111
+00:04:43,280 --> 00:04:47,199
+you know uh technically you don't really
+
+112
+00:04:45,600 --> 00:04:48,560
+need to create these
+
+113
+00:04:47,199 --> 00:04:50,639
+and uh
+
+114
+00:04:48,560 --> 00:04:52,240
+so typing like
+
+115
+00:04:50,639 --> 00:04:53,600
+like these
+
+116
+00:04:52,240 --> 00:04:56,320
+but uh
+
+117
+00:04:53,600 --> 00:04:57,199
+the reason i didn't do that is because
+
+118
+00:04:56,320 --> 00:04:59,280
+um
+
+119
+00:04:57,199 --> 00:05:00,320
+maybe you want to switch these numbers
+
+120
+00:04:59,280 --> 00:05:03,199
+later
+
+121
+00:05:00,320 --> 00:05:06,000
+maybe i want to use 0 for pause state
+
+122
+00:05:03,199 --> 00:05:07,919
+and uh yeah 2 for play state or
+
+123
+00:05:06,000 --> 00:05:09,440
+something and 1 for title screen or
+
+124
+00:05:07,919 --> 00:05:10,560
+something like that
+
+125
+00:05:09,440 --> 00:05:13,280
+if you are
+
+126
+00:05:10,560 --> 00:05:14,080
+putting numbers like this manually then
+
+127
+00:05:13,280 --> 00:05:15,440
+uh
+
+128
+00:05:14,080 --> 00:05:18,560
+when you change
+
+129
+00:05:15,440 --> 00:05:20,880
+this you know kind of allocation then
+
+130
+00:05:18,560 --> 00:05:23,440
+you will track everything and change
+
+131
+00:05:20,880 --> 00:05:24,800
+this number one two three or something
+
+132
+00:05:23,440 --> 00:05:27,039
+like that
+
+133
+00:05:24,800 --> 00:05:30,320
+but if you have set
+
+134
+00:05:27,039 --> 00:05:33,199
+individual state like this then you only
+
+135
+00:05:30,320 --> 00:05:36,479
+need to change you know this number like
+
+136
+00:05:33,199 --> 00:05:36,479
+this then uh
+
+137
+00:05:37,039 --> 00:05:40,080
+then this automatically adjusts the
+
+138
+00:05:39,039 --> 00:05:42,960
+change
+
+139
+00:05:40,080 --> 00:05:45,120
+so as always fine but uh
+
+140
+00:05:42,960 --> 00:05:47,840
+this time we're gonna set each game
+
+141
+00:05:45,120 --> 00:05:48,800
+state like this
+
+142
+00:05:47,840 --> 00:05:50,320
+okay
+
+143
+00:05:48,800 --> 00:05:53,360
+and then
+
+144
+00:05:50,320 --> 00:05:55,440
+and then go to update
+
+145
+00:05:53,360 --> 00:05:59,199
+method here
+
+146
+00:05:55,440 --> 00:06:00,400
+and we create an if statement like this
+
+147
+00:05:59,199 --> 00:06:02,080
+if
+
+148
+00:06:00,400 --> 00:06:05,280
+gamestate
+
+149
+00:06:02,080 --> 00:06:06,479
+equal one no not one
+
+150
+00:06:05,280 --> 00:06:08,960
+uh play
+
+151
+00:06:06,479 --> 00:06:08,960
+state
+
+152
+00:06:09,360 --> 00:06:13,199
+then we're gonna call display a dot
+
+153
+00:06:12,000 --> 00:06:14,880
+update
+
+154
+00:06:13,199 --> 00:06:16,800
+and if
+
+155
+00:06:14,880 --> 00:06:21,479
+game state
+
+156
+00:06:16,800 --> 00:06:21,479
+recall pause state
+
+157
+00:06:21,520 --> 00:06:26,000
+then
+
+158
+00:06:23,039 --> 00:06:26,000
+nothing for now
+
+159
+00:06:27,280 --> 00:06:32,479
+what this means is we don't update the
+
+160
+00:06:29,840 --> 00:06:37,039
+player information while the game is
+
+161
+00:06:32,479 --> 00:06:40,319
+paused so we cannot move our sprite
+
+162
+00:06:37,039 --> 00:06:42,720
+okay then go to this keyhandra
+
+163
+00:06:40,319 --> 00:06:44,479
+and create a shortcut for
+
+164
+00:06:42,720 --> 00:06:47,440
+pausing the game
+
+165
+00:06:44,479 --> 00:06:52,319
+but first we create a constructor and
+
+166
+00:06:47,440 --> 00:06:52,319
+receive game panel because we need it
+
+167
+00:06:59,680 --> 00:07:03,720
+this dot gp
+
+168
+00:07:10,240 --> 00:07:15,319
+then
+
+169
+00:07:11,440 --> 00:07:15,319
+accept a key input
+
+170
+00:07:16,000 --> 00:07:20,720
+copy and paste
+
+171
+00:07:18,960 --> 00:07:22,319
+and i'm going to use
+
+172
+00:07:20,720 --> 00:07:24,880
+p key
+
+173
+00:07:22,319 --> 00:07:27,440
+for pause but you can choose whatever
+
+174
+00:07:24,880 --> 00:07:29,120
+key you want
+
+175
+00:07:27,440 --> 00:07:30,479
+and if
+
+176
+00:07:29,120 --> 00:07:32,800
+gp dot
+
+177
+00:07:30,479 --> 00:07:34,960
+game state
+
+178
+00:07:32,800 --> 00:07:37,520
+equal gp dot
+
+179
+00:07:34,960 --> 00:07:39,759
+play state
+
+180
+00:07:37,520 --> 00:07:44,080
+then we're gonna change this to power
+
+181
+00:07:39,759 --> 00:07:44,080
+state so game state
+
+182
+00:07:45,199 --> 00:07:50,879
+state
+
+183
+00:07:47,599 --> 00:07:53,759
+and uh else if
+
+184
+00:07:50,879 --> 00:07:56,160
+gp.gamestate
+
+185
+00:07:53,759 --> 00:07:59,520
+equal gp dot
+
+186
+00:07:56,160 --> 00:08:01,840
+pause state
+
+187
+00:07:59,520 --> 00:08:03,360
+gp dot games
+
+188
+00:08:01,840 --> 00:08:06,960
+state
+
+189
+00:08:03,360 --> 00:08:09,520
+gold gb dot play state
+
+190
+00:08:06,960 --> 00:08:11,680
+yeah like this
+
+191
+00:08:09,520 --> 00:08:14,160
+and then go to
+
+192
+00:08:11,680 --> 00:08:17,280
+this ui class
+
+193
+00:08:14,160 --> 00:08:19,440
+and we'll do a little housekeeping here
+
+194
+00:08:17,280 --> 00:08:21,919
+since uh
+
+195
+00:08:19,440 --> 00:08:24,400
+most of the stuff here is for our
+
+196
+00:08:21,919 --> 00:08:26,560
+previous treasure hunting game so we're
+
+197
+00:08:24,400 --> 00:08:31,120
+not gonna use anymore
+
+198
+00:08:26,560 --> 00:08:31,120
+so first delete this one
+
+199
+00:08:32,080 --> 00:08:37,440
+and this one
+
+200
+00:08:34,640 --> 00:08:37,440
+and this one
+
+201
+00:08:37,680 --> 00:08:42,560
+we're not gonna display the key image or
+
+202
+00:08:40,080 --> 00:08:47,279
+key number on the screen anymore
+
+203
+00:08:42,560 --> 00:08:49,200
+and uh okay and inside with straw method
+
+204
+00:08:47,279 --> 00:08:53,880
+basically
+
+205
+00:08:49,200 --> 00:08:53,880
+we we're gonna delete everything
+
+206
+00:08:55,040 --> 00:09:01,120
+and yeah everything
+
+207
+00:08:58,160 --> 00:09:02,800
+okay then inside of this ui class first
+
+208
+00:09:01,120 --> 00:09:06,680
+we're gonna declare
+
+209
+00:09:02,800 --> 00:09:06,680
+this graphic study
+
+210
+00:09:10,880 --> 00:09:14,959
+and inside of this draw method
+
+211
+00:09:13,839 --> 00:09:16,080
+this
+
+212
+00:09:14,959 --> 00:09:18,720
+g2
+
+213
+00:09:16,080 --> 00:09:22,160
+equal g2
+
+214
+00:09:18,720 --> 00:09:24,959
+we do this so we can use this g2 in
+
+215
+00:09:22,160 --> 00:09:27,279
+other methods in this class
+
+216
+00:09:24,959 --> 00:09:28,880
+okay then we set a
+
+217
+00:09:27,279 --> 00:09:33,120
+default font
+
+218
+00:09:28,880 --> 00:09:37,680
+so g2 dot set font
+
+219
+00:09:33,120 --> 00:09:39,839
+so okay for now let's use this area 40
+
+220
+00:09:37,680 --> 00:09:41,519
+and the g2 dot set
+
+221
+00:09:39,839 --> 00:09:42,480
+color
+
+222
+00:09:41,519 --> 00:09:44,720
+correct
+
+223
+00:09:42,480 --> 00:09:48,480
+white
+
+224
+00:09:44,720 --> 00:09:49,680
+and here we check the current game state
+
+225
+00:09:48,480 --> 00:09:51,040
+if
+
+226
+00:09:49,680 --> 00:09:53,920
+gp dot
+
+227
+00:09:51,040 --> 00:09:55,680
+game state
+
+228
+00:09:53,920 --> 00:10:00,080
+equal
+
+229
+00:09:55,680 --> 00:10:00,080
+gp dot play state
+
+230
+00:10:00,720 --> 00:10:04,000
+then
+
+231
+00:10:02,959 --> 00:10:06,160
+to
+
+232
+00:10:04,000 --> 00:10:07,839
+play state
+
+233
+00:10:06,160 --> 00:10:10,320
+stuff
+
+234
+00:10:07,839 --> 00:10:10,320
+later
+
+235
+00:10:10,720 --> 00:10:13,920
+and
+
+236
+00:10:11,760 --> 00:10:16,839
+gp dot
+
+237
+00:10:13,920 --> 00:10:19,680
+game state
+
+238
+00:10:16,839 --> 00:10:20,880
+call gp dot
+
+239
+00:10:19,680 --> 00:10:23,360
+parts
+
+240
+00:10:20,880 --> 00:10:23,360
+state
+
+241
+00:10:23,600 --> 00:10:26,399
+maybe you can
+
+242
+00:10:30,720 --> 00:10:34,800
+maybe we can use switch
+
+243
+00:10:33,200 --> 00:10:37,600
+for this
+
+244
+00:10:34,800 --> 00:10:39,920
+but yeah if statement is okay too i
+
+245
+00:10:37,600 --> 00:10:39,920
+think
+
+246
+00:10:40,880 --> 00:10:45,920
+and so we're gonna type
+
+247
+00:10:43,120 --> 00:10:47,600
+what we're gonna do or draw during this
+
+248
+00:10:45,920 --> 00:10:50,880
+play state and
+
+249
+00:10:47,600 --> 00:10:52,640
+pause state and technically we can type
+
+250
+00:10:50,880 --> 00:10:56,079
+everything here
+
+251
+00:10:52,640 --> 00:10:57,279
+but then this draw method will be really
+
+252
+00:10:56,079 --> 00:10:58,560
+long
+
+253
+00:10:57,279 --> 00:11:01,120
+and huge
+
+254
+00:10:58,560 --> 00:11:02,079
+and kind of hard to track what is
+
+255
+00:11:01,120 --> 00:11:05,120
+happening
+
+256
+00:11:02,079 --> 00:11:08,000
+so we will handle situations by
+
+257
+00:11:05,120 --> 00:11:09,120
+splitting them to methods
+
+258
+00:11:08,000 --> 00:11:11,839
+so
+
+259
+00:11:09,120 --> 00:11:14,560
+first we create
+
+260
+00:11:11,839 --> 00:11:15,760
+method called
+
+261
+00:11:14,560 --> 00:11:16,800
+draw
+
+262
+00:11:15,760 --> 00:11:19,360
+powers
+
+263
+00:11:16,800 --> 00:11:19,360
+screen
+
+264
+00:11:20,640 --> 00:11:25,200
+and we gonna call this from here
+
+265
+00:11:25,279 --> 00:11:28,000
+so
+
+266
+00:11:26,079 --> 00:11:30,399
+we're gonna do all the pause screen
+
+267
+00:11:28,000 --> 00:11:32,000
+stuff in this method
+
+268
+00:11:30,399 --> 00:11:33,440
+okay first
+
+269
+00:11:32,000 --> 00:11:35,040
+string
+
+270
+00:11:33,440 --> 00:11:36,399
+text
+
+271
+00:11:35,040 --> 00:11:38,880
+equal
+
+272
+00:11:36,399 --> 00:11:38,880
+paused
+
+273
+00:11:40,839 --> 00:11:47,279
+and also we're gonna create x and
+
+274
+00:11:45,279 --> 00:11:48,720
+y
+
+275
+00:11:47,279 --> 00:11:51,279
+and uh
+
+276
+00:11:48,720 --> 00:11:53,519
+finally d2 dot draw
+
+277
+00:11:51,279 --> 00:11:57,839
+string
+
+278
+00:11:53,519 --> 00:11:59,120
+text and x and y so we want to display
+
+279
+00:11:57,839 --> 00:12:00,160
+this
+
+280
+00:11:59,120 --> 00:12:02,800
+at the
+
+281
+00:12:00,160 --> 00:12:06,560
+center of the screen
+
+282
+00:12:02,800 --> 00:12:09,279
+and finding this y is kind of easy you
+
+283
+00:12:06,560 --> 00:12:11,040
+just need to type like this gp dot
+
+284
+00:12:09,279 --> 00:12:12,959
+square
+
+285
+00:12:11,040 --> 00:12:14,880
+height
+
+286
+00:12:12,959 --> 00:12:17,519
+divided by 2
+
+287
+00:12:14,880 --> 00:12:20,000
+and for this x
+
+288
+00:12:17,519 --> 00:12:22,480
+it's basically the same as
+
+289
+00:12:20,000 --> 00:12:23,519
+congratulations text that we displayed
+
+290
+00:12:22,480 --> 00:12:26,079
+in a
+
+291
+00:12:23,519 --> 00:12:29,600
+previous game so
+
+292
+00:12:26,079 --> 00:12:29,600
+it's gonna be like this
+
+293
+00:12:29,839 --> 00:12:33,120
+pink links
+
+294
+00:12:34,880 --> 00:12:39,639
+g2 dot
+
+295
+00:12:36,639 --> 00:12:39,639
+get
+
+296
+00:12:45,200 --> 00:12:49,519
+text
+
+297
+00:12:47,600 --> 00:12:50,560
+context is g2
+
+298
+00:12:49,519 --> 00:12:51,680
+and
+
+299
+00:12:50,560 --> 00:12:54,000
+get
+
+300
+00:12:51,680 --> 00:12:55,920
+width
+
+301
+00:12:54,000 --> 00:12:57,200
+and x
+
+302
+00:12:55,920 --> 00:12:58,560
+equal
+
+303
+00:12:57,200 --> 00:13:00,480
+gp dot
+
+304
+00:12:58,560 --> 00:13:01,680
+screen
+
+305
+00:13:00,480 --> 00:13:03,360
+reads
+
+306
+00:13:01,680 --> 00:13:04,959
+divided by 2
+
+307
+00:13:03,360 --> 00:13:08,399
+minus
+
+308
+00:13:04,959 --> 00:13:10,880
+length divided by two
+
+309
+00:13:08,399 --> 00:13:12,880
+so this way we can display the text at
+
+310
+00:13:10,880 --> 00:13:16,000
+the center of the screen
+
+311
+00:13:12,880 --> 00:13:18,160
+but we will likely do this calculation
+
+312
+00:13:16,000 --> 00:13:21,120
+again and again throughout the
+
+313
+00:13:18,160 --> 00:13:22,880
+development and typing this
+
+314
+00:13:21,120 --> 00:13:25,360
+every time
+
+315
+00:13:22,880 --> 00:13:28,000
+is kind of too much pain so
+
+316
+00:13:25,360 --> 00:13:30,320
+let's handle this with a method
+
+317
+00:13:28,000 --> 00:13:33,120
+public hint
+
+318
+00:13:30,320 --> 00:13:34,399
+and get x
+
+319
+00:13:33,120 --> 00:13:36,800
+for
+
+320
+00:13:34,399 --> 00:13:39,040
+centered
+
+321
+00:13:36,800 --> 00:13:41,680
+text or something like that
+
+322
+00:13:39,040 --> 00:13:44,800
+and we get string
+
+323
+00:13:41,680 --> 00:13:44,800
+and text
+
+324
+00:13:45,519 --> 00:13:51,680
+and basically we gonna
+
+325
+00:13:48,639 --> 00:13:52,880
+cut down the copy here
+
+326
+00:13:51,680 --> 00:13:53,920
+yeah
+
+327
+00:13:52,880 --> 00:13:56,639
+so
+
+328
+00:13:53,920 --> 00:13:56,639
+index
+
+329
+00:13:56,880 --> 00:14:03,199
+and we're gonna return this x
+
+330
+00:14:00,480 --> 00:14:07,839
+so
+
+331
+00:14:03,199 --> 00:14:07,839
+now we only need to call this
+
+332
+00:14:08,480 --> 00:14:14,079
+get x4 center text and pass this text
+
+333
+00:14:14,959 --> 00:14:19,360
+so this way whenever we want to get the
+
+334
+00:14:18,000 --> 00:14:21,199
+x for
+
+335
+00:14:19,360 --> 00:14:23,279
+centered text
+
+336
+00:14:21,199 --> 00:14:24,959
+we just need to call
+
+337
+00:14:23,279 --> 00:14:28,079
+this method
+
+338
+00:14:24,959 --> 00:14:31,760
+okay this ui class is done for now
+
+339
+00:14:28,079 --> 00:14:34,480
+and now we'll do another housekeeping so
+
+340
+00:14:31,760 --> 00:14:36,720
+go to playerclass
+
+341
+00:14:34,480 --> 00:14:38,880
+and delete
+
+342
+00:14:36,720 --> 00:14:40,079
+this one
+
+343
+00:14:38,880 --> 00:14:42,720
+husky
+
+344
+00:14:40,079 --> 00:14:46,160
+so we don't use this anymore
+
+345
+00:14:42,720 --> 00:14:46,160
+and also
+
+346
+00:14:47,760 --> 00:14:55,040
+inside of this pickup object method
+
+347
+00:14:51,279 --> 00:14:58,079
+we're gonna delete everything
+
+348
+00:14:55,040 --> 00:14:58,959
+but this if statement
+
+349
+00:14:58,079 --> 00:15:00,880
+yeah
+
+350
+00:14:58,959 --> 00:15:02,399
+and then go to this
+
+351
+00:15:00,880 --> 00:15:03,360
+asset setup
+
+352
+00:15:02,399 --> 00:15:05,920
+and
+
+353
+00:15:03,360 --> 00:15:09,440
+so since these are all for
+
+354
+00:15:05,920 --> 00:15:09,440
+the treasure hunting game so
+
+355
+00:15:09,920 --> 00:15:16,079
+delete everything
+
+356
+00:15:13,120 --> 00:15:18,880
+and inside of this game panel let's pass
+
+357
+00:15:16,079 --> 00:15:20,480
+this game panel to the constructor of
+
+358
+00:15:18,880 --> 00:15:22,800
+keyhandra
+
+359
+00:15:20,480 --> 00:15:26,839
+okay i think that's everything
+
+360
+00:15:22,800 --> 00:15:26,839
+so let's check the program
+
+361
+00:15:27,519 --> 00:15:31,440
+okay i'm gonna press p key
+
+362
+00:15:34,639 --> 00:15:38,000
+maybe i want to make the text a bit
+
+363
+00:15:36,880 --> 00:15:39,040
+larger
+
+364
+00:15:38,000 --> 00:15:41,839
+so
+
+365
+00:15:39,040 --> 00:15:44,079
+yeah here so g2
+
+366
+00:15:41,839 --> 00:15:45,600
+set font
+
+367
+00:15:44,079 --> 00:15:48,399
+g2 dot
+
+368
+00:15:45,600 --> 00:15:48,399
+get font
+
+369
+00:15:49,120 --> 00:15:52,240
+derive font
+
+370
+00:15:57,519 --> 00:16:01,600
+maybe
+
+371
+00:15:59,120 --> 00:16:04,720
+right now it's 40 so
+
+372
+00:16:01,600 --> 00:16:04,720
+like 80.
+
+373
+00:16:09,040 --> 00:16:14,160
+okay yeah looks good
+
+374
+00:16:11,199 --> 00:16:16,079
+so now we can pause the game
+
+375
+00:16:14,160 --> 00:16:17,839
+so even if i press
+
+376
+00:16:16,079 --> 00:16:20,160
+wsd keys
+
+377
+00:16:17,839 --> 00:16:23,399
+the character doesn't respond while game
+
+378
+00:16:20,160 --> 00:16:23,399
+is paused
+
+379
+00:16:26,639 --> 00:16:31,680
+alright i think that's it for now
+
+380
+00:16:29,199 --> 00:16:36,079
+and in the next video we will implement
+
+381
+00:16:31,680 --> 00:16:40,920
+an npc and maybe direct system as well
+
+382
+00:16:36,079 --> 00:16:40,920
+thanks for watching and until next time
+
+383
+00:16:43,980 --> 00:16:50,620
+[Music]
+

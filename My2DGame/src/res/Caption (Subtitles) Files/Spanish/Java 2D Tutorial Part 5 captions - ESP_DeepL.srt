@@ -1,0 +1,828 @@
+1
+00:00:00,320 --> 00:00:05,920
+Hola chicos, soy RyiSnow
+
+2
+00:00:02,399 --> 00:00:12,080
+así que la última vez que tuvimos éxito para dibujar estos azulejos de fondo
+
+4
+00:00:08,400 --> 00:00:19,439
+pero esto es sólo un pequeño mapa de muestra y el tamaño es sólo tan grande como la pantalla del juego
+
+7
+00:00:16,960 --> 00:00:22,880
+si una sola pantalla es todo lo que necesita para su juego, esto podría estar bien
+
+9
+00:00:22,080 --> 00:00:34,480
+pero lo que estamos tratando de crear, en última instancia, en este tutorial es un RPG de acción 2D
+
+13
+00:00:30,720 --> 00:00:35,360
+así que queremos tener un mapa más grande
+
+14
+00:00:34,480 --> 00:00:41,840
+así que en este vídeo crearemos un mapa del mundo y lo dibujaremos en la pantalla
+
+16
+00:00:38,480 --> 00:00:47,840
+y para crear un mapa del mundo, he preparado algunos azulejos extra
+
+19
+00:00:46,800 --> 00:00:53,520
+arbol, arena y tierra
+
+22
+00:00:50,480 --> 00:00:59,840
+así que vamos a copiar estos a este paquete "azulejos
+
+25
+00:01:00,160 --> 00:01:05,199
+y carguemos estos nuevos azulejos
+
+26
+00:01:03,920 --> 00:01:12,880
+copiemos esto y añadamos tres más
+
+39
+00:01:32,159 --> 00:01:40,840
+ahora podemos utilizar estos azulejos también
+
+40
+00:01:35,680 --> 00:01:40,840
+y este es el mapa del mundo que he creado
+
+41
+00:01:42,159 --> 00:01:48,479
+es un mapa de 50 por 50 baldosas
+
+43
+00:01:46,000 --> 00:01:51,119
+por supuesto puedes crear tu propio mapa
+
+44
+00:01:48,479 --> 00:01:56,399
+y si quieres crear un mapa más grande, puedes hacerlo
+
+46
+00:01:52,720 --> 00:02:03,920
+y antes de cargar y dibujar este archivo de mapa del mundo, tenemos que hacer algunos ajustes
+
+49
+00:02:00,719 --> 00:02:07,280
+lo que vamos a hacer es, editar el código en la clase Player
+
+50
+00:02:03,920 --> 00:02:13,200
+para que en lugar de moverse por la pantalla
+
+53
+00:02:10,800 --> 00:02:17,360
+el personaje del jugador se mostrará siempre en el centro
+
+55
+00:02:15,840 --> 00:02:25,599
+y expandiremos el límite de nuestro bucle de dibujo de baldosas
+
+58
+00:02:22,560 --> 00:02:33,920
+nuestro sistema actual de dibujo de azulejos está configurado para dibujar azulejos tan grandes como el tamaño de nuestra pantalla
+
+61
+00:02:31,040 --> 00:02:39,280
+y eso no es suficiente para dibujar nuestro mapa del mundo así que lo cambiamos
+
+64
+00:02:36,400 --> 00:02:46,080
+y cuando estos dos pasos están hechos podemos mostrar nuestro mapa del mundo y movernos por él
+
+66
+00:02:42,879 --> 00:02:49,200
+así que vamos al paso uno
+
+67
+00:02:46,080 --> 00:02:52,720
+vamos a esta clase Entidad
+
+68
+00:02:49,200 --> 00:03:00,640
+y vamos a renombrar este x e y a worldX y worldY
+
+73
+00:02:57,440 --> 00:03:03,680
+como decir... solo para una mejor comprensión
+
+74
+00:03:00,640 --> 00:03:08,239
+porque vamos a utilizar dos tipos de x e y
+
+76
+00:03:05,120 --> 00:03:10,000
+uno es worldX y worldY
+
+77
+00:03:08,239 --> 00:03:15,120
+y éste es screenX y screenY
+
+79
+00:03:12,800 --> 00:03:19,599
+estos son diferentes e indican diferentes coordenadas
+
+81
+00:03:17,200 --> 00:03:28,400
+y entender esta diferencia será la clave para entender la mecánica de la cámara del juego
+
+84
+00:03:25,440 --> 00:03:33,360
+ok entonces vamos a esta clase Player
+
+86
+00:03:30,640 --> 00:03:36,879
+y el nombre de este x e y también
+
+90
+00:03:40,879 --> 00:03:44,000
+espera que
+
+93
+00:03:46,400 --> 00:03:50,080
+¿qué es esto?
+
+96
+00:03:52,799 --> 00:03:55,280
+lo siento
+
+97
+00:03:54,000 --> 00:04:00,040
+y este también
+
+102
+00:04:04,959 --> 00:04:09,120
+dejamos esto por ahora
+
+103
+00:04:06,879 --> 00:04:12,640
+porque vamos a utilizar un tipo diferente de x e y aquí
+
+107
+00:04:19,919 --> 00:04:31,199
+así que en esta clase Player, renombra esta x e y en el setDefaultValues
+
+109
+00:04:26,880 --> 00:04:31,199
+y también x e y en este método update
+
+110
+00:04:32,560 --> 00:04:41,040
+y este worldX y worldY no son la posición de la pantalla
+
+112
+00:04:37,680 --> 00:04:44,479
+esto no es donde dibujamos en la pantalla
+
+113
+00:04:41,040 --> 00:04:47,840
+esta es la posición del jugador en el mapa del mundo
+
+115
+00:04:45,759 --> 00:04:52,400
+y quiero cambiar esta posición por defecto del jugador
+
+117
+00:04:50,320 --> 00:04:54,160
+así que este va a ser el punto de partida
+
+119
+00:04:54,160 --> 00:05:01,759
+quiero empezar el juego en este punto
+
+122
+00:04:59,919 --> 00:05:13,520
+así que esto va a ser... 23 
+
+127
+00:05:08,840 --> 00:05:18,080
+así que en lugar de este 100 100 vamos a escribir...
+
+135
+00:05:29,440 --> 00:05:36,240
+esta va a ser la posición inicial
+
+136
+00:05:33,120 --> 00:05:40,639
+entonces en esta clase Player, creamos otras variables x e y
+
+146
+00:05:54,160 --> 00:06:02,960
+ahora tenemos worldX, worldY y screenX, screenY
+
+149
+00:06:00,560 --> 00:06:11,440
+y screenX y screenY indican donde dibujamos al jugador en la pantalla
+
+152
+00:06:08,319 --> 00:06:19,520
+así que colocamos este personaje jugador en el centro de la pantalla y desplazamos el fondo a medida que se mueve
+
+155
+00:06:17,039 --> 00:06:21,840
+esto es lo que vamos a hacer
+
+167
+00:06:44,000 --> 00:06:52,479
+esto nos devuelve el punto medio de la pantalla
+
+169
+00:06:50,319 --> 00:06:58,560
+así que cuando dibujamos este personaje jugador
+
+171
+00:06:55,199 --> 00:07:08,160
+en lugar de estos x e y, sustituyámoslos por screenX y screenY
+
+175
+00:07:04,800 --> 00:07:13,280
+esta screenX y screenY no cambian a lo largo del juego
+
+177
+00:07:10,639 --> 00:07:17,440
+estas son variables "finales
+
+179
+00:07:15,360 --> 00:07:22,319
+para que la posición en pantalla del personaje del jugador no cambie
+
+181
+00:07:20,880 --> 00:07:26,319
+ok vamos a comprobar esto
+
+185
+00:07:27,599 --> 00:07:35,840
+así que ahora la posición del jugador está fija en el centro de la pantalla o...
+
+188
+00:07:34,000 --> 00:07:42,080
+en realidad, este no es el centro de la pantalla
+
+191
+00:07:39,039 --> 00:07:46,639
+estas dos variables indican con seguridad el centro de la pantalla
+
+193
+00:07:44,639 --> 00:07:57,360
+pero el problema es que estas coordenadas se utilizan para la esquina superior izquierda de la imagen
+
+198
+00:07:56,319 --> 00:08:03,280
+así que tenemos que hacer un pequeño ajuste
+
+200
+00:08:00,080 --> 00:08:06,720
+de este valor vamos a restar...
+
+204
+00:08:10,400 --> 00:08:17,120
+y esto también
+
+205
+00:08:13,759 --> 00:08:17,120
+Muy bien, comprobemos
+
+207
+00:08:19,520 --> 00:08:22,720
+¿puedes ver la diferencia?
+
+209
+00:08:25,039 --> 00:08:31,919
+ahora el personaje del jugador se muestra en el centro de la pantalla
+
+211
+00:08:29,280 --> 00:08:34,800
+así que el primer paso está hecho
+
+212
+00:08:31,919 --> 00:08:36,320
+vamos al paso dos
+
+214
+00:08:36,320 --> 00:08:44,880
+vamos a este GamePanel y creamos algunos parámetros del mapa del mundo
+
+243
+00:09:34,720 --> 00:09:42,720
+como he dicho puedes cambiar estos números a tu gusto
+
+246
+00:09:43,120 --> 00:09:47,600
+Creo que esta clase GamePanel está bien
+
+247
+00:09:45,920 --> 00:09:53,200
+vamos a la clase TileManager
+
+248
+00:09:47,600 --> 00:09:58,880
+y vamos a cambiar el tamaño de este mapTileNum también
+
+251
+00:09:56,160 --> 00:10:07,760
+vamos a cambiar esto de maxScreenCol a maxWorldCol
+
+254
+00:10:04,640 --> 00:10:12,079
+y esto también es maxWorldRow
+
+256
+00:10:09,360 --> 00:10:19,240
+y cambiemos también la ruta de este archivo
+
+261
+00:10:24,720 --> 00:10:29,279
+y en este método loadMap 
+
+262
+00:10:27,360 --> 00:10:35,519
+vamos a cambiar maxScreenCol por maxWorldCol
+
+266
+00:10:39,839 --> 00:10:48,959
+y maxScreenRow a maxWorldRow
+
+268
+00:10:46,000 --> 00:10:52,079
+así que básicamente estamos haciendo un bucle más grande aquí
+
+269
+00:10:48,959 --> 00:10:58,959
+por lo que en el bucle anterior, el tamaño de la pantalla era los límites
+
+271
+00:10:55,120 --> 00:11:01,200
+pero ahora el mapa del mundo es el límite
+
+272
+00:10:58,959 --> 00:11:09,040
+ahora pasamos al método draw y hacemos algunos arreglos
+
+276
+00:11:07,279 --> 00:11:16,000
+y esto va a ser un poco complicado porque vamos a implementar una función de cámara
+
+279
+00:11:14,800 --> 00:11:20,160
+primero vamos a borrar estas x e y
+
+281
+00:11:17,600 --> 00:11:25,760
+así que no vamos a usar esta x e y en este bucle
+
+283
+00:11:22,720 --> 00:11:32,000
+y borraremos esto y esto y esto también
+
+287
+00:11:32,320 --> 00:11:44,640
+entonces vamos a cambiar este col y row a worldCol y worldRow
+
+292
+00:11:43,200 --> 00:11:48,480
+así que copia este worldCol y pégalo aquí
+
+299
+00:12:03,440 --> 00:12:12,639
+y también vamos a cambiar este maxScreenCol a maxWorldCol
+
+306
+00:12:17,839 --> 00:12:23,519
+y ahora la parte complicada 
+
+307
+00:12:21,519 --> 00:12:26,240
+en última instancia, hay tres cosas que queremos saber
+
+309
+00:12:24,639 --> 00:12:34,079
+imagen del azulejo y dónde dibujar el azulejo en la pantalla
+
+313
+00:12:31,760 --> 00:12:38,880
+y ya sabemos qué tipo de imagen de azulejo va a mostrar
+
+316
+00:12:38,880 --> 00:12:46,240
+y para saber estas x e y, tecleamos así
+
+344
+00:13:30,399 --> 00:13:35,000
+espera... ¿esto no es público?
+
+346
+00:13:39,680 --> 00:13:43,600
+por qué veo el error
+
+348
+00:13:49,600 --> 00:13:53,680
+oh ok, lo siento
+
+349
+00:13:51,199 --> 00:13:56,079
+necesitamos establecer esto como público
+
+352
+00:13:58,240 --> 00:14:04,240
+entonces una variable más
+
+360
+00:14:20,320 --> 00:14:25,600
+por qué siempre escribo así...
+
+362
+00:14:26,000 --> 00:14:34,480
+y vamos a pegar esta screenX y screenY aquí
+
+365
+00:14:35,360 --> 00:14:44,160
+dejame explicarte sobre esta parte
+
+366
+00:14:40,160 --> 00:14:47,199
+primero comprobamos el worldX de la baldosa 
+
+367
+00:14:44,160 --> 00:14:48,000
+que es worldCol x tileSize
+
+368
+00:14:47,199 --> 00:14:49,519
+así que
+
+369
+00:14:48,000 --> 00:14:56,399
+si es un azulejo [0][0], 
+
+372
+00:14:54,160 --> 00:14:59,120
+será un 0 x 48 y 0 x 48
+
+374
+00:14:57,760 --> 00:15:03,279
+así que x e y son también 0 0
+
+376
+00:15:00,959 --> 00:15:08,160
+y si es una ficha [1][0],
+
+378
+00:15:06,720 --> 00:15:09,680
+lo que significa que este
+
+379
+00:15:08,160 --> 00:15:18,399
+entonces worldX será 1 x 48 por lo que worldX será 48
+
+381
+00:15:13,360 --> 00:15:20,639
+y worldY sigue siendo 0
+
+382
+00:15:18,399 --> 00:15:27,839
+entonces necesitamos saber en qué parte de la pantalla tenemos que dibujarlo
+
+384
+00:15:24,240 --> 000:15:32,800
+de nuevo, esta screenX es diferente de worldX
+
+386
+00:15:29,839 --> 00:15:35,600
+worldX es la posición en el mapa 
+
+387
+00:15:32,800 --> 00:15:39,360
+y screenX es en qué parte de la pantalla lo dibujamos
+
+389
+00:15:37,360 --> 00:15:48,000
+imagina, si el jugador está en worldX 500 y worldY 500
+
+392
+00:15:45,839 --> 00:15:55,920
+entonces el jugador está a 500 pixels de esta baldosa [0][0]
+
+395
+00:15:53,759 --> 00:15:57,120
+digamos que está por aquí
+
+396
+00:15:55,920 --> 00:16:11,040
+entonces este azulejo [0][0] debería ser dibujado a 500 píxeles a la izquierda y 500 píxeles arriba del jugador
+
+401
+00:16:09,839 --> 00:16:22,000
+por eso restamos el worldX y worldY del jugador del worldX y worldY de la baldosa
+
+406
+00:16:19,680 --> 00:16:24,560
+y eso nos devuelve la posición en pantalla del azulejo
+
+408
+00:16:23,440 --> 00:16:37,040
+así que si la posición del jugador es 500:500 entonces la posición en pantalla de esta baldosa será la x menos 500 y la y menos 500
+
+412
+00:16:35,680 --> 00:16:41,279
+así que básicamente está fuera de nuestra ventana de juego
+
+414
+00:16:40,079 --> 00:16:51,839
+¿entonces por qué añadimos el screenX y screenY de este jugador?
+
+418
+00:16:48,240 --> 00:16:54,399
+aquí hay un pequeño problema 
+
+419
+00:16:51,839 --> 00:17:01,519
+recuerde, la posición del jugador en la pantalla es siempre en el centro de la pantalla
+
+421
+00:16:57,120 --> 00:17:05,839
+por ejemplo, screenX 0 y screenY 0 significa la esquina superior izquierda
+
+424
+00:17:04,640 --> 00:17:07,199
+aquí
+
+426
+00:17:07,199 --> 00:17:12,079
+y se convierte en menos (desde aquí)
+
+427
+00:17:10,640 --> 00:17:13,280
+así que 0:0 está aquí
+
+428
+00:17:12,079 --> 00:17:20,640
+incluso si el jugador está en worldX 0 y worldY 0
+
+431
+00:17:19,520 --> 00:17:24,880
+aún así, se muestra en el centro de la pantalla 
+
+433
+00:17:22,480 --> 00:17:28,480
+aquí no
+
+434
+00:17:24,880 --> 00:17:33,720
+así que tenemos que compensar esta diferencia
+
+435
+00:17:28,480 --> 00:17:33,720
+así que añadimos esto al cálculo
+
+436
+00:17:34,559 --> 00:17:40,320
+añadiendo esto, podemos compensar la diferencia
+
+437
+00:17:37,520 --> 00:17:47,039
+y podemos obtener las coordenadas correctas para screenX y screenY de este azulejo
+
+439
+00:17:43,600 --> 00:17:53,919
+espero que entiendas y está bien incluso si todavía te sientes "uh ... ¿qué?"
+
+442
+00:17:51,440 --> 00:18:02,080
+Yo era así, me tomó un tiempo para envolver mi cabeza alrededor de esto
+
+445
+00:17:58,960 --> 00:18:05,360
+así que está bien por ahora, sólo tienes que copiar y pegar este código
+
+446
+00:18:02,080 --> 00:18:10,880
+pero espero que al final lo consigas y creo que lo harás
+
+448
+00:18:08,400 --> 00:18:13,120
+y espero que mi explicacion haya sido suficiente
+
+449
+00:18:10,880 --> 00:18:17,120
+sí, esto es complicado
+
+450
+00:18:13,120 --> 00:18:20,240
+De todas formas, hemos averiguado la pantallaX y la pantallaY de un azulejo
+
+452
+00:18:18,080 --> 00:18:26,320
+así que después de dibujar un tile incrementamos este worldCol en 1
+
+454
+00:18:23,440 --> 00:18:29,280
+para poder dibujar la siguiente baldosa
+
+455
+00:18:26,320 --> 00:18:32,880
+y si worldCol alcanza este maxWorldCol...
+
+456
+00:18:29,280 --> 00:18:33,919
+si dibujamos uno a uno
+
+457
+00:18:32,880 --> 00:18:38,960
+y cuando lleguemos a esta baldosa
+
+460
+00:18:38,960 --> 00:18:46,320
+reseteamos col y aumentamos fila así que nos movemos aquí
+
+462
+00:18:43,600 --> 00:18:48,720
+y dibujamos esta línea y esta línea...
+
+465
+00:18:51,039 --> 00:18:57,919
+Vale, esto debería funcionar ahora, así que vamos a comprobarlo
+
+467
+00:18:55,440 --> 00:19:00,320
+espero que funcione
+
+470
+00:19:03,679 --> 00:19:09,160
+ahora estamos explorando el mundo
+
+471
+00:19:12,720 --> 00:19:22,360
+este es el mapa del mundo que he creado
+
+473
+00:19:17,679 --> 00:19:22,360
+por supuesto, no hay colisión todavía
+
+474
+00:19:25,919 --> 00:19:31,039
+así que esto funciona
+
+475
+00:19:28,240 --> 00:19:38,000
+pero podemos añadir un poco más de detalle para mejorar nuestra eficiencia de renderizado
+
+477
+00:19:35,200 --> 00:19:41,440
+puede continuar como está 
+
+478
+00:19:38,000 --> 00:19:45,120
+pero te recomiendo que hagas esto para evitar un rendimiento lento del juego
+
+481
+00:19:45,120 --> 00:19:55,200
+quizás te hayas dado cuenta pero ahora mismo este bucle while está dibujando todas las baldosas del mapa
+
+483
+00:19:52,480 --> 00:20:04,000
+eso significa que también está dibujando los azulejos que no podemos ver en la pantalla
+
+486
+00:20:01,440 --> 00:20:06,240
+y eso no es tan eficiente
+
+487
+00:20:04,000 --> 00:20:07,360
+esto sigue siendo un mapa relativamente pequeño
+
+488
+00:20:06,240 --> 00:20:13,760
+pero cuando tienes un mapa muy grande, puede ralentizar el juego
+
+491
+00:20:12,720 --> 00:20:20,400
+así que sólo tenemos que dibujar los azulejos que podemos ver
+
+494
+00:20:18,080 --> 00:20:26,559
+no necesitamos dibujar una baldosa que esté a 500 pixels del jugador
+
+496
+00:20:24,080 --> 00:20:28,960
+este es el toque final
+
+497
+00:20:26,559 --> 00:20:34,400
+con esto nuestro sistema de dibujo de baldosas estará completo así que por favor, quédate conmigo
+
+499
+00:20:32,960 --> 00:20:41,440
+antes de dibujar una baldosa añadimos esta sentencia if
+
+537
+00:21:52,400 --> 00:22:03,520
+y vamos a poner este método drawImage en esta sentencia if
+
+541
+00:22:01,120 --> 00:22:05,760
+Vale, ya está
+
+542
+00:22:03,520 --> 00:22:12,240
+lo que esta declaración if significa es, básicamente creamos un límite
+
+544
+00:22:09,360 --> 00:22:15,039
+que es desde el centro de la pantalla menos el jugador screenX
+
+545
+00:22:12,240 --> 00:22:18,400
+y más pantalla del jugadorX
+
+547
+00:22:17,280 --> 00:22:22,960
+y menos pantallaY del reproductor, y más pantallaY del reproductor
+
+549
+00:22:22,000 --> 00:22:31,200
+así que mientras una baldosa esté en este límite, la dibujamos
+
+552
+00:22:28,000 --> 00:22:31,200
+así que vamos a comprobar esto
+
+553
+00:22:31,520 --> 00:22:35,520
+ok, así
+
+557
+00:22:44,720 --> 00:22:54,320
+ahora podemos ver que el programa sólo dibuja las baldosas alrededor del jugador
+
+559
+00:22:51,840 --> 00:23:03,280
+pero supongo que deberiamos expandir los limites un poco mas ya que estamos viendo el fondo negro
+
+563
+00:23:00,799 --> 00:23:09,760
+¿por qué no ampliamos este límite en 1 baldosa en cada dirección?
+
+567
+00:23:09,760 --> 00:23:15,280
+para hacer eso, sólo...
+
+570
+00:23:15,280 --> 00:23:22,400
+por alguna razón no me gusta este formato...
+
+573
+00:23:22,400 --> 00:23:32,799
+Ok, para hacer esto, añadimos este worldX y tileSize
+
+578
+00:23:32,799 --> 00:23:42,159
+y este es...
+
+585
+00:23:53,520 --> 00:23:58,799
+ok esto deberia estar bien
+
+586
+00:23:55,760 --> 00:23:58,799
+comprobemos esto
+
+589
+00:24:03,679 --> 00:24:07,840
+ahora se ve igual que antes
+
+590
+00:24:06,320 --> 00:24:17,919
+pero en realidad sólo está dibujando las baldosas alrededor del jugador para que podamos cortar un poco de procesamiento adicional
+
+594
+00:24:15,679 --> 00:24:24,159
+así que ahora el programa está dibujando el mapa del mundo y podemos movernos alrededor de él
+
+596
+00:24:22,080 --> 00:24:29,520
+pero por supuesto, no hay colisión todavía
+
+599
+00:24:27,200 --> 00:24:32,480
+así que cada baldosa es transitable
+
+601
+00:24:30,880 --> 00:24:37,679
+así que la próxima vez, implementaremos la detección de colisiones
+
+603
+00:24:35,679 --> 00:24:40,679
+gracias por mirar y nos vemos de nuevo
+
+605
+00:24:43,870 --> 00:24:50,559
+[Music]
+

@@ -1,0 +1,640 @@
+1
+00:00:00,504 --> 00:00:02,000
+hi guys, this is RyiSnow 
+
+2
+00:00:02,345 --> 00:00:08,571
+so last time, we loaded our world map and implemented a camera function  
+
+4
+00:00:08,571 --> 00:00:12,201
+so now we can move around the world
+
+5
+00:00:12,201 --> 00:00:17,775
+but still, we can walk through these trees and waters
+
+6
+00:00:17,775 --> 00:00:23,156
+so in this video, we will implement collision detection in our program
+
+7
+00:00:23,156 --> 00:00:29,492
+so the player won't be able to walk through solid tiles
+
+8
+00:00:29,492 --> 00:00:35,874
+when we created this Tile class, we created this "collision" boolean 
+
+9
+00:00:35,874 --> 00:00:38,431
+so it's time to use this
+
+10
+00:00:38,431 --> 00:00:42,000
+first, we go to this TileManager
+
+11
+00:00:42,000 --> 00:00:48,469
+and look for a tile that we want to change it to a solid tile
+
+12
+00:00:48,469 --> 00:00:53,081
+for example, this wall tile should be solid
+
+13
+00:00:53,081 --> 00:00:57,931
+we don't want our player character walk through this tile
+
+14
+00:01:01,936 --> 00:01:08,286
+we call this collision boolean and set it "true"
+
+15
+00:01:12,000 --> 00:01:16,426
+also this water tile... this one too
+
+16
+00:01:22,654 --> 00:01:26,521
+and this one too
+
+17
+00:01:31,837 --> 00:01:36,755
+and if it's not a solid tile... like this grass tile
+
+18
+00:01:36,755 --> 00:01:44,829
+then you don't need to add anything because the collision is false as default
+
+19
+00:01:44,829 --> 00:01:50,384
+so you need to add this only if the tile is solid
+
+20
+00:01:51,366 --> 00:01:54,197
+ok so tiles' collision setting is done
+
+21
+00:01:54,568 --> 00:02:02,563
+then we decide which part of the player character is solid and which part is not
+
+22
+00:02:03,836 --> 00:02:07,905
+the easiest way is setting the whole tile solid
+
+23
+00:02:07,905 --> 00:02:12,478
+but sometimes it won't produce the best result
+
+24
+00:02:12,478 --> 00:02:17,051
+for example, if the whole player sprite is soid,
+
+25
+00:02:17,051 --> 00:02:24,940
+then he hits this wall at this point and cannot move further
+
+26
+00:02:24,940 --> 00:02:30,760
+but maybe you want to move him a bit further... like this
+
+27
+00:02:33,811 --> 00:02:36,342
+also, there's another issue
+
+28
+00:02:36,342 --> 00:02:44,921
+if everything is solid, it's really difficult to get through a narrow path like this
+
+29
+00:02:44,921 --> 00:02:54,243
+because even if the player is 1 pixel to the left, collision still happens here
+
+30
+00:02:55,039 --> 00:03:00,143
+so you need to place him very precisely, like this
+
+31
+00:03:01,257 --> 00:03:08,944
+and that is simply pretty stressful and bad control mechanics, in my opinion
+
+33
+00:03:09,501 --> 00:03:15,533
+for example, "oh i'm hitting this tile so let's move to the right a little bit"
+
+34
+00:03:15,533 --> 00:03:21,035
+and "oh now i'm hitting this tile and i still cannot go further"
+
+35
+00:03:21,035 --> 00:03:24,918
+so to avoid this kind of hassle,
+
+36
+00:03:24,918 --> 00:03:31,189
+we set a specific area of the character as solid, not everything
+
+37
+00:03:31,189 --> 00:03:36,000
+like, only this part is solid
+
+38
+00:03:36,000 --> 00:03:40,918
+then the player can get through this kind of narrow path
+
+39
+00:03:40,918 --> 00:03:44,616
+and to set this kind of collision area,
+
+40
+00:03:44,616 --> 00:03:48,844
+first, open this Entity
+
+41
+00:03:53,363 --> 00:03:59,395
+we use this Rectangle class
+
+42
+00:03:59,395 --> 00:04:05,639
+and i'm gonna name this solidArea
+
+43
+00:04:08,769 --> 00:04:15,199
+with this class, we can create an invisible or abstract rectangle
+
+44
+00:04:15,199 --> 00:04:19,772
+and we can store data such as x, y, width, and height
+
+45
+00:04:20,594 --> 00:04:31,295
+also, we create a boolean called collisionOn, and the default is false
+
+46
+00:04:32,913 --> 00:04:36,292
+now go to this Player class
+
+47
+00:04:36,292 --> 00:04:40,600
+and instantiate that rectangle
+
+48
+00:04:55,906 --> 00:05:08,703
+wait, oh what is this...
+
+49
+00:05:11,170 --> 00:05:18,000
+and when we instantiate this rectangle, we can pass 4 parameters to the constructor
+
+50
+00:05:23,093 --> 00:05:30,823
+for example, if you want to create a rectangle which is the same size as our tiles,
+
+51
+00:05:30,823 --> 00:05:32,823
+you type like this:
+
+52
+00:05:32,823 --> 00:05:39,969
+x=0, y=0, widht=48, and height=48
+
+53
+00:05:39,969 --> 00:05:46,054
+or you can also type like this: gp.tileSize
+
+54
+00:05:46,187 --> 00:05:48,797
+either way is fine
+
+55
+00:05:48,797 --> 00:05:57,906
+or we can also leave this blank and set these values one by one
+
+56
+00:06:23,158 --> 00:06:25,158
+either way is fine
+
+57
+00:06:25,158 --> 00:06:31,734
+and since we want to make this rectangle a bit smaller than the player character
+
+58
+00:06:31,734 --> 00:06:35,803
+we change these values a little bit
+
+59
+00:06:36,287 --> 00:06:38,287
+maybe something like this
+
+60
+00:06:38,307 --> 00:06:43,968
+so this gray area is not solid, and this area is solid
+
+61
+00:06:43,968 --> 00:06:50,716
+so this slid area starts from x 8
+
+62
+00:06:50,716 --> 00:06:58,828
+and width is 32 and height is also 32
+
+64
+00:06:58,828 --> 00:07:05,868
+so the top left corner is x=8, and y=16
+
+65
+00:07:05,868 --> 00:07:14,871
+so in that case, we're gonna change this x to 8, and y to 16
+
+66
+00:07:14,871 --> 00:07:22,256
+and widht is 32 and height is also 32
+
+67
+00:07:22,548 --> 00:07:28,474
+you can adjust these numbers and find what works best for your game
+
+68
+00:07:28,474 --> 00:07:32,570
+so we got this collision area for the player character
+
+69
+00:07:32,570 --> 00:07:36,851
+now let's create a class to check collision
+
+70
+00:07:36,851 --> 00:07:41,557
+inside this "main" package, create a class
+
+71
+00:07:41,557 --> 00:07:51,038
+and i'm gonna name this CollisionChecker or whatever name you want
+
+72
+00:07:52,868 --> 00:07:55,717
+and first, constructor
+
+73
+00:08:00,121 --> 00:08:03,076
+and we receive GamePanel
+
+74
+00:08:17,586 --> 00:08:20,647
+and create a method
+
+75
+00:08:28,154 --> 00:08:35,778
+and we receive Entity here
+
+76
+00:08:40,340 --> 00:08:43,189
+not Player but Entity
+
+77
+00:08:43,189 --> 00:08:54,155
+because we will use this method to check not only player collision but also monster and NPC collisions as well
+
+78
+00:08:56,304 --> 00:08:58,516
+now go to the GamePanel
+
+79
+00:08:59,206 --> 00:09:04,124
+and instantiate this CollisionChecker class
+
+80
+00:09:19,085 --> 00:09:21,854
+and pass this GamePanel
+
+81
+00:09:24,268 --> 00:09:26,825
+and now go to this Player class
+
+82
+00:09:26,825 --> 00:09:32,061
+and we check collision inside of this update method
+
+83
+00:09:35,801 --> 00:09:39,180
+after this direction if statement,
+
+84
+00:09:40,506 --> 00:09:48,000
+first, we set this collisionOn to false
+
+85
+00:09:50,000 --> 00:09:53,565
+then call this...
+
+86
+00:10:00,170 --> 00:10:02,170
+oh sorry
+
+87
+00:10:03,231 --> 00:10:06,151
+this needs to be "public"
+
+88
+00:10:08,936 --> 00:10:15,552
+so we're gonna call this checkTile method from here
+
+89
+00:10:15,552 --> 00:10:19,542
+and pass this Player class as Entity 
+
+90
+00:10:19,542 --> 00:10:23,770
+since this Player class is a subclass of this Entity class 
+
+91
+00:10:23,770 --> 00:10:28,502
+so the CollisionChecker can receive the Player class as Entity
+
+92
+00:10:29,722 --> 00:10:33,632
+alright, now the main part of this video
+
+93
+00:10:33,632 --> 00:10:42,847
+what we need to do is, to check if the player is hitting a solid tile or not
+
+94
+00:10:43,484 --> 00:10:51,797
+to do that, first, we want to know the worldX and the worldY of the player's solidArea
+
+95
+00:10:51,797 --> 00:11:00,721
+not the player's worldX and Y because collision needs to be detected based on these solidArea coordinates
+
+96
+00:11:01,225 --> 00:11:04,100
+there are 4 points to be checked
+
+97
+00:11:17,668 --> 00:11:22,480
+and we can find out these 4 numbers like this:
+
+98
+00:12:52,672 --> 00:13:01,410
+then based on these coordinates, we will find out their column and row numbers
+
+99
+00:13:15,204 --> 00:13:20,175
+we simply divide it by tileSize
+
+100
+00:14:31,401 --> 00:14:36,372
+and finally we will create two more integers
+
+101
+00:14:46,505 --> 00:14:52,909
+because basically, we only need to check two tiles for each direction
+
+102
+00:14:54,000 --> 00:14:56,318
+if the player is going up, 
+
+103
+00:14:56,500 --> 00:15:04,826
+we only need to check what tiles the player's left shoulder and right shoulder are hitting
+
+104
+00:15:05,591 --> 00:15:09,194
+so in this case, if the player is going up like this
+
+105
+00:15:09,751 --> 00:15:12,786
+this is hitting... maybe this wall tile
+
+106
+00:15:12,786 --> 00:15:16,404
+and this right shoulder is hitting this grass tile
+
+107
+00:15:16,404 --> 00:15:23,497
+now we're gonna create a switch statement
+
+108
+00:15:25,301 --> 00:15:29,795
+we're gonna check the entity's direction
+
+109
+00:15:59,107 --> 00:16:02,990
+so let's take care of this "up" first
+
+110
+00:16:32,267 --> 00:16:35,779
+for example, the player is here right now
+
+111
+00:16:35,779 --> 00:16:39,530
+and he is trying to go up
+
+112
+00:16:39,530 --> 00:16:47,843
+what we are doing here is, we kind of predict where the player will be after he moved
+
+113
+00:16:59,276 --> 00:17:05,441
+so we subtract this player's speed from the player's worldY
+
+114
+00:17:05,441 --> 00:17:10,386
+or the player's solidArea's worldY, to be precise
+
+115
+00:17:10,970 --> 00:17:20,451
+now we know this row number so we can find out what tile the player is trying to step in
+
+116
+00:17:20,451 --> 00:17:23,777
+and there are possibly two tiles
+
+117
+00:17:35,422 --> 00:17:38,908
+so we're gonna call this mapTileNum
+
+118
+00:17:38,908 --> 00:17:42,208
+this stores all the map tile information
+
+119
+00:18:03,165 --> 00:18:06,359
+oh this also needs to be "public"
+
+120
+00:18:13,123 --> 00:18:16,017
+and the other one is...
+
+121
+00:18:27,132 --> 00:18:30,220
+we checked this point, this is tileNum1
+
+122
+00:18:30,220 --> 00:18:34,899
+now we want to check this point, the right side
+
+123
+00:18:51,453 --> 00:18:56,265
+with this information, we create an if statement
+
+124
+00:18:56,265 --> 00:19:09,221
+and call this Tile array... this also needs to be "public"
+
+125
+00:19:14,712 --> 00:19:19,153
+we're gonna use this tileNum1 as an index
+
+126
+00:19:19,153 --> 00:19:23,540
+and check if this tile is solid or not
+
+127
+00:19:44,943 --> 00:19:51,771
+if one of them or both are true, the player is hitting a solid tile
+
+128
+00:19:51,771 --> 00:19:54,938
+so he cannot move this direction
+ 
+129
+00:20:20,553 --> 00:20:26,320
+if these collisions are false, then we don't do anything
+
+130
+00:20:27,779 --> 00:20:30,256
+ok so this "up" case is done
+
+131
+00:20:30,256 --> 00:20:34,219
+let's go back to this Player class
+
+132
+00:21:36,647 --> 00:21:45,995
+and now we're gonna move these player movement lines from here to here
+
+133
+00:22:02,175 --> 00:22:06,828
+maybe i like this format better...
+
+134
+00:22:28,103 --> 00:22:37,557
+because now we're checking collision so the player can move only when the tiles are not solid
+
+135
+00:22:37,557 --> 00:22:41,467
+so first, we only check the direction
+
+136
+00:22:41,467 --> 00:22:47,605
+and based on this direction, we check collision
+
+137
+00:22:47,605 --> 00:22:53,054
+and if collision is not happening, we let the player move
+
+138
+00:22:55,707 --> 00:22:57,707
+ok let's check this
+
+139
+00:23:03,623 --> 00:23:09,956
+so now this tree tile is stopping the player character
+
+140
+00:23:12,000 --> 00:23:15,247
+but it's still only the up direction
+
+141
+00:23:15,247 --> 00:23:18,998
+you can still go left, down, and right
+
+142
+00:23:19,370 --> 00:23:22,617
+so let's take care of the other directions too
+
+143
+00:23:25,111 --> 00:23:31,223
+i think we can copy and paste
+
+144
+00:23:33,223 --> 00:23:38,592
+we only change some variables
+
+145
+00:23:39,308 --> 00:23:50,009
+so if the player is going down, we're not gonna check the topRow but the bottomRow
+
+146
+00:23:51,229 --> 00:23:57,394
+so change this to bottomRow
+
+147
+00:24:18,000 --> 00:24:24,000
+we're gonna change this from top to bottom
+
+148
+00:24:28,615 --> 00:24:31,730
+and if the player is going left then...
+
+149
+00:24:31,730 --> 00:24:38,346
+we're gonna check the leftCol
+
+150
+00:24:39,381 --> 00:24:43,079
+and the leftCol will be...
+
+151
+00:24:53,637 --> 00:24:57,759
+so now we're gonna check this point and this point
+
+152
+00:25:12,747 --> 00:25:15,516
+if going right then...
+
+153
+00:25:40,452 --> 00:25:42,452
+that's it, i think
+
+154
+00:25:45,980 --> 00:25:48,336
+ok let's check this
+
+155
+00:25:53,244 --> 00:25:55,774
+ok hitting the tile
+
+156
+00:26:02,512 --> 00:26:04,512
+and this water tile too
+
+157
+00:26:05,308 --> 00:26:07,922
+so collision is happening
+
+158
+00:26:09,829 --> 00:26:12,956
+yup, looks good
+
+159
+00:26:15,105 --> 00:26:18,750
+so this is getting more and more like a game
+
+160
+00:26:18,750 --> 00:26:21,917
+so we took care of the collision detection
+
+161
+00:26:21,917 --> 00:26:27,206
+next time, we will create objects and display them on the screen
+
+162
+00:26:27,206 --> 00:26:30,612
+so the player can pick them up
+
+163
+00:26:30,851 --> 00:26:33,090
+thanks for watching, and until next time
+

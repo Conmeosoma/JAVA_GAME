@@ -1,0 +1,640 @@
+1
+00:00:00,504 --> 00:00:02,000
+Hola chicos, soy RyiSnow 
+
+2
+00:00:02,345 --> 00:00:08,571
+así que la última vez, hemos cargado nuestro mapa del mundo e implementado una función de cámara  
+
+4
+00:00:08,571 --> 00:00:12,201
+así que ahora podemos movernos por el mundo
+
+5
+00:00:12,201 --> 00:00:17,775
+pero aún así, podemos caminar a través de estos árboles y aguas
+
+6
+00:00:17,775 --> 00:00:23,156
+así que en este video, implementaremos la detección de colisiones en nuestro programa
+
+7
+00:00:23,156 --> 00:00:29,492
+para que el jugador no pueda caminar a través de baldosas sólidas
+
+8
+00:00:29,492 --> 00:00:35,874
+cuando creamos esta clase Tile, creamos este booleano "collision 
+
+9
+00:00:35,874 --> 00:00:38,431
+así que es el momento de utilizar este
+
+10
+00:00:38,431 --> 00:00:42,000
+primero, vamos a este TileManager
+
+11
+00:00:42,000 --> 00:00:48,469
+y buscamos un azulejo que queramos cambiar por un azulejo sólido
+
+12
+00:00:48,469 --> 00:00:53,081
+por ejemplo, este azulejo de la pared debe ser sólido
+
+13
+00:00:53,081 --> 00:00:57,931
+no queremos que nuestro personaje pase por esta baldosa
+
+14
+00:01:01,936 --> 00:01:08,286
+Llamamos a esta colisión booleana y la ponemos en "true".
+
+15
+00:01:12,000 --> 00:01:16,426
+también este azulejo de agua... este también
+
+16
+00:01:22,654 --> 00:01:26,521
+y este tambien
+
+17
+00:01:31,837 --> 00:01:36,755
+y si no es una baldosa sólida... como esta baldosa de hierba
+
+18
+00:01:36,755 --> 00:01:44,829
+entonces no necesitas añadir nada porque la colisión es falsa por defecto
+
+19
+00:01:44,829 --> 00:01:50,384
+entonces necesitas añadir esto sólo si el azulejo es sólido
+
+20
+00:01:51,366 --> 00:01:54,197
+Ok, la configuración de colisión de las baldosas está hecha
+
+21
+00:01:54,568 --> 00:02:02,563
+entonces decidimos que parte del personaje es solida y que parte no lo es
+
+22
+00:02:03,836 --> 00:02:07,905
+la forma más fácil es establecer todo el azulejo sólido
+
+23
+00:02:07,905 --> 00:02:12,478
+pero a veces no produce el mejor resultado
+
+24
+00:02:12,478 --> 00:02:17,051
+por ejemplo, si todo el sprite del jugador es soid,
+
+25
+00:02:17,051 --> 00:02:24,940
+entonces él golpea esta pared en este punto y no puede moverse más allá
+
+26
+00:02:24,940 --> 00:02:30,760
+pero quizás quieras moverlo un poco más... así
+
+27
+00:02:33,811 --> 00:02:36,342
+además, hay otro problema
+
+28
+00:02:36,342 --> 00:02:44,921
+si todo es sólido, es realmente difícil pasar por un camino estrecho como este
+
+29
+00:02:44,921 --> 00:02:54,243
+porque incluso si el jugador está 1 pixel a la izquierda, la colisión sigue ocurriendo aquí
+
+30
+00:02:55,039 --> 00:03:00,143
+así que tienes que colocarlo con mucha precisión, así
+
+31
+00:03:01,257 --> 00:03:08,944
+y eso es simplemente bastante estresante y mala mecánica de control, en mi opinión
+
+33
+00:03:09,501 --> 00:03:15,533
+por ejemplo, "oh estoy golpeando este azulejo así que vamos a mover a la derecha un poco"
+
+34
+00:03:15,533 --> 00:03:21,035
+y "oh ahora estoy golpeando esta baldosa y todavía no puedo ir más lejos"
+
+35
+00:03:21,035 --> 00:03:24,918
+para evitar este tipo de problemas,
+
+36
+00:03:24,918 --> 00:03:31,189
+establecemos un área específica del personaje como sólida, no todo
+
+37
+00:03:31,189 --> 00:03:36,000
+como, sólo esta parte es sólida
+
+38
+00:03:36,000 --> 00:03:40,918
+entonces el jugador puede pasar por esta especie de camino estrecho
+
+39
+00:03:40,918 --> 00:03:44,616
+y establecer este tipo de área de colisión,
+
+40
+00:03:44,616 --> 00:03:48,844
+primero, abre esta Entidad
+
+41
+00:03:53,363 --> 00:03:59,395
+utilizamos esta clase Rectangle
+
+42
+00:03:59,395 --> 00:04:05,639
+y voy a llamarlo solidArea
+
+43
+00:04:08,769 --> 00:04:15,199
+con esta clase, podemos crear un rectángulo invisible o abstracto
+
+44
+00:04:15,199 --> 00:04:19,772
+y podemos almacenar datos como x, y, anchura y altura
+
+45
+00:04:20,594 --> 00:04:31,295
+también, creamos un booleano llamado collisionOn, y el valor por defecto es false
+
+46
+00:04:32,913 --> 00:04:36,292
+ahora vamos a esta clase Player
+
+47
+00:04:36,292 --> 00:04:40,600
+e instanciar ese rectángulo
+
+48
+00:04:55,906 --> 00:05:08,703
+espera, oh que es esto...
+
+49
+00:05:11,170 --> 00:05:18,000
+y cuando instanciamos este rectángulo, podemos pasar 4 parámetros al constructor
+
+50
+00:05:23,093 --> 00:05:30,823
+por ejemplo, si queremos crear un rectángulo que tenga el mismo tamaño que nuestros azulejos,
+
+51
+00:05:30,823 --> 00:05:32,823
+se escribe así:
+
+52
+00:05:32,823 --> 00:05:39,969
+x=0, y=0, widht=48, y height=48
+
+53
+00:05:39,969 --> 00:05:46,054
+o también puede escribir así: gp.tileSize
+
+54
+00:05:46,187 --> 00:05:48,797
+cualquiera de las dos formas está bien
+
+55
+00:05:48,797 --> 00:05:57,906
+o también podemos dejar esto en blanco y establecer estos valores uno por uno
+
+56
+00:06:23,158 --> 00:06:25,158
+de cualquier manera está bien
+
+57
+00:06:25,158 --> 00:06:31,734
+y como queremos hacer este rectángulo un poco más pequeño que el personaje del jugador
+
+58
+00:06:31,734 --> 00:06:35,803
+cambiamos un poco estos valores
+
+59
+00:06:36,287 --> 00:06:38,287
+tal vez algo como esto
+
+60
+00:06:38,307 --> 00:06:43,968
+así que esta área gris no es sólida, y esta área es sólida
+
+61
+00:06:43,968 --> 00:06:50,716
+así que esta área deslizante empieza en x 8
+
+62
+00:06:50,716 --> 00:06:58,828
+y la anchura es 32 y la altura también es 32
+
+64
+00:06:58,828 --> 00:07:05,868
+así que la esquina superior izquierda es x=8, y=16
+
+65
+00:07:05,868 --> 00:07:14,871
+así que en ese caso, vamos a cambiar esta x a 8, y y a 16
+
+66
+00:07:14,871 --> 00:07:22,256
+y el ancho es 32 y la altura también es 32
+
+67
+00:07:22,548 --> 00:07:28,474
+puede ajustar estos números y encontrar lo que funciona mejor para su juego
+
+68
+00:07:28,474 --> 00:07:32,570
+así que tenemos esta área de colisión para el personaje del jugador
+
+69
+00:07:32,570 --> 00:07:36,851
+ahora vamos a crear una clase para comprobar la colisión
+
+70
+00:07:36,851 --> 00:07:41,557
+dentro de este paquete "main", crea una clase
+
+71
+00:07:41,557 --> 00:07:51,038
+y voy a llamarla CollisionChecker o el nombre que quieras
+
+72
+00:07:52,868 --> 00:07:55,717
+y primero, el constructor
+
+73
+00:08:00,121 --> 00:08:03,076
+y recibimos GamePanel
+
+74
+00:08:17,586 --> 00:08:20,647
+y crear un método
+
+75
+00:08:28,154 --> 00:08:35,778
+y recibimos Entity aquí
+
+76
+00:08:40,340 --> 00:08:43,189
+no Jugador sino Entidad
+
+77
+00:08:43,189 --> 00:08:54,155
+porque usaremos este método para comprobar no sólo las colisiones de jugadores sino también las de monstruos y NPCs
+
+78
+00:08:56,304 --> 00:08:58,516
+ahora vamos al GamePanel
+
+79
+00:08:59,206 --> 00:09:04,124
+e instancie esta clase CollisionChecker
+
+80
+00:09:19,085 --> 00:09:21,854
+y pasamos este GamePanel
+
+81
+00:09:24,268 --> 00:09:26,825
+y ahora pasa a esta clase Player
+
+82
+00:09:26,825 --> 00:09:32,061
+y comprobamos la colisión dentro de este método de actualización
+
+83
+00:09:35,801 --> 00:09:39,180
+después de esta instrucción if,
+
+84
+00:09:40,506 --> 00:09:48,000
+primero, establecemos esta colisiónOn a false
+
+85
+00:09:50,000 --> 00:09:53,565
+luego llamamos a esto...
+
+86
+00:10:00,170 --> 00:10:02,170
+oh lo siento
+
+87
+00:10:03,231 --> 00:10:06,151
+esto tiene que ser "público
+
+88
+00:10:08,936 --> 00:10:15,552
+así que vamos a llamar a este método checkTile desde aquí
+
+89
+00:10:15,552 --> 00:10:19,542
+y pasaremos esta clase Player como Entity 
+
+90
+00:10:19,542 --> 00:10:23,770
+ya que esta clase Player es una subclase de esta clase Entity 
+
+91
+00:10:23,770 --> 00:10:28,502
+por lo que el CollisionChecker puede recibir la clase Player como Entity
+
+92
+00:10:29,722 --> 00:10:33,632
+bien, ahora la parte principal de este video
+
+93
+00:10:33,632 --> 00:10:42,847
+lo que tenemos que hacer es, para comprobar si el jugador está golpeando un azulejo sólido o no
+
+94
+00:10:43,484 --> 00:10:51,797
+para ello, en primer lugar, queremos saber el worldX y el worldY del solidArea del jugador
+
+95
+00:10:51,797 --> 00:11:00,721
+no el worldX y el worldY del jugador porque la colisión necesita ser detectada basada en estas coordenadas solidArea
+
+96
+00:11:01,225 --> 00:11:04,100
+hay 4 puntos a comprobar
+
+97
+00:11:17,668 --> 00:11:22,480
+y podemos averiguar estos 4 números así:
+
+98
+00:12:52,672 --> 00:13:01,410
+a continuación, sobre la base de estas coordenadas, vamos a encontrar sus números de columna y fila
+
+99
+00:13:15,204 --> 00:13:20,175
+simplemente lo dividimos por tileSize
+
+100
+00:14:31,401 --> 00:14:36,372
+y finalmente crearemos dos enteros más
+
+101
+00:14:46,505 --> 00:14:52,909
+porque básicamente, sólo necesitamos comprobar dos baldosas para cada dirección
+
+102
+00:14:54,000 --> 00:14:56,318
+si el jugador va hacia arriba, 
+
+103
+00:14:56,500 --> 00:15:04,826
+sólo tenemos que comprobar sobre qué baldosas chocan el hombro izquierdo y el hombro derecho del jugador
+
+104
+00:15:05,591 --> 00:15:09,194
+En este caso, si el jugador sube así
+
+105
+00:15:09,751 --> 00:15:12,786
+esto es golpear... tal vez este azulejo de la pared
+
+106
+00:15:12,786 --> 00:15:16,404
+y este hombro derecho está golpeando esta baldosa de hierba
+
+107
+00:15:16,404 --> 00:15:23,497
+ahora vamos a crear una sentencia switch
+
+108
+00:15:25,301 --> 00:15:29,795
+vamos a comprobar la dirección de la entidad
+
+109
+00:15:59,107 --> 00:16:02,990
+así que ocupémonos de este "arriba" primero
+
+110
+00:16:32,267 --> 00:16:35,779
+por ejemplo, el jugador está aquí ahora mismo
+
+111
+00:16:35,779 --> 00:16:39,530
+y está intentando subir
+
+112
+00:16:39,530 --> 00:16:47,843
+lo que estamos haciendo aquí es, que tipo de predecir donde el jugador será después de que se trasladó
+
+113
+00:16:59,276 --> 00:17:05,441
+así que restamos la velocidad de este jugador del mundoY del jugador
+
+114
+00:17:05,441 --> 00:17:10,386
+o el worldY del solidArea del jugador, para ser precisos
+
+115
+00:17:10,970 --> 00:17:20,451
+ahora sabemos este número de fila, así que podemos averiguar qué baldosa está intentando pisar el jugador
+
+116
+00:17:20,451 --> 00:17:23,777
+y hay posiblemente dos baldosas
+
+117
+00:17:35,422 --> 00:17:38,908
+así que vamos a llamar a esto mapTileNum
+
+118
+00:17:38,908 --> 00:17:42,208
+esto almacena toda la información de las baldosas del mapa
+
+119
+00:18:03,165 --> 00:18:06,359
+oh esto también necesita ser "público
+
+120
+00:18:13,123 --> 00:18:16,017
+y el otro es...
+
+121
+00:18:27,132 --> 00:18:30,220
+comprobamos este punto, este es tileNum1
+
+122
+00:18:30,220 --> 00:18:34,899
+ahora queremos comprobar este punto, el lado derecho
+
+123
+00:18:51,453 --> 00:18:56,265
+con esta información, creamos una sentencia if
+
+124
+00:18:56,265 --> 00:19:09,221
+y llamamos a este Tile array... este también necesita ser "public"
+
+125
+00:19:14,712 --> 00:19:19,153
+vamos a usar este tileNum1 como índice
+
+126
+00:19:19,153 --> 00:19:23,540
+y comprobaremos si esta baldosa es sólida o no
+
+127
+00:19:44,943 --> 00:19:51,771
+si uno de ellos o ambos son verdaderos, el jugador está golpeando una baldosa sólida
+
+128
+00:19:51,771 --> 00:19:54,938
+por lo que no puede moverse en esta dirección
+ 
+129
+00:20:20,553 --> 00:20:26,320
+si estas colisiones son falsas, entonces no hacemos nada
+
+130
+00:20:27,779 --> 00:20:30,256
+ok entonces este caso "arriba" está hecho
+
+131
+00:20:30,256 --> 00:20:34,219
+volvamos a la clase Player
+
+132
+00:21:36,647 --> 00:21:45,995
+y ahora vamos a mover estas líneas de movimiento del jugador de aquí a aquí
+
+133
+00:22:02,175 --> 00:22:06,828
+quizás me guste más este formato...
+
+134
+00:22:28,103 --> 00:22:37,557
+porque ahora estamos comprobando la colisión por lo que el jugador puede moverse sólo cuando los azulejos no son sólidos
+
+135
+00:22:37,557 --> 00:22:41,467
+así que primero, sólo comprobamos la dirección
+
+136
+00:22:41,467 --> 00:22:47,605
+y basándonos en esta dirección, comprobamos la colisión
+
+137
+00:22:47,605 --> 00:22:53,054
+y si no hay colisión, dejamos que el jugador se mueva
+
+138
+00:22:55,707 --> 00:22:57,707
+ok vamos a comprobar esto
+
+139
+00:23:03,623 --> 00:23:09,956
+así que ahora esta baldosa de árbol está deteniendo al personaje jugador
+
+140
+00:23:12,000 --> 00:23:15,247
+pero sigue siendo sólo la dirección hacia arriba
+
+141
+00:23:15,247 --> 00:23:18,998
+todavía puedes ir a la izquierda, abajo y derecha
+
+142
+00:23:19,370 --> 00:23:22,617
+así que ocupémonos también de las otras direcciones
+
+143
+00:23:25,111 --> 00:23:31,223
+creo que podemos copiar y pegar
+
+144
+00:23:33,223 --> 00:23:38,592
+solo cambiamos algunas variables
+
+145
+00:23:39,308 --> 00:23:50,009
+así que si el jugador va hacia abajo, no vamos a comprobar el topRow sino el bottomRow
+
+146
+00:23:51,229 --> 00:23:57,394
+así que cambia esto a bottomRow
+
+147
+00:24:18,000 --> 00:24:24,000
+vamos a cambiar esto de arriba a abajo
+
+148
+00:24:28,615 --> 00:24:31,730
+y si el jugador va hacia la izquierda entonces...
+
+149
+00:24:31,730 --> 00:24:38,346
+vamos a comprobar el leftCol
+
+150
+00:24:39,381 --> 00:24:43,079
+y el leftCol será...
+
+151
+00:24:53,637 --> 00:24:57,759
+así que ahora vamos a comprobar este punto y este punto
+
+152
+00:25:12,747 --> 00:25:15,516
+si va bien entonces...
+
+153
+00:25:40,452 --> 00:25:42,452
+eso es todo, creo
+
+154
+00:25:45,980 --> 00:25:48,336
+ok vamos a comprobar esto
+
+155
+00:25:53,244 --> 00:25:55,774
+ok golpeando la baldosa
+
+156
+00:26:02,512 --> 00:26:04,512
+y este azulejo de agua también
+
+157
+00:26:05,308 --> 00:26:07,922
+así que la colisión está ocurriendo
+
+158
+00:26:09,829 --> 00:26:12,956
+yup, se ve bien
+
+159
+00:26:15,105 --> 00:26:18,750
+esto se parece cada vez más a un juego
+
+160
+00:26:18,750 --> 00:26:21,917
+así que nos encargamos de la detección de colisiones
+
+161
+00:26:21,917 --> 00:26:27,206
+la próxima vez, crearemos objetos y los mostraremos en la pantalla
+
+162
+00:26:27,206 --> 00:26:30,612
+para que el jugador pueda cogerlos
+
+163
+00:26:30,851 --> 00:26:33,090
+gracias por mirar, y hasta la proxima
+

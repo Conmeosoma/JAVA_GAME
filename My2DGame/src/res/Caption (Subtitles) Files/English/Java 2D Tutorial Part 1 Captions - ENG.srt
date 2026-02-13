@@ -1,0 +1,560 @@
+1
+00:00:00,240 --> 00:00:02,419
+hi guys, this is RyiSnow
+
+2
+00:00:02,419 --> 00:00:06,960
+from this video, I will start a 2D game tutorial in Java
+
+3
+00:00:06,960 --> 00:00:10,747
+this is something I've been wanting to do for quite a while
+
+4
+00:00:10,747 --> 00:00:15,860
+so I'm happy that I can finally start this
+
+5
+00:00:15,860 --> 00:00:23,064
+compared to other game tutorials that I have done before, 
+such as the text-based adventure game,
+
+6
+00:00:23,064 --> 00:00:29,063
+2D game development is a bit more complicated 
+and requires a bit more work
+
+7
+00:00:29,063 --> 00:00:39,687
+so I will do my best to make this as easy as possible
+so you can follow the steps even if you have no experience in developing 2D games
+
+8
+00:00:39,687 --> 00:00:43,570
+so I'm very happy if you enjoy it
+
+9
+00:00:43,570 --> 00:00:48,000
+for this one, we will not use any external libraries
+
+10
+00:00:48,000 --> 00:00:53,264
+we will just use the default Java classes and make it from the scratch
+
+11
+00:00:53,264 --> 00:00:59,181
+so if you have an environment to write Java code, 
+you can make this game
+
+12
+00:00:59,181 --> 00:01:03,533
+and here's the roadmap of this tutorial
+
+13
+00:01:03,533 --> 00:01:08,858
+first, we make a relatively simple treasure hunting game
+
+14
+00:01:08,858 --> 00:01:16,312
+by creating this, you can learn how to create a game loop 
+which is the core of 2D game development
+
+15
+00:01:16,312 --> 00:01:23,882
+and also (you can learn) how to display characters, background tiles, 
+item objects on the screen
+
+16
+00:01:23,882 --> 00:01:29,723
+and you can also learn how to move player character on the screen
+
+17
+00:01:29,723 --> 00:01:39,613
+and after completing this first game, 
+we will add more elements to this and change it to a 2D action RPG,
+
+18
+00:01:39,613 --> 00:01:43,143
+kind of like the retro-style Zelda
+
+19
+00:01:43,143 --> 00:01:51,477
+we will add monsters, NPCs, dialogues, 
+inventory, some events
+
+20
+00:01:51,477 --> 00:01:54,456
+that's the final goal of this tutorial
+
+21
+00:01:54,914 --> 00:02:06,635
+this is a tutorial for Java 2D beginners so I will explain many things 
+such as how the game loop works, etc.
+
+22
+00:02:06,635 --> 00:02:16,161
+so if you already have some knowledge of 2D game programming 
+you probably feel the pacing is a bit slow
+
+23
+00:02:16,161 --> 00:02:26,669
+but please bear with me everyone is beginner at first 
+and someone else might find these explanations useful
+
+24
+00:02:26,669 --> 00:02:32,477
+okay, so that's the introduction 
+and now let's start the development
+
+25
+00:02:32,477 --> 00:02:36,537
+let's make a new project
+
+26
+00:02:36,537 --> 00:02:41,486
+I'm gonna name this My2DGame
+
+27
+00:02:41,486 --> 00:02:46,941
+that's the most generic name ever but it's okay
+
+28
+00:02:46,941 --> 00:02:48,900
+and don't create this
+
+29
+00:02:48,900 --> 00:02:55,273
+and let's create a package first 
+and name this "main"
+
+30
+00:02:55,273 --> 00:02:57,934
+and create a class
+
+31
+00:02:57,934 --> 00:03:02,760
+let's create Main class
+
+32
+00:03:06,720 --> 00:03:12,849
+so first we create a window
+so we use this JFrame class
+
+33
+00:03:30,900 --> 00:03:35,159
+so we can close this window properly
+
+34
+00:03:35,159 --> 00:03:37,566
+and also we add...
+
+35
+00:03:40,513 --> 00:03:44,452
+so we cannot resize this window
+
+36
+00:03:44,452 --> 00:03:52,000
+then let's set the game title
+
+37
+00:03:52,080 --> 00:03:58,943
+so... "2D adventure" or something
+
+38
+00:04:08,799 --> 00:04:13,271
+so window is gonna be displayed at the center of the screen
+
+39
+00:04:18,560 --> 00:04:25,334
+so we can see this window
+okay now let's create another class
+
+40
+00:04:27,040 --> 00:04:31,425
+and I'm gonna name this GamePanel
+
+41
+00:04:33,199 --> 00:04:39,156
+and this GamePanel extends JPanel
+
+42
+00:04:41,520 --> 00:04:50,639
+so basically this is a subclass of this JPanel
+so this has all the functions of this JPanel
+
+43
+00:04:50,639 --> 00:05:03,919
+this GamePanel works as a kind of a game screen
+so first we're gonna decide some screen settings
+
+44
+00:05:03,919 --> 00:05:07,606
+and create some variables here
+
+45
+00:05:14,479 --> 00:05:17,809
+and I'm going to choose 16
+
+46
+00:05:19,520 --> 00:05:23,755
+so this means 16 by 16 tile
+
+47
+00:05:23,755 --> 00:05:33,979
+and this 16 by 16 is gonna be the default size of the player character, 
+NPCs and map tiles in this game
+
+48
+00:05:33,979 --> 00:05:44,423
+16 by 16 is kind of a standard size for many retro 2D games
+and many characters and tiles are made with this size
+
+49
+00:05:44,423 --> 00:05:46,992
+so you can find many examples
+
+50
+00:05:46,992 --> 00:05:56,262
+some games use more pixels such as 32 by 32 to draw a character 
+but we go with 16 pixels this time
+
+51
+00:05:56,262 --> 00:05:59,559
+that said there is a little catch here
+
+52
+00:05:59,559 --> 00:06:10,793
+since modern computers and monitors have much higher resolutions 
+than those eras of NES or SNES, you know, 80s, 90s
+
+53
+00:06:10,793 --> 00:06:17,719
+so 16 by 16 characters or tiles look very small on the screen
+
+54
+00:06:17,719 --> 00:06:36,171
+for example, the NES's resolution was 256 by 224
+and the GENESIS was 320 by 224 
+so 16 by 16 characters looked a decent size in those settings
+
+55
+00:06:36,171 --> 00:06:41,377
+but I'm sure your monitor has much higher resolution than that
+
+56
+00:06:41,377 --> 00:06:45,135
+then what to do?
+we will scale it
+
+57
+00:06:45,135 --> 00:06:48,703
+so let's create an integer variable
+
+58
+00:06:52,021 --> 00:06:54,979
+and I'm going to set 3
+
+59
+00:06:54,979 --> 00:07:06,871
+although we create characters in a 16 by 16 frame 
+but it looks 48 by 48 pixels on the screen
+
+60
+00:07:06,871 --> 00:07:16,984
+this kind of scaling is pretty common for developing retro style 2D games 
+so we also follow the tradition
+
+61
+00:07:16,984 --> 00:07:19,066
+so another integer
+
+62
+00:07:33,599 --> 00:07:45,702
+so basically this is 48 x 48 tile
+so this is the actual tile size that will be displayed on our game screen
+
+63
+00:07:45,702 --> 00:07:58,697
+and then we decide the size of our game screen
+and to do that we first decide how many tiles the game can display 
+both horizontally and vertically
+
+64
+00:07:58,697 --> 00:08:02,026
+and this will decide the total screen size
+
+65
+00:08:09,440 --> 00:08:17,427
+in this game we choose 16 column
+
+66
+00:08:24,720 --> 00:08:32,531
+and row is 12
+16 tiles horizontally, 12 tiles vertically
+
+67
+00:08:32,531 --> 00:08:37,984
+so the ratio is 4 to 3
+
+68
+00:08:37,984 --> 00:08:42,114
+and since a single tile size is 48 pixels...
+
+69
+00:09:18,000 --> 00:09:21,839
+so tile size is 48
+
+70
+00:09:30,800 --> 00:09:32,551
+and the height is...
+
+71
+00:09:44,240 --> 00:09:51,101
+so this will be the size of our game screen
+but of course you can change it if you want
+
+72
+00:09:54,080 --> 00:10:00,959
+18 or 14 or something
+
+73
+00:10:01,040 --> 00:10:09,317
+then this screen width the screen height will change automatically
+so that's the screen setting
+
+74
+00:10:09,317 --> 00:10:13,901
+now let's create a constructor of this GamePanel
+
+75
+00:10:35,680 --> 00:10:45,653
+so we're gonna set the panel size of this GamePanel
+so screen width and screen height
+
+76
+00:10:49,600 --> 00:10:59,681
+and then I'm not sure if this is necessary but...
+let's set the background color of this GamePanel
+
+77
+00:11:15,120 --> 00:11:24,239
+if you have experience developing 2D games in Java before
+and if you have used Canvas to draw the screen
+
+78
+00:11:24,239 --> 00:11:30,603
+then you probably used BufferStrategy too
+but this time we're gonna use this JPanel
+
+79
+00:11:30,603 --> 00:11:43,053
+this JPanel has kind of a double buffering function as default
+so I think it's a good idea to make this true for better rendering performance
+
+80
+00:11:44,079 --> 00:11:51,279
+okay now let's go back to this Main class
+and add this GamePanel to this window
+
+81
+00:12:02,399 --> 00:12:07,010
+and we're gonna add this gamePanel to this window
+
+82
+00:12:13,201 --> 00:12:21,455
+this is a subclass of JPanel
+so basically this is a JPanel class with a bit more extra functions
+
+83
+00:12:21,455 --> 00:12:27,623
+so you can add this to window like you add JPanel to this window
+
+84
+00:12:27,623 --> 00:12:36,282
+and then we're gonna pack this JPanel so we can see it
+
+85
+00:12:37,439 --> 00:12:38,801
+okay let's check it
+
+86
+00:12:39,832 --> 00:12:45,097
+alright so our game screen appears
+
+87
+00:12:45,097 --> 00:12:51,090
+and the size is 768 and 576
+
+88
+00:12:51,090 --> 00:13:02,326
+so we can display a 16 48x48 tiles horizontally
+and 12 48x48 tiles vertically
+
+89
+00:13:03,636 --> 00:13:10,791
+now we have a window 
+so let's talk about the basic mechanics of the game
+
+90
+00:13:10,791 --> 00:13:18,571
+I think the most important concept of 2D games is 
+"the existence of time"
+
+91
+00:13:19,335 --> 00:13:32,642
+in my previous text adventure game,
+when you do something, for example, press the button 
+then program do some processing and then stops
+
+92
+00:13:32,642 --> 00:13:38,449
+it just waits until you do something again, 
+like pressing the button again
+
+93
+00:13:38,449 --> 00:13:54,751
+however, in 2D games, once you start the program 
+the program keeps running and doesn't stop 
+until most likely you close the game or you do something special
+
+94
+00:13:54,751 --> 00:14:05,695
+so imagine, when you play games like 
+Super Mario or Minecraft or Call of Duty 
+or any other action oriented games
+
+95
+00:14:05,695 --> 00:14:17,756
+you can move your character on the screen 
+and other characters such as monsters or NPCs are also moving on the screen
+
+96
+00:14:17,756 --> 00:14:26,020
+but how can this happen? 
+its mechanics is basically the same with hand drawn animation
+
+97
+00:14:26,020 --> 00:14:37,569
+the character is actually a series of static pictures 
+but since it updates the pictures really quickly,
+it looks like the character is moving
+
+98
+00:14:37,569 --> 00:14:40,123
+it's the same in video games
+
+99
+00:14:40,123 --> 00:14:48,361
+so if the game's FPS is 60 
+which means it updates the screen 60 times per second
+
+100
+00:14:48,361 --> 00:14:55,439
+so your character looks like moving 
+but it's actually a series of 60 static images
+
+101
+00:14:55,439 --> 00:15:04,766
+so to do this animation in our game 
+we need to create a time in our game
+we need to start this game clock
+
+102
+00:15:04,766 --> 00:15:17,297
+and to do that we will use a class called Thread
+and I will name this gameThread
+
+103
+00:15:17,297 --> 00:15:29,595
+Thread is something you can start and stop
+and once a thread started, it keeps your program running until you stop it
+
+104
+00:15:29,595 --> 00:15:43,425
+it's not like thread itself does something special
+but when you want to repeat some process again and again 
+such as drawing screen 60 times every one second, thread is very useful
+
+105
+00:15:43,425 --> 00:15:56,697
+so we're gonna use this thread in this GamePanel and to run a thread 
+we need to implement Runnable to this class
+
+106
+00:15:56,697 --> 00:16:01,487
+that's the key to use this thread
+
+107
+00:16:01,487 --> 00:16:05,136
+and we are seeing an error
+
+108
+00:16:05,136 --> 00:16:11,092
+it's suggesting to add unimplemented methods 
+so let's do this
+
+109
+00:16:11,092 --> 00:16:15,657
+then it automatically generates this run method
+
+110
+00:16:17,920 --> 00:16:24,195
+so what this run method is
+probably you can see this explanation
+
+111
+00:16:26,029 --> 00:16:36,720
+it says,
+"when an object implementing interface Runnable (in this case our GamePanel) 
+is used to create a thread"
+
+112
+00:16:36,720 --> 00:16:43,622
+"starting the thread causes the object's run method to be called 
+in that separatory execution thread"
+
+113
+00:16:43,622 --> 00:16:50,187
+so basically when we start this gameThread 
+it automatically calls this run method
+
+114
+00:16:50,187 --> 00:16:52,900
+that's how it works
+
+115
+00:16:52,900 --> 00:16:57,982
+okay so I'm gonna create a new method here
+
+116
+00:17:06,240 --> 00:17:11,265
+and here
+so we're gonna instantiate this gameThread
+
+117
+00:17:17,600 --> 00:17:27,177
+and we're gonna pass "this" to this thread constructor
+so "this" means this class, so GamePanel
+
+118
+00:17:27,177 --> 00:17:35,352
+so basically we are passing GamePanel class to this thread's constructor
+that's how you instantiate a thread
+
+119
+00:17:37,360 --> 00:17:40,034
+let's start this thread
+
+120
+00:17:45,557 --> 00:17:49,301
+it's gonna automatically call this run method
+
+121
+00:17:51,600 --> 00:18:00,823
+and in this run method, we will create a game loop 
+which will be the core of our game
+
+122
+00:18:00,823 --> 00:18:12,550
+[Music]
+

@@ -14,7 +14,7 @@ public class KeyHandler implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed; // bien kiem tra phim di chuyen
     public boolean enterPressed;
     // DEBUG
-//    boolean checkDrawTime = false;    
+    // boolean checkDrawTime = false;
     boolean showDebugText = false;
 
     public KeyHandler(GamePanel gp) {
@@ -136,19 +136,19 @@ public class KeyHandler implements KeyListener {
             rightPressed = true;
         }
         if (code == KeyEvent.VK_T) {
-//            checkDrawTime = !checkDrawTime;
+            // checkDrawTime = !checkDrawTime;
             if (showDebugText == false) {
                 showDebugText = true;
             } else if (showDebugText == true) {
                 showDebugText = false;
             }
         }
-        
-        if (code == KeyEvent.VK_R){  // refresh
+
+        if (code == KeyEvent.VK_R) { // refresh
             gp.tileM.loadMap("/res/maps/worldV2.txt");
-            
+
         }
-        
+
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.pauseState;
         }

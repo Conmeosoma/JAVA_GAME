@@ -1,0 +1,912 @@
+1
+00:00:00,560 --> 00:00:07,839
+la dernière fois que nous avons chargé les sprites des personnages
+
+3
+00:00:05,279 --> 00:00:16,240
+et nous avons implémenté un système d'animation simple afin de pouvoir contrôler notre personnage joueur
+
+6
+00:00:12,559 --> 00:00:18,720
+Maintenant, dessinons quelques tuiles d'arrière-plan 
+
+7
+00:00:16,240 --> 00:00:27,599
+Au fait, nous n'avons plus besoin de ces variables puisque nous nous sommes occupés du mouvement du joueur dans la classe Player.
+
+10
+00:00:25,039 --> 00:00:27,599
+donc vous pouvez supprimer ceci
+
+11
+00:00:27,760 --> 00:00:37,760
+donc d'abord nous avons besoin de quelques images de tuiles de fond
+
+13
+00:00:33,840 --> 00:00:41,280
+J'ai donc préparé trois tuiles
+
+14
+00:00:37,760 --> 00:00:45,840
+nous ajouterons d'autres tuiles plus tard mais pour l'instant trois tuiles devraient suffire
+
+16
+00:00:43,040 --> 00:00:50,559
+Donc à l'intérieur de ce paquetage de ressources, créons un autre paquetage
+
+18
+00:00:48,079 --> 00:00:53,039
+je vais le nommer "tiles" (tuiles)
+
+20
+00:00:54,399 --> 00:01:04,399
+et nous allons copier ces images de tuiles dans le paquetage tiles
+
+24
+00:01:07,360 --> 00:01:15,920
+et ensuite, à partir de ce dossier source, nous allons créer un autre paquetage
+
+27
+00:01:17,680 --> 00:01:27,560
+et à l'intérieur de ce paquetage, créer une classe appelée Tile
+
+31
+00:01:28,560 --> 00:01:37,600
+et c'est une classe qui représente une seule tuile
+
+33
+00:01:34,079 --> 00:01:38,840
+et pour l'instant nous ajoutons deux éléments 
+
+34
+00:01:37,600 --> 00:01:42,159
+l'un est...
+
+38
+00:01:47,119 --> 00:01:51,680
+et l'autre est...
+
+43
+00:02:01,759 --> 00:02:07,439
+donc cette classe est correcte pour le moment
+
+44
+00:02:04,320 --> 00:02:10,959
+Maintenant, créons une autre classe
+
+45
+00:02:07,439 --> 00:02:13,120
+à l'intérieur de ce paquet de tuiles
+
+46
+00:02:10,959 --> 00:02:17,280
+je vais nommer ce TileManager
+
+49
+00:02:17,360 --> 00:02:24,239
+dans cette classe, nous allons d'abord utiliser GamePanel
+
+52
+00:02:24,239 --> 00:02:30,000
+et aussi cette classe Tile
+
+55
+00:02:30,000 --> 00:02:37,840
+Nous créons cette tuile comme une allée et la nommons "tuile".
+
+57
+00:02:38,319 --> 00:02:44,319
+import GamePanel
+
+58
+00:02:40,480 --> 00:02:46,879
+puis créons un constructeur
+
+60
+00:02:46,879 --> 00:02:53,200
+et nous allons prendre GamePanel comme "gp".
+
+64
+00:02:58,800 --> 00:03:06,080
+Nous allons également définir la taille de ce tableau de tuiles
+
+67
+00:03:06,080 --> 00:03:11,360
+Je vais choisir 10 pour l'instant 
+
+68
+00:03:10,319 --> 00:03:16,319
+cela signifie que nous allons créer 10 sortes de tuiles
+
+70
+00:03:13,120 --> 00:03:22,000
+comme un carreau de verre, un carreau d'eau, un carreau de mur...
+
+72
+00:03:19,440 --> 00:03:31,120
+Si nous avons besoin de plus, nous pouvons toujours changer ce nombre en 15 ou 20.
+
+75
+00:03:27,599 --> 00:03:35,200
+mais je pense que 10 est suffisant
+
+76
+00:03:31,120 --> 00:03:39,120
+puis créer une méthode
+
+78
+00:03:41,040 --> 00:03:48,480
+et nous allons appeler cette méthode depuis ce constructeur
+
+81
+00:03:48,720 --> 00:03:54,560
+un peu comme la classe Player
+
+82
+00:03:51,920 --> 00:04:01,840
+donc nous allons charger ces images de tuiles dans cette méthode getTileImage 
+
+84
+00:03:58,319 --> 00:04:01,840
+donc encore une fois, essayez et attrapez
+
+88
+00:04:14,560 --> 00:04:22,400
+et ici nous allons instancier ce tableau Tile
+
+101
+00:04:46,880 --> 00:04:53,280
+et ensuite taper un chemin de fichier
+
+103
+00:04:50,080 --> 00:04:58,000
+donc le chemin du fichier sera... puisque ceux-ci sont dans ce paquet de tuiles donc...
+
+108
+00:05:03,520 --> 00:05:12,240
+Nous avons donc créé cette BufferedImage à l'intérieur de la classe Tile.
+
+111
+00:05:10,720 --> 00:05:20,240
+nous allons mettre l'image du fichier de tuiles dans ce BufferedImage
+
+114
+00:05:17,520 --> 00:05:24,639
+copions et collons ceci
+
+119
+00:05:28,560 --> 00:05:36,840
+et la tuile [1] sera le mur
+
+121
+00:05:33,360 --> 00:05:42,160
+et la tuile [2] sera l'eau
+
+123
+00:05:39,759 --> 00:05:44,479
+l'instanciation est terminée
+
+124
+00:05:42,160 --> 00:05:54,560
+et nous créons une méthode de dessin à l'intérieur de ce TileManager également
+
+132
+00:06:00,479 --> 00:06:06,639
+import
+
+133
+00:06:02,720 --> 00:06:09,919
+dessinons une tuile pour le test
+
+134
+00:06:06,639 --> 00:06:11,440
+donc pour dessiner une tuile, tapez comme ceci 
+
+139
+00:06:17,520 --> 00:06:24,639
+donc d'abord une BufferedImage
+
+141
+00:06:20,400 --> 00:06:25,759
+Dessinons donc ce carré d'herbe
+
+144
+00:06:27,280 --> 00:06:34,560
+et ensuite x et y, donc 0 et 0
+
+146
+00:06:32,160 --> 00:06:44,000
+et la largeur et la hauteur, donc gp.tileSize et gp.tileSize
+
+149
+00:06:38,639 --> 00:06:46,479
+et l'ImageObserver est nul
+
+151
+00:06:46,720 --> 00:06:52,639
+et maintenant passons à la classe GamePanel
+
+153
+00:06:52,639 --> 00:07:00,840
+instanciez ce TileManager
+
+160
+00:07:06,319 --> 00:07:14,160
+et passe cette classe GamePanel
+
+163
+00:07:14,160 --> 00:07:22,880
+puis à l'intérieur de ce paintComponent nous allons taper...
+
+167
+00:07:22,880 --> 00:07:30,400
+Nous allons donc appeler cette méthode de dessin à l'intérieur du TileManager.
+
+170
+00:07:28,639 --> 00:07:38,560
+et assurez-vous de taper cette ligne avant "player.draw(g2)".
+
+173
+00:07:35,440 --> 00:07:43,919
+Dans ce cas, nous dessinons d'abord les tuiles, puis le joueur.
+
+175
+00:07:41,680 --> 00:07:55,360
+si c'est l'inverse, les tuiles d'arrière-plan cacheront le personnage du joueur et nous ne pourrons pas le voir.
+
+179
+00:07:51,120 --> 00:07:58,840
+donc assurez-vous de dessiner les tuiles avant le joueur
+
+180
+00:07:55,360 --> 00:07:58,840
+vérifions ceci
+
+181
+00:07:58,960 --> 00:08:04,800
+Oui, d'accord.
+
+182
+00:08:00,879 --> 00:08:06,879
+donc notre première tuile est affichée
+
+183
+00:08:04,800 --> 00:08:09,599
+Dessinons donc d'autres tuiles
+
+184
+00:08:06,879 --> 00:08:13,120
+donc revenons à la classe TileManager
+
+185
+00:08:09,599 --> 00:08:16,479
+copions et collons ceci
+
+187
+00:08:15,039 --> 00:08:24,960
+dessinons une tuile de mur et une tuile d'eau
+
+190
+00:08:20,960 --> 00:08:29,840
+mais nous devons changer ces x et y, sinon nous écraserons simplement les données
+
+192
+00:08:28,160 --> 00:08:34,560
+donc ajoutons une taille de tuile à x
+
+195
+00:08:34,560 --> 00:08:46,480
+et ajoutons encore une taille de tuile, donc 48 plus 48 feront 96
+
+198
+00:08:44,080 --> 00:08:49,279
+OK, vérifions ceci
+
+199
+00:08:46,480 --> 00:08:56,560
+Bon. Nous avons donc dessiné une tuile d'herbe, une tuile de mur et une tuile d'eau.
+
+204
+00:08:56,560 --> 00:09:01,640
+Comme ceci, nous pouvons dessiner des tuiles à l'écran.
+
+207
+00:09:14,560 --> 00:09:17,680
+alors vérifions ceci
+
+208
+00:09:18,800 --> 00:09:21,360
+d'accord
+
+210
+00:09:23,519 --> 00:09:33,200
+Je viens de créer 5 tuiles horizontales et 5 tuiles verticales.
+
+213
+00:09:30,720 --> 00:09:34,399
+C'est ce que j'ai tapé
+
+214
+00:09:33,200 --> 00:09:44,320
+mais il est évident que ce n'est pas la façon la plus efficace de taper ou de dessiner
+
+218
+00:09:41,279 --> 00:09:46,160
+c'est juste trop de saisie
+
+219
+00:09:44,320 --> 00:09:53,279
+Nous avons donc besoin d'un système de dessin de tuiles plus efficace
+
+221
+00:09:50,560 --> 00:09:57,120
+donc ne faisons pas cela
+
+222
+00:09:53,279 --> 00:10:00,399
+à la place, nous allons créer une boucle while
+
+223
+00:09:57,120 --> 00:10:06,399
+et automatiser en quelque sorte le processus pour éviter de taper beaucoup de choses.
+
+225
+00:10:02,959 --> 00:10:08,720
+créer d'abord quelques variables
+
+235
+00:10:25,839 --> 00:10:30,800
+puis créez une boucle while
+
+237
+00:10:30,880 --> 00:10:41,920
+donc cette boucle continue si col est plus petit que gp.max...
+
+241
+00:10:39,839 --> 00:10:43,120
+oh ok
+
+242
+00:10:41,920 --> 00:10:46,640
+ah désolé
+
+243
+00:10:43,120 --> 00:10:50,480
+nous devons changer ces variables en "public".
+
+253
+00:11:02,959 --> 00:11:08,680
+et aussi cette ligne d'entiers est plus petite que...
+
+258
+00:11:14,399 --> 00:11:20,959
+donc à l'intérieur de cette boucle on va dessiner des tuiles
+
+262
+00:11:23,040 --> 00:11:29,839
+donc pour l'instant nous allons dessiner une tuile d'herbe
+
+268
+00:11:36,399 --> 00:11:41,120
+Voici les variables
+
+271
+00:11:46,560 --> 00:11:48,959
+ok
+
+272
+00:11:48,079 --> 00:11:53,600
+d'abord, col est 0 et row est 0 
+
+274
+00:11:51,519 --> 00:11:56,639
+et x est 0 et y est 0
+
+275
+00:11:53,600 --> 00:12:00,399
+En gros, c'est 0:0
+
+276
+00:11:56,639 --> 00:12:02,720
+donc il va dessiner une tuile à 0:0
+
+277
+00:12:00,399 --> 00:12:02,720
+ici
+
+278
+00:12:02,959 --> 00:12:09,920
+après cela, nous allons augmenter ce col par 1
+
+280
+00:12:08,240 --> 00:12:12,560
+et ensuite nous allons augmenter ce x
+
+288
+00:12:30,240 --> 00:12:36,720
+donc nous augmentons ce col un par un 
+
+289
+00:12:33,360 --> 00:12:43,120
+et si l'on atteint ce maxScreenCol qui est de 16
+
+291
+00:12:39,360 --> 00:12:49,120
+alors nous allons réinitialiser ce col et aussi réinitialiser ce x
+
+293
+00:12:46,720 --> 00:12:54,639
+et ensuite augmenter cette ligne de 1
+
+295
+00:12:50,720 --> 00:12:56,160
+et augmentez également cette position y
+
+299
+00:13:02,880 --> 00:13:08,880
+OK, je pense. Vérifions ceci
+
+301
+00:13:11,200 --> 00:13:20,160
+donc nous avons réussi à placer des tuiles sur tout l'écran
+
+304
+00:13:16,800 --> 00:13:22,320
+mais nous n'utilisons que la tuile d'herbe
+
+305
+00:13:20,160 --> 00:13:27,519
+donc pour rendre une carte réelle, nous créons d'abord des données de carte
+
+307
+00:13:26,560 --> 00:13:34,399
+puis nous laissons cette boucle lire les données
+
+309
+00:13:30,480 --> 00:13:38,480
+et pour stocker ces données cartographiques nous utilisons un fichier texte
+
+311
+00:13:35,600 --> 00:13:44,560
+c'est une méthode simple mais aussi très populaire et efficace.
+
+313
+00:13:41,839 --> 00:13:50,000
+Donc, tout d'abord, ouvrez ce bloc-notes
+
+315
+00:13:47,199 --> 00:13:51,279
+et ensuite nous allons taper...
+
+320
+00:14:00,399 --> 00:14:10,399
+et nous allons copier ceci et coller 11 fois
+
+323
+00:14:10,399 --> 00:14:18,720
+donc une seule ligne a 16 zéros et il y a 12 lignes
+
+325
+00:14:16,800 --> 00:14:24,320
+et chaque chiffre représente une tuile
+
+327
+00:14:20,880 --> 00:14:33,040
+Donc, c'est une carte de 16x12 qui a la même taille que notre écran.
+
+329
+00:14:28,000 --> 00:14:38,320
+et ce 0 signifie numéro de tuile, donc c'est une tuile d'herbe.
+
+331
+00:14:35,920 --> 00:14:42,800
+donc si vous voulez placer une tuile de mur vous devez juste changer ceci à 1
+
+334
+00:14:42,839 --> 00:14:52,160
+et si nous voulons placer une tuile d'eau, changez le chiffre en 2
+
+338
+00:14:52,160 --> 00:14:57,639
+Laissez-moi créer un exemple de carte rapidement
+
+340
+00:15:08,480 --> 00:15:13,839
+quelque chose comme ceci
+
+341
+00:15:10,000 --> 00:15:13,839
+maintenant, sauvegardons le fichier
+
+342
+00:15:14,320 --> 00:15:23,040
+Je vais nommer ce fichier "map01.txt".
+
+346
+00:15:24,839 --> 00:15:31,440
+ensuite, à l'intérieur de ce dossier res, créez un autre package
+
+349
+00:15:32,560 --> 00:15:37,920
+Je vais le nommer "maps".
+
+351
+00:15:38,800 --> 00:15:46,240
+Où est le fichier ?
+
+354
+00:15:46,240 --> 00:15:54,600
+OK, nous allons copier ce fichier dans le dossier "maps".
+
+358
+00:15:54,880 --> 00:16:03,839
+Nous avons donc ce fichier de données cartographiques et nous allons le charger.
+
+360
+00:16:01,440 --> 00:16:06,839
+d'abord, créons une variable
+
+367
+00:16:13,920 --> 00:16:20,959
+et ce sera un tableau
+
+369
+00:16:18,480 --> 00:16:27,839
+et à l'intérieur de ce constructeur nous allons instancier ce mapTileNum
+
+373
+00:16:29,839 --> 00:16:33,600
+et la taille est...
+
+379
+00:16:42,160 --> 00:16:54,959
+donc en gros on va mettre tous ces nombres dans le tableau mapTileNum
+
+383
+00:16:52,800 --> 00:16:59,519
+donc pour faire cela, nous allons créer une autre méthode
+
+388
+00:17:04,559 --> 00:17:08,240
+donc un autre try and catch
+
+389
+00:17:10,400 --> 00:17:15,120
+cette fois, juste " Exception e ".
+
+392
+00:17:20,720 --> 00:17:26,480
+nous allons utiliser cette classe InputStream
+
+397
+00:17:31,120 --> 00:17:41,520
+et ici nous allons taper le chemin d'accès de ce fichier texte
+
+406
+00:17:49,840 --> 00:17:55,360
+et importer cet InputStream
+
+421
+00:18:16,160 --> 00:18:21,280
+et importez ceci
+
+423
+00:18:19,440 --> 00:18:23,520
+et aussi ceci
+
+426
+00:18:23,520 --> 00:18:33,840
+donc nous avons utilisé cet InputStream pour importer ce fichier texte
+
+428
+00:18:30,960 --> 00:18:42,400
+et nous allons utiliser ce BufferedReader pour lire le contenu de ce fichier texte
+
+431
+00:18:39,039 --> 00:18:45,760
+c'est juste un format pour lire ce fichier texte
+
+433
+00:18:43,520 --> 00:18:53,520
+et après cela, encore une fois, nous allons créer un entier " col ".
+
+436
+00:18:49,600 --> 00:18:57,440
+à partir de 0 et une ligne entière, à partir de 0.
+
+438
+00:18:54,960 --> 00:18:59,760
+et boucle while à nouveau
+
+441
+00:19:03,840 --> 00:19:08,559
+donc plus petit que maxScreenColl 
+
+442
+00:19:07,360 --> 00:19:19,280
+et aussi la rangée est plus petite que gp.maxScreenRow
+
+447
+00:19:17,039 --> 00:19:22,840
+à l'intérieur de cette boucle while, nous allons lire ce fichier texte
+
+449
+00:19:21,919 --> 00:19:30,080
+et maxScreenCol ou maxScreenRow est la limite de cette boucle
+
+451
+00:19:26,720 --> 00:19:35,360
+car il n'y a pas de données au-delà de cette limite
+
+459
+00:19:46,160 --> 00:19:51,600
+donc ce BufferedReader peut lire des fichiers texte
+
+460
+00:19:48,400 --> 00:20:02,000
+et ce readLine signifie qu'il va lire une seule ligne
+
+463
+00:19:57,440 --> 00:20:05,679
+et la mettre dans cette chaîne "line".
+
+464
+00:20:02,000 --> 00:20:14,559
+et une fois que nous avons lu la ligne, nous entrons dans une autre boucle while
+
+477
+00:20:31,600 --> 00:20:40,000
+et des guillemets et un espace
+
+479
+00:20:36,799 --> 00:20:43,600
+donc ce que nous faisons ici est,
+
+480
+00:20:40,000 --> 00:20:49,840
+à partir de la ligne que nous venons de lire, nous allons obtenir ces nombres un par un
+
+483
+00:20:49,840 --> 00:20:56,320
+et les mettre dans cette allée
+
+485
+00:20:55,200 --> 00:21:03,480
+et ensuite nous allons créer cette variable entière et la nommer "num".
+
+493
+00:21:13,840 --> 00:21:20,159
+et l'index est "col"
+
+494
+00:21:17,840 --> 00:21:27,760
+Donc, en gros, nous passons de String à Integer.
+
+496
+00:21:23,600 --> 00:21:31,679
+ce readLine ne récupère les données que sous forme de String
+
+497
+00:21:27,760 --> 00:21:37,919
+et nous divisons cette ligne et c'est aussi String 
+
+499
+00:21:35,039 --> 00:21:41,120
+donc on doit changer ça de String en Integer.
+
+500
+00:21:37,919 --> 00:21:43,360
+afin que nous puissions les utiliser comme un nombre
+
+502
+00:21:42,320 --> 00:21:49,120
+alors nous allons utiliser cet entier mapTileNum
+
+508
+00:21:54,080 --> 00:21:57,679
+l'index est col et row
+
+511
+00:21:59,280 --> 00:22:04,960
+après cela nous allons augmenter ce col par 1
+
+513
+00:22:03,760 --> 00:22:13,720
+et ensuite si ce col atteint le maxScreenCol
+
+525
+00:22:28,559 --> 00:22:37,679
+Enfin, nous allons fermer ce BufferedReader parce que nous n'allons pas l'utiliser...
+
+528
+00:22:34,559 --> 00:22:43,039
+Donc, en gros, nous allons scanner ce fichier texte ligne par ligne.
+
+530
+00:22:41,200 --> 00:22:48,799
+donc d'abord cette ligne et la diviser en chaque nombre
+
+532
+00:22:44,480 --> 00:22:54,880
+et les mettre dans le mapTileNum
+
+534
+00:22:51,520 --> 00:22:57,200
+et une fois cette ligne terminée, alors 
+
+535
+00:22:54,880 --> 00:23:00,080
+passe à la ligne suivante et à la suivante...
+
+537
+00:23:00,080 --> 00:23:04,000
+jusqu'à ce que cette boucle soit terminée
+
+538
+00:23:04,480 --> 00:23:11,840
+Maintenant, nous devrions pouvoir charger les données de la carte.
+
+540
+00:23:10,320 --> 00:23:19,360
+dessinons les données de la carte chargée
+
+542
+00:23:15,760 --> 00:23:20,159
+nous avons juste besoin d'arranger un peu cette boucle while.
+
+543
+00:23:19,360 --> 00:23:28,480
+au lieu de cette image fixe, nous supprimons d'abord cette image 
+
+545
+00:23:24,000 --> 00:23:31,280
+et aussi je pense que nous allons créer un entier
+
+553
+00:23:41,360 --> 00:23:46,000
+donc encore une fois, nous partons de 0
+
+556
+00:23:47,360 --> 00:23:57,360
+nous allons extraire un nombre de ce mapTileNum et l'obtenir comme un numéro de tuile
+
+559
+00:23:55,840 --> 00:24:00,720
+puis nous allons dessiner une image
+
+563
+00:24:02,799 --> 00:24:12,720
+donc cela va fonctionner comme un index de ce tableau Tile
+
+569
+00:24:15,600 --> 00:24:23,360
+donc si nous obtenons le nombre 0 à partir de ceci
+
+572
+00:24:20,799 --> 00:24:26,799
+cela va dessiner une tuile d'herbe 
+
+573
+00:24:23,360 --> 00:24:28,960
+et si nous obtenons 1 de cette allée alors
+
+574
+00:24:26,799 --> 00:24:31,679
+il va dessiner un carreau de mur
+
+575
+00:24:28,960 --> 00:24:33,440
+si c'est 2, il va dessiner une tuile d'eau
+
+576
+00:24:31,679 --> 00:24:41,919
+donc tout est stocké à l'intérieur de ce tableau mapTileNum
+
+580
+00:24:39,600 --> 00:24:44,400
+Maintenant, cela devrait être correct, alors vérifions ceci
+
+582
+00:24:45,360 --> 00:24:48,240
+oops
+
+583
+00:24:46,400 --> 00:24:50,480
+pourquoi
+
+584
+00:24:48,240 --> 00:24:50,480
+ah
+
+585
+00:24:50,559 --> 00:25:02,400
+ok nous n'avons pas appelé cette méthode de chargement de carte
+
+589
+00:25:02,799 --> 00:25:06,240
+cela devrait être correct
+
+590
+00:25:04,320 --> 00:25:07,279
+vérifions
+
+591
+00:25:06,240 --> 00:25:09,120
+d'accord
+
+594
+00:25:10,720 --> 00:25:18,080
+donc nous avons réussi à dessiner un fichier de carte
+
+596
+00:25:23,840 --> 00:25:26,880
+C'est joli je trouve
+
+597
+00:25:27,360 --> 00:25:34,000
+Je viens aussi de me rappeler d'une autre chose
+
+600
+00:25:34,000 --> 00:25:41,279
+Ouais, c'est très bien mais...
+
+602
+00:25:37,760 --> 00:25:48,400
+probablement que ce serait mieux si nous passions juste un String ici
+
+606
+00:25:46,559 --> 00:25:55,440
+nous allons passer cette information de chemin d'ici et la récupérer sous la forme d'un String
+
+613
+00:26:02,559 --> 00:26:05,440
+et la mettre ici
+
+614
+00:26:04,240 --> 00:26:14,000
+parce que vous allez peut-être créer une autre carte plus tard
+
+618
+00:26:11,200 --> 00:26:16,480
+donc map02, map03, map04...
+
+619
+00:26:14,000 --> 00:26:20,960
+et quand vous voulez charger une autre carte
+
+621
+00:26:18,480 --> 00:26:25,360
+vous avez juste besoin d'appeler ce loadMap et de taper le chemin du fichier ici
+
+623
+00:26:23,520 --> 00:26:27,840
+ainsi vous n'avez pas besoin de créer une autre méthode loadMap
+
+627
+00:26:34,159 --> 00:26:42,159
+de toute façon nous avons réussi à charger notre fichier de carte et à dessiner les tuiles sur l'écran
+
+630
+00:26:43,039 --> 00:26:49,440
+mais c'est toujours une petite carte
+
+631
+00:26:45,520 --> 00:26:54,159
+elle est seulement aussi grande qu'un seul écran
+
+633
+00:26:52,960 --> 00:27:05,360
+Donc la prochaine fois, nous créerons une carte du monde que nous utiliserons dans notre jeu.
+
+636
+00:27:00,080 --> 00:27:14,880
+et nous implémenterons une caméra de jeu pour que les tuiles d'arrière-plan changent en fonction du mouvement du personnage du joueur.
+
+640
+00:27:12,480 --> 00:27:17,880
+merci d'avoir regardé et à la prochaine fois
+
+642
+00:27:21,090 --> 00:27:27,760
+[Musique]
+

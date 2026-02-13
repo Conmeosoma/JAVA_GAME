@@ -1,0 +1,604 @@
+1
+00:00:00,320 --> 00:00:05,040
+hi guys, this is RyiSnow
+
+3
+00:00:05,040 --> 00:00:11,679
+in this video I will talk about the rendering performance of our 2D game and introduce a way to improve it
+
+5
+00:00:11,679 --> 00:00:17,760
+in the first half of the tutorial, we only draw tiles, a few objects, player character, and UI 
+
+9
+00:00:21,439 --> 00:00:25,840
+but we're gonna handle a bit more heavy stuff in the second half
+
+11
+00:00:25,840 --> 00:00:30,960
+so I think it's a good idea to optimize our code a little bit
+
+13
+00:00:30,960 --> 00:00:35,520
+so first let's check how long our program is taking to draw stuff
+
+17
+00:00:38,640 --> 00:00:42,000
+so this is a debug stuff
+
+26
+00:00:54,800 --> 00:01:01,039
+so again we're gonna use this System.nonoTime to check the time
+
+28
+00:01:01,039 --> 00:01:05,120
+then after drawing these components
+
+39
+00:01:25,680 --> 00:01:31,280
+let's display the past time on the screen
+
+52
+00:01:54,399 --> 00:02:01,360
+and i wanna display this on the console too
+
+56
+00:02:06,719 --> 00:02:12,319
+something like this 
+
+57
+00:02:09,679 --> 00:02:15,440
+so this way we can check how much time has passed and display the time on the screen
+
+59
+00:02:15,440 --> 00:02:21,680
+and since this is a debug function, i think it would be better if we can switch it on and off
+
+62
+00:02:24,239 --> 00:02:27,760
+so open this KeyHander
+
+65
+00:02:31,680 --> 00:02:35,599
+i'm gonna use T as a shortcut key
+
+67
+00:02:35,599 --> 00:02:41,040
+also we're gonna create a boolean
+
+94
+00:03:26,400 --> 00:03:31,519
+so we only check this time
+
+99
+00:03:39,760 --> 00:03:47,400
+put this inside of this if
+
+100
+00:03:43,360 --> 00:03:47,400
+this one too
+
+101
+00:03:55,519 --> 00:04:00,560
+okay like this
+
+102
+00:03:57,360 --> 00:04:03,439
+let's check
+
+103
+00:04:00,560 --> 00:04:07,040
+so if you press T key, t shows the time
+
+106
+00:04:10,000 --> 00:04:16,560
+so now we can see how long this is taking to draw stuff during each loop
+
+108
+00:04:16,560 --> 00:04:21,680
+in my case it is taking about...
+
+111
+00:04:24,720 --> 00:04:29,600
+the fastest is like 622,000 nanoseconds
+
+113
+00:04:29,600 --> 00:04:32,320
+to 700,000 or 900,000 sometimes
+
+116
+00:04:35,520 --> 00:04:38,560
+so that means....
+
+118
+00:04:43,639 --> 00:04:48,000
+0.0007 seconds
+
+119
+00:04:46,639 --> 00:04:50,479
+not bad
+
+120
+00:04:48,000 --> 00:04:52,000
+but I think this time changes depending on the computer
+
+122
+00:04:52,000 --> 00:04:57,520
+so if there is a way to decrease this time, we better do that
+
+124
+00:04:57,520 --> 00:05:03,680
+in my UI tutorial I said you shouldn't create a new instance in game loop unless it's really necessary
+
+128
+00:05:07,199 --> 00:05:12,080
+and there is another thing that we can prepare beforehand
+
+130
+00:05:12,080 --> 00:05:16,000
+that is scaling
+
+132
+00:05:16,000 --> 00:05:20,639
+so every time we draw tiles or sprites we type this width and height
+
+135
+00:05:23,199 --> 00:05:27,280
+so the image is displayed as a scaled size
+
+137
+00:05:27,280 --> 00:05:32,240
+so this image scaling is a pretty convenient function of Graphics or Graphics2D
+
+139
+00:05:32,240 --> 00:05:36,639
+but it also takes a little time
+
+141
+00:05:36,639 --> 00:05:41,360
+so let's scale these images beforehand so Graphics2D can skip this process
+
+144
+00:05:45,199 --> 00:05:47,680
+so we're gonna scale these tile images when we import them
+
+148
+00:05:52,560 --> 00:05:57,680
+basically this is how to scale BufferedImages
+
+150
+00:05:57,680 --> 00:06:01,520
+and first I will show you step by step
+
+152
+00:06:01,520 --> 00:06:04,840
+for example, if we want to scale this image we type like this
+
+168
+00:06:32,400 --> 00:06:38,319
+and import BufferedImage
+
+187
+00:07:15,440 --> 00:07:21,440
+yeah this is basically it
+
+188
+00:07:18,400 --> 00:07:22,800
+
+
+189
+00:07:21,440 --> 00:07:25,919
+first we instantiate this BufferedImage
+
+190
+00:07:22,800 --> 00:07:29,360
+so this is basically like a blank canvas
+
+192
+00:07:29,360 --> 00:07:34,479
+so when you instantiate it you pass its width and height and image type
+
+194
+00:07:34,479 --> 00:07:40,000
+and next line... 
+
+196
+00:07:40,000 --> 00:07:49,039
+this line basically means whatever this g2 is gonna draw will be saved in this scaled image 
+
+198
+00:07:49,039 --> 00:07:52,479
+so in the next line, this g2 draws this image with this scaled size
+
+200
+00:07:52,479 --> 00:07:59,520
+and so the scaled image will be saved in this scaled image
+
+201
+00:07:56,080 --> 00:08:01,440
+that's how it is
+
+203
+00:08:01,440 --> 00:08:04,800
+so if we repeat this to these other tiles then we can scale everything
+
+206
+00:08:05,840 --> 00:08:12,319
+but typing these lines for every tiles is kind of too much pain and not so efficient
+
+209
+00:08:14,400 --> 00:08:20,400
+so let's do a little housekeeping and optimize this code a little bit
+
+211
+00:08:20,400 --> 00:08:26,800
+so we're going to create a new class and let it scale all these buffered images
+
+213
+00:08:26,800 --> 00:08:31,280
+so in this main package, create a new class
+
+215
+00:08:31,280 --> 00:08:34,240
+and i'm gonna name this UtilityTool
+
+219
+00:08:39,120 --> 00:08:42,719
+this is like a toolbox class 
+
+221
+00:08:42,719 --> 00:08:47,839
+so whenever you come up with some a convenient function, you put it in this class and you can call it
+
+228
+00:08:56,880 --> 00:09:00,800
+and we gonna receive BufferedImage
+
+237
+00:09:15,040 --> 00:09:18,640
+and basically we can copy and paste it here
+
+239
+00:09:22,720 --> 00:09:26,959
+and change this to...
+
+244
+00:09:33,279 --> 00:09:39,360
+and the drawImage is...
+
+248
+00:09:45,680 --> 00:09:50,959
+and finally we return this scaled image
+
+252
+00:09:54,880 --> 00:10:01,839
+okay and I think we should dispose this g2 I think
+
+254
+00:10:01,839 --> 00:10:07,760
+okay so something like this 
+
+255
+00:10:04,880 --> 00:10:09,519
+and we just need to pass the buffered image and the width and height
+
+257
+00:10:09,519 --> 00:10:15,920
+so go back to the TileManager
+
+258
+00:10:13,920 --> 00:10:19,440
+delete this
+
+259
+00:10:15,920 --> 00:10:22,880
+and do a little reconstruction
+
+260
+00:10:19,440 --> 00:10:25,360
+
+
+261
+00:10:22,880 --> 00:10:25,360
+first we create a method called "setup"
+
+269
+00:10:42,560 --> 00:10:47,839
+let's instantiate this UtilityTool
+
+273
+00:10:59,040 --> 00:11:03,040
+and then try and catch
+
+279
+00:11:19,600 --> 00:11:25,680
+okay and inside of this try and catch, we're gonna instantiate a new tile
+
+283
+00:11:32,320 --> 00:11:35,120
+let's copy this
+
+284
+00:11:38,880 --> 00:11:46,240
+change this to index and also and this part 
+
+286
+00:11:46,240 --> 00:11:51,440
+so this part is different
+
+288
+00:11:51,440 --> 00:11:54,959
+but these parts are always the same so we don't need to change it
+
+303
+00:12:18,160 --> 00:12:21,760
+we're gonna pass a buffered image and width and height
+
+317
+00:12:48,480 --> 00:12:54,320
+that's it
+
+318
+00:12:49,760 --> 00:12:56,320
+so instead of these lines we just type...
+
+322
+00:12:58,880 --> 00:13:02,240
+file name, path, and collision status
+
+325
+00:13:06,079 --> 00:13:12,959
+so we don't need this anymore
+
+326
+00:13:09,360 --> 00:13:14,079
+okay so let's copy this
+
+333
+00:13:29,040 --> 00:13:35,839
+yeah something like this
+
+334
+00:13:31,680 --> 00:13:35,839
+so we don't need this anymore
+
+335
+00:13:36,320 --> 00:13:41,199
+and try and catch too, we don't need these
+
+337
+00:13:45,040 --> 00:13:48,959
+yeah like this
+
+338
+00:13:46,880 --> 00:13:52,079
+so we pass index, image name file, image path or more like image name
+
+341
+00:13:54,639 --> 00:13:58,800
+yeah let's change this to imageName
+
+342
+00:14:00,720 --> 00:14:04,560
+so image name and collision
+
+344
+00:14:04,560 --> 00:14:08,160
+so instantiate tile and import the image
+
+346
+00:14:08,160 --> 00:14:14,079
+and also call this utility tool and get the scaled image
+
+349
+00:14:15,760 --> 00:14:24,800
+and also set the collision
+
+350
+00:14:19,040 --> 00:14:26,000
+so yeah I think this looks better
+
+353
+00:14:28,079 --> 00:14:33,279
+so now all these images are scaled
+
+355
+00:14:33,279 --> 00:14:36,399
+so go to this draw method
+
+357
+00:14:36,399 --> 00:14:41,279
+and delete this width the height
+
+359
+00:14:41,279 --> 00:14:46,000
+so this doesn't need to scale the image during the game loop anymore
+
+361
+00:14:46,000 --> 00:14:50,880
+and we do the same to play a player image and object image
+
+363
+00:14:50,880 --> 00:14:57,120
+and for player images we are not using arrays like background tiles
+
+365
+00:14:57,120 --> 00:15:05,040
+so I think we only need to get the resource and scale it
+
+367
+00:15:05,040 --> 00:15:10,320
+i think we're gonna just return a buffered image
+
+374
+00:15:17,839 --> 00:15:23,040
+so it will be something like this
+
+389
+00:16:02,800 --> 00:16:08,440
+let's copy this
+
+393
+00:16:24,480 --> 00:16:28,560
+and then scale the image
+
+402
+00:16:45,440 --> 00:16:48,720
+i feel this is a bit strange
+
+405
+00:16:51,519 --> 00:16:56,959
+we are calling this scaled image before scaling it
+
+407
+00:16:56,959 --> 00:17:01,040
+it works but somehow I don't like this
+
+408
+00:16:58,320 --> 00:17:03,360
+ 
+
+409
+00:17:01,040 --> 00:17:05,360
+so let's change to just image
+
+411
+00:17:05,360 --> 00:17:13,839
+i feel better this way for some reason
+
+412
+00:17:09,600 --> 00:17:13,839
+and finally we return this image
+
+413
+00:17:13,919 --> 00:17:20,959
+alright then we get this image
+
+415
+00:17:20,959 --> 00:17:25,760
+so this time we are not using array
+
+420
+00:17:33,200 --> 00:17:38,799
+this time we are only passing the image name since we don't have index
+
+422
+00:17:38,799 --> 00:17:43,200
+and also we don't need to set collision
+
+425
+00:17:56,960 --> 00:18:01,840
+okay so we don't need these lines anymore
+
+427
+00:18:04,240 --> 00:18:09,200
+and go to draw methos
+
+428
+00:18:08,240 --> 00:18:11,840
+
+
+429
+00:18:09,200 --> 00:18:12,840
+and delete these width and height
+
+432
+00:18:14,400 --> 00:18:18,480
+and finally, object
+
+434
+00:18:18,480 --> 00:18:23,400
+so first open this SuperObject
+
+436
+00:18:23,400 --> 00:18:27,799
+and instantiate this UtilityTool
+
+437
+00:18:38,160 --> 00:18:40,720
+and then open this object class
+
+440
+00:18:42,559 --> 00:18:48,640
+and for this one I think we're gonna just call this UtilityTool and scale the image
+
+448
+00:19:00,080 --> 00:19:06,559
+yeah I think we need GamePanel
+
+450
+00:19:07,919 --> 00:19:13,520
+yeah so we get it from here
+
+455
+00:19:23,840 --> 00:19:28,200
+let's add these to other objects
+
+456
+00:19:47,360 --> 00:19:50,880
+and okay so 
+
+457
+00:19:49,840 --> 00:19:54,240
+and also go to this AssetSetter
+
+459
+00:19:54,240 --> 00:19:59,679
+and when we instantiate this object we pass this gp
+
+461
+00:20:02,559 --> 00:20:08,559
+and what is this? UI class?
+
+464
+00:20:10,400 --> 00:20:16,400
+that's it
+
+465
+00:20:13,120 --> 00:20:16,400
+yeah so let's check
+
+467
+00:20:17,919 --> 00:20:23,840
+let's show the draw time
+
+469
+00:20:23,840 --> 00:20:26,400
+so now the draw time is something like this
+
+471
+00:20:29,760 --> 00:20:35,799
+it's like between 430,000 to 650,000 or something
+
+474
+00:20:38,000 --> 00:20:44,720
+so I think the draw time decreases by maybe 200,000 nanoseconds or something
+
+476
+00:20:44,720 --> 00:20:50,000
+for now it's not a big difference
+
+478
+00:20:50,000 --> 00:20:54,400
+but when you use more tiles draw more stuff on the screen
+
+480
+00:20:54,400 --> 00:21:00,000
+this difference that this kind of optimization creates will become pretty significant
+
+483
+00:21:02,240 --> 00:21:07,360
+so before moving on to the second half I wanted to introduce this little method
+
+486
+00:21:08,559 --> 00:21:13,280
+that's it so i hope this was useful for you
+
+488
+00:21:13,280 --> 00:21:26,579
+thanks for watching
+
+489
+00:21:14,740 --> 00:21:26,579
+[Music]
+

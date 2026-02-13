@@ -2,10 +2,7 @@
 package Main;
 
 import Enity.NPC_OldMan;
-import Object.OBJ_Chest;
-import Object.OBJ_Door;
 import Object.OBJ_Key;
-import Object.OBJ_Boots;
 import monster.MON_GreenSlime;
 
 public class AssetSetter {
@@ -21,9 +18,9 @@ public class AssetSetter {
         // tao doi tuong key
         // dat toa do cho doi tuong key
         // KEY 1
-         gp.obj[0] = new OBJ_Key(gp);
-         gp.obj[0].World_X = gp.tileSize * 25;
-         gp.obj[0].World_Y = gp.tileSize * 19;
+        gp.obj[0] = new OBJ_Key(gp);
+        gp.obj[0].World_X = gp.tileSize * 25;
+        gp.obj[0].World_Y = gp.tileSize * 19;
         // // KEY 2
         // gp.obj[1] = new OBJ_Key(gp);
         // gp.obj[1].worldX = gp.tileSize * 23;
@@ -56,9 +53,9 @@ public class AssetSetter {
         gp.npc[0] = new NPC_OldMan(gp);
         gp.npc[0].World_X = gp.tileSize * 21;
         gp.npc[0].World_Y = gp.tileSize * 21;
-//        gp.npc[0] = new NPC_OldMan(gp);
-//        gp.npc[0].World_X = gp.tileSize * 9;
-//        gp.npc[0].World_Y = gp.tileSize * 10;
+        // gp.npc[0] = new NPC_OldMan(gp);
+        // gp.npc[0].World_X = gp.tileSize * 9;
+        // gp.npc[0].World_Y = gp.tileSize * 10;
 
     }
 
@@ -85,13 +82,12 @@ public class AssetSetter {
         gp.monster[i].World_Y = gp.tileSize * 42;
         i++;
 
-
-//        gp.monster[0] = new MON_GreenSlime(gp);
-//        gp.monster[0].World_X = gp.tileSize * 11;
-//        gp.monster[0].World_Y = gp.tileSize * 10;
-//
-//        gp.monster[1] = new MON_GreenSlime(gp);
-//        gp.monster[1].World_X = gp.tileSize * 11;
-//        gp.monster[1].World_Y = gp.tileSize * 11;
+        // gp.monster[0] = new MON_GreenSlime(gp);
+        // gp.monster[0].World_X = gp.tileSize * 11;
+        // gp.monster[0].World_Y = gp.tileSize * 10;
+        //
+        // gp.monster[1] = new MON_GreenSlime(gp);
+        // gp.monster[1].World_X = gp.tileSize * 11;
+        // gp.monster[1].World_Y = gp.tileSize * 11;
     }
 }

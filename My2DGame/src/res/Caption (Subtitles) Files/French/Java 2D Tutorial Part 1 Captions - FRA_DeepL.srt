@@ -1,0 +1,680 @@
+1
+00:00:00,240 --> 00:00:06,799
+Salut les gars, c'est RyiSnow
+
+2
+00:00:03,439 --> 00:00:08,720
+A partir de cette vidéo, je vais commencer un tutoriel de jeu 2d en Java.
+
+3
+00:00:06,799 --> 00:00:14,920
+C'est quelque chose que j'ai envie de faire depuis un certain temps.
+
+5
+00:00:11,679 --> 00:00:18,000
+Je suis donc heureux de pouvoir enfin commencer ce projet.
+
+6
+00:00:14,920 --> 00:00:27,439
+par rapport à d'autres tutoriels de jeux que j'ai faits auparavant, comme le jeu d'aventure en mode texte,
+
+9
+00:00:24,320 --> 00:00:31,679
+Le développement de jeux en 2D est un peu plus compliqué et nécessite un peu plus de travail.
+
+11
+00:00:28,960 --> 00:00:34,320
+Je vais donc faire de mon mieux pour rendre les choses aussi simples que possible.
+
+12
+00:00:31,679 --> 00:00:40,719
+Vous pouvez donc suivre les étapes même si vous n'avez aucune expérience dans le développement de jeux en 2D.
+
+15
+00:00:39,680 --> 00:00:45,920
+Je suis très heureux si vous l'appréciez.
+
+17
+00:00:43,440 --> 00:00:52,160
+pour celui-ci, nous n'utiliserons aucune bibliothèque externe
+
+19
+00:00:49,039 --> 00:00:57,280
+nous utiliserons simplement les classes Java par défaut et nous le ferons à partir de rien.
+
+21
+00:00:54,719 --> 00:01:00,320
+donc si vous avez un environnement pour écrire du code Java, vous pouvez faire ce jeu
+
+23
+00:00:59,280 --> 00:01:06,720
+et voici la feuille de route de ce tutoriel
+
+25
+00:01:03,600 --> 00:01:11,360
+Tout d'abord, nous créons un jeu de chasse au trésor relativement simple.
+
+27
+00:01:08,799 --> 00:01:18,080
+En créant ce jeu, vous pouvez apprendre à créer une boucle de jeu, qui est le cœur du développement des jeux en 2D.
+
+29
+00:01:14,960 --> 00:01:26,560
+et aussi comment afficher les personnages, les tuiles d'arrière-plan et les objets à l'écran.
+
+32
+00:01:23,840 --> 00:01:32,960
+et vous pouvez également apprendre comment déplacer le personnage du joueur à l'écran
+
+34
+00:01:29,759 --> 00:01:38,840
+et après avoir terminé ce premier jeu, nous ajouterons d'autres éléments à celui-ci
+
+36
+00:01:35,759 --> 00:01:47,360
+et le transformer en un RPG d'action en 2D, un peu comme le style rétro de Zelda.
+
+38
+00:01:43,040 --> 00:01:55,040
+Nous ajouterons des monstres, des PNJ, des dialogues, un inventaire et quelques événements.
+
+41
+00:01:51,520 --> 00:01:59,119
+c'est le but final de ce tutorial
+
+42
+00:01:55,040 --> 00:02:01,439
+c'est un tutoriel pour les débutants en Java 2D
+
+43
+00:01:59,119 --> 00:02:08,319
+je vais donc expliquer beaucoup de choses comme le fonctionnement de la boucle de jeu, etc.
+
+45
+00:02:04,799 --> 00:02:14,640
+Si vous avez déjà des connaissances en programmation de jeux en 2D, je vais vous expliquer le fonctionnement de la boucle de jeu, etc.
+
+47
+00:02:11,039 --> 00:02:17,040
+vous aurez probablement l'impression que le rythme est un peu lent
+
+49
+00:02:16,160 --> 00:02:21,520
+mais soyez indulgent avec moi
+
+51
+00:02:18,640 --> 00:02:30,000
+tout le monde est débutant au début et quelqu'un d'autre pourrait trouver ces explications utiles
+
+54
+00:02:26,640 --> 00:02:34,840
+OK, voilà pour l'introduction et maintenant, commençons le développement.
+
+56
+00:02:32,560 --> 00:02:38,879
+faisons un nouveau projet
+
+58
+00:02:36,480 --> 00:02:45,120
+je vais l'appeler My2DGame
+
+60
+00:02:40,879 --> 00:02:48,800
+C'est le nom le plus générique qui soit, mais c'est bien.
+
+62
+00:02:46,959 --> 00:02:52,959
+et ne créez pas ceci
+
+63
+00:02:48,800 --> 00:02:58,159
+et créons d'abord un paquet en le nommant " main ".
+
+65
+00:02:55,440 --> 00:03:02,760
+et créons une classe
+
+66
+00:02:58,159 --> 00:03:02,760
+créons la classe Main
+
+68
+00:03:06,720 --> 00:03:12,800
+donc d'abord nous créons une fenêtre
+
+70
+00:03:10,239 --> 00:03:14,159
+Nous utilisons donc cette classe JFrame
+
+77
+00:03:32,799 --> 00:03:38,319
+afin de pouvoir fermer cette fenêtre correctement
+
+78
+00:03:35,280 --> 00:03:43,120
+et aussi nous ajoutons...
+
+80
+00:03:40,720 --> 00:03:48,640
+donc nous ne pouvons pas redimensionner cette fenêtre
+
+82
+00:03:45,120 --> 00:03:52,000
+puis définissons le titre du jeu
+
+84
+00:03:52,080 --> 00:04:02,720
+donc... "2D adventure" ou quelque chose comme ça
+
+92
+00:04:08,799 --> 00:04:16,720
+donc la fenêtre va être affichée au centre de l'écran
+
+96
+00:04:18,560 --> 00:04:26,240
+Nous pouvons donc voir cette fenêtre
+
+97
+00:04:21,440 --> 00:04:26,240
+OK, créons maintenant une autre classe
+
+98
+00:04:27,040 --> 00:04:32,320
+et je vais nommer cette classe GamePanel
+
+100
+00:04:33,199 --> 00:04:40,160
+et ce GamePanel étend JPanel
+
+103
+00:04:41,520 --> 00:04:50,639
+donc en fait, c'est une sous-classe de ce JPanel
+
+105
+00:04:47,360 --> 00:04:53,759
+donc ceci a toutes les fonctions de ce JPanel
+
+106
+00:04:50,639 --> 00:04:58,000
+ce GamePanel fonctionne comme une sorte d'écran de jeu
+
+108
+00:04:55,759 --> 00:05:07,440
+donc nous allons d'abord décider de quelques paramètres d'écran
+
+112
+00:05:03,919 --> 00:05:08,479
+et créer quelques variables ici
+
+117
+00:05:14,479 --> 00:05:18,639
+et je vais choisir 16
+
+118
+00:05:19,520 --> 00:05:28,880
+donc cela signifie une tuile de 16 par 16 
+
+119
+00:05:25,039 --> 00:05:36,000
+et ce 16 par 16 sera la taille par défaut du personnage du joueur, des NPCs et des tuiles de la carte dans ce jeu.
+
+121
+00:05:32,160 --> 00:05:42,800
+16 par 16 est une taille standard pour de nombreux jeux rétro en 2D. 
+
+123
+00:05:39,520 --> 00:05:46,000
+et de nombreux personnages et tuiles sont créés avec cette taille
+
+124
+00:05:42,800 --> 00:05:48,639
+vous pouvez donc trouver de nombreux exemples
+
+125
+00:05:46,000 --> 00:05:56,639
+Certains jeux utilisent plus de pixels, par exemple 32 par 32, pour dessiner un personnage.
+
+127
+00:05:52,160 --> 00:05:59,840
+mais nous choisissons 16 pixels cette fois-ci
+
+128
+00:05:56,639 --> 00:06:00,800
+Cela dit, il y a un petit problème ici
+
+129
+00:05:59,840 --> 00:06:15,840
+puisque les ordinateurs et les écrans modernes ont des résolutions beaucoup plus élevées que celles des NES et SNES des années 80 et 90.
+
+133
+00:06:10,800 --> 00:06:23,240
+Ainsi, les caractères ou les carreaux de 16 par 16 paraissent très petits à l'écran.
+
+136
+00:06:17,759 --> 00:06:30,479
+Par exemple, la résolution de la NES était de 256 par 224.
+
+138
+00:06:24,960 --> 00:06:31,199
+et celle de la GENESIS était de 320 par 224
+
+139
+00:06:30,479 --> 00:06:39,680
+donc 16 par 16 caractères semblaient être une taille décente dans ce contexte.
+
+142
+00:06:37,039 --> 00:06:43,120
+mais je suis sûr que votre écran a une résolution beaucoup plus élevée que cela
+
+143
+00:06:39,680 --> 00:06:45,199
+alors que faire ?
+
+144
+00:06:43,120 --> 00:06:48,800
+nous allons le mettre à l'échelle
+
+145
+00:06:45,199 --> 00:06:52,400
+donc créons une variable entière
+
+147
+00:06:52,400 --> 00:06:58,880
+et je vais mettre 3
+
+148
+00:06:55,120 --> 00:07:02,880
+bien que nous créions des caractères dans un cadre de 16 par 16
+
+149
+00:06:58,880 --> 00:07:10,080
+mais cela ressemble à 48 par 48 pixels sur l'écran
+
+152
+00:07:07,120 --> 00:07:17,360
+Ce type de mise à l'échelle est assez courant pour le développement de jeux 2D de style rétro.
+
+154
+00:07:14,240 --> 00:07:21,280
+Nous suivons donc aussi la tradition
+
+155
+00:07:17,360 --> 00:07:23,520
+donc un autre nombre entier
+
+163
+00:07:33,599 --> 00:07:42,560
+Donc, en gros, c'est une tuile de 48 x 48.
+
+165
+00:07:39,199 --> 00:07:48,080
+C'est donc la taille réelle de la tuile qui sera affichée sur notre écran de jeu.
+
+167
+00:07:44,960 --> 00:07:51,120
+et ensuite nous décidons de la taille de notre écran de jeu
+
+168
+00:07:48,080 --> 00:08:02,720
+et pour cela, nous décidons d'abord combien de tuiles le jeu peut afficher horizontalement et verticalement
+
+172
+00:07:59,199 --> 00:08:05,759
+et cela déterminera la taille totale de l'écran
+
+177
+00:08:09,440 --> 00:08:15,440
+dans ce jeu nous choisissons 16 colonnes
+
+183
+00:08:24,720 --> 00:08:31,680
+et la ligne est 12
+
+185
+00:08:28,720 --> 00:08:35,279
+16 tuiles horizontales, 12 tuiles verticales
+
+186
+00:08:31,680 --> 00:08:40,959
+donc le rapport est de 4 sur 3
+
+188
+00:08:38,000 --> 00:08:43,839
+et comme la taille d'une seule tuile est de 48 pixels
+
+207
+00:09:14,560 --> 00:09:21,839
+donc la taille de la tuile est de 48
+
+213
+00:09:30,800 --> 00:09:35,040
+et la hauteur est...
+
+220
+00:09:44,240 --> 00:09:50,000
+Ce sera donc la taille de notre écran de jeu.
+
+221
+00:09:47,600 --> 00:09:52,800
+mais bien sûr vous pouvez la changer si vous le souhaitez
+
+225
+00:09:54,080 --> 00:10:00,959
+18 ou 14 ou quelque chose
+
+228
+00:10:01,040 --> 00:10:07,920
+alors cette largeur d'écran et cette hauteur d'écran changeront automatiquement
+
+230
+00:10:06,000 --> 00:10:11,040
+donc c'est le réglage de l'écran
+
+231
+00:10:07,920 --> 00:10:16,040
+maintenant, créons un constructeur de ce GamePanel
+
+240
+00:10:35,680 --> 00:10:41,519
+nous allons donc définir la taille du panneau de ce GamePanel
+
+242
+00:10:40,000 --> 00:10:47,640
+donc la largeur et la hauteur de l'écran
+
+245
+00:10:49,600 --> 00:10:57,360
+et puis je ne suis pas sûr que ce soit nécessaire mais...
+
+247
+00:10:54,640 --> 00:11:03,720
+réglons la couleur de fond de ce GamePanel
+
+254
+00:11:15,120 --> 00:11:23,600
+Si vous avez déjà eu l'occasion de développer des jeux en 2D en Java auparavant
+
+255
+00:11:17,760 --> 00:11:28,320
+et si vous avez utilisé Canvas pour dessiner l'écran 
+
+258
+00:11:24,959 --> 00:11:29,839
+alors vous utilisez probablement aussi BufferStrategy
+
+259
+00:11:28,320 --> 00:11:32,560
+mais cette fois nous allons utiliser ce JPanel
+
+260
+00:11:29,839 --> 00:11:38,320
+ce JPanel a une sorte de double fonction de mise en mémoire tampon par défaut
+
+262
+00:11:36,079 --> 00:11:46,079
+donc je pense que c'est une bonne idée de rendre cela vrai pour une meilleure performance de rendu
+
+265
+00:11:44,079 --> 00:11:52,720
+OK, maintenant retournons à la classe Main
+
+267
+00:11:48,000 --> 00:11:52,720
+et ajoutons ce GamePanel à cette fenêtre
+
+272
+00:12:02,399 --> 00:12:08,560
+et nous allons ajouter ce GamePanel à cette fenêtre
+
+275
+00:12:12,000 --> 00:12:17,360
+ceci est une sous-classe de JPanel
+
+276
+00:12:14,880 --> 00:12:23,760
+donc en gros, c'est une classe JPanel avec un peu plus de fonctions supplémentaires
+
+278
+00:12:20,800 --> 00:12:29,360
+donc vous pouvez ajouter cette fenêtre comme vous ajoutez JPanel à cette fenêtre
+
+280
+00:12:26,639 --> 00:12:39,839
+et ensuite nous allons emballer ce JPanel pour pouvoir le voir
+
+284
+00:12:37,200 --> 00:12:41,760
+OK, vérifions-le
+
+285
+00:12:39,839 --> 00:12:42,560
+d'accord
+
+286
+00:12:41,760 --> 00:12:47,360
+Notre écran de jeu apparaît donc
+
+288
+00:12:45,120 --> 00:12:53,279
+et la taille est de 768 et 576
+
+291
+00:12:49,800 --> 00:13:03,600
+donc nous pouvons afficher 16 tuiles 48x48 horizontalement
+
+294
+00:12:58,480 --> 00:13:06,480
+et 12 tuiles 48x48 verticalement
+
+295
+00:13:03,600 --> 00:13:13,040
+Maintenant que nous avons une fenêtre, parlons des mécanismes de base du jeu.
+
+297
+00:13:09,839 --> 00:13:22,079
+Je pense que le concept le plus important du jeu en 2D est l'existence du temps.
+
+300
+00:13:19,519 --> 00:13:25,279
+dans mon précédent jeu d'aventure textuel
+
+301
+00:13:22,079 --> 00:13:29,040
+lorsque vous faites quelque chose, par exemple, appuyer sur le bouton
+
+303
+00:13:26,399 --> 00:13:34,959
+puis le programme effectue un traitement et s'arrête ensuite
+
+305
+00:13:32,639 --> 00:13:39,839
+il attend juste que vous fassiez quelque chose de nouveau comme appuyer sur le bouton à nouveau
+
+307
+00:13:38,560 --> 00:13:47,440
+Cependant, dans les jeux en 2D, une fois que vous avez démarré le programme, il continue à fonctionner.
+
+309
+00:13:43,760 --> 00:13:57,760
+et ne s'arrête que lorsque vous fermez le jeu ou que vous faites quelque chose de spécial.
+
+312
+00:13:54,880 --> 00:14:07,920
+Alors imaginez, quand vous jouez à des jeux comme Super Mario, Minecraft, Call of Duty ou tout autre jeu d'action...
+
+315
+00:14:05,760 --> 00:14:12,639
+vous pouvez déplacer votre personnage sur l'écran
+
+317
+00:14:09,760 --> 00:14:18,560
+et d'autres personnages tels que des monstres ou des PNJs se déplacent également sur l'écran
+
+319
+00:14:17,760 --> 00:14:23,680
+mais comment cela peut-il arriver ?
+
+321
+00:14:20,240 --> 00:14:31,120
+sa mécanique est fondamentalement la même que celle de l'animation dessinée à la main
+
+323
+00:14:27,040 --> 00:14:33,760
+le personnage est en fait une série d'images statiques
+
+324
+00:14:31,120 --> 00:14:37,600
+mais comme il met à jour les images très rapidement
+
+326
+00:14:34,720 --> 00:14:40,079
+on dirait que le personnage bouge
+
+327
+00:14:37,600 --> 00:14:43,920
+C'est la même chose dans les jeux vidéo
+
+328
+00:14:40,079 --> 00:14:47,040
+donc si le FPS du jeu est de 60
+
+329
+00:14:43,920 --> 00:14:50,639
+ce qui signifie qu'il met à jour l'écran 60 fois par seconde
+
+331
+00:14:48,240 --> 00:14:58,160
+Votre personnage semble donc bouger mais il s'agit en fait d'une série de 60 images statiques.
+
+334
+00:14:55,360 --> 00:15:04,880
+donc pour faire cette animation dans notre jeu nous devons créer un temps dans notre jeu
+
+336
+00:15:01,760 --> 00:15:08,079
+Nous devons donc démarrer l'horloge du jeu
+
+337
+00:15:04,880 --> 00:15:17,440
+et pour ce faire, nous allons utiliser une classe appelée Thread
+
+340
+00:15:13,120 --> 00:15:21,600
+et je vais nommer cette classe gameThread
+
+341
+00:15:17,440 --> 00:15:22,880
+Le fil est quelque chose que vous pouvez démarrer et arrêter
+
+342
+00:15:21,600 --> 00:15:30,560
+et une fois qu'un thread est démarré, il fait tourner votre programme jusqu'à ce que vous l'arrêtiez
+
+346
+00:15:28,160 --> 00:15:36,160
+ce n'est pas comme si le thread lui-même faisait quelque chose de spécial 
+
+348
+00:15:33,440 --> 00:15:40,160
+mais quand vous voulez répéter un processus encore et encore
+
+350
+00:15:37,279 --> 00:15:45,920
+comme dessiner l'écran 60 fois par seconde, le thread est très utile
+
+352
+00:15:43,360 --> 00:15:49,120
+donc nous allons utiliser ce thread dans ce GamePanel
+
+353
+00:15:45,920 --> 00:15:59,440
+et pour lancer un thread nous devons implémenter Runnable dans cette classe
+
+356
+00:15:56,880 --> 00:16:02,959
+c'est la clé pour utiliser ce thread
+
+358
+00:16:01,680 --> 00:16:07,360
+et nous voyons une erreur
+
+360
+00:16:05,120 --> 00:16:14,639
+il suggère d'ajouter des méthodes non implémentées alors faisons ceci
+
+362
+00:16:11,120 --> 00:16:17,120
+puis il génère automatiquement cette méthode d'exécution
+
+364
+00:16:17,920 --> 00:16:24,399
+Et cette méthode d'exécution est la suivante
+
+365
+00:16:20,839 --> 00:16:25,199
+Vous pouvez probablement voir cette explication
+
+367
+00:16:25,199 --> 00:16:30,399
+il est dit,
+
+368
+00:16:27,680 --> 00:16:39,519
+"quand un objet implémentant l'interface Runnable, dans ce cas notre GamePanel, est utilisé pour créer un thread"
+
+371
+00:16:36,720 --> 00:16:47,360
+"le démarrage du thread entraîne l'appel de la méthode run de l'objet dans ce thread d'exécution séparée".
+
+374
+00:16:44,320 --> 00:16:52,959
+Donc, en fait, lorsque nous démarrons ce gameThread, il appelle automatiquement la méthode run.
+
+376
+00:16:50,399 --> 00:16:56,399
+C'est comme ça que ça marche.
+
+377
+00:16:52,959 --> 00:17:01,759
+OK, je vais créer une nouvelle méthode ici.
+
+381
+00:17:06,240 --> 00:17:10,319
+et ici
+
+382
+00:17:07,679 --> 00:17:12,160
+donc nous allons instancier ce gameThread
+
+388
+00:17:17,600 --> 00:17:27,919
+et nous allons passer "this" au constructeur de ce thread
+
+392
+00:17:25,360 --> 00:17:30,400
+donc "this" signifie cette classe, donc GamePanel 
+
+393
+00:17:27,919 --> 00:17:35,679
+donc en fait nous passons la classe GamePanel au constructeur de ce thread
+
+395
+00:17:33,039 --> 00:17:37,360
+c'est ainsi que l'on instancie un thread
+
+397
+00:17:37,360 --> 00:17:44,400
+démarrons ce thread
+
+399
+00:17:44,400 --> 00:17:50,960
+il va automatiquement appeler cette méthode d'exécution
+
+402
+00:17:51,600 --> 00:18:12,550
+et dans cette méthode d'exécution, nous allons créer une boucle de jeu qui sera le cœur de notre jeu
+
+406
+00:18:00,710 --> 00:18:12,550
+[Musique]
+

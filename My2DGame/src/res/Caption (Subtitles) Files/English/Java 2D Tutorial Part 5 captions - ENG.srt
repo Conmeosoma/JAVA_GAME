@@ -1,0 +1,828 @@
+1
+00:00:00,320 --> 00:00:05,920
+hi guys, this is RyiSnow
+
+2
+00:00:02,399 --> 00:00:12,080
+so last time we succeeded to draw these background tiles
+
+4
+00:00:08,400 --> 00:00:19,439
+but this is just a small sample map and the size is only as large as the game screen
+
+7
+00:00:16,960 --> 00:00:22,880
+if single screen is all you need for your game, this might be okay
+
+9
+00:00:22,080 --> 00:00:34,480
+but what we are trying to create, ultimately, in this tutorial is a 2D action RPG
+
+13
+00:00:30,720 --> 00:00:35,360
+so we want to have a larger map
+
+14
+00:00:34,480 --> 00:00:41,840
+so in this video we will create a world map and draw it on the screen
+
+16
+00:00:38,480 --> 00:00:47,840
+and to create a world map, i have prepared a few extra tiles
+
+19
+00:00:46,800 --> 00:00:53,520
+tree, sand, and earth (dirt)
+
+22
+00:00:50,480 --> 00:00:59,840
+so let's copy these to this "tiles" package
+
+25
+00:01:00,160 --> 00:01:05,199
+and let's load these new tiles
+
+26
+00:01:03,920 --> 00:01:12,880
+so let's copy this and add three more
+
+39
+00:01:32,159 --> 00:01:40,840
+now we can use these tiles too
+
+40
+00:01:35,680 --> 00:01:40,840
+and this is the world map i created
+
+41
+00:01:42,159 --> 00:01:48,479
+it's a 50 by 50 tile map
+
+43
+00:01:46,000 --> 00:01:51,119
+of course you can create your own map
+
+44
+00:01:48,479 --> 00:01:56,399
+and if you want to create a larger map, you can do that
+
+46
+00:01:52,720 --> 00:02:03,920
+and before loading and drawing this world map file, we need to do some adjustment
+
+49
+00:02:00,719 --> 00:02:07,280
+what we're gonna do is, we edit the code in the Player class
+
+50
+00:02:03,920 --> 00:02:13,200
+so instead of moving around on the screen
+
+53
+00:02:10,800 --> 00:02:17,360
+the player character will always be displayed at the center
+
+55
+00:02:15,840 --> 00:02:25,599
+and we will expand the boundary of our tile drawing loop
+
+58
+00:02:22,560 --> 00:02:33,920
+our current tile drawing system is set for drawing tiles as large as our screen size
+
+61
+00:02:31,040 --> 00:02:39,280
+and that's not enough to draw our world map so we change it
+
+64
+00:02:36,400 --> 00:02:46,080
+and when these two steps are done we can display our world map and move around it
+
+66
+00:02:42,879 --> 00:02:49,200
+so let's get to the step one
+
+67
+00:02:46,080 --> 00:02:52,720
+let's go to this Entity class
+
+68
+00:02:49,200 --> 00:03:00,640
+and we're gonna rename this x and y to worldX and worldY
+
+73
+00:02:57,440 --> 00:03:03,680
+how to say... just for better understanding
+
+74
+00:03:00,640 --> 00:03:08,239
+because we are going to use two kinds of x and y
+
+76
+00:03:05,120 --> 00:03:10,000
+the one is worldX and worldY
+
+77
+00:03:08,239 --> 00:03:15,120
+and this one is screenX and screenY
+
+79
+00:03:12,800 --> 00:03:19,599
+these are different and indicate different coordinates
+
+81
+00:03:17,200 --> 00:03:28,400
+and understanding this difference will be the key to understand the mechanics of game camera
+
+84
+00:03:25,440 --> 00:03:33,360
+okay then let's go to this Player class
+
+86
+00:03:30,640 --> 00:03:36,879
+and the rename this x and y too
+
+90
+00:03:40,879 --> 00:03:44,000
+wait what
+
+93
+00:03:46,400 --> 00:03:50,080
+what is this
+
+96
+00:03:52,799 --> 00:03:55,280
+sorry
+
+97
+00:03:54,000 --> 00:04:00,040
+and this one too
+
+102
+00:04:04,959 --> 00:04:09,120
+we leave this for now
+
+103
+00:04:06,879 --> 00:04:12,640
+because we're gonna use a different kind of x and y here
+
+107
+00:04:19,919 --> 00:04:31,199
+so in this Player class, rename this x and y in the setDefaultValues
+
+109
+00:04:26,880 --> 00:04:31,199
+and also x and y in this update method
+
+110
+00:04:32,560 --> 00:04:41,040
+and this worldX and worldY are not screen position
+
+112
+00:04:37,680 --> 00:04:44,479
+this is not where we draw on the screen
+
+113
+00:04:41,040 --> 00:04:47,840
+this is the player's position on the world map
+
+115
+00:04:45,759 --> 00:04:52,400
+and i want to change this default player position
+
+117
+00:04:50,320 --> 00:04:54,160
+so this is going to be the starting point
+
+119
+00:04:54,160 --> 00:05:01,759
+i want to start the game at this point
+
+122
+00:04:59,919 --> 00:05:13,520
+so this is gonna be... 23 
+
+127
+00:05:08,840 --> 00:05:18,080
+so instead of this 100 100 we're gonna type...
+
+135
+00:05:29,440 --> 00:05:36,240
+this is gonna be the starting position
+
+136
+00:05:33,120 --> 00:05:40,639
+then in this Player class, we create another x and y variables
+
+146
+00:05:54,160 --> 00:06:02,960
+so now we have worldX, worldY and screenX, screenY
+
+149
+00:06:00,560 --> 00:06:11,440
+and screenX and screenY indicate where we draw player on the screen
+
+152
+00:06:08,319 --> 00:06:19,520
+so we place this player character at the center of the screen and scroll the background as he moves
+
+155
+00:06:17,039 --> 00:06:21,840
+that's what we're gonna do
+
+167
+00:06:44,000 --> 00:06:52,479
+so this returns the halfway point of the screen
+
+169
+00:06:50,319 --> 00:06:58,560
+so when we draw this player character,
+
+171
+00:06:55,199 --> 00:07:08,160
+instead of this x and y, let's replace them with screenX and screenY
+
+175
+00:07:04,800 --> 00:07:13,280
+this screenX and screenY don't change throughout the game
+
+177
+00:07:10,639 --> 00:07:17,440
+these are "final" variables
+
+179
+00:07:15,360 --> 00:07:22,319
+so the player character's screen position doesn't change
+
+181
+00:07:20,880 --> 00:07:26,319
+okay let's check this
+
+185
+00:07:27,599 --> 00:07:35,840
+so now player's position is fixed at the center of the screen or...
+
+188
+00:07:34,000 --> 00:07:42,080
+actually, this is not the center of the screen
+
+191
+00:07:39,039 --> 00:07:46,639
+these two variables indicate the center of the screen for sure
+
+193
+00:07:44,639 --> 00:07:57,360
+but the problem is, these coordinates are used for the top left corner of the image
+
+198
+00:07:56,319 --> 00:08:03,280
+so we need to do a little adjustment
+
+200
+00:08:00,080 --> 00:08:06,720
+from this value we're going to subtract...
+
+204
+00:08:10,400 --> 00:08:17,120
+and this too
+
+205
+00:08:13,759 --> 00:08:17,120
+alright let's check
+
+207
+00:08:19,520 --> 00:08:22,720
+can you see the difference?
+
+209
+00:08:25,039 --> 00:08:31,919
+now the player character is displayed at the center of the screen
+
+211
+00:08:29,280 --> 00:08:34,800
+so the step one is done
+
+212
+00:08:31,919 --> 00:08:36,320
+let's get to the step two
+
+214
+00:08:36,320 --> 00:08:44,880
+let's go to this GamePanel and we create some world map parameters
+
+243
+00:09:34,720 --> 00:09:42,720
+as i said you can change these numbers as you like
+
+246
+00:09:43,120 --> 00:09:47,600
+i think this GamePanel class is okay
+
+247
+00:09:45,920 --> 00:09:53,200
+so let's go to the TileManager class
+
+248
+00:09:47,600 --> 00:09:58,880
+and we're gonna change the size of this mapTileNum too
+
+251
+00:09:56,160 --> 00:10:07,760
+we're gonna change this from maxScreenCol to maxWorldCol
+
+254
+00:10:04,640 --> 00:10:12,079
+and this is also maxWorldRow
+
+256
+00:10:09,360 --> 00:10:19,240
+and let's change this file path too
+
+261
+00:10:24,720 --> 00:10:29,279
+and in this loadMap method, 
+
+262
+00:10:27,360 --> 00:10:35,519
+we're gonna change maxScreenCol to maxWorldCol
+
+266
+00:10:39,839 --> 00:10:48,959
+and maxScreenRow to maxWorldRow
+
+268
+00:10:46,000 --> 00:10:52,079
+so basically we are doing a larger loop here
+
+269
+00:10:48,959 --> 00:10:58,959
+so in the previous loop, the screen size was the boundaries
+
+271
+00:10:55,120 --> 00:11:01,200
+but now the world map is the boundaries
+
+272
+00:10:58,959 --> 00:11:09,040
+now we move on to the draw method and do some arrangement
+
+276
+00:11:07,279 --> 00:11:16,000
+and this is gonna be a little bit complicated because we're gonna implement a camera function
+
+279
+00:11:14,800 --> 00:11:20,160
+first we're gonna delete this x and y
+
+281
+00:11:17,600 --> 00:11:25,760
+so we're not gonna use this x and y in this loop
+
+283
+00:11:22,720 --> 00:11:32,000
+and delete this and this and this too
+
+287
+00:11:32,320 --> 00:11:44,640
+then we're gonna change this col and row to worldCol and worldRow
+
+292
+00:11:43,200 --> 00:11:48,480
+so copy this worldCol and paste here
+
+299
+00:12:03,440 --> 00:12:12,639
+and also let's change this maxScreenCol to maxWorldCol
+
+306
+00:12:17,839 --> 00:12:23,519
+and now a tricky part 
+
+307
+00:12:21,519 --> 00:12:26,240
+ultimately, there are three things that we want to know
+
+309
+00:12:24,639 --> 00:12:34,079
+tile image and where to draw the tile on the screen
+
+313
+00:12:31,760 --> 00:12:38,880
+and we already know what kind of tile image it is going to display
+
+316
+00:12:38,880 --> 00:12:46,240
+and to find out this x and y, we type like this:
+
+344
+00:13:30,399 --> 00:13:35,000
+wait... this is not public?
+
+346
+00:13:39,680 --> 00:13:43,600
+why i'm seeing the error
+
+348
+00:13:49,600 --> 00:13:53,680
+oh okay, sorry
+
+349
+00:13:51,199 --> 00:13:56,079
+we need to set this as public
+
+352
+00:13:58,240 --> 00:14:04,240
+then one more variable
+
+360
+00:14:20,320 --> 00:14:25,600
+why i always type like this...
+
+362
+00:14:26,000 --> 00:14:34,480
+and we're gonna paste this screenX and screenY here
+
+365
+00:14:35,360 --> 00:14:44,160
+let me explain about this part
+
+366
+00:14:40,160 --> 00:14:47,199
+first we check the tile's worldX 
+
+367
+00:14:44,160 --> 00:14:48,000
+so that is worldCol x tileSize
+
+368
+00:14:47,199 --> 00:14:49,519
+so
+
+369
+00:14:48,000 --> 00:14:56,399
+if it's a [0][0] tile, 
+
+372
+00:14:54,160 --> 00:14:59,120
+it's gonna be a 0 x 48 and 0 x 48
+
+374
+00:14:57,760 --> 00:15:03,279
+so x and y are also 0 0
+
+376
+00:15:00,959 --> 00:15:08,160
+and if it's a [1][0] tile,
+
+378
+00:15:06,720 --> 00:15:09,680
+which means this one
+
+379
+00:15:08,160 --> 00:15:18,399
+then worldX will be 1 x 48 so worldX will be 48
+
+381
+00:15:13,360 --> 00:15:20,639
+and worldY is still 0
+
+382
+00:15:18,399 --> 00:15:27,839
+then we need to know where on the screen we need to draw it
+
+384
+00:15:24,240 --> 000:15:32,800
+again, this screenX is different from worldX
+
+386
+00:15:29,839 --> 00:15:35,600
+worldX is the position on the map 
+
+387
+00:15:32,800 --> 00:15:39,360
+and screenX is where on the screen we draw it
+
+389
+00:15:37,360 --> 00:15:48,000
+imagine, if player is at worldX 500 and worldY 500
+
+392
+00:15:45,839 --> 00:15:55,920
+then player is 500 pixels away from this [0][0] tile
+
+395
+00:15:53,759 --> 00:15:57,120
+let's say it's around here
+
+396
+00:15:55,920 --> 00:16:11,040
+then this [0][0] tile should be drawn at 500 pixels to the left and 500 pixels to the top from the player
+
+401
+00:16:09,839 --> 00:16:22,000
+that's why we subtract the player's worldX and worldY from the tile's worldX and worldY
+
+406
+00:16:19,680 --> 00:16:24,560
+and that returns the tile's screen position
+
+408
+00:16:23,440 --> 00:16:37,040
+so if player's position is 500:500 then this tile's screen position will be the x minus 500 and y minus 500
+
+412
+00:16:35,680 --> 00:16:41,279
+so basically it's out of our game window
+
+414
+00:16:40,079 --> 00:16:51,839
+then why we add this player's screenX and screenY?
+
+418
+00:16:48,240 --> 00:16:54,399
+there is a little catch here 
+
+419
+00:16:51,839 --> 00:17:01,519
+so remember, the player's screen position is always at the center of the screen
+
+421
+00:16:57,120 --> 00:17:05,839
+for example, screenX 0 and screenY 0 means the top left corner
+
+424
+00:17:04,640 --> 00:17:07,199
+here
+
+426
+00:17:07,199 --> 00:17:12,079
+and it becomes minus (from here)
+
+427
+00:17:10,640 --> 00:17:13,280
+so 0:0 is here
+
+428
+00:17:12,079 --> 00:17:20,640
+even if player is standing at worldX 0 and worldY 0
+
+431
+00:17:19,520 --> 00:17:24,880
+still, he is displayed at the center of the screen 
+
+433
+00:17:22,480 --> 00:17:28,480
+not here
+
+434
+00:17:24,880 --> 00:17:33,720
+so we need to offset this difference
+
+435
+00:17:28,480 --> 00:17:33,720
+so we add this to the calculation
+
+436
+00:17:34,559 --> 00:17:40,320
+adding this, we can offset the difference
+
+437
+00:17:37,520 --> 00:17:47,039
+and we can get correct coordinates for this tile's screenX and screenY
+
+439
+00:17:43,600 --> 00:17:53,919
+i hope you understand and it's okay even if you still feel "uh... what?"
+
+442
+00:17:51,440 --> 00:18:02,080
+i was like that, it took me a while to wrap my head around this
+
+445
+00:17:58,960 --> 00:18:05,360
+so it's okay for now, just copy and paste this code
+
+446
+00:18:02,080 --> 00:18:10,880
+but i hope you will get it eventually and i think you will
+
+448
+00:18:08,400 --> 00:18:13,120
+and i hope my explanation was enough
+
+449
+00:18:10,880 --> 00:18:17,120
+yeah this is complicated
+
+450
+00:18:13,120 --> 00:18:20,240
+anyways so we found out a tile's screenX and screenY
+
+452
+00:18:18,080 --> 00:18:26,320
+so after drawing a tile we increase this worldCol by 1
+
+454
+00:18:23,440 --> 00:18:29,280
+so we can draw the next tile
+
+455
+00:18:26,320 --> 00:18:32,880
+and if worldCol hits this maxWorldCol...
+
+456
+00:18:29,280 --> 00:18:33,919
+yeah we draw one by one
+
+457
+00:18:32,880 --> 00:18:38,960
+and when we hit this tile
+
+460
+00:18:38,960 --> 00:18:46,320
+we reset col and increase row so we move here
+
+462
+00:18:43,600 --> 00:18:48,720
+and draw this line and this line...
+
+465
+00:18:51,039 --> 00:18:57,919
+okay so this should work now so let's check it
+
+467
+00:18:55,440 --> 00:19:00,320
+i hope this works
+
+470
+00:19:03,679 --> 00:19:09,160
+so now we are exploring the world now
+
+471
+00:19:12,720 --> 00:19:22,360
+so this is the world map that i created
+
+473
+00:19:17,679 --> 00:19:22,360
+of course, there is no collision yet
+
+474
+00:19:25,919 --> 00:19:31,039
+so this is working
+
+475
+00:19:28,240 --> 00:19:38,000
+but we can add a little more touch to improve our rendering efficiency
+
+477
+00:19:35,200 --> 00:19:41,440
+you can continue as it is 
+
+478
+00:19:38,000 --> 00:19:45,120
+but i recommend you to do this to avoid a slow game performance
+
+481
+00:19:45,120 --> 00:19:55,200
+maybe you have noticed but right now this while loop is drawing all the tiles on the map
+
+483
+00:19:52,480 --> 00:20:04,000
+that means it is drawing tiles that we cannot see on the screen too
+
+486
+00:20:01,440 --> 00:20:06,240
+and that's not so efficient
+
+487
+00:20:04,000 --> 00:20:07,360
+this is still a relatively a small map
+
+488
+00:20:06,240 --> 00:20:13,760
+but when you have a very large map, it can slow the game down
+
+491
+00:20:12,720 --> 00:20:20,400
+so we only need to draw the tiles that we can see
+
+494
+00:20:18,080 --> 00:20:26,559
+we don't need to draw a tile which is 500 pixels away from the player
+
+496
+00:20:24,080 --> 00:20:28,960
+so this is the final touch
+
+497
+00:20:26,559 --> 00:20:34,400
+with this our tile drawing system will be complete so please stick with me
+
+499
+00:20:32,960 --> 00:20:41,440
+so before drawing a tile we add this if statement
+
+537
+00:21:52,400 --> 00:22:03,520
+and we're gonna put this drawImage method in this if statement
+
+541
+00:22:01,120 --> 00:22:05,760
+okay that's it
+
+542
+00:22:03,520 --> 00:22:12,240
+what this if statement means is, basically we create a boundary
+
+544
+00:22:09,360 --> 00:22:15,039
+that is from the center of the screen minus player screenX
+
+545
+00:22:12,240 --> 00:22:18,400
+and plus player screenX
+
+547
+00:22:17,280 --> 00:22:22,960
+and minus player screenY, and plus player screenY
+
+549
+00:22:22,000 --> 00:22:31,200
+so as long as a tile is in this boundary, we draw it
+
+552
+00:22:28,000 --> 00:22:31,200
+so let's check this
+
+553
+00:22:31,520 --> 00:22:35,520
+okay, like this
+
+557
+00:22:44,720 --> 00:22:54,320
+so now we can see that the program is only drawing the tiles around the player
+
+559
+00:22:51,840 --> 00:23:03,280
+but i guess we should expand the boundary a bit more since we are seeing the black background
+
+563
+00:23:00,799 --> 00:23:09,760
+so why don't we expand this boundary by 1 tile to each direction
+
+567
+00:23:09,760 --> 00:23:15,280
+to do that, we just...
+
+570
+00:23:15,280 --> 00:23:22,400
+i don't like this format for some reason...
+
+573
+00:23:22,400 --> 00:23:32,799
+okay so to do that, we add this worldX and tileSize
+
+578
+00:23:32,799 --> 00:23:42,159
+and this one is...
+
+585
+00:23:53,520 --> 00:23:58,799
+okay this should be okay
+
+586
+00:23:55,760 --> 00:23:58,799
+so let's check this
+
+589
+00:24:03,679 --> 00:24:07,840
+now it looks the same as before
+
+590
+00:24:06,320 --> 00:24:17,919
+but actually it's only drawing the tiles around the player so we can cut some extra processing
+
+594
+00:24:15,679 --> 00:24:24,159
+so now the program is drawing the world map and we can move around it
+
+596
+00:24:22,080 --> 00:24:29,520
+but of course, there is no collision happening yet
+
+599
+00:24:27,200 --> 00:24:32,480
+so every tile is passable
+
+601
+00:24:30,880 --> 00:24:37,679
+so next time, we will implement collision detection
+
+603
+00:24:35,679 --> 00:24:40,679
+thanks for watching and see you again
+
+605
+00:24:43,870 --> 00:24:50,559
+[Music]
+

@@ -1,6 +1,5 @@
 package Main;
 
-
 public class EventHander {
   GamePanel gp;
   EventRect eventRect[][];

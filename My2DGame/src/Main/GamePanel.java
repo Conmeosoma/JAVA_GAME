@@ -230,8 +230,7 @@ public class GamePanel extends JPanel implements Runnable {
             Collections.sort(entityList, new Comparator<Entity>() {
                 @Override
                 public int compare(Entity e1, Entity e2) {
-                    int result = Integer.compare(e1.World_Y, e2.World_Y);
-                    return 0;
+                    return Integer.compare(e1.World_Y, e2.World_Y);
                 }
             });
 
@@ -263,14 +262,14 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         // DEBUG
-//        if (keyH.checkDrawTime == true) {
-//            long drawEnd = System.nanoTime(); // bien luu thoi gian ket thu ve
-//            long passed = drawEnd - drawStart; // thoi gian ve
-//            g2.setColor(Color.white);
-//            g2.drawString("Draw time: " + passed, 10, 400);
-//            System.out.println("Draw time: " + passed);
-//        }
-//        
+        // if (keyH.checkDrawTime == true) {
+        // long drawEnd = System.nanoTime(); // bien luu thoi gian ket thu ve
+        // long passed = drawEnd - drawStart; // thoi gian ve
+        // g2.setColor(Color.white);
+        // g2.drawString("Draw time: " + passed, 10, 400);
+        // System.out.println("Draw time: " + passed);
+        // }
+        //
         if (keyH.showDebugText == true) {
             long drawEnd = System.nanoTime(); // bien luu thoi gian ket thu ve
             long passed = drawEnd - drawStart; // thoi gian ve

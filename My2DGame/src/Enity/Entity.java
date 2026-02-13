@@ -70,7 +70,7 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
-    //ITEM
+    // ITEM
     public int attackValue;
     public int defenseValue;
 
@@ -144,7 +144,7 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
                 }
                 gp.player.life -= damage;
 
-//                gp.player.life -= 1;
+                // gp.player.life -= 1;
                 gp.player.invincible = true;
             }
         }

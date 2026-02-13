@@ -1,0 +1,1187 @@
+1
+00:00:01,120 --> 00:00:08,080
+Hola chicos, soy RyiSnow 
+
+2
+00:00:04,319 --> 00:00:13,599
+la ultima vez, implementamos botas que aumentan la velocidad del jugador
+
+4
+00:00:10,000 --> 00:00:18,720
+y también implementamos la música y los efectos de sonido
+
+6
+00:00:15,120 --> 00:00:21,760
+en este vídeo, añadiremos la interfaz de usuario en pantalla
+
+7
+00:00:18,720 --> 00:00:26,480
+y completaremos este sencillo juego de búsqueda del tesoro
+
+9
+00:00:24,000 --> 00:00:29,599
+así que vamos a empezar
+
+10
+00:00:26,480 --> 00:00:36,800
+pero primero, dejame editar un poco el codigo actual ya que encontre un pequeño error
+
+12
+00:00:33,600 --> 00:00:43,120
+usamos esta clase Sound tanto para reproducir música como efectos de sonido
+
+14
+00:00:39,520 --> 00:00:46,160
+pero supongo que no fue una buena idea 
+
+15
+00:00:43,120 --> 00:00:51,760
+He notado, cuando el programa intenta parar una música y reproducir un efecto de sonido al mismo tiempo
+
+18
+00:00:49,920 --> 00:00:55,760
+sólo procesa uno de ellos, no los dos
+
+22
+00:00:55,760 --> 00:01:02,239
+por ejemplo, reproduce el efecto de sonido pero la música no se detiene
+
+24
+00:00:59,440 --> 00:01:05,760
+así que decidí instanciar una clase Sound más
+
+27
+00:01:05,760 --> 00:01:12,560
+llamémosla "Música".
+
+29
+00:01:08,880 --> 00:01:14,400
+y el otro se renombra a SE
+
+32
+00:01:15,840 --> 00:01:19,439
+y llamarlos por separado
+
+33
+00:01:19,920 --> 00:01:27,080
+así que para reproducir música y parar música, llamamos a esto "música"
+
+35
+00:01:28,320 --> 00:01:36,720
+y para reproducir SE, usamos esto "se"
+
+37
+00:01:33,439 --> 00:01:46,079
+de esta forma, incluso si intentamos parar una música y reproducir un efecto de sonido al mismo tiempo, estas clases lo manejan por separado
+
+40
+00:01:43,840 --> 00:01:49,200
+bien continuemos
+
+41
+00:01:46,079 --> 00:01:52,240
+primero, creamos una nueva clase dentro de este paquete "main
+
+43
+00:01:53,280 --> 00:01:57,920
+y voy a nombrar a esta UI
+
+45
+00:01:58,240 --> 00:02:06,799
+y esta clase básicamente maneja toda la UI en pantalla
+
+47
+00:02:03,600 --> 00:02:12,800
+por lo que podemos mostrar mensajes de texto e iconos de elementos o cosas por el estilo
+
+51
+00:02:14,319 --> 00:02:21,200
+y el constructor
+
+59
+00:02:37,760 --> 00:02:43,280
+¿qué vamos a dibujar?
+
+60
+00:02:40,319 --> 00:02:52,400
+ya que tenemos llaves para abrir puertas, vamos a mostrar el número de llaves que el jugador tiene actualmente
+
+63
+00:02:49,519 --> 00:02:56,720
+y podemos dibujar textos con este Graphics2D
+
+65
+00:02:53,760 --> 00:02:59,120
+pero primero, necesitamos configurar la fuente
+
+66
+00:02:56,720 --> 00:03:07,760
+para ello, utilizamos este método setFont y pasamos una fuente aquí
+
+69
+00:03:04,640 --> 00:03:10,959
+puedes establecer una fuente escribiendo así
+
+77
+00:03:20,080 --> 00:03:26,560
+el primer parámetro es el nombre de la fuente
+
+78
+00:03:23,920 --> 00:03:32,360
+para que pueda utilizar el tipo de letra que desee, siempre que sea compatible con su ordenador.
+
+80
+00:03:32,200 --> 00:03:38,720
+y el segundo parámetro es el estilo de fuente
+
+82
+00:03:36,400 --> 00:03:47,080
+así que puedes elegir PLAIN o ITALIC o BOLD...
+
+85
+00:03:42,799 --> 00:03:47,080
+para que puedas elegir un estilo de fuente
+
+86
+00:03:47,360 --> 00:03:55,519
+y el tercer parámetro es el tamaño de la fuente
+
+87
+00:03:52,080 --> 00:03:59,360
+así es como normalmente se establece la fuente en este Graphics2D
+
+90
+00:03:59,360 --> 00:04:06,080
+pero no recomiendo crear una nueva instancia en el bucle del juego
+
+92
+00:04:06,760 --> 00:04:12,080
+porque crear una instancia lleva tiempo
+
+94
+00:04:09,200 --> 00:04:20,560
+este método de dibujo se incluirá en el bucle del juego, por lo que será llamado 60 veces por segundo
+
+97
+00:04:17,600 --> 00:04:27,680
+y eso significa, que creará esta nueva instancia 60 veces por segundo
+
+100
+00:04:24,000 --> 00:04:28,479
+y consumirá tiempo y recursos
+
+102
+00:04:28,479 --> 00:04:33,440
+así que este es un mal ejemplo
+
+103
+00:04:31,919 --> 00:04:38,240
+así que en su lugar declaramos la fuente aquí
+
+106
+00:04:38,240 --> 00:04:47,680
+así que la fuente y el nombre es como Arial 40 o algo así
+
+108
+00:04:44,960 --> 00:04:49,199
+y luego instanciarlo
+
+118
+00:05:02,160 --> 00:05:10,800
+para que podamos terminar la instanciación antes de que comience el bucle del juego
+
+120
+00:05:07,120 --> 00:05:14,400
+así que ahora sólo tenemos que escribir el nombre de la fuente aquí
+
+122
+00:05:12,720 --> 00:05:18,240
+luego elegimos un color de fuente
+
+126
+00:05:21,120 --> 00:05:25,720
+voy a elegir blanco
+
+128
+00:05:27,840 --> 00:05:32,560
+ok ahora vamos a dibujar algo de texto
+
+131
+00:05:34,880 --> 00:05:41,680
+y el primer parámetro es texto, y x e y
+
+133
+00:05:39,360 --> 00:05:45,520
+así que para el texto, será así
+
+137
+00:05:47,280 --> 00:05:52,960
+vamos a mostrar el número clave así...
+
+140
+00:05:55,759 --> 00:06:00,000
+ok esto tiene que ser "public"
+
+141
+00:06:02,800 --> 00:06:08,240
+y x e y
+
+142
+00:06:05,520 --> 00:06:09,520
+tal vez en algún lugar por aquí
+
+146
+00:06:14,160 --> 00:06:21,280
+ahora vamos a este GamePanel
+
+147
+00:06:17,120 --> 00:06:23,360
+e instanciemos la clase UI
+
+148
+00:06:21,280 --> 00:06:25,199
+en algún lugar por aquí
+
+153
+00:06:29,520 --> 00:06:34,400
+y pasamos este GamePanel
+
+155
+00:06:34,400 --> 00:06:45,600
+luego dentro de este paintComponent, llamamos al método draw
+
+158
+00:06:41,840 --> 00:06:50,400
+ya que normalmente la interfaz de usuario se sitúa en la parte superior de las capas
+
+160
+00:06:46,880 --> 00:06:54,479
+por lo que la interfaz de usuario no debe ser ocultado por los azulejos o jugador, ¿verdad?
+
+161
+00:06:50,400 --> 00:06:58,319
+así que lo llamamos después de este jugador
+
+166
+00:07:04,000 --> 00:07:07,199
+Ok, comprobemos esto
+
+168
+00:07:11,199 --> 00:07:18,000
+así se muestra el texto
+
+169
+00:07:13,840 --> 00:07:19,440
+pero aquí hay un problema 
+
+170
+00:07:18,000 --> 00:07:26,280
+aunque tecleamos x50 y y50, pero esto no lo parece
+
+173
+00:07:23,680 --> 00:07:33,440
+esto es porque la coordenada y de este drawString funciona de una manera un poco diferente 
+
+175
+00:07:29,280 --> 00:07:40,160
+normalmente en Java, cuando estableces y, indica la parte superior de la imagen u objeto
+
+178
+00:07:38,560 --> 00:07:44,080
+pero por alguna razón 
+
+179
+00:07:40,160 --> 00:07:49,199
+cuando usas drawString la y no indica la parte superior sino la línea de base del texto
+
+181
+00:07:48,160 --> 00:07:53,039
+
+
+182
+00:07:49,199 --> 00:07:59,120
+entonces drawImages y y drawString's y indican diferentes puntos
+
+185
+00:07:56,400 --> 00:08:02,479
+esto es realmente confuso
+
+186
+00:07:59,120 --> 00:08:08,160
+si indica un fondo del objeto, todavía es relativamente fácil de manejar
+
+188
+00:08:05,919 --> 00:08:13,599
+pero como se puede ver en esta imagen, la línea de base no es el fondo
+
+190
+00:08:10,879 --> 00:08:17,840
+es en algún lugar ligeramente superior a la parte inferior
+
+192
+00:08:14,800 --> 00:08:24,840
+no se por que funciona asi pero tristemente asi es como funciona
+
+194
+00:08:21,759 --> 00:08:27,919
+así que tenemos que tener esto en cuenta y ajustar la posición
+
+196
+00:08:26,479 --> 00:08:29,360
+
+
+197
+00:08:27,919 --> 00:08:33,360
+así que tal vez quiero mover esto a la izquierda un poco
+
+200
+00:08:33,360 --> 00:08:38,240
+así que creo que voy a disminuir esta x un poco
+
+202
+00:08:38,959 --> 00:08:44,720
+Si, creo que esto me gusta mas
+
+203
+00:08:41,919 --> 00:08:50,080
+pero aún así parece demasiado genérico 
+
+205
+00:08:46,959 --> 00:08:55,680
+así que creo que sería mejor si mostramos una imagen clave en lugar de este texto
+
+207
+00:08:53,600 --> 00:09:04,880
+y podemos obtenerla de esta clase OBJ_Key
+
+211
+00:09:01,279 --> 00:09:09,040
+pero de nuevo, no instancies la clase aquí
+
+213
+00:09:06,080 --> 00:09:13,440
+en su lugar, vamos a declarar un BufferedImage aquí
+
+217
+00:09:17,279 --> 00:09:23,200
+y luego instanciamos la clase clave aquí
+
+224
+00:09:34,959 --> 00:09:40,640
+y obtenemos la imagen de la llave
+
+227
+00:09:43,040 --> 00:09:53,680
+para que podamos preparar esta imagen antes de que comience el bucle del juego
+
+229
+00:09:49,360 --> 00:09:56,480
+entonces vamos a dibujar esta imagen
+
+232
+00:09:58,959 --> 00:10:07,279
+y x e y serán algo así como la mitad del tamaño del azulejo
+
+234
+00:10:08,720 --> 00:10:11,600
+algo como esto
+
+236
+00:10:16,160 --> 00:10:21,440
+por lo que significa 24 píxeles
+
+241
+00:10:30,079 --> 00:10:35,519
+Después de esta imagen añadimos un texto
+
+242
+00:10:33,839 --> 00:10:42,560
+no necesitamos esto sino algo como esto
+
+245
+00:10:40,160 --> 00:10:49,440
+entonces x es 24+48, o sea 72
+
+250
+00:10:51,839 --> 00:10:57,600
+añadimos 2 píxeles de espacio
+
+251
+00:10:55,040 --> 00:11:03,440
+e Y es... no sé, comprobémoslo
+
+254
+00:11:03,440 --> 00:11:06,600
+así que un poco más bajo
+
+255
+00:11:05,440 --> 00:11:10,320
+tal vez 65 o algo así
+
+257
+00:11:11,760 --> 00:11:16,800
+Sí, algo así
+
+260
+00:11:22,320 --> 00:11:25,200
+Ok, se ve bien
+
+262
+00:11:25,200 --> 00:11:32,959
+ahora vamos a mostrar algún mensaje de notificación
+
+263
+00:11:28,640 --> 00:11:40,000
+cuando cojamos estas llaves o botas o cuando intentemos abrir la puerta
+
+266
+00:11:36,800 --> 00:11:45,519
+así que dentro de esta clase UI, creamos algunas variables
+
+272
+00:11:51,279 --> 00:11:54,800
+el valor por defecto es falso
+
+276
+00:12:03,200 --> 00:12:08,959
+en blanco por ahora
+
+277
+00:12:05,279 --> 00:12:10,959
+y luego crear un método
+
+281
+00:12:15,360 --> 00:12:18,720
+obtenemos una Cadena
+
+292
+00:12:32,880 --> 00:12:38,560
+y ahora vamos a esta clase Player
+
+295
+00:12:38,560 --> 00:12:42,880
+cuando tengamos la llave...
+
+296
+00:12:41,360 --> 00:12:46,160
+ya no necesitamos este System.out.println
+
+299
+00:12:46,160 --> 00:12:54,160
+así que cuando obtengamos la clave, llamamos a este método showMessage
+
+302
+00:12:52,720 --> 00:12:58,800
+y le pasamos un texto... lo que queramos mostrar
+
+305
+00:12:57,760 --> 00:13:03,440
+algo como "¡tienes una llave!"
+
+309
+00:13:06,800 --> 00:13:19,360
+Así que este método recibe el texto, y lo pone en esta cadena de mensaje
+
+313
+00:13:15,440 --> 00:13:22,800
+y cambia este messageOn a "true"
+
+314
+00:13:19,360 --> 00:13:28,639
+ahora dentro de este método draw, creamos una sentencia if
+
+320
+00:13:38,079 --> 00:13:42,480
+entonces dibujamos el mensaje
+
+326
+00:13:51,839 --> 00:13:58,720
+así que quiero mostrarlo en algún lugar por aquí
+
+331
+00:14:02,480 --> 00:14:07,360
+medio tileSize o algo así
+
+332
+00:14:05,040 --> 00:14:13,760
+pero básicamente se puede escribir cualquier número por lo que es totalmente de usted
+
+339
+00:14:21,040 --> 00:14:26,079
+5 baldosas hasta el fondo
+
+340
+00:14:22,880 --> 00:14:31,120
+y también tal vez reducir el tamaño de la fuente un poco
+
+342
+00:14:27,519 --> 00:14:35,279
+así que podemos crear otra fuente y cambiar el tamaño
+
+344
+00:14:33,199 --> 00:14:45,760
+pero si una fuente ya está creada, podemos cambiar el tamaño escribiendo así
+
+352
+00:14:49,360 --> 00:14:54,000
+así obtenemos la fuente actual y luego...
+
+356
+00:14:55,680 --> 00:15:04,880
+y aquí escribimos número y acepta "float" así que añadimos "f"
+
+360
+00:15:05,199 --> 00:15:09,800
+bien vamos a comprobar esto
+
+363
+00:15:17,680 --> 00:15:25,760
+el mensaje se muestra pero ahora mismo, se mantiene en la pantalla
+
+365
+00:15:24,800 --> 00:15:33,360
+así que creo que sería mejor si el mensaje desaparece después de un tiempo
+
+368
+00:15:31,360 --> 00:15:37,279
+así que vamos a hacer eso
+
+369
+00:15:33,360 --> 00:15:37,279
+vamos a crear otra variable
+
+373
+00:15:43,519 --> 00:15:48,560
+y empezaremos desde 0
+
+375
+00:15:48,560 --> 00:15:55,839
+así que cada vez que se llama a este método de dibujo, aumentamos el contador
+
+384
+00:16:06,399 --> 00:16:15,040
+cuando el contador alcanza un cierto número, dejamos de mostrar el texto
+
+394
+00:16:26,000 --> 00:16:33,360
+esto significa 120 frames 
+
+395
+00:16:30,240 --> 00:16:37,920
+y esto son 60 fotogramas por segundo, lo que significa 2 segundos
+
+397
+00:16:34,320 --> 00:16:38,959
+así que el texto desaparece después de 2 segundos
+
+399
+00:16:38,959 --> 00:16:42,000
+así que vamos a comprobar esto
+
+400
+00:16:45,470 --> 00:16:48,690
+[Music]
+
+402
+00:16:50,800 --> 00:16:56,000
+Sí, se ve bien
+
+403
+00:16:52,720 --> 00:16:59,279
+vamos a añadir algo más de texto
+
+404
+00:16:56,000 --> 00:17:01,360
+al abrir la puerta...
+
+407
+00:17:03,440 --> 00:17:10,640
+"¡Has abierto la puerta!"
+
+412
+00:17:13,760 --> 00:17:21,520
+además, cuando no tienes llave...
+
+413
+00:17:17,199 --> 00:17:21,520
+ok vamos a crear "else"
+
+414
+00:17:23,919 --> 00:17:28,640
+"¡Necesitas una llave!"
+
+415
+00:17:30,400 --> 00:17:38,720
+y cuando consigas las botas... "¡Acelera!"
+
+417
+00:17:38,799 --> 00:17:41,919
+ok vamos a comprobarlo
+
+427
+00:18:12,720 --> 00:18:18,720
+de acuerdo, se ve bien 
+
+428
+00:18:15,280 --> 00:18:21,520
+así que ahora sólo tenemos que cuidar de este cofre del tesoro
+
+431
+00:18:22,880 --> 00:18:28,480
+así que vamos a crear el caso final
+
+436
+00:18:39,360 --> 00:18:45,919
+así que si consigues este cofre del tesoro, ganas el juego
+
+438
+00:18:44,640 --> 00:18:49,039
+así que queremos parar el juego
+
+442
+00:18:50,240 --> 00:18:52,520
+vamos a la clase UI 
+
+443
+00:18:53,280 --> 00:19:02,600
+y en esta clase UI, necesitamos decirle al programa que el juego ha terminado
+
+452
+00:19:09,039 --> 00:19:15,039
+y por defecto es false
+
+453
+00:19:11,919 --> 00:19:17,600
+y volver a esta clase Player
+
+454
+00:19:15,039 --> 00:19:22,000
+y cuando consigas este cofre del tesoro...
+
+459
+00:19:25,919 --> 00:19:33,039
+y también vamos a parar la música
+
+461
+00:19:33,520 --> 00:19:41,679
+y reproduciremos un efecto de sonido
+
+466
+00:19:46,000 --> 00:19:50,960
+así que este... "fanfarria"
+
+469
+00:19:50,960 --> 00:19:54,559
+así que el índice es 4
+
+470
+00:19:55,200 --> 00:20:00,240
+no jugadorSE
+
+471
+00:19:57,760 --> 00:20:02,799
+playSE
+
+473
+00:20:02,799 --> 00:20:08,559
+no olvidemos "romper
+
+475
+00:20:08,559 --> 00:20:16,559
+en esta clase UI, comprobamos si el juego ha terminado o no
+
+483
+00:20:24,240 --> 00:20:28,480
+entonces hacemos algo
+
+485
+00:20:29,280 --> 00:20:35,840
+así que ponemos todo lo demás en este "else"
+
+487
+00:20:37,280 --> 00:20:47,440
+Bien, vamos a mostrar un mensaje de felicitación
+
+489
+00:20:44,240 --> 00:20:52,799
+y queremos mostrar este mensaje alrededor del centro de la pantalla
+
+491
+00:20:50,559 --> 00:20:59,120
+podemos averiguar las coordenadas del centro escribiendo así
+
+500
+00:21:14,480 --> 00:21:25,120
+pero esto no funciona porque, esto significa que el texto comienza desde aquí
+
+504
+00:21:22,640 --> 00:21:33,039
+por lo que el texto se mostrará en la parte derecha de la pantalla
+
+507
+00:21:29,120 --> 00:21:36,640
+así que tenemos que hacer un pequeño ajuste
+
+508
+00:21:33,039 --> 00:21:42,799
+primero, averiguamos la longitud del texto que vamos a mostrar
+
+510
+00:21:39,440 --> 00:21:44,400
+así que déjame crear algunas variables más
+
+519
+00:22:03,280 --> 00:22:07,600
+así
+
+521
+00:22:07,600 --> 00:22:14,320
+copiemos también estas dos líneas
+
+523
+00:22:15,440 --> 00:22:23,919
+necesitamos establecer una fuente y un color de fuente
+
+525
+00:22:19,600 --> 00:22:23,919
+e introducimos un texto
+
+527
+00:22:25,280 --> 00:22:34,000
+"¡Has encontrado el tesoro!"
+
+528
+00:22:30,720 --> 00:22:38,080
+ahora vamos a comprobar la longitud de este texto
+
+530
+00:22:36,080 --> 00:22:39,679
+para ello...
+
+543
+00:22:58,880 --> 00:23:04,559
+y aquí, primero vamos a pasar este texto
+
+547
+00:23:11,360 --> 00:23:17,600
+y el contexto es g2
+
+552
+00:23:21,039 --> 00:23:34,559
+parece un poco complicado pero básicamente devuelve la longitud de este texto
+
+556
+00:23:30,720 --> 00:23:46,640
+y ahora restamos... la mitad de la longitud de este texto
+
+559
+00:23:43,600 --> 00:23:51,760
+así el texto estará alineado al centro
+
+562
+00:23:51,760 --> 00:23:57,200
+vamos a ajustar también las coordenadas y
+
+563
+00:23:54,799 --> 00:24:02,559
+porque el personaje del jugador se muestra en el centro
+
+565
+00:23:59,760 --> 00:24:06,720
+y no quiero ocultarlo con el texto
+
+567
+00:24:03,679 --> 00:24:10,880
+así que disminuimos la Y un poco
+
+572
+00:24:18,799 --> 00:24:26,159
+podemos ajustarlo más tarde 
+
+573
+00:24:21,760 --> 00:24:27,120
+para que por fin podamos tensar la cuerda
+
+577
+00:24:30,000 --> 00:24:36,799
+el primero es texto y x e y
+
+580
+00:24:38,000 --> 00:24:46,640
+vamos a mostrar una línea más, un mensaje del tipo "felicidades
+
+582
+00:24:44,159 --> 00:24:51,279
+y para este creo que vamos a utilizar una fuente un poco más grande
+
+587
+00:24:52,559 --> 00:24:58,320
+primero vamos a declarar otra fuente
+
+591
+00:25:01,279 --> 00:25:05,200
+y vamos a usar no PLAIN sino BOLD
+
+593
+00:25:05,200 --> 00:25:14,880
+Voy a llamar a esto "80B" para que sea fácil de entender lo que es
+
+596
+00:25:12,799 --> 00:25:17,440
+e instanciar la fuente
+
+599
+00:25:19,919 --> 00:25:26,559
+el tamaño es 80 y el estilo es NEGRITA
+
+606
+00:25:34,320 --> 00:25:42,080
+después de mostrar este "¡Has encontrado el tesoro!"...
+
+608
+00:25:38,640 --> 00:25:43,919
+ok copiemos esto
+
+609
+00:25:42,080 --> 00:25:49,039
+así que cámbialo a arial_80B
+
+613
+00:25:49,039 --> 00:25:56,880
+y cambiemos también el color de la fuente
+
+616
+00:25:56,880 --> 00:26:04,640
+Creo que podemos copiar esto y pegarlo
+
+619
+00:26:01,919 --> 00:26:10,720
+el texto es "¡Felicidades!"
+
+621
+00:26:07,600 --> 00:26:13,919
+y obtenemos la longitud del texto
+
+622
+00:26:10,720 --> 00:26:17,600
+x es la misma y sólo tenemos que ajustar esta y
+
+625
+00:26:17,600 --> 00:26:23,400
+así que esta vez, vamos a mostrar un poco más bajo que el centro
+
+627
+00:26:24,720 --> 00:26:30,480
+así que no menos sino más... probablemente 2 baldosas
+
+630
+00:26:30,799 --> 00:26:38,720
+y finalmente, vamos a parar el juego
+
+632
+00:26:35,840 --> 00:26:46,799
+así que después de dibujar estas cadenas, vamos a llamar a este gameThread y poner "null"
+
+637
+00:26:47,120 --> 00:26:51,039
+esto detiene el hilo
+
+639
+00:26:53,120 --> 00:26:57,039
+hemos terminado
+
+640
+00:26:54,400 --> 00:26:57,039
+vamos a comprobar
+
+651
+00:27:29,360 --> 00:27:34,559
+todo funciona bien
+
+652
+00:27:31,360 --> 00:27:39,520
+encontramos tres llaves, abrimos tres puertas y encontramos el tesoro
+
+654
+00:27:36,799 --> 00:27:44,559
+así que básicamente esto es todo, pero quiero añadir un toque final
+
+656
+00:27:42,880 --> 00:27:51,760
+lo que vamos a hacer es, mostrar el tiempo de reproducción en la pantalla
+
+658
+00:27:48,720 --> 00:27:54,480
+para que puedas ver cuánto tiempo se tardó en encontrar el tesoro
+
+661
+00:27:54,480 --> 00:27:58,159
+así que dentro de esta clase UI...
+
+665
+00:28:03,120 --> 00:28:10,240
+usamos double para poder mostrar decimales también
+
+667
+00:28:07,440 --> 00:28:13,039
+creo que es más interesante
+
+669
+00:28:13,039 --> 00:28:18,960
+en algún lugar por aquí, creo
+
+671
+00:28:18,960 --> 00:28:34,720
+vamos a añadir 1/60 segundos a este playTime
+
+675
+00:28:32,080 --> 00:28:37,799
+este método draw es llamado 60 veces por segundo
+
+677
+00:28:36,159 --> 00:28:43,039
+así que añadimos 1/60 segundos en cada bucle
+
+680
+00:28:43,039 --> 00:28:48,799
+entonces vamos a mostrar la hora en la pantalla
+
+687
+00:29:01,200 --> 00:29:07,440
+Creo que quiero mostrarlo por aquí así que
+
+690
+00:29:09,760 --> 00:29:20,240
+y el ancho de la pantalla es de 16 azulejos así que... ¿menos 5?
+
+692
+00:29:17,600 --> 00:29:22,000
+11 azulejos a la derecha
+
+694
+00:29:22,000 --> 00:29:30,480
+vamos a utilizar las mismas coordenadas y que esta clave
+
+697
+00:29:30,480 --> 00:29:36,640
+algo como esto
+
+698
+00:29:33,679 --> 00:29:37,919
+Vale, comprobemos esto
+
+702
+00:29:40,640 --> 00:29:44,559
+así que el tiempo de reproducción se muestra
+
+704
+00:29:44,559 --> 00:29:49,840
+pero tantos decimales
+
+705
+00:29:46,480 --> 00:29:52,840
+esto no tiene buena pinta
+
+706
+00:29:49,840 --> 00:29:57,600
+así que vamos a formatear este número un poco
+
+707
+00:29:52,840 --> 00:30:02,320
+y para formatear estos valores decimales, hay una bonita clase
+
+714
+00:30:09,600 --> 00:30:16,960
+así que vamos a utilizar esta clase para formatear
+
+717
+00:30:16,960 --> 00:30:23,840
+y dentro de este constructor podemos escribir así
+
+721
+00:30:27,760 --> 00:30:37,679
+esto significa, que mostramos hasta dos decimales
+
+724
+00:30:34,960 --> 00:30:40,640
+así que si quieres mostrar tres, entonces puedes escribir así
+
+726
+00:30:41,120 --> 00:30:45,120
+y vamos a editar esto
+
+727
+00:30:45,520 --> 00:30:56,559
+no solo playtime sino que usamos este dFormat
+
+734
+00:31:00,320 --> 00:31:06,060
+así que vamos a comprobar esto
+
+735
+00:31:05,200 --> 00:31:07,919
+de acuerdo
+
+737
+00:31:07,919 --> 00:31:19,840
+y finalmente, quiero mostrar tu tiempo de juego cuando termines el juego
+
+740
+00:31:16,320 --> 00:31:19,840
+así que vamos a copiar
+
+750
+00:31:40,399 --> 00:31:51,279
+el lugar es... por aquí
+
+758
+00:31:59,760 --> 00:32:05,600
+mas 3 baldosas supongo
+
+759
+00:32:02,960 --> 00:32:05,600
+quizás 4
+
+761
+00:32:08,960 --> 00:32:15,840
+supongo que esto es todo
+
+762
+00:32:11,919 --> 00:32:15,840
+Ok, vamos a comprobar
+
+764
+00:32:17,919 --> 00:32:23,349
+cuanto tiempo va a llevar
+
+765
+00:32:20,040 --> 00:32:23,349
+[Music]
+
+766
+00:32:26,000 --> 00:32:30,799
+creo que esta es la ruta más rápida 
+
+767
+00:32:28,640 --> 00:32:33,710
+por lo que en primer lugar obtener las botas
+
+768
+00:32:30,799 --> 00:32:39,600
+y obtienes otras dos llaves
+
+769
+00:32:33,710 --> 00:32:40,840
+[Music]
+
+772
+00:32:42,399 --> 00:32:45,039
+oh vamos
+
+773
+00:32:45,200 --> 00:32:48,240
+estoy perdiendo tiempo
+
+775
+00:32:54,320 --> 00:33:01,760
+Ok, entonces mi tiempo fue de 35.93 segundos
+
+778
+00:33:00,399 --> 00:33:03,360
+bien
+
+781
+00:33:05,360 --> 00:33:11,640
+déjame intentarlo de nuevo 
+
+782
+00:33:08,320 --> 00:33:11,640
+creo que puedo hacerlo mejor
+
+783
+00:33:13,310 --> 00:33:16,520
+[Música]
+
+784
+00:33:19,540 --> 00:33:31,519
+[Música]
+
+786
+00:33:33,120 --> 00:33:35,679
+de acuerdo
+
+787
+00:33:33,520 --> 00:33:37,840
+[Música]
+
+788
+00:33:35,679 --> 00:33:40,960
+se ve bien
+
+789
+00:33:37,840 --> 00:33:40,960
+ok se ve bien
+
+790
+00:33:41,840 --> 00:33:46,360
+oh
+
+791
+00:33:42,960 --> 00:33:51,120
+mucho mejor, 31.70 segundos
+
+793
+00:33:49,279 --> 00:33:53,200
+Bien, eso es todo.
+
+794
+00:33:51,120 --> 00:33:57,679
+sabes que el juego es bastante sencillo
+
+796
+00:33:55,279 --> 00:34:03,679
+pero dependiendo de cómo construyas tu mapa o juego
+
+799
+00:34:00,720 --> 00:34:09,679
+podrías disfrutar de una especie de intenso juego de ataque contrarreloj o algo así
+
+802
+00:34:07,120 --> 00:34:14,879
+de todos modos, este es el final de la primera mitad de este tutorial de juegos Java 2D
+
+804
+00:34:12,639 --> 00:34:17,679
+muchas gracias por mirar 
+
+805
+00:34:14,879 --> 00:34:20,159
+en la segunda mitad añadiremos muchos más elementos
+
+806
+00:34:17,679 --> 00:34:24,639
+como NPCs y monstruos y la batalla...
+
+808
+00:34:22,399 --> 00:34:28,960
+y cambiar esto en RPG de acción
+
+810
+00:34:26,399 --> 00:34:32,159
+asi que si estas interesado por favor sigue mirando
+
+812
+00:34:30,159 --> 00:34:33,839
+prometo que será muy bueno
+
+813
+00:34:34,159 --> 00:34:36,079
+bien eso es todo por ahora
+
+814
+00:34:35,839 --> 00:34:41,079
+gracias de nuevo y hasta la proxima
+
+815
+00:34:44,230 --> 00:34:50,879
+[Music]

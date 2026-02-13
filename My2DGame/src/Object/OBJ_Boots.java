@@ -5,30 +5,28 @@
 package Object;
 
 import Enity.Entity;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-
 import Main.GamePanel;
 
 /**
  *
  * @author dieu hoang
  */
-//public class OBJ_Boots extends SuperObject {
+// public class OBJ_Boots extends SuperObject {
 public class OBJ_Boots extends Entity {
 
-//  GamePanel gp;
+    // GamePanel gp;
     public OBJ_Boots(GamePanel gp) {
         super(gp);
         name = "Boots";
         down1 = setup("/res/Object/boots", gp.tileSize, gp.tileSize);
-//    this.gp = gp;
-//    try {
-//      image = ImageIO.read(getClass().getResourceAsStream("/res/Object/boots.png"));
-//      image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-//    } catch (IOException e) {
-//      // TODO: handle exception
-//      e.printStackTrace();
-//    }
+        // this.gp = gp;
+        // try {
+        // image =
+        // ImageIO.read(getClass().getResourceAsStream("/res/Object/boots.png"));
+        // image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        // } catch (IOException e) {
+        // // TODO: handle exception
+        // e.printStackTrace();
+        // }
     }
 }

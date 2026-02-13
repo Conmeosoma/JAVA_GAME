@@ -1,0 +1,621 @@
+1
+00:00:00,320 --> 00:00:05,040
+hi guys, this is RyiSnow
+
+2
+00:00:02,399 --> 00:00:09,440
+last time, we implemented object collision
+
+4
+00:00:06,480 --> 00:00:12,639
+and now we can pick up keys and open doors
+
+7
+00:00:12,639 --> 00:00:18,720
+in this video we will create one more item
+
+8
+00:00:15,280 --> 00:00:22,800
+then implement music and sound effect
+
+10
+00:00:19,760 --> 00:00:28,000
+so we are very close to the end of the first half of this tutorial
+
+12
+00:00:25,599 --> 00:00:33,040
+so first, let's create another object class
+
+14
+00:00:29,840 --> 00:00:39,680
+inside of this object package, create a class
+
+16
+00:00:35,920 --> 00:00:42,160
+and name this OBJ_Boots
+
+21
+00:00:48,879 --> 00:00:59,840
+and we can borrow the format from other object class
+
+23
+00:00:56,160 --> 00:00:59,840
+so like this one
+
+25
+00:01:01,039 --> 00:01:03,760
+and change the name
+
+27
+00:01:09,600 --> 00:01:23,439
+and for the image we use this "boots.png" that we copied in part 7
+
+32
+00:01:25,759 --> 00:01:33,920
+okay now go to the AssetSetter
+
+34
+00:01:30,960 --> 00:01:35,439
+and instantiate this boots
+
+36
+00:01:35,439 --> 00:01:44,560
+so copy this and change the index
+
+40
+00:01:46,479 --> 00:01:51,040
+okay so the placement...
+
+42
+00:01:51,040 --> 00:01:56,560
+i want to place the boots around here
+
+45
+00:01:56,560 --> 00:02:03,840
+so column 37 and row 42
+
+47
+00:02:01,759 --> 00:02:09,119
+alright then go to this Player class
+
+49
+00:02:06,159 --> 00:02:11,440
+and we set the object's reaction
+
+50
+00:02:09,119 --> 00:02:14,480
+add another case
+
+54
+00:02:18,560 --> 00:02:26,239
+since this is boots, let's increase the player's movement speed
+
+62
+00:02:34,879 --> 00:02:39,760
+and delete this object
+
+63
+00:02:45,120 --> 00:02:48,239
+okay let's check this
+
+65
+00:02:52,720 --> 00:02:59,519
+got the key and the boots
+
+66
+00:02:56,560 --> 00:03:03,400
+get the boots and the speed up
+
+67
+00:02:59,519 --> 00:03:03,400
+now we can move faster
+
+68
+00:03:06,400 --> 00:03:15,480
+you can make it even faster by changing this number like this
+
+72
+00:03:24,400 --> 00:03:31,599
+but you know moving faster is not always a good idea
+
+74
+00:03:29,200 --> 00:03:33,840
+so as you can see
+
+75
+00:03:31,599 --> 00:03:37,042
+if player moves too fast then the control becomes very difficult
+
+78
+00:03:42,239 --> 00:03:47,840
+so 4 is definitely too fast 
+
+79
+00:03:45,280 --> 00:03:53,519
+so i'm gonna set this 2 or maybe 1 is enough
+
+81
+00:03:50,480 --> 00:04:02,879
+also as an alternative idea, maybe you can create an item which makes the player slower
+
+84
+00:03:59,120 --> 00:04:05,120
+like a penalty item or something 
+
+85
+00:04:02,879 --> 00:04:12,000
+it's all up to you so i hope you come up with some interesting ideas
+
+88
+00:04:08,239 --> 00:04:17,440
+okay now implementing music and sound effect
+
+90
+00:04:13,599 --> 00:04:23,759
+first, we create another package in the res folder
+
+92
+00:04:20,880 --> 00:04:27,800
+and i'm gonna name this "sound"
+
+95
+00:04:28,320 --> 00:04:34,479
+and here i have prepared some sound files
+
+97
+00:04:32,639 --> 00:04:39,040
+and these are all WAV file
+
+99
+00:04:36,160 --> 00:04:42,960
+unfortunately the default java library cannot load mp3
+
+100
+00:04:39,040 --> 00:04:46,000
+so make sure to prepare the sound as WAV file
+
+102
+00:04:46,000 --> 00:04:51,120
+it's a bit inconvenient but that's how it is
+
+104
+00:04:50,320 --> 00:04:56,479
+this one is music
+
+106
+00:04:52,800 --> 00:05:00,280
+it's kind of a theme song of this game 
+
+107
+00:04:56,479 --> 00:05:00,280
+i made this with beatbox
+
+109
+00:05:11,680 --> 00:05:21,759
+and these are sound effects so copy these files to this package
+
+113
+00:05:23,440 --> 00:05:30,880
+and create a class in the main package
+
+117
+00:05:31,360 --> 00:05:38,400
+and name this Sound
+
+120
+00:05:36,000 --> 00:05:40,720
+okay first, we declare this Clip
+
+122
+00:05:41,520 --> 00:05:47,680
+we use this to open audio files
+
+123
+00:05:44,960 --> 00:05:49,039
+and import
+
+124
+00:05:47,680 --> 00:05:54,560
+and then URL
+
+126
+00:05:51,120 --> 00:06:00,160
+i'm gonna name this soundURL and use this as an alley
+
+130
+00:06:01,520 --> 00:06:07,319
+i think 30 is enough
+
+132
+00:06:08,639 --> 00:06:17,759
+we use this URL to store the file path of these sound files
+
+135
+00:06:15,520 --> 00:06:21,199
+i'll show you how it's done
+
+136
+00:06:17,759 --> 00:06:23,759
+okay let's create a constructor 
+
+138
+00:06:24,880 --> 00:06:34,080
+and here we use this URL array
+
+140
+00:06:30,960 --> 00:06:37,440
+and get the file path
+
+144
+00:06:42,400 --> 00:06:46,800
+so here we type a file pass
+
+145
+00:06:45,039 --> 00:06:52,240
+so for this one...
+
+156
+00:07:07,919 --> 00:07:13,520
+and the second one is...
+
+164
+00:07:29,680 --> 00:07:35,199
+so we got these file paths 
+
+165
+00:07:32,400 --> 00:07:38,400
+and now we create four methods
+
+166
+00:07:35,199 --> 00:07:41,440
+and the first one is setFile
+
+174
+00:08:01,120 --> 00:08:06,400
+alright first, setFile method
+
+176
+00:08:04,479 --> 00:08:12,280
+we get integer as an argument
+
+178
+00:08:08,720 --> 00:08:12,280
+and try and catch
+
+180
+00:08:19,120 --> 00:08:29,520
+and here, we use a class called AudioInputStream
+
+192
+00:08:39,519 --> 00:08:44,959
+and import
+
+193
+00:08:41,839 --> 00:08:48,560
+and to this get AudioInputStream, we pass an URL
+
+198
+00:08:52,320 --> 00:08:59,519
+and we get the index of this sound URL array from here
+
+210
+00:09:19,760 --> 00:09:28,480
+so this is like a format to open an audio file in Java
+
+212
+00:09:25,600 --> 00:09:30,560
+so this setFile method is done
+
+214
+00:09:30,560 --> 00:09:40,399
+so whenever we want to play a sound file we call display method
+
+216
+00:09:36,800 --> 00:09:42,240
+and what we're gonna do here is...
+
+219
+00:09:43,279 --> 00:09:47,360
+and for this loop...
+
+224
+00:09:56,720 --> 00:10:06,800
+and when we want to stop the sound, we call this method
+
+226
+00:10:01,760 --> 00:10:06,800
+and here we type clip.stop
+
+228
+00:10:08,000 --> 00:10:13,839
+that's all about this Sound class
+
+230
+00:10:13,839 --> 00:10:18,640
+let's go to this GamePanel class
+
+232
+00:10:18,640 --> 00:10:22,320
+and instantiate this Sound class
+
+236
+00:10:30,959 --> 00:10:36,880
+okay so let's instantiate the Sound class here
+
+242
+00:10:42,720 --> 00:10:48,399
+and we don't need to pass anything
+
+243
+00:10:45,519 --> 00:10:50,720
+i'm gonna move this gameThread here
+
+245
+00:10:50,800 --> 00:10:55,519
+yeah like this
+
+246
+00:10:52,880 --> 00:11:00,959
+and by the way, we created this worldWidth and worldHeight a long time ago
+
+248
+00:10:58,720 --> 00:11:03,839
+i thought we're gonna use this eventually
+
+249
+00:11:00,959 --> 00:11:12,959
+but come to think of it, i can't think of any situation that we use this
+
+252
+00:11:08,959 --> 00:11:15,839
+so you can delete this if you want
+
+253
+00:11:12,959 --> 00:11:18,720
+sorry about that
+
+254
+00:11:15,839 --> 00:11:20,079
+so we instantiated this Sound class
+
+256
+00:11:20,079 --> 00:11:26,240
+then create three methods in this GamePanel
+
+259
+00:11:26,240 --> 00:11:33,680
+maybe after this paintComponent
+
+260
+00:11:29,360 --> 00:11:36,000
+the first one is...
+
+264
+00:11:40,959 --> 00:11:50,880
+from here, first we're gonna call the setFile in the Sound class
+
+267
+00:11:50,959 --> 00:11:53,839
+yeah this one
+
+268
+00:11:54,240 --> 00:12:01,920
+and then call the play method
+
+272
+00:12:01,920 --> 00:12:07,680
+then call the loop method
+
+274
+00:12:05,680 --> 00:12:12,560
+so when we play music, first we set a file
+
+276
+00:12:10,399 --> 00:12:15,920
+then play and then loop
+
+277
+00:12:12,560 --> 00:12:18,959
+and the next method is...
+
+279
+00:12:21,440 --> 00:12:29,279
+and for this one we just call this stop method
+
+281
+00:12:26,720 --> 00:12:34,079
+and finally, playSE
+
+284
+00:12:34,079 --> 00:12:39,839
+and for this one too we get an integer
+
+285
+00:12:42,560 --> 00:12:52,480
+and okay here, first we call the setFile again
+
+287
+00:12:48,399 --> 00:12:54,000
+and pass this index of the array
+
+291
+00:12:57,680 --> 00:13:02,399
+for sound effects we don't call this loop
+
+292
+00:12:59,920 --> 00:13:10,320
+because usually sound effect is very short and we don't need to loop it
+
+296
+00:13:07,920 --> 00:13:12,880
+alright then let's play a music
+
+298
+00:13:12,959 --> 00:13:18,000
+so this one　"Blue Boy Adventure"
+
+301
+00:13:19,440 --> 00:13:31,680
+so we call this playMusic method from here maybe
+
+304
+00:13:29,760 --> 00:13:33,120
+around here
+
+308
+00:13:35,760 --> 00:13:44,399
+and we're gonna pass integer as an index
+
+310
+00:13:40,639 --> 00:13:50,079
+and since we want to play this song so the index is 0
+
+312
+00:13:48,639 --> 00:13:53,440
+so we pass 0 here
+
+315
+00:13:53,440 --> 00:14:05,680
+so this playMusic method receive 0
+
+316
+00:13:54,720 --> 00:14:00,839
+and pass 0 to this setFile
+
+318
+00:14:00,839 --> 00:14:09,760
+and this setFile put 0 in this soundURL
+
+321
+00:14:09,760 --> 00:14:13,160
+let's check
+
+322
+00:14:24,880 --> 00:14:33,510
+so now we can hear a background music
+
+324
+00:14:29,550 --> 00:14:33,510
+[Music]
+
+326
+00:14:34,720 --> 00:14:40,160
+and next let's play sound effect
+
+327
+00:14:38,720 --> 00:14:43,120
+so for example
+
+328
+00:14:40,160 --> 00:14:47,680
+in this Player class, we can play a sound effect when we get this key
+
+331
+00:14:47,839 --> 00:14:58,639
+so this time we call this playSE method
+
+335
+00:14:55,279 --> 00:15:02,079
+and index is this one
+
+336
+00:14:58,639 --> 00:15:08,000
+so this time we will play this coin sound
+
+338
+00:15:03,839 --> 00:15:14,399
+so the index is 1, so we pass 1 here
+
+340
+00:15:09,680 --> 00:15:14,399
+and for the door, let's copy this
+
+341
+00:15:14,560 --> 00:15:24,160
+door sound is this one, the door unlock sound
+
+343
+00:15:20,880 --> 00:15:24,160
+so we pass 3
+
+344
+00:15:24,639 --> 00:15:27,920
+and boots
+
+346
+00:15:29,279 --> 00:15:37,199
+for this one, we're gonna play this power up sound
+
+348
+00:15:34,320 --> 00:15:37,199
+so the index is 2
+
+350
+00:15:38,720 --> 00:15:43,519
+so play number 2 sound effect
+
+351
+00:15:44,639 --> 00:15:48,160
+okay let's check this
+
+353
+00:15:51,440 --> 00:15:54,920
+got the key
+
+354
+00:15:57,090 --> 00:16:06,160
+[Music]
+
+355
+00:16:03,600 --> 00:16:06,160
+speed up
+
+356
+00:16:06,880 --> 00:16:12,240
+okay let's open the door
+
+357
+00:16:08,280 --> 00:16:15,120
+[Music]
+
+358
+00:16:12,240 --> 00:16:15,120
+unlock the door
+
+359
+00:16:15,199 --> 00:16:18,320
+unlock the door
+
+360
+00:16:16,260 --> 00:16:19,600
+[Music]
+
+361
+00:16:18,320 --> 00:16:23,120
+yep
+
+362
+00:16:19,600 --> 00:16:22,320
+okay so it's working good 
+
+363
+00:16:23,120 --> 00:16:29,040
+so now we can play music and sound effect
+
+364
+00:16:26,320 --> 00:16:38,480
+and i think the next video will be the final episode of the first half of this tutorial series
+
+367
+00:16:34,560 --> 00:16:46,480
+we will implement on-screen UI and complete this little treasure hunting game
+
+371
+00:16:44,160 --> 00:16:58,959
+thanks for watching and until next time
+
+373
+00:16:49,140 --> 00:17:01,040
+[Music]
+
+

@@ -23,7 +23,7 @@ public class MON_GreenSlime extends Entity {
         attack = 5;
         defense = 0;
         exp = 2;
-        
+
         solidArea.x = 3;
         solidArea.y = 10;
         solidArea.width = 42;
@@ -138,10 +138,6 @@ public class MON_GreenSlime extends Entity {
     // PHẢN ỨNG KHI BỊ ĐÁNH - AI NÂNG CAO
     public void damageReaction() {
         actionLockCounter = 0;
-
-        // Tính khoảng cách đến player
-        int xDistance = Math.abs(World_X - gp.player.World_X);
-        int yDistance = Math.abs(World_Y - gp.player.World_Y);
 
         // NẾU HP CÒN NHIỀU HƠN 50% - PHẢN CÔNG
         if (life > maxLife * 0.5) {
