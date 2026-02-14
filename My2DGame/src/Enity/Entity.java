@@ -74,7 +74,7 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public Entity currentWeapon;
     public Entity currentShield;
     public Projectile projectile;
-    //ITEM
+    // ITEM
     public int value;
     public int attackValue;
     public int defenseValue;
@@ -176,23 +176,23 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
         int maxLife = 0;
         return maxLife;
     }
-    
-    public void generateParticle(Entity generator, Entity target){
+
+    public void generateParticle(Entity generator, Entity target) {
         Color color = generator.getParticleColor();
         int size = generator.getParticleSize();
         int speed = generator.getParticleSpeed();
         int maxLife = generator.getParticleMaxLife();
-        
-        Particle p1 = new Particle(gp, generator, color, size, speed, maxLife, -2, -1);
-        Particle p2 = new Particle(gp, generator, color, size, speed, maxLife, 2, -1);
-        Particle p3 = new Particle(gp, generator, color, size, speed, maxLife, -2, 1);
-        Particle p4 = new Particle(gp, generator, color, size, speed, maxLife, 2, 1);
+
+        Particle p1 = new Particle(gp, target, color, size, speed, maxLife, -2, -1);
+        Particle p2 = new Particle(gp, target, color, size, speed, maxLife, 2, -1);
+        Particle p3 = new Particle(gp, target, color, size, speed, maxLife, -2, 1);
+        Particle p4 = new Particle(gp, target, color, size, speed, maxLife, 2, 1);
         gp.particleList.add(p1);
         gp.particleList.add(p2);
         gp.particleList.add(p3);
         gp.particleList.add(p4);
     }
-    
+
     public void update() {
 
         setAction();
@@ -208,19 +208,17 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
         if (this.type == type_monster && contactPlayer == true) {
             if (gp.player.invincible == false) {
                 damagePlayer(attack);
-//                gp.playSE(6);
-//
-//                int damage = attack - gp.player.defense;
-//                if (damage < 0) {
-//                    damage = 0;
-//                }
-//                gp.player.life -= damage;
-//
+                // gp.playSE(6);
+                //
+                // int damage = attack - gp.player.defense;
+                // if (damage < 0) {
+                // damage = 0;
+                // }
+                // gp.player.life -= damage;
+                //
 
-            
-        
-        ////                gp.player.life -= 1;
-//                gp.player.invincible = true;
+                //// gp.player.life -= 1;
+                // gp.player.invincible = true;
             }
         }
 
@@ -278,7 +276,7 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
         }
         gp.player.life -= damage;
 
-//                gp.player.life -= 1;
+        // gp.player.life -= 1;
         gp.player.invincible = true;
     }
 

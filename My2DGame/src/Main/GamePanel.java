@@ -9,6 +9,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
+
 import javax.swing.JPanel;
 import Enity.Player;
 import Tile.TileManager;
@@ -24,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16; // kich thuoc o ban dau 16 * 16
     final int scale = 3; // ti le phong to 3 lan
     public final int tileSize = originalTileSize * scale; // kich thuoc o hien tai 48 * 48
-    public final int maxScreenCol = 16; // gioi han so cot cua man hinh
+    public final int maxScreenCol = 20; // gioi han so cot cua man hinh
     public final int maxScreenRow = 12; // gioi han so hang cua man hinh
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixel
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixel
@@ -32,6 +37,12 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
+    // FOR FULL SCREEN
+    int screenWidth2 = screenWidth;
+    int screenHeight2 = screenHeight;
+    BufferedImage tempScreen;
+    Graphics2D g2;
+    public boolean fullScreenOn = false;
 
     // FPS
     int FPS = 60;
@@ -64,6 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int characterState = 4;
+    public final int optionsState = 5;
 
     // PLAYER
     int playerX = 100;
@@ -85,6 +97,49 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setInteractiveTile();
         // playMusic(0);
         gameState = titleState;
+        tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+        g2 = (Graphics2D) tempScreen.getGraphics();
+        // Apply fullscreen only if enabled in settings
+        if (fullScreenOn) {
+            applyFullScreen();
+        }
+
+    }
+
+    public void setFullScreen() {
+        // GET LOCAL SCREEN SIZE
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        gd.setFullScreenWindow(Main.window);
+        // GET FULL SCREEN SIZE
+        screenWidth2 = Main.window.getWidth();
+        screenHeight2 = Main.window.getHeight();
+
+    }
+
+    public void applyFullScreen() {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+
+        if (fullScreenOn) {
+            // Enter full screen
+            Main.window.dispose();
+            Main.window.setUndecorated(true);
+            Main.window.setVisible(true);
+            gd.setFullScreenWindow(Main.window);
+            screenWidth2 = Main.window.getWidth();
+            screenHeight2 = Main.window.getHeight();
+        } else {
+            // Exit full screen
+            gd.setFullScreenWindow(null);
+            Main.window.dispose();
+            Main.window.setUndecorated(false);
+            Main.window.setVisible(true);
+            Main.window.setSize(screenWidth, screenHeight);
+            Main.window.setLocationRelativeTo(null);
+            screenWidth2 = screenWidth;
+            screenHeight2 = screenHeight;
+        }
     }
 
     public void startGameThread() {
@@ -92,38 +147,6 @@ public class GamePanel extends JPanel implements Runnable {
         gamThread.start();// bat dau thread
     }
 
-    // @Override // Cach 1: Sleep method
-    // public void run() {
-    // double drawInterval = 1000000000 / FPS; // thoi gian giua 2 lan ve lien tiep
-    // ( nano giay) 0.16666667 giay
-    // double nextDrawTime = System.nanoTime() + drawInterval; // thoi gian ve lan
-    // tiep theo
-    // // phuong thuc chay cua thread
-    // while (gamThread != null) {
-    // // long currentTime = System.nanoTime(); // 1000000000 nan giay = 1 giay
-    // // long currentTime2 = System.currentTimeMillis(); // 1000 miligiay = 1 giay
-    // // System.out.println("NanoTime: " + currentTime);
-    // // 1.Update: Update information such as character positions || Nâng cấp: Cập
-    // // nhật vị trí nhân vật
-    // updated(); // goi pt update
-    // // 2. Draw: Draw the screen with the updated information || Vẽ : Vẽ màn hình
-    // với
-    // // thông tin đã cập nhật
-    // repaint(); // goi phuong thuc repaint goi den paintComponent
-    // try {
-    // double remainingTime = nextDrawTime - System.nanoTime(); // tinh thoi gian
-    // con lai de dat ngu
-    // remainingTime = remainingTime / 1000000;// chuyen nanos sang milis
-    // if (remainingTime < 0) {
-    // remainingTime = 0; // neu thoi gian con lai am thi dat bang 0
-    // }
-    // Thread.sleep((long) (remainingTime)); // cho thread ngu trong phan thoi gian
-    // con lai
-    // nextDrawTime += drawInterval; // cap nhat thoi gian ve lan tiep theo
-    // } catch (Exception e) {
-    // }
-    // }
-    // }
     @Override // Cach 2: Delta/Accumulator method
     public void run() {
         double drawInterval = 1000000000 / FPS; // thoi gian giua 2 lan ve lien tiep
@@ -141,7 +164,8 @@ public class GamePanel extends JPanel implements Runnable {
             lastTime = currentTime; // cap nhat lai thoi gian cu thanh thoi gian moi
             if (delta >= 1) { // neu delta lon hon hoac bang 1 thi co the update va ve
                 updated();
-                repaint();
+                drawToTempScreen();
+                drawToScreen();
                 delta--;
                 drawCount++;
             }
@@ -198,8 +222,8 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                 }
             }
-            for (int i = 0; i < iTile.length; i++){
-                if (iTile[i] != null){
+            for (int i = 0; i < iTile.length; i++) {
+                if (iTile[i] != null) {
                     iTile[i].update();
                 }
             }
@@ -218,10 +242,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    public void paintComponent(Graphics g) { // Phuong thuc ve len panel
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-
+    public void drawToTempScreen() {
         // DEBUG
         long drawStart = 0; // bien luu thoi gian bat dau ve
         if (keyH.showDebugText == true) {
@@ -236,8 +257,8 @@ public class GamePanel extends JPanel implements Runnable {
             // TILE
             tileM.draw(g2);
             // INTERACTIVE TILE
-            for (int i = 0; i < iTile.length; i++){
-                if(iTile[i] != null){
+            for (int i = 0; i < iTile.length; i++) {
+                if (iTile[i] != null) {
                     iTile[i].draw(g2);
                 }
             }
@@ -268,7 +289,7 @@ public class GamePanel extends JPanel implements Runnable {
                     entityList.add(projectileList.get(i));
                 }
             }
-            
+
             for (int i = 0; i < particleList.size(); i++) {
                 if (particleList.get(i) != null) {
                     entityList.add(particleList.get(i));
@@ -312,14 +333,14 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         // DEBUG
-//        if (keyH.checkDrawTime == true) {
-//            long drawEnd = System.nanoTime(); // bien luu thoi gian ket thu ve
-//            long passed = drawEnd - drawStart; // thoi gian ve
-//            g2.setColor(Color.white);
-//            g2.drawString("Draw time: " + passed, 10, 400);
-//            System.out.println("Draw time: " + passed);
-//        }
-//        
+        // if (keyH.checkDrawTime == true) {
+        // long drawEnd = System.nanoTime(); // bien luu thoi gian ket thu ve
+        // long passed = drawEnd - drawStart; // thoi gian ve
+        // g2.setColor(Color.white);
+        // g2.drawString("Draw time: " + passed, 10, 400);
+        // System.out.println("Draw time: " + passed);
+        // }
+        //
         if (keyH.showDebugText == true) {
             long drawEnd = System.nanoTime(); // bien luu thoi gian ket thu ve
             long passed = drawEnd - drawStart; // thoi gian ve
@@ -341,9 +362,12 @@ public class GamePanel extends JPanel implements Runnable {
             g2.drawString("Draw time: " + passed, x, y);
             System.out.println("Draw time: " + passed);
         }
+    }
 
-        g2.dispose();// giai phong bo nho cho doi tuong g2
-
+    public void drawToScreen() {
+        Graphics g = getGraphics();
+        g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
+        g.dispose();
     }
 
     public void playMusic(int i) {
