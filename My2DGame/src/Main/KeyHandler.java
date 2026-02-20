@@ -52,8 +52,12 @@ public class KeyHandler implements KeyListener {
         } // CHARACTER STATE
         else if (gp.gameState == gp.characterState) {
             characterState(code);
-        } else if (gp.gameState == gp.optionsState) {
+        } // OPTIONS STATE
+        else if (gp.gameState == gp.optionsState) {
             optionsState(code);
+        } // GAME OVER STATE
+        else if (gp.gameState == gp.gameOverState) {
+            gameOverState(code);
         }
     }
 
@@ -283,6 +287,33 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_ENTER) {
             gp.player.selectItem();
+        }
+    }
+
+    public void gameOverState(int code) {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+            gp.ui.commandNum--;
+            if (gp.ui.commandNum < 0) {
+                gp.ui.commandNum = 1;
+            }
+            gp.playSE(9);
+        }
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+            gp.ui.commandNum++;
+            if (gp.ui.commandNum > 1) {
+                gp.ui.commandNum = 0;
+            }
+            gp.playSE(9);
+        }
+
+        if (code == KeyEvent.VK_ENTER) {
+            if (gp.ui.commandNum == 0) {
+                gp.gameState = gp.playState;
+                gp.retry();
+            } else if (gp.ui.commandNum == 1) {
+                gp.gameState = gp.titleState;
+                gp.restart();
+            }
         }
     }
 

@@ -137,8 +137,55 @@ public class UI {
             drawCharacterScreen();
             drawInventory();
         }
+
+        // OPTIONS STATE
         if (gp.gameState == gp.optionsState) {
             drawOptionsScreen();
+        }
+
+        // GAME OVER STATE
+        if (gp.gameState == gp.gameOverState) {
+            drawGameOverScreen();
+        }
+    }
+
+    public void drawGameOverScreen() {
+        g2.setColor(new Color(0, 0, 0, 150));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        int x;
+        int y;
+        String text;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110f));
+
+        text = "Game Over";
+        // Shadow
+        g2.setColor(Color.BLACK);
+        x = getXforCenteredText(text);
+        y = gp.tileSize * 4;
+        g2.drawString(text, x, y);
+
+        // Main
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x - 4, y - 4);
+
+        // Retry
+        g2.setFont(g2.getFont().deriveFont(50f));
+        text = "Retry";
+        x = getXforCenteredText(text);
+        y += gp.tileSize * 3;
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawString(">", x - 40, y);
+        }
+
+        // Back to the title screen
+        text = "Quit";
+        x = getXforCenteredText(text);
+        y += 100;
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawString(">", x - 40, y);
         }
     }
 
@@ -289,7 +336,7 @@ public class UI {
         g2.drawRect(textX, textY, 120, 24);
         int seVolumeWidth = 24 * gp.se.volumeScale;
         g2.fillRect(textX, textY, seVolumeWidth, 24);
-        
+
         gp.config.saveConfig();
     }
 
@@ -312,7 +359,7 @@ public class UI {
         g2.drawString("Options", textX, textY += gp.tileSize);
         textX = frameX + gp.tileSize * 6;
         textY = frameY + gp.tileSize * 2;
-        g2.drawString("ADWS/Arrow Keys", textX, textY += gp.tileSize);        
+        g2.drawString("ADWS/Arrow Keys", textX, textY += gp.tileSize);
         g2.drawString("Enter", textX, textY += gp.tileSize);
         g2.drawString("F", textX, textY += gp.tileSize);
         g2.drawString("C", textX, textY += gp.tileSize);
@@ -612,8 +659,8 @@ public class UI {
         g2.drawString(speechBubbleText, textX, textY);
 
         // Draw tail pointing down
-        int[] xPoints = { bubbleX + bubbleWidth / 2, bubbleX + bubbleWidth / 2 - 8, bubbleX + bubbleWidth / 2 + 8 };
-        int[] yPoints = { bubbleY + bubbleHeight, bubbleY + bubbleHeight + 12, bubbleY + bubbleHeight };
+        int[] xPoints = {bubbleX + bubbleWidth / 2, bubbleX + bubbleWidth / 2 - 8, bubbleX + bubbleWidth / 2 + 8};
+        int[] yPoints = {bubbleY + bubbleHeight, bubbleY + bubbleHeight + 12, bubbleY + bubbleHeight};
 
         g2.setColor(new Color(255, 255, 200, 240));
         g2.fillPolygon(xPoints, yPoints, 3);
@@ -660,22 +707,22 @@ public class UI {
         int valueX = frameX + frameWidth - 30;
 
         // NAMES và VALUES
-        String[] labels = { "Level", "Life", "Mana", "Strength", "Dexterity", "Attack", "Defense", "EXP", "Next Level",
-                "Coin",
-                "Weapon", "Shield" };
+        String[] labels = {"Level", "Life", "Mana", "Strength", "Dexterity", "Attack", "Defense", "EXP", "Next Level",
+            "Coin",
+            "Weapon", "Shield"};
         String[] values = {
-                String.valueOf(gp.player.level),
-                gp.player.life + "/" + gp.player.maxLife,
-                gp.player.mana + "/" + gp.player.maxMana,
-                String.valueOf(gp.player.strength),
-                String.valueOf(gp.player.dexterity),
-                String.valueOf(gp.player.attack),
-                String.valueOf(gp.player.defense),
-                String.valueOf(gp.player.exp),
-                String.valueOf(gp.player.nextLevelExp),
-                String.valueOf(gp.player.coin),
-                "", // Weapon - sẽ vẽ icon
-                "" // Shield - sẽ vẽ icon
+            String.valueOf(gp.player.level),
+            gp.player.life + "/" + gp.player.maxLife,
+            gp.player.mana + "/" + gp.player.maxMana,
+            String.valueOf(gp.player.strength),
+            String.valueOf(gp.player.dexterity),
+            String.valueOf(gp.player.attack),
+            String.valueOf(gp.player.defense),
+            String.valueOf(gp.player.exp),
+            String.valueOf(gp.player.nextLevelExp),
+            String.valueOf(gp.player.coin),
+            "", // Weapon - sẽ vẽ icon
+            "" // Shield - sẽ vẽ icon
         };
 
         for (int i = 0; i < labels.length; i++) {
