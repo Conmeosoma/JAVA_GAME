@@ -12,9 +12,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class TileManager {
+
     GamePanel gp;
     public Tile[] tile;
-    public int mapTileNum[][];
+    public int mapTileNum[][][];
 
     public TileManager(GamePanel gp, Tile[] tile) {
         this.gp = gp;
@@ -24,10 +25,11 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[50];
-        mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("/res/maps/worldV2.txt");
+        loadMap("/res/maps/interior01.txt", 1);
+        loadMap("/res/maps/worldV3.txt", 0);
         // My2DGame\src\res\maps\world01.txt
     }
 
@@ -89,8 +91,10 @@ public class TileManager {
         setup(39, "earth", false);
         setup(40, "wall", true);
         setup(41, "tree", true);
-        setup(42, "trunk", true);
-
+//        setup(42, "trunk", true);
+        setup(42, "hut", false);
+        setup(43, "floor01", false);
+        setup(44, "table01", true);
     }
 
     public void setup(int index, String imageName, boolean collision) {
@@ -108,7 +112,7 @@ public class TileManager {
 
     }
 
-    public void loadMap(String filePath) {
+    public void loadMap(String filePath, int map) {
         try {
             InputStream is = getClass().getResourceAsStream(filePath); // mo file
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -120,7 +124,7 @@ public class TileManager {
                 while (col < gp.maxWorldCol) {
                     String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
-                    mapTileNum[col][row] = num;
+                    mapTileNum[map][col][row] = num;
                     col++;
                 }
                 if (col == gp.maxWorldCol) { // dm loi cccc sai moi maxWorldCol voi maxScreenCol vcl chiu
@@ -141,7 +145,7 @@ public class TileManager {
 
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
 
-            int tileNum = mapTileNum[worldCol][worldRow];
+            int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow];
             // tinh toán vị trí vẽ tile bằng tọa độ thế giới
             int worldX = worldCol * gp.tileSize; // tọa độ x thế giới
             int worldY = worldRow * gp.tileSize; // tọa độ y thế giới
@@ -152,11 +156,10 @@ public class TileManager {
             int screenY = worldY - gp.player.World_Y + gp.player.screenY;
             // tọa độ cam màn hình Y = tọa độ thế giới Y - tọa độ thế giới nhân vật Y + tọa
             // do
-            if (worldX + gp.tileSize > gp.player.World_X - gp.player.screenX &&
-                    worldX - gp.tileSize < gp.player.World_X + gp.player.screenX &&
-                    worldY + gp.tileSize > gp.player.World_Y - gp.player.screenY &&
-                    worldY - gp.tileSize < gp.player.World_Y + gp.player.screenY)
-            // chi ve nhung tile trong vung nhin thay cua nhan vat
+            if (worldX + gp.tileSize > gp.player.World_X - gp.player.screenX
+                    && worldX - gp.tileSize < gp.player.World_X + gp.player.screenX
+                    && worldY + gp.tileSize > gp.player.World_Y - gp.player.screenY
+                    && worldY - gp.tileSize < gp.player.World_Y + gp.player.screenY) // chi ve nhung tile trong vung nhin thay cua nhan vat
             {
 
                 g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize,
@@ -169,7 +172,6 @@ public class TileManager {
             // .........
             // nếu ô [15][0] thì nó sẽ là 15 * 48 = 768
             // tương tự với hàng
-
             if (worldCol == gp.maxWorldCol) {
                 worldCol = 0;
                 worldRow++;

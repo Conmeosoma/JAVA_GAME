@@ -147,11 +147,11 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     }
 
     public void dropItem(Entity droppedItem) {
-        for (int i = 0; i < gp.obj.length; i++) {
-            if (gp.obj[i] == null) {
-                gp.obj[i] = droppedItem;
-                gp.obj[i].World_X = World_X; // Quai vat chet tai World_X
-                gp.obj[i].World_Y = World_Y;
+        for (int i = 0; i < gp.obj[1].length; i++) {
+            if (gp.obj[gp.currentMap][i] == null) {
+                gp.obj[gp.currentMap][i] = droppedItem;
+                gp.obj[gp.currentMap][i].World_X = World_X; // Quai vat chet tai World_X
+                gp.obj[gp.currentMap][i].World_Y = World_Y;
                 break;
             }
         }

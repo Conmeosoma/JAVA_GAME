@@ -32,7 +32,8 @@ public class Sound {
         soundURL[9] = getClass().getResource("/res/Sound/cursor.wav");
         soundURL[10] = getClass().getResource("/res/Sound/burning.wav");
         soundURL[11] = getClass().getResource("/res/Sound/cuttree.wav");
-        soundURL[12] = getClass().getResource("/res/Sound/gameover.wav");
+        soundURL[12] = getClass().getResource("/res/Sound/gameover.wav");        
+        soundURL[13] = getClass().getResource("/res/Sound/stairs.wav");
 
     }
     // chu y vi tri luu file res
@@ -59,6 +60,7 @@ public class Sound {
 
     public void stop() {
         clip.stop();
+        System.out.println("stop!");
     }
 
     public void pause() {
