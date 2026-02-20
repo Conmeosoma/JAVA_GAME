@@ -53,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable {
     Sound music = new Sound();
     Sound se = new Sound();
     public EventHander eHander = new EventHander(this);
+    public Config config = new Config(this);
     Thread gamThread; // khai bao doi tuong thread cho game
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);

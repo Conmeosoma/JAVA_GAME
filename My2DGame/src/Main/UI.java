@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Main;
 
 import Object.OBJ_Heart;
@@ -293,6 +289,8 @@ public class UI {
         g2.drawRect(textX, textY, 120, 24);
         int seVolumeWidth = 24 * gp.se.volumeScale;
         g2.fillRect(textX, textY, seVolumeWidth, 24);
+        
+        gp.config.saveConfig();
     }
 
     public void options_control(int frameX, int frameY) {
@@ -305,15 +303,16 @@ public class UI {
 
         textX = frameX + gp.tileSize;
         textY += gp.tileSize;
+//        g2.setFont(unicodeFont_40.deriveFont(Font.PLAIN, 28F));
         g2.drawString("Move Up", textX, textY += gp.tileSize);
         g2.drawString("Confirm/Attack", textX, textY += gp.tileSize);
         g2.drawString("Shoot/Cast", textX, textY += gp.tileSize);
         g2.drawString("Character Screen", textX, textY += gp.tileSize);
         g2.drawString("Pause", textX, textY += gp.tileSize);
         g2.drawString("Options", textX, textY += gp.tileSize);
-        textX = frameX + gp.tileSize * 9;
+        textX = frameX + gp.tileSize * 6;
         textY = frameY + gp.tileSize * 2;
-        g2.drawString("ADWS/Arrow Keys", textX, textY += gp.tileSize);
+        g2.drawString("ADWS/Arrow Keys", textX, textY += gp.tileSize);        
         g2.drawString("Enter", textX, textY += gp.tileSize);
         g2.drawString("F", textX, textY += gp.tileSize);
         g2.drawString("C", textX, textY += gp.tileSize);
@@ -321,11 +320,12 @@ public class UI {
         g2.drawString("ESC", textX, textY += gp.tileSize);
         // BACK
         textX = frameX + gp.tileSize;
-        textY += gp.tileSize * 9;
+        textY = frameY + gp.tileSize * 9;
+//        textY += gp.tileSize * 9;
         g2.drawString("Back", textX, textY);
         if (commandNum == 0) {
             g2.drawString(">", textX - 25, textY);
-            g2.drawString("<", textX + 35, textY);
+//            g2.drawString("<", textX + 35, textY);
             if (gp.keyH.enterPressed == true) {
                 subState = 0; // BACK TO OPTIONS_TOP
                 commandNum = 3; // Reset commandNum for options menu
