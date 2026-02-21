@@ -2,6 +2,7 @@ package Main;
 
 import Object.OBJ_Heart;
 import Enity.Entity;
+import Object.OBJ_Coin_Bronze;
 import Object.OBJ_ManaCrystal;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -20,7 +21,7 @@ public class UI {
     Font maruMonica, purisaB;
     Font unicodeFont_40, unicodeFont_80B; // Unicode fonts for multilingual support
     Font unicodeBubbleFont; // Font for speech bubble
-    BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_blank;
+    BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_blank, coin;
     // BUFFERED IMAGE;
     public boolean messageOn = false;
     // public String message = "";
@@ -73,6 +74,8 @@ public class UI {
         Entity crystal = new OBJ_ManaCrystal(gp);
         crystal_full = crystal.image;
         crystal_blank = crystal.image2;
+        Entity bronzeCoin = new OBJ_Coin_Bronze(gp);
+        coin = bronzeCoin.down1;
     }
 
     private void initializeUnicodeFonts() {
@@ -130,7 +133,7 @@ public class UI {
 
         // DIALOGUE
         if (gp.gameState == gp.dialogueState) {
-            drawPlayerLife();
+//            drawPlayerLife();
             drawDialogueScreen();
         }
         // CHARACTER
@@ -810,7 +813,6 @@ public class UI {
 
         // CURSOR
         if (cursor == true) {
-//            System.out.println(cursor);
             int cursorX = slotXStart + (slotSize * slotCol);
             int cursorY = slotYStart + (slotSize * slotRow);
             int cursorWidth = gp.tileSize;
@@ -851,7 +853,7 @@ public class UI {
             g2.drawString(line, textX, textY);
             textY += 40;
         }
-        // BACk
+        // BACK
         textY = frameY + gp.tileSize * 8;
         g2.drawString("Back", textX, textY);
         if (commandNum == 0) {
@@ -939,16 +941,116 @@ public class UI {
 
     public void tradeBuy() {
         // DRAW PLAYER INVENTORY
-//        System.out.println("tradeBuy inventory: " + gp.player.inventory);
         drawInventory(gp.player, false);
-//        
         // DRAW NPC INVENTORY
         drawInventory(npc, true);
 
+        //  DRAW HINT WINDOW
+        int x = gp.tileSize * 2;
+        int y = gp.tileSize * 9;
+        int width = gp.tileSize * 6;
+        int height = gp.tileSize * 2;
+        drawSubWindow(x, y, width, height);
+        g2.drawString("[ESC] Back", x + 24, y + 60);
+
+        //  DRAW PLAYER COIN WINDOW
+        x = gp.tileSize * 12;
+        y = gp.tileSize * 9;
+        width = gp.tileSize * 6;
+        height = gp.tileSize * 2;
+        drawSubWindow(x, y, width, height);
+        g2.drawString("Your Coin: " + gp.player.coin, x + 24, y + 60);
+       
+        // VE BANG GIA
+        int itemIndex = getItemIndexOnSlot(npcSlotCol, npcSlotRow);
+        if (itemIndex < npc.inventory.size()) {
+            x = (int) (gp.tileSize * 5.5);
+            y = (int) (gp.tileSize * 5.5);
+            width = (int) (gp.tileSize * 2.5);
+            height = gp.tileSize;
+            drawSubWindow(x, y, width, height);
+            g2.drawImage(coin, x + 10, y + 8, 32, 32, null);
+
+            int price = npc.inventory.get(itemIndex).price;
+            String text = "" + price;
+            x = getXforAlignToRightText(text, gp.tileSize * 8 - 20);
+            g2.drawString(text, x, y + 36);
+            
+            // BUY AN ITEM
+            if (gp.keyH.enterPressed == true){
+                if (npc.inventory.get(itemIndex).price > gp.player.coin){
+                    subState = 0;
+                    gp.gameState = gp.dialogueState;
+                    currentDialogue = "Ngươi cần nhiều đồng xu hơn để mua!";
+                    drawDialogueScreen();
+                }
+                
+                if (gp.player.inventory.size() == gp.player.maxInventorySize){
+                    subState = 0;
+                    gp.gameState = gp.dialogueState;
+                    currentDialogue = "Ngươi không thể mang nhiều hơn được!";
+                    drawDialogueScreen();
+                }
+                else {
+                    gp.player.coin -= npc.inventory.get(itemIndex).price;
+                    gp.player.inventory.add(npc.inventory.get(itemIndex));
+                }
+            }
+        }
     }
 
     public void tradeSell() {
+        drawInventory(gp.player, true);
+        int x;
+        int y;
+        int width;
+        int height;
+        
+        //  DRAW HINT WINDOW
+        x = gp.tileSize * 2;
+        y = gp.tileSize * 9;
+        width = gp.tileSize * 6;
+        height = gp.tileSize * 2;
+        drawSubWindow(x, y, width, height);
+        g2.drawString("[ESC] Quay lại", x + 24, y + 60);
 
+        //  DRAW PLAYER COIN WINDOW
+        x = gp.tileSize * 12;
+        y = gp.tileSize * 9;
+        width = gp.tileSize * 6;
+        height = gp.tileSize * 2;
+        drawSubWindow(x, y, width, height);
+        g2.drawString("Số xu: " + gp.player.coin, x + 24, y + 60);
+       
+        int itemIndex = getItemIndexOnSlot(playerSlotCol, playerSlotRow);
+        if (itemIndex < gp.player.inventory.size()) {
+            x = (int) (gp.tileSize * 15.5);
+            y = (int) (gp.tileSize * 5.5);
+            width = (int) (gp.tileSize * 2.5);
+            height = gp.tileSize;
+            drawSubWindow(x, y, width, height);
+            g2.drawImage(coin, x + 10, y + 8, 32, 32, null);
+
+            int price = gp.player.inventory.get(itemIndex).price / 2;
+            String text = "" + price;
+            x = getXforAlignToRightText(text, gp.tileSize * 18 - 20);
+            g2.drawString(text, x, y + 36);
+            
+            // BUY AN ITEM
+            if (gp.keyH.enterPressed == true){
+                if (gp.player.inventory.get(itemIndex) == gp.player.currentWeapon ||
+                        gp.player.inventory.get(itemIndex) == gp.player.currentShield){
+                    commandNum = 0;
+                    subState = 0;
+                    gp.gameState = gp.dialogueState;
+                    currentDialogue = "Ngươi không thể bán món đồ này!";
+                }
+                else {
+                    gp.player.inventory.remove(itemIndex);
+                    gp.player.coin += price;
+                }
+            }
+        }
     }
 
     public int getItemIndexOnSlot(int slotCol, int slotRow) {

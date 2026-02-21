@@ -12,7 +12,7 @@ public class OBJ_Shield_Blue extends Entity {
     down1 = setup("/res/Object/shield_blue", gp.tileSize, gp.tileSize);
     defenseValue = 1;
     description = "[" + name + "]\nLàm bằng HDPE.";
-
+    price = 250;
   }
 
 }

@@ -12,7 +12,6 @@ public class OBJ_Shield_Normal extends Entity {
         down1 = setup("/res/Object/shield_wood", gp.tileSize, gp.tileSize);
         defenseValue = 1;
         description = "[" + name + "]\nLàm bằng gỗ.";
-
+        price = 35;
     }
-
 }

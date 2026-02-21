@@ -14,7 +14,6 @@ public class OBJ_Axe extends Entity {
     attackArea.width = 30;
     attackArea.height = 36;
     description = "[Woodcutter's Axe]\n1 chiếc rìu rỉ sét.\nCó thể chặt cây";
-
+    price = 75;
   }
-
 }

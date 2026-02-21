@@ -68,7 +68,7 @@ public class Player extends Entity {
         dexterity = 1;
         exp = 0;
         nextLevelExp = 5;
-        coin = 0;
+        coin = 500;
         currentWeapon = new OBJ_Axe(gp);
 //        currentWeapon = new OBJ_Weapon_Normal(gp);
         currentShield = new OBJ_Shield_Normal(gp);
@@ -271,7 +271,7 @@ public class Player extends Entity {
         if (life <= 0) {
             gp.gameState = gp.gameOverState;
             gp.ui.commandNum = -1;
-            gp.stopMusic();            
+            gp.stopMusic();
             gp.stopMusic();
             gp.playSE(12);
         }
@@ -461,7 +461,7 @@ public class Player extends Entity {
             if (invincible == false && gp.monster[gp.currentMap][i].dying == false) {
                 gp.playSE(6);
 
-                int damage = gp.monster[gp.currentMap][i].attack - defense; 
+                int damage = gp.monster[gp.currentMap][i].attack - defense;
                 if (damage < 0) {
                     damage = 0;
                 }
