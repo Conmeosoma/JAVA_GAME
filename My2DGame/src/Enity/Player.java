@@ -26,7 +26,7 @@ public class Player extends Entity {
     public final int screenY;
     int standCounter = 0;
     public boolean attackCanceled = false;
-    public ArrayList<Entity> inventory = new ArrayList<>();
+//    public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -52,8 +52,9 @@ public class Player extends Entity {
     public void setDefaultValues() {
         World_X = gp.tileSize * 23;
         World_Y = gp.tileSize * 21;
-//        World_X = gp.tileSize * 12;
-//        World_Y = gp.tileSize * 13;
+        World_X = gp.tileSize * 12;
+        World_Y = gp.tileSize * 12;
+        gp.currentMap = 1;
         speed = 4;
         direction = "down";
         // PLAYER STATUS
@@ -391,7 +392,7 @@ public class Player extends Entity {
     }
 
     public void selectItem() {
-        int itemIndex = gp.ui.getItemIndexOnSlot();
+        int itemIndex = gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol, gp.ui.playerSlotRow);
         if (itemIndex < inventory.size()) {
             Entity selectedItem = inventory.get(itemIndex);
             if (selectedItem.type == type_sword || selectedItem.type == type_axe) {

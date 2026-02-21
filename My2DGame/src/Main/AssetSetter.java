@@ -1,6 +1,7 @@
 // meoconsoma
 package Main;
 
+import Enity.NPC_Merchant;
 import Enity.NPC_OldMan;
 import Object.OBJ_Axe;
 import Object.OBJ_Coin_Bronze;
@@ -68,7 +69,8 @@ public class AssetSetter {
 
         // MAP 1
         mapNum = 1;
-        gp.npc[mapNum][i] = new NPC_OldMan(gp);
+        i = 0;
+        gp.npc[mapNum][i] = new NPC_Merchant(gp);
         gp.npc[mapNum][i].World_X = gp.tileSize * 12;
         gp.npc[mapNum][i].World_Y = gp.tileSize * 7;
         i++;

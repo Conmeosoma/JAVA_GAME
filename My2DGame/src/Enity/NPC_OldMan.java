@@ -1,20 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Enity;
 
 import Main.GamePanel;
 import java.util.Random;
-//import Main.UtilityTool;
-//import java.awt.image.BufferedImage;
-//import java.io.IOException;
-//import javax.imageio.ImageIO;
 
-/**
- *
- * @author dieu hoang
- */
 public class NPC_OldMan extends Entity {
 
     public NPC_OldMan(GamePanel gp) {

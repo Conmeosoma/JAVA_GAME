@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage; // them lop BufferedIamge de xu ly hinh anh
 import java.awt.Rectangle;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho tat ca doi tuong
@@ -75,6 +76,8 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
     public Entity currentShield;
     public Projectile projectile;
     // ITEM
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
     public int value;
     public int attackValue;
     public int defenseValue;
@@ -238,7 +241,7 @@ public class Entity { // lop Entity chua cac thuoc tinh va phuong thuc chung cho
         // tang 4 pixel sau moi lan update neu phim duoc nhan
         // xu ly aniamtion nhan vat
         spiteCounter++;
-        if (spiteCounter > 12) {// moi 12 lan update thi doi hinh
+        if (spiteCounter > 24) {// moi 12 lan update thi doi hinh
             if (spiteNum == 1) { // neu spitenum = 1 thi dat spitenum = 2 de lan sau ve hinh 2
                 spiteNum = 2;
             } else if (spiteNum == 2) { // neu spitenum = 2 thi dat spitenum = 1 de lan sau ve hinh 1
