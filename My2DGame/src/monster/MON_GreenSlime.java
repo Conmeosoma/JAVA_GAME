@@ -1,196 +1,93 @@
-package monster;
+package Monster;
 
-import Enity.Entity;
+import Entity.Entity;
 import Main.GamePanel;
 import Object.OBJ_Coin_Bronze;
 import Object.OBJ_Heart;
 import Object.OBJ_ManaCrystal;
-import Object.OBJ_Rock;
+
 import java.util.Random;
 
-/**
- *
- * @author dieu hoang
- */
 public class MON_GreenSlime extends Entity {
 
-    GamePanel gp;
+  GamePanel gp; // cuz of different package
 
-    public MON_GreenSlime(GamePanel gp) {
-        super(gp);
-        this.gp = gp;
+  public MON_GreenSlime(GamePanel gp) {
+    super(gp);
 
-        type = type_monster;
-        name = "Green Slime";
-        speed = 1;
-        maxLife = 20;
-        life = maxLife;
-        attack = 5;
-        defense = 0;
-        exp = 2;
-        projectile = new OBJ_Rock(gp);
+    this.gp = gp;
 
-        solidArea.x = 3;
-        solidArea.y = 10;
-        solidArea.width = 42;
-        solidArea.height = 30;
-        solidAreaDefaultX = solidArea.x;
-        solidAreaDefaultY = solidArea.y;
+    type = type_monster;
+    name = "Green Slime";
+    defaultSpeed = 1;
+    speed = defaultSpeed;
+    maxLife = 4;
+    life = maxLife;
+    attack = 2;
+    defense = 0;
+    exp = 2;
+    // projectile = new OBJ_Rock(gp);
 
-        getImage();
+    solidArea.x = 3;
+    solidArea.y = 18;
+    solidArea.width = 42;
+    solidArea.height = 30;
+    solidAreaDefaultX = solidArea.x;
+    solidAreaDefaultY = solidArea.y;
+
+    getImage();
+  }
+
+  public void getImage() {
+    up1 = setup("/res/monster/greenslime_down_1", gp.tileSize, gp.tileSize);
+    up2 = setup("/res/monster/greenslime_down_2", gp.tileSize, gp.tileSize);
+    down1 = setup("/res/monster/greenslime_down_1", gp.tileSize, gp.tileSize);
+    down2 = setup("/res/monster/greenslime_down_2", gp.tileSize, gp.tileSize);
+    left1 = setup("/res/monster/greenslime_down_1", gp.tileSize, gp.tileSize);
+    left2 = setup("/res/monster/greenslime_down_2", gp.tileSize, gp.tileSize);
+    right1 = setup("/res/monster/greenslime_down_1", gp.tileSize, gp.tileSize);
+    right2 = setup("/res/monster/greenslime_down_2", gp.tileSize, gp.tileSize);
+  }
+
+  public void setAction() {
+    if (onPath == true) {
+
+      // Check if it stops chasing
+      checkStopChasingOrNot(gp.player, 15, 100);
+
+      // Search the direction to go
+      searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
+
+      // Check if it shoots a projectile
+      // checkShootOrNot(200, 30); //Just added to red slimes
+    } else {
+      // Check if it starts chasing
+      checkStartChasingOrNot(gp.player, 5, 100);
+
+      // Get a random direction
+      getRandomDirection(120);
     }
+  }
 
-    public void getImage() {
-        up1 = setup("/res/Monster/greenslime_down_1", gp.tileSize, gp.tileSize);
-        up2 = setup("/res/Monster/greenslime_down_2", gp.tileSize, gp.tileSize);
-        down1 = setup("/res/Monster/greenslime_down_1", gp.tileSize, gp.tileSize);
-        down2 = setup("/res/Monster/greenslime_down_2", gp.tileSize, gp.tileSize);
-        left1 = setup("/res/Monster/greenslime_down_1", gp.tileSize, gp.tileSize);
-        left2 = setup("/res/Monster/greenslime_down_2", gp.tileSize, gp.tileSize);
-        right1 = setup("/res/Monster/greenslime_down_1", gp.tileSize, gp.tileSize);
-        right2 = setup("/res/Monster/greenslime_down_2", gp.tileSize, gp.tileSize);
+  public void damageReaction() {
+    actionLockCounter = 0;
+    // direction = gp.player.direction;
+    onPath = true; // gets aggro
+  }
+
+  public void checkDrop() {
+    // CAST A DIE
+    int i = new Random().nextInt(100) + 1;
+
+    // SET THE MONSTER DROP
+    if (i < 50) {
+      dropItem(new OBJ_Coin_Bronze(gp));
     }
-
-    // Cai dat hanh dong cho slime - AI NANG CAP
-    public void setAction() {
-        actionLockCounter++;
-
-        if (actionLockCounter == 120) {
-            Random random = new Random();
-
-            // Tinh khoang cach den player
-            int xDistance = Math.abs(World_X - gp.player.World_X);
-            int yDistance = Math.abs(World_Y - gp.player.World_Y);
-            int tileDistance = (xDistance + yDistance) / gp.tileSize;
-
-            // CHẾ ĐỘ 1: NẾU PLAYER Ở GẦN (trong 5 tiles) - TRUY ĐUỔI
-            if (tileDistance < 5) {
-                // Tim duong den player
-                int xDiff = gp.player.World_X - World_X;
-                int yDiff = gp.player.World_Y - World_Y;
-
-                // Ưu tiên hướng có khoảng cách lớn hơn
-                if (Math.abs(xDiff) > Math.abs(yDiff)) {
-                    // Di chuyển theo trục X trước
-                    if (xDiff > 0) {
-                        direction = "right";
-                    } else {
-                        direction = "left";
-                    }
-                    // 30% cơ hội đổi sang trục Y để tránh bị kẹt
-                    if (random.nextInt(100) < 30) {
-                        if (yDiff > 0) {
-                            direction = "down";
-                        } else {
-                            direction = "up";
-                        }
-                    }
-                } else {
-                    // Di chuyển theo trục Y trước
-                    if (yDiff > 0) {
-                        direction = "down";
-                    } else {
-                        direction = "up";
-                    }
-                    // 30% cơ hội đổi sang trục X để tránh bị kẹt
-                    if (random.nextInt(100) < 30) {
-                        if (xDiff > 0) {
-                            direction = "right";
-                        } else {
-                            direction = "left";
-                        }
-                    }
-                }
-            } // CHẾ ĐỘ 2: NẾU HP THẤP (dưới 40%) - CHẠY TRỐN
-            else if (life < maxLife * 0.4) {
-                // Chạy ngược hướng với player
-                int xDiff = gp.player.World_X - World_X;
-                int yDiff = gp.player.World_Y - World_Y;
-
-                if (Math.abs(xDiff) > Math.abs(yDiff)) {
-                    if (xDiff > 0) {
-                        direction = "left"; // Chạy ngược lại
-                    } else {
-                        direction = "right";
-                    }
-                } else {
-                    if (yDiff > 0) {
-                        direction = "up"; // Chạy ngược lại
-                    } else {
-                        direction = "down";
-                    }
-                }
-            } // CHẾ ĐỘ 3: PLAYER Ở XA - DI CHUYỂN NGẪU NHIÊN (patrol)
-            else {
-                int i = random.nextInt(100) + 1;
-
-                if (i <= 25) {
-                    direction = "up";
-                } else if (i <= 50) {
-                    direction = "down";
-                } else if (i <= 75) {
-                    direction = "left";
-                } else {
-                    direction = "right";
-                }
-            }
-
-            actionLockCounter = 0;
-        }
-        int i = new Random().nextInt(100) + 1;
-        if (i > 99 && projectile.alive == false && shotAvailableCounter == 30){
-            projectile.set(World_X, World_Y, direction, true, this);
-            gp.projectileList.add(projectile);
-            shotAvailableCounter = 0;
-        }
+    if (i >= 50 && i < 75) {
+      dropItem(new OBJ_Heart(gp));
     }
-
-    // PHẢN ỨNG KHI BỊ ĐÁNH - AI NÂNG CAO
-    public void damageReaction() {
-        actionLockCounter = 0;
-
-        // Tính khoảng cách đến player
-        int xDistance = Math.abs(World_X - gp.player.World_X);
-        int yDistance = Math.abs(World_Y - gp.player.World_Y);
-
-        // NẾU HP CÒN NHIỀU HƠN 50% - PHẢN CÔNG
-        if (life > maxLife * 0.5) {
-            // Lao về phía player
-            int xDiff = gp.player.World_X - World_X;
-            int yDiff = gp.player.World_Y - World_Y;
-
-            if (Math.abs(xDiff) > Math.abs(yDiff)) {
-                direction = xDiff > 0 ? "right" : "left";
-            } else {
-                direction = yDiff > 0 ? "down" : "up";
-            }
-        } // NẾU HP THẤP - LÙI LẠI
-        else {
-            // Lùi lại theo hướng ngược player
-            int xDiff = gp.player.World_X - World_X;
-            int yDiff = gp.player.World_Y - World_Y;
-
-            if (Math.abs(xDiff) > Math.abs(yDiff)) {
-                direction = xDiff > 0 ? "left" : "right"; // Ngược lại
-            } else {
-                direction = yDiff > 0 ? "up" : "down"; // Ngược lại
-            }
-        }
+    if (i >= 75 && i < 100) {
+      dropItem(new OBJ_ManaCrystal(gp));
     }
-    
-    public void checkDrop(){
-        // CAST A SIE
-        int i = new Random().nextInt(100) + 1;
-        
-        // SET THE MONSTER DROP
-        if (i < 50){
-            dropItem(new OBJ_Coin_Bronze(gp));
-        }
-        if (i >= 50 && i < 75){
-            dropItem(new OBJ_Heart(gp));
-        }
-        if (i >= 75 && i < 100){
-            dropItem(new OBJ_ManaCrystal(gp));
-        }
-    }
+  }
 }

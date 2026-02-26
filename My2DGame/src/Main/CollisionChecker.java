@@ -1,13 +1,8 @@
 package Main;
 
-import Enity.Entity;
-
-/**
- *
- * @author dieu hoang
- */
+import Entity.Entity;
+import Main.CollisionChecker;
 public class CollisionChecker {
-
     GamePanel gp;
 
     public CollisionChecker(GamePanel gp) {
@@ -15,10 +10,10 @@ public class CollisionChecker {
     }
 
     public void checkTile(Entity entity) {
-        int entityLeftWorldX = entity.World_X + entity.solidArea.x;
-        int entityRightWorldX = entity.World_X + entity.solidArea.x + entity.solidArea.width;
-        int entityTopWorldY = entity.World_Y + entity.solidArea.y;
-        int entityBottomWorldY = entity.World_Y + entity.solidArea.y + entity.solidArea.height;
+        int entityLeftWorldX = entity.worldX + entity.solidArea.x; // solidArea.x = 8
+        int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width; // solidArea.y = 16
+        int entityTopWorldY = entity.worldY + entity.solidArea.y; // solidArea.width = 32
+        int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height; // solidArea.height = 32
 
         int entityLeftCol = entityLeftWorldX / gp.tileSize;
         int entityRightCol = entityRightWorldX / gp.tileSize;
@@ -26,35 +21,45 @@ public class CollisionChecker {
         int entityBottomRow = entityBottomWorldY / gp.tileSize;
 
         int tileNum1, tileNum2;
-        switch (entity.direction) {
+
+        // Use a temporal direction when it's being knockbacked
+        String direction = entity.direction;
+        if (entity.knockBack == true) {
+            direction = entity.knockBackDirection;
+        }
+
+        switch (direction) {
             case "up":
                 entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
-                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];
-                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow];
+                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow]; // Check Left Hand
+                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow]; // Check Right Hand
                 if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
                     entity.collisionOn = true;
                 }
                 break;
+
             case "down":
                 entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
-                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
-                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
+                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow]; // Check Left Hand
+                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow]; // Check Right Hand
                 if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
                     entity.collisionOn = true;
                 }
                 break;
+
             case "left":
                 entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
-                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];
-                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
+                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow]; // Check Left Hand
+                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow]; // Check Right Hand
                 if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
                     entity.collisionOn = true;
                 }
                 break;
+
             case "right":
                 entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
-                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow];
-                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
+                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow]; // Check Left Hand
+                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow]; // Check Right Hand
                 if (gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
                     entity.collisionOn = true;
                 }
@@ -62,200 +67,153 @@ public class CollisionChecker {
         }
     }
 
-    // ================ CHECK OBJECT ===================
-    public int checkObject(Entity entity, boolean player) {// neu la player thi tra ve index cua object
-        int index = 999; // gia tri mac dinh neu khong co va cham vs object nao
+    public int checkObject(Entity entity, boolean player) {
+        int index = 999;
 
-        for (int i = 0; i < gp.obj.length; i++) { // lap qua tat ca object
-            if (gp.obj[gp.currentMap][i] != null) { // neu object khac null thi kiem tra va cham
-                // lay vi tri vung va cham cua entity
-                entity.solidArea.x = entity.World_X + entity.solidArea.x;
-                entity.solidArea.y = entity.World_Y + entity.solidArea.y;
-                // lay vi tri vung va cham cua object
-//                gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
-//                gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+        // Use a temporal direction when it's being knockbacked
+        String direction = entity.direction;
+        if (entity.knockBack == true) {
+            direction = entity.knockBackDirection;
+        }
 
-                gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].World_X + gp.obj[gp.currentMap][i].solidArea.x;
-                gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].World_Y + gp.obj[gp.currentMap][i].solidArea.y;
-                switch (entity.direction) { // di chuyen entity de kiem tra va cham
+        for (int i = 0; i < gp.obj[1].length; i++) {
+            if (gp.obj[gp.currentMap][i] != null) {
+                // get entity's solid area position
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+
+                // get the object's solid area position
+                gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].worldX
+                        + gp.obj[gp.currentMap][i].solidArea.x; // entity's solid area and obj's solid area is
+                                                                // different.
+                gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].worldY
+                        + gp.obj[gp.currentMap][i].solidArea.y;
+
+                switch (direction) {
                     case "up":
-                        entity.solidArea.y -= entity.speed; // di chuyen vung va cham len tren
-//                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) { // kiem tra va cham cua 2 vung
-//                            if (gp.obj[i].collision == true) { // neu object co va cham
-//                                entity.collisionOn = true;
-//                                System.out.println("Va cham object up");
-//                            }
-//                            if (player == true) { // neu entity la player
-//                                index = i;
-//                            }
-//
-//                        }
+                        entity.solidArea.y -= entity.speed;
                         break;
                     case "down":
-                        entity.solidArea.y += entity.speed; // di chuyen vung va cham xuong duoi
-//                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) { // kiem tra va cham
-//                            if (gp.obj[i].collision == true) { // neu object co va cham
-//                                entity.collisionOn = true;
-//                                System.out.println("Va cham object down");
-//                            }
-//                            if (player == true) { // neu entity la player
-//                                index = i;
-//                            }
-//                        }
+                        entity.solidArea.y += entity.speed;
                         break;
                     case "left":
-                        entity.solidArea.x -= entity.speed; // di chuyen vung va cham sang trai
-//                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) { // kiem tra va cham
-//                            if (gp.obj[i].collision == true) { // neu object co va cham
-//                                entity.collisionOn = true;
-//                                System.out.println("Va cham object LEFT");
-//                            }
-//                            if (player == true) { // neu entity la player
-//                                index = i;
-//                            }
-//                        }
+                        entity.solidArea.x -= entity.speed;
                         break;
                     case "right":
-                        entity.solidArea.x += entity.speed; // di chuyen vung va cham sang phai
-//                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) { // kiem tra va cham
-//                            if (gp.obj[i].collision == true) { // neu object co va cham
-//                                entity.collisionOn = true;
-//                                System.out.println("Va cham object RIGHT");
-//                            }
-//                            if (player == true) { // neu entity la player
-//                                index = i;
-//                            }
-//                        }
+                        entity.solidArea.x += entity.speed;
                         break;
                 }
-
-                if (entity.solidArea.intersects(gp.obj[gp.currentMap][i].solidArea)) { // kiem tra va cham
-                    if (gp.obj[gp.currentMap][i].collision == true) { // neu object co va cham
+                if (entity.solidArea.intersects(gp.obj[gp.currentMap][i].solidArea)) // Checking if Entity rectangle and
+                                                                                     // Object rectangle intersects.
+                {
+                    if (gp.obj[gp.currentMap][i].collision == true) // Collision (Player can't enter through a door.)
+                    {
                         entity.collisionOn = true;
                     }
-                    if (player == true) { // neu entity la player
-                        index = i;
+                    if (player == true) // Checking this because no one can receive items except the player.
+                    {
+                        index = i; // Non-player characters cannot pickup objects.
                     }
                 }
-
-                // reset lai vi tri vung va cham cua entity va object sau khi kiem tra
-                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.x = entity.solidAreaDefaultX; // Reset
                 entity.solidArea.y = entity.solidAreaDefaultY;
-                gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].solidAreaDefaultX;
+
+                gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].solidAreaDefaultX; // Reset
                 gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].solidAreaDefaultY;
             }
         }
-        // tra ve index cua object ma player va cham
         return index;
     }
 
     // NPC OR MONSTER
-    public int checkEntity(Entity entity, Entity[][] target) { // FIXED
-        int index = 999; // gia tri mac dinh neu khong co va cham vs object nao
+    public int checkEntity(Entity entity, Entity[][] target) {
+        int index = 999; // no collision returns 999;
+        // Use a temporal direction when it's being knockbacked
+        String direction = entity.direction;
+        if (entity.knockBack == true) {
+            direction = entity.knockBackDirection;
+        }
 
-        for (int i = 0; i < target[1].length; i++) { // lap qua tat ca object
-            if (target[gp.currentMap][i] != null) { // neu object khac null thi kiem tra va cham
-                // lay vi tri vung va cham cua entity
-                entity.solidArea.x = entity.World_X + entity.solidArea.x;
-                entity.solidArea.y = entity.World_Y + entity.solidArea.y;
-                // lay vi tri vung va cham cua object
-                target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].World_X + target[gp.currentMap][i].solidArea.x;
-                target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].World_Y + target[gp.currentMap][i].solidArea.y;
+        for (int i = 0; i < target[1].length; i++) {
+            if (target[gp.currentMap][i] != null) {
+                // get entity's solid area position
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
-                switch (entity.direction) { // di chuyen entity de kiem tra va cham
+                // get the object's solid area position
+                target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].worldX
+                        + target[gp.currentMap][i].solidArea.x; // entity's solid area and obj's solid area is
+                                                                // different.
+                target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].worldY
+                        + target[gp.currentMap][i].solidArea.y;
+
+                switch (direction) {
                     case "up":
-                        entity.solidArea.y -= entity.speed; // di chuyen vung va cham len tren
-//                        if (entity.solidArea.intersects(target[i].solidArea)) { // kiem tra va cham cua 2 vung
-//                                entity.collisionOn = true; // tat ca NPC va monster la solid
-//                                index = i;
-//                        }
+                        entity.solidArea.y -= entity.speed;
                         break;
                     case "down":
-                        entity.solidArea.y += entity.speed; // di chuyen vung va cham xuong duoi
-//                        if (entity.solidArea.intersects(target[i].solidArea)) { // kiem tra va cham
-//                             entity.collisionOn = true; // tat ca NPC va monster la solid
-//                                index = i;
-//                        }
+                        entity.solidArea.y += entity.speed;
                         break;
                     case "left":
-                        entity.solidArea.x -= entity.speed; // di chuyen vung va cham sang trai
-//                        if (entity.solidArea.intersects(target[i].solidArea)) { // kiem tra va cham
-//                             entity.collisionOn = true; // tat ca NPC va monster la solid
-//                                index = i;
-//                        }
+                        entity.solidArea.x -= entity.speed;
                         break;
                     case "right":
-                        entity.solidArea.x += entity.speed; // di chuyen vung va cham sang phai
-//                        if (entity.solidArea.intersects(target[i].solidArea)) { // kiem tra va cham
-//                             entity.collisionOn = true; // tat ca NPC va monster la solid
-//                                index = i;
-//                        }
+                        entity.solidArea.x += entity.speed;
                         break;
                 }
-                if (entity.solidArea.intersects(target[gp.currentMap][i].solidArea)) { // kiem tra va cham cua 2 vung
-                    if (target[gp.currentMap][i] != entity) {
-                        entity.collisionOn = true; // tat ca NPC va monster la solid
-                        index = i;
+
+                if (entity.solidArea.intersects(target[gp.currentMap][i].solidArea)) {
+                    if (target[gp.currentMap][i] != entity) // avoid entity includes itself as a collision target
+                    {
+                        entity.collisionOn = true;
+                        index = i; // Non-player characters cannot pickup objects.
                     }
                 }
-
-                // reset lai vi tri vung va cham cua entity va object sau khi kiem tra
-                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.x = entity.solidAreaDefaultX; // Reset
                 entity.solidArea.y = entity.solidAreaDefaultY;
-                target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].solidAreaDefaultX;
+
+                target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].solidAreaDefaultX; // Reset
                 target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].solidAreaDefaultY;
             }
         }
-        // tra ve index cua object ma player va cham
         return index;
     }
 
     public boolean checkPlayer(Entity entity) {
         boolean contactPlayer = false;
-        // lay vi tri vung va cham cua entity
-        entity.solidArea.x = entity.World_X + entity.solidArea.x;
-        entity.solidArea.y = entity.World_Y + entity.solidArea.y;
-        // lay vi tri vung va cham cua object
-        gp.player.solidArea.x = gp.player.World_X + gp.player.solidArea.x;
-        gp.player.solidArea.y = gp.player.World_Y + gp.player.solidArea.y;
+        // get entity's solid area position
+        entity.solidArea.x = entity.worldX + entity.solidArea.x;
+        entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
-        switch (entity.direction) { // di chuyen entity de kiem tra va cham
+        // get the object's solid area position
+        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x; // entity's solid area and obj's solid area is
+                                                                          // // different.
+        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+
+        switch (entity.direction) {
             case "up":
-                entity.solidArea.y -= entity.speed; // di chuyen vung va cham len tren
-//                if (entity.solidArea.intersects(gp.player.solidArea)) { // kiem tra va cham cua 2 vung
-//                    entity.collisionOn = true; // tat ca NPC va monster la solid
-//                }
+                entity.solidArea.y -= entity.speed;
                 break;
             case "down":
-                entity.solidArea.y += entity.speed; // di chuyen vung va cham xuong duoi
-//                if (entity.solidArea.intersects(gp.player.solidArea)) { // kiem tra va cham
-//                    entity.collisionOn = true; // tat ca NPC va monster la solid
-//                }
+                entity.solidArea.y += entity.speed;
                 break;
             case "left":
-                entity.solidArea.x -= entity.speed; // di chuyen vung va cham sang trai
-//                if (entity.solidArea.intersects(gp.player.solidArea)) { // kiem tra va cham
-//                    entity.collisionOn = true; // tat ca NPC va monster la solid
-//                }
+                entity.solidArea.x -= entity.speed;
                 break;
             case "right":
-                entity.solidArea.x += entity.speed; // di chuyen vung va cham sang phai
-//                if (entity.solidArea.intersects(gp.player.solidArea)) { // kiem tra va cham
-//                    entity.collisionOn = true; // tat ca NPC va monster la solid
-//                }
+                entity.solidArea.x += entity.speed;
                 break;
         }
-        if (entity.solidArea.intersects(gp.player.solidArea)) { // kiem tra va cham
-            entity.collisionOn = true; // tat ca NPC va monster la solid
+        if (entity.solidArea.intersects(gp.player.solidArea)) {
+            entity.collisionOn = true;
             contactPlayer = true;
         }
-
-        // reset lai vi tri vung va cham cua entity va object sau khi kiem tra
-        entity.solidArea.x = entity.solidAreaDefaultX;
+        entity.solidArea.x = entity.solidAreaDefaultX; //// Reset
         entity.solidArea.y = entity.solidAreaDefaultY;
-        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+
+        gp.player.solidArea.x = gp.player.solidAreaDefaultX; //// Reset
         gp.player.solidArea.y = gp.player.solidAreaDefaultY;
-        
+
         return contactPlayer;
     }
 }

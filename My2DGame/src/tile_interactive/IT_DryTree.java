@@ -1,36 +1,31 @@
-package tile_interactive;
+package Tile_interactive;
 
-import Enity.Entity;
+import Entity.Entity;
 import Main.GamePanel;
-import java.awt.Color;
 
-/**
- *
- * @author dieu hoang
- */
+import java.awt.*;
+
 public class IT_DryTree extends InteractiveTile {
 
     GamePanel gp;
 
     public IT_DryTree(GamePanel gp, int col, int row) {
-        super(gp, row, col);
+        super(gp, col, row);
         this.gp = gp;
 
-        this.World_X = gp.tileSize * col;
-        this.World_Y = gp.tileSize * row;
+        this.worldX = gp.tileSize * col;
+        this.worldY = gp.tileSize * row;
 
         down1 = setup("/res/tiles_interactive/drytree", gp.tileSize, gp.tileSize);
         destructible = true;
-        life = 1;
+        life = 2;
     }
 
     public boolean isCorrectItem(Entity entity) {
         boolean isCorrectItem = false;
-
         if (entity.currentWeapon.type == type_axe) {
             isCorrectItem = true;
         }
-
         return isCorrectItem;
     }
 
@@ -39,7 +34,7 @@ public class IT_DryTree extends InteractiveTile {
     }
 
     public InteractiveTile getDestroyedForm() {
-        InteractiveTile tile = new IT_Trunk(gp, World_X / gp.tileSize, World_Y / gp.tileSize);
+        InteractiveTile tile = new IT_Trunk(gp, worldX / gp.tileSize, worldY / gp.tileSize);
         return tile;
     }
 
@@ -49,7 +44,7 @@ public class IT_DryTree extends InteractiveTile {
     }
 
     public int getParticleSize() {
-        int size = 6;
+        int size = 6; // pixels
         return size;
     }
 

@@ -1,15 +1,10 @@
-package tile_interactive;
+package Tile_interactive;
 
-import Enity.Entity;
+import Entity.Entity;
 import Main.GamePanel;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 
-/**
- *
- * @author dieu hoang
- */
+import java.awt.*;
+
 public class InteractiveTile extends Entity {
 
     GamePanel gp;
@@ -22,6 +17,7 @@ public class InteractiveTile extends Entity {
 
     public boolean isCorrectItem(Entity entity) {
         boolean isCorrectItem = false;
+        // Sub-class specifications
         return isCorrectItem;
     }
 
@@ -31,6 +27,7 @@ public class InteractiveTile extends Entity {
 
     public InteractiveTile getDestroyedForm() {
         InteractiveTile tile = null;
+        // Sub-class specifications
         return tile;
     }
 
@@ -45,13 +42,15 @@ public class InteractiveTile extends Entity {
     }
 
     public void draw(Graphics2D g2) {
-        int screenX = World_X - gp.player.World_X + gp.player.screenX;
-        int screenY = World_Y - gp.player.World_Y + gp.player.screenY;
-        if (World_X + gp.tileSize > gp.player.World_X - gp.player.screenX
-                && World_X - gp.tileSize < gp.player.World_X + gp.player.screenX
-                && World_Y + gp.tileSize > gp.player.World_Y - gp.player.screenY
-                && World_Y - gp.tileSize < gp.player.World_Y + gp.player.screenY) {
-            g2.drawImage(down1, screenX, screenY, gp.tileSize, gp.tileSize, null);
+
+        int screenX = worldX - gp.player.worldX + gp.player.screenX;
+        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+
+        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
+                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
+                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
+                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+            g2.drawImage(down1, screenX, screenY, null);
         }
     }
 }

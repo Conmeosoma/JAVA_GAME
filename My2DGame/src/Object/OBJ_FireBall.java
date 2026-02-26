@@ -1,65 +1,73 @@
 package Object;
 
-import Enity.Entity;
-import Enity.Projectile;
+import Entity.Entity;
+import Entity.Projectile;
 import Main.GamePanel;
-import java.awt.Color;
 
-public class OBJ_FireBall extends Projectile {
+import java.awt.*;
+
+public class OBJ_Fireball extends Projectile {
 
     GamePanel gp;
+    public static final String objName = "Fireball";
 
-    public OBJ_FireBall(GamePanel gp) {
+    public OBJ_Fireball(GamePanel gp) {
         super(gp);
         this.gp = gp;
-        name = "Fire Ball";
-        speed = 10;
-        maxLife = 80;
+
+        name = objName;
+        speed = 5;
+        maxLife = 80;   //after 80 frames, projectile disappears
         life = maxLife;
-        attack = 2;
-        useCost = 1;
+        attack = 1;
+        knockBackPower = 5;
+        useCost = 1; //spend 1 mana
         alive = false;
+        price = 75;
         getImage();
-    }
 
-    public void getImage() {
-        up1 = setup("/res/projectile/fireball_up_1", gp.tileSize, gp.tileSize);
-        up2 = setup("/res/projectile/fireball_up_2", gp.tileSize, gp.tileSize);
-        down1 = setup("/res/projectile/fireball_down_1", gp.tileSize, gp.tileSize);
-        down2 = setup("/res/projectile/fireball_down_2", gp.tileSize, gp.tileSize);
-        left1 = setup("/res/projectile/fireball_left_1", gp.tileSize, gp.tileSize);
-        left2 = setup("/res/projectile/fireball_left_2", gp.tileSize, gp.tileSize);
-        right1 = setup("/res/projectile/fireball_right_1", gp.tileSize, gp.tileSize);
-        right2 = setup("/res/projectile/fireball_right_2", gp.tileSize, gp.tileSize);
     }
-
-    public boolean haveResource(Entity user) {
+    public void getImage()
+    {
+        up1 = setup("/res/projectile/fireball_up_1", gp.tileSize,gp.tileSize);
+        up2 = setup("/res/projectile/fireball_up_2", gp.tileSize,gp.tileSize);
+        down1 = setup("/res/projectile/fireball_down_1", gp.tileSize,gp.tileSize);
+        down2 = setup("/res/projectile/fireball_down_2", gp.tileSize,gp.tileSize);
+        left1 = setup("/res/projectile/fireball_left_1", gp.tileSize,gp.tileSize);
+        left2 = setup("/res/projectile/fireball_left_2", gp.tileSize,gp.tileSize);
+        right1 = setup("/res/projectile/fireball_right_1", gp.tileSize,gp.tileSize);
+        right2 = setup("/res/projectile/fireball_right_2", gp.tileSize,gp.tileSize);
+    }
+    public boolean haveResource(Entity user)
+    {
         boolean haveResource = false;
-        if (user.mana > useCost) {
+        if(user.mana >= useCost)
+        {
             haveResource = true;
         }
         return haveResource;
     }
-    public void subtractResources(Entity user){
+    public void subtractResource(Entity user)
+    {
         user.mana -= useCost;
     }
-    
-    public Color getParticleColor() {
-        Color color = new Color(240, 50, 0);
+    public Color getParticleColor()
+    {
+        Color color = new Color(240,50,0);
         return color;
     }
-
-    public int getParticleSize() {
-        int size = 10;
+    public int getParticleSize()
+    {
+        int size = 10; //pixels
         return size;
     }
-
-    public int getParticleSpeed() {
+    public int getParticleSpeed()
+    {
         int speed = 1;
         return speed;
     }
-
-    public int getParticleMaxLife() {
+    public int getParticleMaxLife()
+    {
         int maxLife = 20;
         return maxLife;
     }

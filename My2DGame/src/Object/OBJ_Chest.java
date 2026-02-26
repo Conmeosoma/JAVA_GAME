@@ -1,32 +1,65 @@
-// CodeByConMeoSoMa
-// /\_/\  
-//( o.o ) 
-// > ^ <
 package Object;
 
-import Enity.Entity;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import Entity.Entity;
 import Main.GamePanel;
 
-//public class OBJ_Chest extends SuperObject {
 public class OBJ_Chest extends Entity {
 
-//  GamePanel gp;
+    GamePanel gp;
+    public static final String objName = "Chest";
+    public OBJ_Chest(GamePanel gp)
+    {
+        super(gp);
+        this.gp = gp;
 
-  public OBJ_Chest(GamePanel gp) {
-    super(gp);
-    name = "Chest";
-    down1 = setup("/res/Object/Chest", gp.tileSize, gp.tileSize);
-//    this.gp = gp;
-//    try {
-//      image = ImageIO.read(getClass().getResourceAsStream("/res/Object/Chest.png"));
-//      image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-//    } catch (IOException e) {
-//      // TODO: handle exception
-//      e.printStackTrace();
-//    }
-  }
+        type = type_obstacle;
+        name = objName;
+        image = setup("/objects/chest",gp.tileSize,gp.tileSize);
+        image2 = setup("/objects/chest_opened",gp.tileSize,gp.tileSize);
+        down1 = image;
+        collision = true;
+
+        solidArea.x = 4;
+        solidArea.y = 16;
+        solidArea.width = 40;
+        solidArea.height = 32;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+
+    }
+    public void setLoot(Entity loot)
+    {
+        this.loot = loot;
+
+        setDialogue();
+    }
+    public void setDialogue()
+    {
+        dialogues[0][0] = "You open the chest and find a " + loot.name + "!\n...But you cannot carry any more!";
+        dialogues[1][0] = "You open the chest and find a " + loot.name + "!\nYou obtain the " + loot.name + "!";
+        dialogues[2][0] = "It's empty.";
+    }
+    public void interact()
+    {
+        if(opened == false)
+        {
+            gp.playSE(3);
+
+            if(gp.player.canObtainItem(loot) == false)
+            {
+                startDialogue(this,0);
+            }
+            else
+            {
+                startDialogue(this,1);
+                //gp.player.inventory.add(loot); //canObtainItem() already adds item
+                down1 = image2;
+                opened = true;
+            }
+        }
+        else
+        {
+            startDialogue(this,2);
+        }
+    }
 }

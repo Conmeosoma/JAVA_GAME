@@ -1,4 +1,4 @@
-package tile_interactive;
+package Tile_interactive;
 
 import Main.GamePanel;
 
@@ -14,8 +14,8 @@ public class IT_Trunk extends InteractiveTile {
         super(gp, row, col);
         this.gp = gp;
 
-        this.World_X = gp.tileSize * col;
-        this.World_Y = gp.tileSize * row;
+        this.worldX = gp.tileSize * col;
+        this.worldY = gp.tileSize * row;
 
         down1 = setup("/res/tiles_interactive/trunk", gp.tileSize, gp.tileSize);
 
