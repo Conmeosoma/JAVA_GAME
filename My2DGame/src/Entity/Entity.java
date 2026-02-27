@@ -462,14 +462,6 @@ public class Entity {
         int i = new Random().nextInt(rate);
         if (i == 0 && projectile.alive == false && shotAvailableCounter == shotInterval) {
             projectile.set(worldX, worldY, direction, true, this);
-            // gp.projectileList.add(projectile);
-            // CHECK VACANCY
-            // for (int ii = 0; ii < gp.projectile[1].length; ii++) {
-            // if (gp.projectile[gp.currentMap][ii] == null) {
-            // gp.projectile[gp.currentMap][ii] = projectile;
-            // break;
-            // }
-            // }
             shotAvailableCounter = 0;
         }
     }
@@ -519,7 +511,7 @@ public class Entity {
 
         if (actionLockCounter > interval) {
             if (getXdistance(gp.player) > getYdistance(gp.player)) // if entity far to the player on X axis moves right
-                                                                   // or left
+            // or left
             {
                 if (gp.player.getCenterX() < getCenterX()) // Player is left side, entity moves to left
                 {
@@ -528,7 +520,7 @@ public class Entity {
                     direction = "right";
                 }
             } else if (getXdistance(gp.player) < getYdistance(gp.player)) // if entity far to the player on Y axis moves
-                                                                          // up or down
+            // up or down
             {
                 if (gp.player.getCenterY() < getCenterY()) // Player is up side, entity moves to up
                 {
@@ -604,16 +596,9 @@ public class Entity {
                 }
             } else // Player
             {
-                // Check monster collision with the updated worldX, worldY and solidArea
-              //  int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-                // gp.player.damageMonster(monsterIndex, this, attack,
-                // currentWeapon.knockBackPower);
-
                 int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
                 gp.player.damageInteractiveTile(iTileIndex);
 
-                // int projectileIndex = gp.cChecker.checkEntity(this, gp.projectile);
-                // gp.player.damageProjectile(projectileIndex);
             }
 
             // After checking collision, restore the original data
@@ -642,7 +627,7 @@ public class Entity {
                     damage = 0;
                     gp.playSE(16);
                     setKnockBack(this, gp.player, knockBackPower); // Knockback attacker //You can use shield's
-                                                                   // knockBackPower!
+                    // knockBackPower!
                     offBalance = true;
                     spriteCounter = -60; // Attacker's sprites returns to motion1//like a stun effect
                 } else {
@@ -677,12 +662,13 @@ public class Entity {
 
     public boolean inCamera() {
         boolean inCamera = false;
-        if (worldX + gp.tileSize * 5 > gp.player.worldX - gp.player.screenX && // *5 because skeleton lord disappears
-                                                                               // when the top left corner isn't on the
-                                                                               // screen
-                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-                worldY + gp.tileSize * 5 > gp.player.worldY - gp.player.screenY &&
-                worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+        if (worldX + gp.tileSize * 5 > gp.player.worldX - gp.player.screenX
+                && // *5 because skeleton lord disappears
+                // when the top left corner isn't on the
+                // screen
+                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
+                && worldY + gp.tileSize * 5 > gp.player.worldY - gp.player.screenY
+                && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
             inCamera = true;
         }
         return inCamera;
@@ -709,8 +695,8 @@ public class Entity {
                     if (attacking == true) // Attacking sprites
                     {
                         tempScreenY = getScreenY() - up1.getHeight(); // Adjusted the player's position one tile to up.
-                                                                      // Explained why I did it at where I call
-                                                                      // attacking() in update().
+                        // Explained why I did it at where I call
+                        // attacking() in update().
                         if (spriteNum == 1) {
                             image = attackUp1;
                         }
@@ -754,8 +740,8 @@ public class Entity {
                     if (attacking == true) // Attacking sprites
                     {
                         tempScreenX = getScreenX() - up1.getWidth(); // Adjusted the player's position one tile left.
-                                                                     // Explained why I did it at where I call
-                                                                     // attacking() in update().
+                        // Explained why I did it at where I call
+                        // attacking() in update().
                         if (spriteNum == 1) {
                             image = attackLeft1;
                         }
@@ -813,7 +799,7 @@ public class Entity {
         if (dyingCounter <= i) {
             changeAlpha(g2, 0f);
         } // If you want add death animation or something like that, you can use your
-          // sprites instead of changing alpha inside of if statements
+        // sprites instead of changing alpha inside of if statements
         if (dyingCounter > i && dyingCounter <= i * 2) {
             changeAlpha(g2, 1f);
         }
@@ -897,12 +883,10 @@ public class Entity {
             // TOP PATH
             if (enTopY > nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize) {
                 direction = "up";
-            }
-            // BOTTOM PATH
+            } // BOTTOM PATH
             else if (enTopY < nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize) {
                 direction = "down";
-            }
-            // RIGHT - LEFT PATH
+            } // RIGHT - LEFT PATH
             else if (enTopY >= nextY && enBottomY < nextY + gp.tileSize) {
                 // either left or right
                 // LEFT PATH
@@ -913,8 +897,7 @@ public class Entity {
                 if (enLeftX < nextX) {
                     direction = "right";
                 }
-            }
-            // OTHER EXCEPTIONS
+            } // OTHER EXCEPTIONS
             else if (enTopY > nextY && enLeftX > nextX) {
                 // up or left
                 direction = "up";
@@ -982,7 +965,7 @@ public class Entity {
         for (int i = 0; i < target[1].length; i++) {
             if (target[gp.currentMap][i] != null) {
                 if (target[gp.currentMap][i].getCol() == col // checking if player 1 tile away from target (key etc.)
-                                                             // (must be same direction)
+                        // (must be same direction)
                         && target[gp.currentMap][i].getRow() == row
                         && target[gp.currentMap][i].name.equals(targetName)) {
                     index = i;

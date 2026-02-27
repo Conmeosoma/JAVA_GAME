@@ -12,6 +12,7 @@ import java.util.Random;
 public class MON_RedSlime extends Entity {
 
     GamePanel gp; // cuz of different package
+
     public MON_RedSlime(GamePanel gp) {
         super(gp);
 
@@ -28,7 +29,6 @@ public class MON_RedSlime extends Entity {
         exp = 4;
         projectile = new OBJ_Rock(gp);
 
-
         solidArea.x = 3;
         solidArea.y = 18;
         solidArea.width = 42;
@@ -39,33 +39,29 @@ public class MON_RedSlime extends Entity {
         getImage();
     }
 
-    public void getImage()
-    {
-        up1 = setup("/res/monster/redslime_down_1",gp.tileSize,gp.tileSize);
-        up2 = setup("/res/monster/redslime_down_2",gp.tileSize,gp.tileSize);
-        down1 = setup("/res/monster/redslime_down_1",gp.tileSize,gp.tileSize);
-        down2 = setup("/res/monster/redslime_down_2",gp.tileSize,gp.tileSize);
-        left1 = setup("/res/monster/redslime_down_1",gp.tileSize,gp.tileSize);
-        left2 = setup("/res/monster/redslime_down_2",gp.tileSize,gp.tileSize);
-        right1 = setup("/res/monster/redslime_down_1",gp.tileSize,gp.tileSize);
-        right2 = setup("/res/monster/redslime_down_2",gp.tileSize,gp.tileSize);
+    public void getImage() {
+        up1 = setup("/res/monster/redslime_down_1", gp.tileSize, gp.tileSize);
+        up2 = setup("/res/monster/redslime_down_2", gp.tileSize, gp.tileSize);
+        down1 = setup("/res/monster/redslime_down_1", gp.tileSize, gp.tileSize);
+        down2 = setup("/res/monster/redslime_down_2", gp.tileSize, gp.tileSize);
+        left1 = setup("/res/monster/redslime_down_1", gp.tileSize, gp.tileSize);
+        left2 = setup("/res/monster/redslime_down_2", gp.tileSize, gp.tileSize);
+        right1 = setup("/res/monster/redslime_down_1", gp.tileSize, gp.tileSize);
+        right2 = setup("/res/monster/redslime_down_2", gp.tileSize, gp.tileSize);
     }
-    public void setAction()
-    {
-        if(onPath == true)
-        {
+
+    public void setAction() {
+        if (onPath == true) {
 
             //Check if it stops chasing
-            checkStopChasingOrNot(gp.player,15,100);
+            checkStopChasingOrNot(gp.player, 15, 100);
 
             //Search the direction to go
             searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
 
             //Check if it shoots a projectile
             checkShootOrNot(200, 30);
-        }
-        else
-        {
+        } else {
             //Check if it starts chasing
             checkStartChasingOrNot(gp.player, 5, 100);
 
@@ -79,22 +75,19 @@ public class MON_RedSlime extends Entity {
         //direction = gp.player.direction;
         onPath = true; // gets aggro
     }
-    public void checkDrop()
-    {
+
+    public void checkDrop() {
         //CAST A DIE
-        int i = new Random().nextInt(100)+1;
+        int i = new Random().nextInt(100) + 1;
 
         //SET THE MONSTER DROP
-        if(i < 50)
-        {
+        if (i < 50) {
             dropItem(new OBJ_Coin_Bronze(gp));
         }
-        if(i >= 50 && i < 75)
-        {
+        if (i >= 50 && i < 75) {
             dropItem(new OBJ_Heart(gp));
         }
-        if(i >= 75 && i < 100)
-        {
+        if (i >= 75 && i < 100) {
             dropItem(new OBJ_ManaCrystal(gp));
         }
     }

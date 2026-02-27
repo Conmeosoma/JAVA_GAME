@@ -4,6 +4,7 @@ import Data.Progress;
 import Entity.Entity;
 
 public class EventHandler {
+
     GamePanel gp;
     EventRect eventRect[][][];
     Entity eventMaster;
@@ -75,7 +76,6 @@ public class EventHandler {
             else if (hit(1, 12, 9, "up") == true) {
                 speak(gp.npc[1][0]);
             } // merchant
-
             else if (hit(0, 12, 9, "any") == true) {
                 teleport(2, 9, 41, gp.dungeon);
             } // to the dungeon

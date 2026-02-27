@@ -73,7 +73,7 @@ public class UI {
     }
 
     public void drawDialogueScreen() {// when player interacts with npc, this method is called in GamePanel's draw
-                                      // method
+        // method
         // WINDOW
         int x = gp.tileSize * 3;
         int y = gp.tileSize / 2;
@@ -266,8 +266,8 @@ public class UI {
         for (int i = 0; i < entity.inventory.size(); i++) {
 
             // EQUIP CURSOR
-            if (entity.inventory.get(i) == entity.currentWeapon ||
-                    entity.inventory.get(i) == entity.currentShield || entity.inventory.get(i) == entity.currentLight) {
+            if (entity.inventory.get(i) == entity.currentWeapon
+                    || entity.inventory.get(i) == entity.currentShield || entity.inventory.get(i) == entity.currentLight) {
                 g2.setColor(new Color(240, 190, 90));
                 g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
             }
@@ -276,7 +276,7 @@ public class UI {
 
             // DISPLAY AMOUNT
             if (entity == gp.player && entity.inventory.get(i).amount > 1) // merchant npc's inventory cannot stack
-                                                                           // items
+            // items
             {
                 g2.setFont(g2.getFont().deriveFont(32f));
                 int amountX;
@@ -357,7 +357,7 @@ public class UI {
     }
 
     public void drawTradeScreen() { // when player trades with merchant npc, this method is called in GamePanel's
-                                    // draw method
+        // draw method
         switch (subState) {
             case 0:
                 trade_select();
@@ -509,8 +509,8 @@ public class UI {
 
             // SELL AN ITEM
             if (gp.keyH.enterPressed == true) {
-                if (gp.player.inventory.get(itemIndex) == gp.player.currentWeapon ||
-                        gp.player.inventory.get(itemIndex) == gp.player.currentShield) // equipped items cant sell
+                if (gp.player.inventory.get(itemIndex) == gp.player.currentWeapon
+                        || gp.player.inventory.get(itemIndex) == gp.player.currentShield) // equipped items cant sell
                 {
                     commandNum = 0;
                     subState = 0;
@@ -633,12 +633,12 @@ public class UI {
             if (monster != null && monster.inCamera() == true) {
                 if (monster.hpBarOn == true && monster.boss == false) {
                     double oneScale = (double) gp.tileSize / monster.maxLife; // (bar lenght / maxlife) Ex: if monster
-                                                                              // hp = 2, tilesize = 48px. So, 1 hp =
-                                                                              // 24px
+                    // hp = 2, tilesize = 48px. So, 1 hp =
+                    // 24px
                     double hpBarValue = oneScale * monster.life;
 
                     if (hpBarValue < 0) // Ex: You attack 5 hp to monster which has 3 hp. Monster's hp will be -2 and
-                                        // bar will ofset to left. To avoid that check if hpBarValue less than 0.
+                    // bar will ofset to left. To avoid that check if hpBarValue less than 0.
                     {
                         hpBarValue = 0;
                     }
@@ -657,14 +657,14 @@ public class UI {
                     }
                 } else if (monster.boss == true) {
                     double oneScale = (double) gp.tileSize * 8 / monster.maxLife; // (bar lenght / maxlife) Ex: if
-                                                                                  // monster hp = 2, tilesize = 48px.
-                                                                                  // So, 1 hp = 24px
+                    // monster hp = 2, tilesize = 48px.
+                    // So, 1 hp = 24px
                     double hpBarValue = oneScale * monster.life;
                     int x = gp.screenWidth / 2 - gp.tileSize * 4;
                     int y = gp.tileSize * 10;
 
                     if (hpBarValue < 0) // Ex: You attack 5 hp to monster which has 3 hp. Monster's hp will be -2 and
-                                        // bar will ofset to left. To avoid that check if hpBarValue less than 0.
+                    // bar will ofset to left. To avoid that check if hpBarValue less than 0.
                     {
                         hpBarValue = 0;
                     }
@@ -761,8 +761,7 @@ public class UI {
             if (commandNum == 2) {
                 g2.drawString(">", x - gp.tileSize, y);
             }
-        }
-        // SECOND SCREEN
+        } // SECOND SCREEN
         else if (titleScreenState == 1) {
 
             // CLASS SELECTION SCREEN
@@ -805,8 +804,7 @@ public class UI {
             if (commandNum == 3) {
                 g2.drawString(">", x - gp.tileSize, y);
             }
-        }
-        // LANGUAGE SELECTION
+        } // LANGUAGE SELECTION
         else if (titleScreenState == 2) {
             g2.setColor(Color.white);
             g2.setFont(g2.getFont().deriveFont(42F));
@@ -884,7 +882,6 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(32F));
 
         // SUB WINDOW
-
         int frameX = gp.tileSize * 6;
         int frameY = gp.tileSize;
         int frameWidth = gp.tileSize * 8;
@@ -1161,17 +1158,16 @@ public class UI {
         this.g2 = g2;
         g2.setFont(maruMonica);
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON); // Anti
-                                                                                                           // Aliasing
-                                                                                                           // //
-                                                                                                           // Smoothes
-                                                                                                           // the text
+        // Aliasing
+        // //
+        // Smoothes
+        // the text
         g2.setColor(Color.white);
 
         // TITLE STATE
         if (gp.gameState == gp.titleState) {
             drawTitleScreen();
-        }
-        // OTHERS
+        } // OTHERS
         else {
             // PLAY STATE
             if (gp.gameState == gp.playState) {

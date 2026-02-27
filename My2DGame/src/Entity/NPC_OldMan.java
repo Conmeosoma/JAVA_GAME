@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Entity;
 
 import Main.GamePanel;
@@ -9,9 +5,6 @@ import Main.GamePanel;
 import java.awt.Rectangle;
 import java.util.Random;
 
-/**
- * @author dieu hoang
- */
 public class NPC_OldMan extends Entity {
 
     public NPC_OldMan(GamePanel gp) {

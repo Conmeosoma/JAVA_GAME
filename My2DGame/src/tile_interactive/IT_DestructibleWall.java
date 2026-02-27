@@ -4,60 +4,61 @@ import Entity.*;
 import Main.*;
 
 import java.awt.*;
+
 public class IT_DestructibleWall extends InteractiveTile {
 
-  GamePanel gp;
+    GamePanel gp;
 
-  public IT_DestructibleWall(GamePanel gp, int col, int row) {
-    super(gp, col, row);
-    this.gp = gp;
+    public IT_DestructibleWall(GamePanel gp, int col, int row) {
+        super(gp, col, row);
+        this.gp = gp;
 
-    this.worldX = gp.tileSize * col;
-    this.worldY = gp.tileSize * row;
+        this.worldX = gp.tileSize * col;
+        this.worldY = gp.tileSize * row;
 
-    down1 = setup("/res/tiles_interactive/destructiblewall", gp.tileSize, gp.tileSize);
-    destructible = true;
-    life = 3;
-  }
-
-  public boolean isCorrectItem(Entity entity) {
-    boolean isCorrectItem = false;
-    if (entity.currentWeapon.type == type_pickaxe) {
-      isCorrectItem = true;
+        down1 = setup("/res/tiles_interactive/destructiblewall", gp.tileSize, gp.tileSize);
+        destructible = true;
+        life = 3;
     }
-    return isCorrectItem;
-  }
 
-  public void playSE() {
-    gp.playSE(20);
-  }
+    public boolean isCorrectItem(Entity entity) {
+        boolean isCorrectItem = false;
+        if (entity.currentWeapon.type == type_pickaxe) {
+            isCorrectItem = true;
+        }
+        return isCorrectItem;
+    }
 
-  public InteractiveTile getDestroyedForm() {
-    InteractiveTile tile = null;
-    return tile;
-  }
+    public void playSE() {
+        gp.playSE(20);
+    }
 
-  public Color getParticleColor() {
-    Color color = new Color(65, 65, 65);
-    return color;
-  }
+    public InteractiveTile getDestroyedForm() {
+        InteractiveTile tile = null;
+        return tile;
+    }
 
-  public int getParticleSize() {
-    int size = 6; // pixels
-    return size;
-  }
+    public Color getParticleColor() {
+        Color color = new Color(65, 65, 65);
+        return color;
+    }
 
-  public int getParticleSpeed() {
-    int speed = 1;
-    return speed;
-  }
+    public int getParticleSize() {
+        int size = 6; // pixels
+        return size;
+    }
 
-  public int getParticleMaxLife() {
-    int maxLife = 20;
-    return maxLife;
-  }
-  // for mining stuff u can use it in damageInteractiveTile in Player class
-  /*
+    public int getParticleSpeed() {
+        int speed = 1;
+        return speed;
+    }
+
+    public int getParticleMaxLife() {
+        int maxLife = 20;
+        return maxLife;
+    }
+    // for mining stuff u can use it in damageInteractiveTile in Player class
+    /*
    * public void checkDrop()
    * {
    * //CAST A DIE
@@ -77,5 +78,5 @@ public class IT_DestructibleWall extends InteractiveTile {
    * dropItem(new OBJ_ManaCrystal(gp));
    * }
    * }
-   */
+     */
 }

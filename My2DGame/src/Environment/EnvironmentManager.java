@@ -6,22 +6,22 @@ import java.awt.*;
 
 public class EnvironmentManager {
 
-  GamePanel gp;
-  public Lighting lighting;
+    GamePanel gp;
+    public Lighting lighting;
 
-  public EnvironmentManager(GamePanel gp) {
-    this.gp = gp;
-  }
+    public EnvironmentManager(GamePanel gp) {
+        this.gp = gp;
+    }
 
-  public void setup() {
-    lighting = new Lighting(gp);
-  }
+    public void setup() {
+        lighting = new Lighting(gp);
+    }
 
-  public void update() {
-    lighting.update();
-  }
+    public void update() {
+        lighting.update();
+    }
 
-  public void draw(Graphics2D g2) {
-    lighting.draw(g2);
-  }
+    public void draw(Graphics2D g2) {
+        lighting.draw(g2);
+    }
 }

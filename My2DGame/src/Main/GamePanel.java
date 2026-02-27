@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
+
     // SCREEN SETTINGS
     final int originalTileSize = 16; // 16*16 tile. default
     final int scale = 3; // 16*3 scale
@@ -53,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     public KeyHandler keyH = new KeyHandler(this);
     public EventHandler eHandler = new EventHandler(this);
     Sound music = new Sound(); // Created 2 different objects for Sound Effect and Music. If you use 1 object
-                               // SE or Music stops sometimes.
+    // SE or Music stops sometimes.
     Sound se = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
@@ -130,7 +131,7 @@ public class GamePanel extends JPanel implements Runnable {
         // FOR FULLSCREEN
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB); // blank screen
         g2 = (Graphics2D) tempScreen.getGraphics(); // g2 attached to this tempScreen. g2 will draw on this tempScreen
-                                                    // buffered image.
+        // buffered image.
         if (fullScreenOn == true) {
             setFullScreen();
         }
@@ -285,12 +286,10 @@ public class GamePanel extends JPanel implements Runnable {
         // TITLE SCREEN
         if (gameState == titleState) {
             ui.draw(g2);
-        }
-        // MAP SCREEN
+        } // MAP SCREEN
         else if (gameState == mapState) {
             map.drawFullMapScreen(g2);
-        }
-        // OTHERS
+        } // OTHERS
         else {
             // TILE
             tileM.draw(g2);
@@ -346,7 +345,7 @@ public class GamePanel extends JPanel implements Runnable {
                 @Override
                 public int compare(Entity e1, Entity e2) {
                     int result = Integer.compare(e1.worldY, e2.worldY); // result returns : (x=y : 0, x>y : >0, x<y :
-                                                                        // <0)
+                    // <0)
                     return result;
                 }
             });
@@ -372,7 +371,6 @@ public class GamePanel extends JPanel implements Runnable {
             ui.draw(g2);
 
             // DEBUG
-
             if (keyH.showDebugText == true) {
                 long drawEnd = System.nanoTime();
                 long passed = drawEnd - drawStart;
@@ -406,6 +404,7 @@ public class GamePanel extends JPanel implements Runnable {
         g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
         g.dispose();
     }
+
     // COMMENTED FOR FULLSCREEN
     /*
      * public void paintComponent(Graphics g)

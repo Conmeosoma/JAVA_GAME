@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class TileManager {
+
     GamePanel gp;
     public Tile[] tile;
     public int mapTileNum[][][]; // [StoreMapNumber][col][row] // For Transition Between Maps
@@ -140,8 +141,8 @@ public class TileManager {
 
     public void setup(int index, String imageName, boolean collision) { // IMPROVING RENDERING // Scaling with uTool
         UtilityTool uTool = new UtilityTool(); // With uTool I'm not using anymore like:
-                                               // g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize,
-                                               // gp.tileSize,null);
+        // g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize,
+        // gp.tileSize,null);
         try // I use g2.drawImage(tile[tileNum].image, screenX, screenY,null);
         {
             tile[index] = new Tile();
@@ -194,10 +195,10 @@ public class TileManager {
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-                    worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-                    worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-                    worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX
+                    && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
+                    && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
+                    && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
                 g2.drawImage(tile[tileNum].image, screenX, screenY, null);
             }
 

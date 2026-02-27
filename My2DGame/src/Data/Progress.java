@@ -1,5 +1,6 @@
 package Data;
 
 public class Progress {
-  public static boolean skeletonLordDefeated;
+
+    public static boolean skeletonLordDefeated;
 }
