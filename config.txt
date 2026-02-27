@@ -1,4 +1,4 @@
-Off
-3
-3
-ENGLISH
+On
+2
+0
+VIETNAMESE

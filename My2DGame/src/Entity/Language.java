@@ -13,11 +13,11 @@ public class Language {
     ENGLISH,
     SPANISH,
     VIETNAMESE
-    
+
   }
 
   private Lang currentLang;
-  private Map<String, String> map;
+  private Map<String, String> map; // khai báo map để lưu trữ các cặp key-value cho localization
 
   public Language() {
     map = new HashMap<>();
@@ -155,58 +155,58 @@ public class Language {
         map.put("controls.options", "Opciones");
         break;
       case VIETNAMESE:
-        map.put("title.gameName", "Blue Boy Phiêu Lưu");
-        map.put("menu.newGame", "TRÒ CHƠI MỚI");
-        map.put("menu.loadGame", "TẢI TRÒ CHƠI");
-        map.put("menu.quit", "THOÁT");
-        map.put("menu.class.select", "Chọn lớp nhân vật!");
-        map.put("menu.class.fighter", "Chiến Binh");
-        map.put("menu.class.thief", "Đạo Tặc");
-        map.put("menu.class.sorcerer", "Pháp Sư");
-        map.put("menu.back", "Quay Lại");
+        map.put("title.gameName", "HIT Phieu Luu");
+        map.put("menu.newGame", "TRO CHOI MOI");
+        map.put("menu.loadGame", "TAI TRO CHOI");
+        map.put("menu.quit", "THOAT");
+        map.put("menu.class.select", "Chon lop nhan vat!");
+        map.put("menu.class.fighter", "Chien Binh");
+        map.put("menu.class.thief", "Dao Tac");
+        map.put("menu.class.sorcerer", "Phap Su");
+        map.put("menu.back", "Quay Lai");
 
-        map.put("pause.gamePaused", "TẠM DỪNG");
-        map.put("gameover.title", "Trò Chơi Kết Thúc");
-        map.put("gameover.retry", "Chơi Lại");
-        map.put("gameover.quit", "Thoát");
+        map.put("pause.gamePaused", "TAM DUNG");
+        map.put("gameover.title", "Tro Choi Ket Thuc");
+        map.put("gameover.retry", "Choi Lai");
+        map.put("gameover.quit", "Thoat");
 
-        map.put("options.title", "Tùy Chọn");
-        map.put("options.fullScreen", "Toàn Màn Hình");
-        map.put("options.music", "Nhạc");
-        map.put("options.se", "Âm Hiệu");
-        map.put("options.language", "Ngôn Ngữ");
-        map.put("options.controls", "Điều Khiển");
-        map.put("options.endGame", "Kết Thúc Trò Chơi");
-        map.put("options.saveMessage", "Thay đổi sẽ có hiệu lực\nsau khi khởi động lại trò chơi.");
-        map.put("options.quitConfirm", "Thoát trò chơi và\nquay về màn hình chính?");
-        map.put("dialog.yes", "Có");
-        map.put("dialog.no", "Không");
-        map.put("options.escBack", "[ESC] Quay Lại");
+        map.put("options.title", "Tuy Chon");
+        map.put("options.fullScreen", "Toan Man Hinh");
+        map.put("options.music", "Nhac");
+        map.put("options.se", "Am Hieu");
+        map.put("options.language", "Ngon Ngu");
+        map.put("options.controls", "Dieu Khien");
+        map.put("options.endGame", "Ket Thuc Tro Choi");
+        map.put("options.saveMessage", "Thay doi se co hieu luc\nsau khi khoi dong lai tro choi.");
+        map.put("options.quitConfirm", "Thoat tro choi va\nquay ve man hin chinh?");
+        map.put("dialog.yes", "Co");
+        map.put("dialog.no", "Khong");
+        map.put("options.escBack", "[ESC] Quay Lai");
 
-        map.put("status.level", "Cấp");
-        map.put("status.life", "Sinh Lực");
-        map.put("status.mana", "Nội Lực");
-        map.put("status.strength", "Sức Mạnh");
-        map.put("status.dexterity", "Nhanh Nhẹn");
-        map.put("status.attack", "Tấn Công");
-        map.put("status.defence", "Phòng Ngự");
-        map.put("status.exp", "Kinh Nghiệm");
-        map.put("status.nextLevel", "Cấp Tiếp Theo");
-        map.put("status.coin", "Tiền");
-        map.put("status.weapon", "Vũ Khí");
-        map.put("status.shield", "Khiên");
+        map.put("status.level", "Cap");
+        map.put("status.life", "Sinh Luc");
+        map.put("status.mana", "Noi Luc");
+        map.put("status.strength", "Suc Manh");
+        map.put("status.dexterity", "Nhanh Nhen");
+        map.put("status.attack", "Tan Cong");
+        map.put("status.defence", "Phong Ngu");
+        map.put("status.exp", "Kinh Nghiem");
+        map.put("status.nextLevel", "Cap Tiep Theo");
+        map.put("status.coin", "Tien");
+        map.put("status.weapon", "Vu Khi");
+        map.put("status.shield", "Khien");
 
         map.put("trade.buy", "Mua");
-        map.put("trade.sell", "Bán");
-        map.put("trade.leave", "Rời");
-        map.put("trade.yourCoin", "Tiền của bạn: ");
+        map.put("trade.sell", "Ban");
+        map.put("trade.leave", "Roi");
+        map.put("trade.yourCoin", "Tien cua ban: ");
 
-        map.put("controls.move", "Di chuyển");
-        map.put("controls.confirmAttack", "Xác nhận/Tấn công");
-        map.put("controls.shootCast", "Bắn/Phép");
-        map.put("controls.character", "Màn hình nhân vật");
-        map.put("controls.pause", "Tạm dừng");
-        map.put("controls.options", "Tùy Chọn");
+        map.put("controls.move", "Di chuyen");
+        map.put("controls.confirmAttack", "Xac nhan/Tan cong");
+        map.put("controls.shootCast", "Ban/Phep");
+        map.put("controls.character", "Man hinh nhan vat");
+        map.put("controls.pause", "Tam dung");
+        map.put("controls.options", "Tuy Chon");
         break;
     }
   }
