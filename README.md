@@ -121,17 +121,17 @@ A classic 2D top-down action RPG game inspired by retro classics like The Legend
 
 ### Game Window
 
-![Game Window](docs/images/screenshot_window.png)
+![Game Window](/docs/images/screenshot_window.png)
 _Main game window showing tile-based world_
 
 ### Tile Rendering
 
-![Tile Map](docs/images/screenshot_map.png)
+![Tile Map](/docs/images/screenshot_map.png)
 _50×50 tile world with various terrain types_
 
 ### Player Movement
 
-![Player Movement](docs/images/screenshot_player.gif)
+![Player Movement](/docs/images/screenshot_player.gif)
 _Smooth player animation and movement_
 
 ### Collision Detection
@@ -589,43 +589,14 @@ When reporting issues, please include:
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License
-
-Copyright (c) 2026 [Your Name]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
----
 
 ## 📞 Contact
 
-**Project Repository:** [https://github.com/yourusername/blue-boy-adventure](https://github.com/yourusername/blue-boy-adventure)
+**Project Repository:** [https://github.com/Conmeosoma/JAVA_GAME.git](https://github.com/Conmeosoma/JAVA_GAME.git)
 
 **Issues & Bugs:** [https://github.com/yourusername/blue-boy-adventure/issues](https://github.com/yourusername/blue-boy-adventure/issues)
 
-**Email:** your.email@example.com
+**Email:** your.email@example-.com
 
 **Discord Server:** [Join our community](https://discord.gg/yourinvite) (optional)
 
