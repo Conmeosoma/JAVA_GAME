@@ -1,32 +1,19 @@
-// CodeByConMeoSoMa
-// /\_/\  
-//( o.o ) 
-// > ^ <
 package Object;
 
-import Enity.Entity;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
+import Entity.Entity;
 import Main.GamePanel;
 
-//public class OBJ_Door extends SuperObject {
 public class OBJ_Door extends Entity {
 
-//  GamePanel gp;
+    GamePanel gp;
+    public static final String objName = "Door";
+
     public OBJ_Door(GamePanel gp) {
         super(gp);
-        name = "Door";
-        down1 = setup("/res/Object/door", gp.tileSize, gp.tileSize);
-//    this.gp = gp;
-//        try {
-//            image = ImageIO.read(getClass().getResourceAsStream("/res/Object/door.png"));
-//            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-//        } catch (IOException e) {
-//            // TODO: handle exception
-//            e.printStackTrace();
-//        }
+        this.gp = gp;
+        type = type_obstacle;
+        name = objName;
+        down1 = setup("/res/objects/door", gp.tileSize, gp.tileSize);
         collision = true;
 
         solidArea.x = 0;
@@ -35,5 +22,15 @@ public class OBJ_Door extends Entity {
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        price = 35;
+        setDialogue();
+    }
+
+    public void setDialogue() {
+        dialogues[0][0] = "You need a key to open this.";
+    }
+
+    public void interact() {
+        startDialogue(this, 0);
     }
 }

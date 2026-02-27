@@ -1,28 +1,44 @@
-// CodeByConMeoSoMa
-// /\_/\  
-//( o.o ) 
-// > ^ <
 package Main;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class Main {
 
+    public static JFrame window;
+
     public static void main(String[] args) {
-        JFrame window = new JFrame();// Khởi tạo cửa sổ JFrame
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Đóng cửa số khi nhấn nút X
+        window = new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false); // Cant Resizable
+        window.setTitle("Blue Boy Adventure\n"); // Window Name
+        new Main().setIcon();
+        GamePanel gamePanel = new GamePanel();
+        window.add(gamePanel);
 
-        window.setResizable(false); // Khong cho phep thay doi kich thuoc cua cua so
-        window.setTitle("HIT Adventure Game"); // Tieu de cua cua so
+        gamePanel.config.loadConfig();
+        if (gamePanel.fullScreenOn == true) {
+            window.setUndecorated(true);
+        }
 
-        GamePanel gamePanel = new GamePanel(); // tao mot doi tuong GamePanel
-        window.add(gamePanel); // them GamePanel vao cua so
-        window.pack(); // dieu chinh kich thuoc cua so de phu hop voi GamePanel
+        window.pack(); // Resizes to prefered size and prevents overflow.
 
-        window.setLocationRelativeTo(null); // cua so o giua man hinh
-        window.setVisible(true);// hien thi cua co
-        gamePanel.setupGame();// cai dat ban dau cho game
-        gamePanel.startGameThread();// bat dau luong game
+        window.setLocationRelativeTo(null); // Starts center of screen
+        window.setVisible(true);
 
+        gamePanel.setupGame(); // Setting up the game before starts
+        gamePanel.startGameThread();
+    }
+
+    public void setIcon() {
+        java.net.URL url = getClass().getResource("/res/player/boy_down_1.png");
+        if (url == null) {
+            url = getClass().getClassLoader().getResource("res/player/boy_down_1.png");
+        }
+        if (url != null) {
+            ImageIcon icon = new ImageIcon(url);
+            window.setIconImage(icon.getImage());
+        } else {
+            System.err.println("Warning: icon resource not found: /res/player/boy_down_1.png");
+        }
     }
 }
