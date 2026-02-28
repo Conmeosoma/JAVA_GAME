@@ -36,8 +36,8 @@ public class EntityGenerator {
       case OBJ_Door_Iron.objName:
         obj = new OBJ_Door_Iron(gp);
         break;
-      case OBJ_Fireball.objName:
-        obj = new OBJ_Fireball(gp);
+      case OBJ_FireBall.objName:
+        obj = new OBJ_FireBall(gp);
         break;
       case OBJ_Heart.objName:
         obj = new OBJ_Heart(gp);

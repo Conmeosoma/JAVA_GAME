@@ -9,6 +9,7 @@ import Object.OBJ_ManaCrystal;
 import java.util.Random;
 
 public class MON_Orc extends Entity {
+
     GamePanel gp; // cuz of different package
 
     public MON_Orc(GamePanel gp) {

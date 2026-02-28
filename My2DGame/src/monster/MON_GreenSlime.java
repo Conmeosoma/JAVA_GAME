@@ -67,17 +67,26 @@ public class MON_GreenSlime extends Entity {
       // Get a random direction
       getRandomDirection(120);
     }
-  }
 
-  public void damageReaction() {
-    actionLockCounter = 0;
-    // direction = gp.player.direction;
-    onPath = true; // gets aggro
-  }
+    public void getImage() {
+        up1 = setup("/res/monster/greenslime_down_1", gp.tileSize, gp.tileSize);
+        up2 = setup("/res/monster/greenslime_down_2", gp.tileSize, gp.tileSize);
+        down1 = setup("/res/monster/greenslime_down_1", gp.tileSize, gp.tileSize);
+        down2 = setup("/res/monster/greenslime_down_2", gp.tileSize, gp.tileSize);
+        left1 = setup("/res/monster/greenslime_down_1", gp.tileSize, gp.tileSize);
+        left2 = setup("/res/monster/greenslime_down_2", gp.tileSize, gp.tileSize);
+        right1 = setup("/res/monster/greenslime_down_1", gp.tileSize, gp.tileSize);
+        right2 = setup("/res/monster/greenslime_down_2", gp.tileSize, gp.tileSize);
+    }
 
-  public void checkDrop() {
-    // CAST A DIE
-    int i = new Random().nextInt(100) + 1;
+    public void setAction() {
+        if (onPath == true) {
+
+            // Check if it stops chasing
+            checkStopChasingOrNot(gp.player, 15, 100);
+
+            // Search the direction to go
+            searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
 
     // SET THE MONSTER DROP
     if (i < 40) {
@@ -89,5 +98,4 @@ public class MON_GreenSlime extends Entity {
     if (i >= 80 && i < 100) {
       dropItem(new OBJ_ManaCrystal(gp));
     }
-  }
 }

@@ -12,6 +12,7 @@ import java.util.Random;
 import Data.Progress;
 
 public class MON_SkeletonLord extends Entity {
+
     GamePanel gp; // cuz of different package
     public static final String monName = "Skeleton Lord";
 

@@ -6,11 +6,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import java.net.URL;
 
-/**
- *
- * @author dieu hoang
- */
 public class Sound {
+
     Clip clip;
     URL soundURL[] = new URL[30];
     FloatControl fc;

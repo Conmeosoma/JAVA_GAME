@@ -40,36 +40,28 @@ public class KeyHandler implements KeyListener {
         // TITLE STATE
         if (gp.gameState == gp.titleState) {
             titleState(code);
-        }
-        // PLAY STATE
+        } // PLAY STATE
         else if (gp.gameState == gp.playState) {
             playState(code);
-        }
-        // PAUSE STATE
+        } // PAUSE STATE
         else if (gp.gameState == gp.pauseState) {
             pauseState(code);
-        }
-        // DIALOGUE STATE
+        } // DIALOGUE STATE
         else if (gp.gameState == gp.dialogueState || gp.gameState == gp.cutsceneState) {
             dialogueState(code);
-        }
-        // CHARACTER STATE
+        } // CHARACTER STATE
         else if (gp.gameState == gp.characterState) {
             characterState(code);
-        }
-        // OPTIONS STATE
+        } // OPTIONS STATE
         else if (gp.gameState == gp.optionsState) {
             optionsState(code);
-        }
-        // GAMEOVER STATE
+        } // GAMEOVER STATE
         else if (gp.gameState == gp.gameOverState) {
             gameOverState(code);
-        }
-        // TRADE STATE
+        } // TRADE STATE
         else if (gp.gameState == gp.tradeState) {
             tradeState(code);
-        }
-        // MAP STATE
+        } // MAP STATE
         else if (gp.gameState == gp.mapState) {
             mapState(code);
         }
@@ -106,8 +98,7 @@ public class KeyHandler implements KeyListener {
                     System.exit(0);
                 }
             }
-        }
-        // SECOND SCREEN // CHARACTER SELECTION
+        } // SECOND SCREEN // CHARACTER SELECTION
         else if (gp.ui.titleScreenState == 1) {
             if (code == KeyEvent.VK_W) {
                 gp.ui.commandNum--;
@@ -143,20 +134,21 @@ public class KeyHandler implements KeyListener {
                     gp.ui.titleScreenState = 0;
                 }
             }
-        }
-        // LANGUAGE SELECTION
+        } // LANGUAGE SELECTION
         else if (gp.ui.titleScreenState == 2) {
             int numLanguages = Language.Lang.values().length;
             int max = numLanguages; // languages + quit option
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                 gp.ui.commandNum--;
-                if (gp.ui.commandNum < 0)
+                if (gp.ui.commandNum < 0) {
                     gp.ui.commandNum = max;
+                }
             }
             if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                 gp.ui.commandNum++;
-                if (gp.ui.commandNum > max)
+                if (gp.ui.commandNum > max) {
                     gp.ui.commandNum = 0;
+                }
             }
             if (code == KeyEvent.VK_ENTER) {
                 // Check if Quit option is selected
@@ -315,7 +307,7 @@ public class KeyHandler implements KeyListener {
                 {
                     gp.music.volumeScale--;
                     gp.music.checkVolume(); // check for music maybe a song is already being played, but you dont need
-                                            // it for SE, when set a sound checkVolume will be execute.
+                    // it for SE, when set a sound checkVolume will be execute.
                     gp.playSE(9);
                 }
                 if (gp.ui.commandNum == 2 && gp.se.volumeScale > 0) // SE

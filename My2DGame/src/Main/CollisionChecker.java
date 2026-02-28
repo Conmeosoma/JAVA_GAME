@@ -3,6 +3,7 @@ package Main;
 import Entity.Entity;
 
 public class CollisionChecker {
+
     GamePanel gp;
 
     public CollisionChecker(GamePanel gp) {
@@ -85,7 +86,7 @@ public class CollisionChecker {
                 // get the object's solid area position
                 gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].worldX
                         + gp.obj[gp.currentMap][i].solidArea.x; // entity's solid area and obj's solid area is
-                                                                // different.
+                // different.
                 gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].worldY
                         + gp.obj[gp.currentMap][i].solidArea.y;
 
@@ -104,7 +105,7 @@ public class CollisionChecker {
                         break;
                 }
                 if (entity.solidArea.intersects(gp.obj[gp.currentMap][i].solidArea)) // Checking if Entity rectangle and
-                                                                                     // Object rectangle intersects.
+                // Object rectangle intersects.
                 {
                     if (gp.obj[gp.currentMap][i].collision == true) // Collision (Player can't enter through a door.)
                     {
@@ -143,7 +144,7 @@ public class CollisionChecker {
                 // get the object's solid area position
                 target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].worldX
                         + target[gp.currentMap][i].solidArea.x; // entity's solid area and obj's solid area is
-                                                                // different.
+                // different.
                 target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].worldY
                         + target[gp.currentMap][i].solidArea.y;
 
@@ -187,7 +188,7 @@ public class CollisionChecker {
 
         // get the object's solid area position
         gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x; // entity's solid area and obj's solid area is
-                                                                          // // different.
+        // // different.
         gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
 
         switch (entity.direction) {
@@ -208,10 +209,12 @@ public class CollisionChecker {
             entity.collisionOn = true;
             contactPlayer = true;
         }
-        entity.solidArea.x = entity.solidAreaDefaultX; //// Reset
+        entity.solidArea.x = entity.solidAreaDefaultX;
+        //// Reset
         entity.solidArea.y = entity.solidAreaDefaultY;
 
-        gp.player.solidArea.x = gp.player.solidAreaDefaultX; //// Reset
+        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+        //// Reset
         gp.player.solidArea.y = gp.player.solidAreaDefaultY;
 
         return contactPlayer;

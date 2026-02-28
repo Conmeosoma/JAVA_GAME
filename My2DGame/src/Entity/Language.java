@@ -5,8 +5,8 @@ import java.util.Map;
 
 /**
  * Simple localization manager. Game texts are looked up by key and can be
- * switched between different languages. Currently only English and Spanish
- * are provided as examples; add more entries or load from files as needed.
+ * switched between different languages. Currently only English and Spanish are
+ * provided as examples; add more entries or load from files as needed.
  */
 public class Language {
   public enum Lang {
@@ -209,23 +209,22 @@ public class Language {
         map.put("controls.options", "Tùy Chọn");
         break;
     }
-  }
 
-  // helper keys for language list display
-  public String languageDisplayName(Lang lang) {
-    switch (lang) {
-      case ENGLISH:
-        return "English";
-      case SPANISH:
-        return "Español";
-      case VIETNAMESE:
-        return "Tiếng Việt";
-      default:
-        return lang.name();
+    // helper keys for language list display
+    public String languageDisplayName(Lang lang) {
+        switch (lang) {
+            case ENGLISH:
+                return "English";
+            case SPANISH:
+                return "Español";
+            case VIETNAMESE:
+                return "Tiếng Việt";
+            default:
+                return lang.name();
+        }
     }
-  }
 
-  public String get(String key) {
-    return map.getOrDefault(key, key);
-  }
+    public String get(String key) {
+        return map.getOrDefault(key, key);
+    }
 }
