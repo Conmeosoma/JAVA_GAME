@@ -242,9 +242,9 @@ public class CutsceneManager {
                 sceneNum = NA;
                 scenePhase = 0;
 
-                // Transition to game again
-                gp.gameState = gp.playState;
-                gp.resetGame(false);
+                // Return to title screen
+                gp.gameState = gp.titleState;
+                gp.ui.titleScreenState = 0; // Main menu
 
             }
         }
