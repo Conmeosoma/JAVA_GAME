@@ -1,7 +1,6 @@
 # 🎮 HIT Adventure - Java 2D RPG Game
 
 [![Java Version](https://img.shields.io/badge/Java-8%2B-blue.svg)](https://www.oracle.com/java/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()
 [![Game Status](https://img.shields.io/badge/Status-In%20Development-yellow.svg)]()
 
