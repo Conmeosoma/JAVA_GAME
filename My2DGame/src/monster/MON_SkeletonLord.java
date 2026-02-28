@@ -28,8 +28,8 @@ public class MON_SkeletonLord extends Entity {
         speed = defaultSpeed;
         maxLife = 40;
         life = maxLife;
-        attack = 16;
-        defense = 3;
+        attack = 8;
+        defense = 2;
         exp = 40;
         knockBackPower = 5;
         sleep = true;
@@ -97,8 +97,10 @@ public class MON_SkeletonLord extends Entity {
             attackDown2 = setup("/res/monster/skeletonlord_phase2_attack_down_2", gp.tileSize * i, gp.tileSize * 2 * i);
             attackLeft1 = setup("/res/monster/skeletonlord_phase2_attack_left_1", gp.tileSize * 2 * i, gp.tileSize * i);
             attackLeft2 = setup("/res/monster/skeletonlord_phase2_attack_left_2", gp.tileSize * 2 * i, gp.tileSize * i);
-            attackRight1 = setup("/res/monster/skeletonlord_phase2_attack_right_1", gp.tileSize * 2 * i, gp.tileSize * i);
-            attackRight2 = setup("/res/monster/skeletonlord_phase2_attack_right_2", gp.tileSize * 2 * i, gp.tileSize * i);
+            attackRight1 = setup("/res/monster/skeletonlord_phase2_attack_right_1", gp.tileSize * 2 * i,
+                    gp.tileSize * i);
+            attackRight2 = setup("/res/monster/skeletonlord_phase2_attack_right_2", gp.tileSize * 2 * i,
+                    gp.tileSize * i);
         }
     }
 
@@ -115,20 +117,27 @@ public class MON_SkeletonLord extends Entity {
             inRage = true;
             getImage();
             getAttackImage();
-            defaultSpeed++;
+            defaultSpeed += 2;
             speed = defaultSpeed;
-            attack *= 2;
+            attack *= 2; // 8 -> 16
 
+            // Summon 3 GreenSlime minions
+            summonMinions(3);
         }
         if (getTileDistance(gp.player) < 10) {
-            moveTowardPlayer(60);
+            // More aggressive chase in rage mode
+            moveTowardPlayer(inRage ? 30 : 60);
         } else {
             getRandomDirection(120);
         }
 
-        //Check if it is attacks
+        // Check if it attacks - more aggressive in rage
         if (attacking == false) {
-            checkAttackOrNot(60, gp.tileSize * 7, gp.tileSize * 5); //Small rate = More agressive
+            if (inRage) {
+                checkAttackOrNot(30, gp.tileSize * 8, gp.tileSize * 6); // Very aggressive
+            } else {
+                checkAttackOrNot(60, gp.tileSize * 7, gp.tileSize * 5);
+            }
         }
     }
 
@@ -136,11 +145,90 @@ public class MON_SkeletonLord extends Entity {
         actionLockCounter = 0;
     }
 
+    // Summon minions around the boss
+    private void summonMinions(int count) {
+        int spawned = 0;
+        for (int i = 0; i < gp.monster[gp.currentMap].length && spawned < count; i++) {
+            if (gp.monster[gp.currentMap][i] == null) {
+                gp.monster[gp.currentMap][i] = new MON_GreenSlime(gp);
+                // Spawn around boss position with offset
+                int offsetX = (spawned - 1) * gp.tileSize * 3; // -3, 0, +3 tiles
+                int offsetY = gp.tileSize * 4;
+                gp.monster[gp.currentMap][i].worldX = worldX + offsetX;
+                gp.monster[gp.currentMap][i].worldY = worldY + offsetY;
+                spawned++;
+            }
+        }
+    }
+
+    @Override
+    public void attacking() {
+        spriteCounter++;
+
+        if (spriteCounter <= motion1_duration) {
+            spriteNum = 1;
+        }
+        if (spriteCounter > motion1_duration && spriteCounter <= motion2_duration) {
+            spriteNum = 2;
+
+            // Save the current worldX, worldY, solidArea
+            int currentWorldX = worldX;
+            int currentWorldY = worldY;
+            int solidAreaWidth = solidArea.width;
+            int solidAreaHeight = solidArea.height;
+
+            // Use the ACTUAL boss sprite size (5 tiles) instead of 1 tile
+            int bossSize = gp.tileSize * 5;
+
+            // Adjust worldX/worldY for the attackArea
+            switch (direction) {
+                case "up":
+                    worldY -= attackArea.height;
+                    break;
+                case "down":
+                    worldY += bossSize;
+                    break;
+                case "left":
+                    worldX -= attackArea.width;
+                    break;
+                case "right":
+                    worldX += bossSize;
+                    break;
+            }
+
+            // attackArea becomes solidArea
+            solidArea.width = attackArea.width;
+            solidArea.height = attackArea.height;
+
+            if (gp.cChecker.checkPlayer(this) == true) {
+                // Cap swing damage to prevent instant kill
+                int cappedAttack = attack;
+                int rawDamage = cappedAttack - gp.player.defense;
+                int maxSwingDamage = gp.player.maxLife * 2 / 3; // Cap at 2/3 of player max HP
+                if (rawDamage > maxSwingDamage) {
+                    cappedAttack = maxSwingDamage + gp.player.defense;
+                }
+                damagePlayer(cappedAttack);
+            }
+
+            // After checking collision, restore the original data
+            worldX = currentWorldX;
+            worldY = currentWorldY;
+            solidArea.width = solidAreaWidth;
+            solidArea.height = solidAreaHeight;
+        }
+        if (spriteCounter > motion2_duration) {
+            spriteNum = 1;
+            spriteCounter = 0;
+            attacking = false;
+        }
+    }
+
     public void checkDrop() {
         gp.bossBattleOn = false;
         Progress.skeletonLordDefeated = true;
 
-        //Restore the previous music
+        // Restore the previous music
         gp.stopMusic();
         gp.playMusic(19);
 
@@ -152,10 +240,10 @@ public class MON_SkeletonLord extends Entity {
             }
         }
 
-        //CAST A DIE
+        // CAST A DIE
         int i = new Random().nextInt(100) + 1;
 
-        //SET THE MONSTER DROP
+        // SET THE MONSTER DROP
         if (i < 50) {
             dropItem(new OBJ_Coin_Bronze(gp));
         }

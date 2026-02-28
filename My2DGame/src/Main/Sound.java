@@ -47,7 +47,8 @@ public class Sound {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(ais);
-            fc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN); //pass value for clip // -80f to 6f // 6 is max. -80f = 0
+            fc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN); // pass value for clip // -80f to 6f //
+                                                                                // 6 is max. -80f = 0
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,7 +64,9 @@ public class Sound {
     }
 
     public void stop() {
-        clip.stop();
+        if (clip != null) {
+            clip.stop();
+        }
     }
 
     public void checkVolume() {

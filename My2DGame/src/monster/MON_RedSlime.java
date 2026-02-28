@@ -24,7 +24,7 @@ public class MON_RedSlime extends Entity {
         speed = defaultSpeed;
         maxLife = 8;
         life = maxLife;
-        attack = 4;
+        attack = 2;
         defense = 0;
         exp = 4;
         projectile = new OBJ_Rock(gp);
@@ -53,41 +53,41 @@ public class MON_RedSlime extends Entity {
     public void setAction() {
         if (onPath == true) {
 
-            //Check if it stops chasing
+            // Check if it stops chasing
             checkStopChasingOrNot(gp.player, 15, 100);
 
-            //Search the direction to go
+            // Search the direction to go
             searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
 
-            //Check if it shoots a projectile
+            // Check if it shoots a projectile
             checkShootOrNot(200, 30);
         } else {
-            //Check if it starts chasing
+            // Check if it starts chasing
             checkStartChasingOrNot(gp.player, 5, 100);
 
-            //Get a random direction
+            // Get a random direction
             getRandomDirection(120);
         }
     }
 
     public void damageReaction() {
         actionLockCounter = 0;
-        //direction = gp.player.direction;
+        // direction = gp.player.direction;
         onPath = true; // gets aggro
     }
 
     public void checkDrop() {
-        //CAST A DIE
+        // CAST A DIE
         int i = new Random().nextInt(100) + 1;
 
-        //SET THE MONSTER DROP
-        if (i < 50) {
+        // SET THE MONSTER DROP
+        if (i < 40) {
             dropItem(new OBJ_Coin_Bronze(gp));
         }
-        if (i >= 50 && i < 75) {
+        if (i >= 40 && i < 80) {
             dropItem(new OBJ_Heart(gp));
         }
-        if (i >= 75 && i < 100) {
+        if (i >= 80 && i < 100) {
             dropItem(new OBJ_ManaCrystal(gp));
         }
     }

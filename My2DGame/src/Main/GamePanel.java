@@ -170,6 +170,27 @@ public class GamePanel extends JPanel implements Runnable {
         screenHeight2 = Main.window.getHeight();
     }
 
+    public void unsetFullScreen() {
+        // EXIT FULL SCREEN
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        gd.setFullScreenWindow(null);
+
+        // RESTORE WINDOWED SIZE
+        screenWidth2 = screenWidth;
+        screenHeight2 = screenHeight;
+        Main.window.pack();
+        Main.window.setLocationRelativeTo(null);
+    }
+
+    public void toggleFullScreen() {
+        if (fullScreenOn) {
+            setFullScreen();
+        } else {
+            unsetFullScreen();
+        }
+    }
+
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start(); // run'ı cagirir
@@ -256,6 +277,7 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                     if (particleList.get(i).alive == false) {
                         particleList.remove(i);
+                        i--;
                     }
                 }
             }
@@ -401,8 +423,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void drawToScreen() {
         Graphics g = getGraphics();
-        g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
-        g.dispose();
+        if (g != null) {
+            g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
+            g.dispose();
+        }
     }
 
     // COMMENTED FOR FULLSCREEN

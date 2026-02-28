@@ -21,11 +21,11 @@ public class MON_Orc extends Entity {
         name = "Orc";
         defaultSpeed = 1;
         speed = defaultSpeed;
-        maxLife = 8;
+        maxLife = 10;
         life = maxLife;
-        attack = 8;
+        attack = 5;
         defense = 2;
-        exp = 8;
+        exp = 12;
         knockBackPower = 5;
 
         solidArea.x = 4;
@@ -67,40 +67,40 @@ public class MON_Orc extends Entity {
 
     public void setAction() {
         if (onPath == true) {
-            //Check if it stops chasing
+            // Check if it stops chasing
             checkStopChasingOrNot(gp.player, 15, 100);
 
-            //Search the direction to go
+            // Search the direction to go
             searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
         } else {
-            //Check if it starts chasing
+            // Check if it starts chasing
             checkStartChasingOrNot(gp.player, 5, 100);
 
-            //Get a random direction
+            // Get a random direction
             getRandomDirection(120);
         }
 
-        //Check if it is attacks
+        // Check if it is attacks
         if (attacking == false) {
-            checkAttackOrNot(30, gp.tileSize * 4, gp.tileSize); //Small rate = More agressive
+            checkAttackOrNot(30, gp.tileSize * 4, gp.tileSize); // Small rate = More agressive
         }
     }
 
     public void damageReaction() {
         actionLockCounter = 0;
-        //direction = gp.player.direction;
+        // direction = gp.player.direction;
         onPath = true; // gets aggro
     }
 
     public void checkDrop() {
-        //CAST A DIE
+        // CAST A DIE
         int i = new Random().nextInt(100) + 1;
 
-        //SET THE MONSTER DROP
-        if (i < 50) {
+        // SET THE MONSTER DROP
+        if (i < 30) {
             dropItem(new OBJ_Coin_Bronze(gp));
         }
-        if (i >= 50 && i < 75) {
+        if (i >= 30 && i < 75) {
             dropItem(new OBJ_Heart(gp));
         }
         if (i >= 75 && i < 100) {
