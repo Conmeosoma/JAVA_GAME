@@ -29,9 +29,12 @@ public class CutsceneManager {
         endCredit = "Developed by\n"
                 + "Dieu,Tien"
                 + "\n\n\n\n\n\n\n\n\n\n\n"
+                + "Tested by\n\n"
+                + "Quang Nguyen"
+                + "\n\n\n\n\n\n\n\n\n\n\n"
                 + "Special Thanks\n\n"
                 + "Thank You for playing my game!\n"
-                + "Ryi Snow\n\n"
+                + ":33\n\n"
                 + "Check his tutorials from RyiSnow YouTube Channel!\n"
                 + "\n\n\n\n\n\n\n"
                 + "Thank you for playing!";
@@ -188,9 +191,9 @@ public class CutsceneManager {
             alpha = graduallyAlpha(alpha, 0.005f);
 
             String text = "After the fierce battle with the Skeleton Lord,\n"
-                    + "the Blue Boy finally found the legendary treasure.\n"
+                    + "the HIT Boy finally found the legendary treasure.\n"
                     + "But this is not the end of his journey.\n"
-                    + "The Blue Boy's adventure has just begun.";
+                    + "The HIT Boy's adventure has just begun.";
 
             drawString(alpha, 38f, 200, text, 70);
 

@@ -134,7 +134,7 @@ public class Entity {
     }
 
     public int getRightX() {
-        return worldX + solidArea.width + solidArea.width;
+        return worldX + solidArea.x + solidArea.width;
     }
 
     public int getTopY() {
@@ -159,7 +159,7 @@ public class Entity {
     }
 
     public int getCenterY() {
-        int centerY = worldY + up1.getWidth() / 2;
+        int centerY = worldY + up1.getHeight() / 2;
         return centerY;
     }
 
@@ -462,14 +462,14 @@ public class Entity {
         int i = new Random().nextInt(rate);
         if (i == 0 && projectile.alive == false && shotAvailableCounter == shotInterval) {
             projectile.set(worldX, worldY, direction, true, this);
-            // gp.projectileList.add(projectile);
+
             // CHECK VACANCY
-            // for (int ii = 0; ii < gp.projectile[1].length; ii++) {
-            // if (gp.projectile[gp.currentMap][ii] == null) {
-            // gp.projectile[gp.currentMap][ii] = projectile;
-            // break;
-            // }
-            // }
+            for (int ii = 0; ii < gp.projectile[1].length; ii++) {
+                if (gp.projectile[gp.currentMap][ii] == null) {
+                    gp.projectile[gp.currentMap][ii] = projectile;
+                    break;
+                }
+            }
             shotAvailableCounter = 0;
         }
     }
@@ -605,15 +605,15 @@ public class Entity {
             } else // Player
             {
                 // Check monster collision with the updated worldX, worldY and solidArea
-              //  int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-                // gp.player.damageMonster(monsterIndex, this, attack,
-                // currentWeapon.knockBackPower);
+                int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+                gp.player.damageMonster(monsterIndex, this, attack,
+                        currentWeapon.knockBackPower);
 
                 int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
                 gp.player.damageInteractiveTile(iTileIndex);
 
-                // int projectileIndex = gp.cChecker.checkEntity(this, gp.projectile);
-                // gp.player.damageProjectile(projectileIndex);
+                int projectileIndex = gp.cChecker.checkEntity(this, gp.projectile);
+                gp.player.damageProjectile(projectileIndex);
             }
 
             // After checking collision, restore the original data

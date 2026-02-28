@@ -289,7 +289,7 @@ public class Player extends Entity {
             contactMonster(monsterIndex);
 
             // CHECK INTERACTIVE COLLISION
-            // int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+            gp.cChecker.checkEntity(this, gp.iTile);
 
             // CHECK EVENT
             gp.eHandler.checkEvent();
@@ -357,7 +357,7 @@ public class Player extends Entity {
                 && projectile.haveResource(this) == true) // 2nd Condition : You can shoot it only one at a time
         { // 3rd Condition : If you close shot monster, projectile.alive will be false. So
           // if you still pressing F key, immediately shoot another fireball.
-            // SET DEFAULT COORDINATES, DIRECTION AND USER
+          // SET DEFAULT COORDINATES, DIRECTION AND USER
             projectile.set(worldX, worldY, direction, true, this);
 
             // SUBTRACT THE COST(MANA,AMMO ETC.)
@@ -433,11 +433,12 @@ public class Player extends Entity {
                     // inventory.add(gp.obj[gp.currentMap][i]); //canObtainItem() already adds item
                     gp.playSE(1);
                     text = "Got a " + gp.obj[gp.currentMap][i].name + "!";
+                    gp.ui.addMessage(text);
+                    gp.obj[gp.currentMap][i] = null;
                 } else {
                     text = "You cannot carry any more";
+                    gp.ui.addMessage(text);
                 }
-                gp.ui.addMessage(text);
-                gp.obj[gp.currentMap][i] = null;
             }
         }
     }
@@ -464,9 +465,20 @@ public class Player extends Entity {
                 if (damage < 1) {
                     damage = 1;
                 }
+                // Cap contact damage for bosses to prevent instant death
+                if (gp.monster[gp.currentMap][i].boss) {
+                    int maxContactDamage = Math.max(maxLife / 3, 1);
+                    if (damage > maxContactDamage) {
+                        damage = maxContactDamage;
+                    }
+                }
                 life -= damage;
                 invincible = true;
                 transparent = true;
+                // Knockback player away from monster on contact
+                knockBackDirection = gp.monster[gp.currentMap][i].direction;
+                speed += 3;
+                knockBack = true;
             }
         }
     }

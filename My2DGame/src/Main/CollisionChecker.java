@@ -1,7 +1,7 @@
 package Main;
 
 import Entity.Entity;
-import Main.CollisionChecker;
+
 public class CollisionChecker {
     GamePanel gp;
 

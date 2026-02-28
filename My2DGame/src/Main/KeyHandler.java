@@ -20,6 +20,19 @@ public class KeyHandler implements KeyListener {
         this.gp = gp;
     }
 
+    // after class selection show a quick explanatory dialogue before play begins
+    private void startIntroDialogue() {
+        // set up several lines; we use dialogueSet 1 to avoid overwriting level‑up
+        // messages
+        gp.player.dialogues[1][0] = "Long ago, the kingdom fell under a dark curse.";
+        gp.player.dialogues[1][1] = "You are Blue Boy, a lone hero chosen by fate.";
+        gp.player.dialogues[1][2] = "Your mission: descend into the dungeon and defeat \n the Skeleton Lord.";
+        gp.player.dialogues[1][3] = "Only then will peace return and you will be hailed as \n a legend!";
+
+        gp.player.startDialogue(gp.player, 1);
+        gp.playMusic(0);
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -112,21 +125,18 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_ENTER) {
                 // FIGHTER
                 if (gp.ui.commandNum == 0) {
-                    System.out.println("Do some fighter specific stuff!");
-                    gp.gameState = gp.playState;
-                    gp.playMusic(0);
+                    // fighter selected
+                    startIntroDialogue();
                 }
                 // THIEF
                 if (gp.ui.commandNum == 1) {
-                    System.out.println("Do some thief specific stuff!");
-                    gp.gameState = gp.playState;
-                    gp.playMusic(0);
+                    // thief selected
+                    startIntroDialogue();
                 }
                 // SORCERER
                 if (gp.ui.commandNum == 2) {
-                    System.out.println("Do some sorcerer specific stuff!");
-                    gp.gameState = gp.playState;
-                    gp.playMusic(0);
+                    // sorcerer selected
+                    startIntroDialogue();
                 }
                 // BACK
                 if (gp.ui.commandNum == 3) {
@@ -254,7 +264,9 @@ public class KeyHandler implements KeyListener {
     }
 
     public void characterState(int code) {
-        if (code == KeyEvent.VK_C) {
+        // closing inventory uses the same key that opened it (E).
+        // keep C as a fallback for users accustomed to the old control.
+        if (code == KeyEvent.VK_E || code == KeyEvent.VK_C) {
             gp.gameState = gp.playState;
         }
 
@@ -274,13 +286,16 @@ public class KeyHandler implements KeyListener {
         int maxCommandNum = 0;
         switch (gp.ui.subState) {
             case 0:
-                maxCommandNum = 4;
+                maxCommandNum = 6;
                 break;
             case 3:
                 maxCommandNum = 1;
                 break;
+            case 4: // language selection
+                maxCommandNum = Language.Lang.values().length; // languages + back
+                break;
         }
-        if (code == KeyEvent.VK_W) {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             gp.ui.commandNum--;
             gp.playSE(9);
             if (gp.ui.commandNum < 0) {
@@ -455,16 +470,16 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W) {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             upPressed = false;
         }
-        if (code == KeyEvent.VK_S) {
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
             downPressed = false;
         }
-        if (code == KeyEvent.VK_A) {
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
             leftPressed = false;
         }
-        if (code == KeyEvent.VK_D) {
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = false;
         }
         if (code == KeyEvent.VK_F) {

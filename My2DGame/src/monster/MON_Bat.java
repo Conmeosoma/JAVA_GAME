@@ -21,11 +21,11 @@ public class MON_Bat extends Entity {
         name = "Bat";
         defaultSpeed = 4;
         speed = defaultSpeed;
-        maxLife = 5;
+        maxLife = 8;
         life = maxLife;
         attack = 4;
         defense = 0;
-        exp = 2;
+        exp = 5;
         // projectile = new OBJ_Rock(gp);
 
         solidArea.x = 3;
@@ -80,10 +80,10 @@ public class MON_Bat extends Entity {
         int i = new Random().nextInt(100) + 1;
 
         // SET THE MONSTER DROP
-        if (i < 50) {
+        if (i < 30) {
             dropItem(new OBJ_Coin_Bronze(gp));
         }
-        if (i >= 50 && i < 75) {
+        if (i >= 30 && i < 75) {
             dropItem(new OBJ_Heart(gp));
         }
         if (i >= 75 && i < 100) {

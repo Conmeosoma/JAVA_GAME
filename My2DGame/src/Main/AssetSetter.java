@@ -183,6 +183,37 @@ public class AssetSetter {
         gp.monster[mapNum][i].worldY = gp.tileSize * 9;
         i++;
 
+        // Extra spawns - Map 0 (near existing valid positions)
+        gp.monster[mapNum][i] = new MON_GreenSlime(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 25;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 36;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_GreenSlime(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 36;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 42;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_GreenSlime(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 22;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 37;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_RedSlime(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 35;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 10;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_RedSlime(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 36;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 8;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_Orc(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 14;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 33;
+        i++;
+
         mapNum = 2;
         i = 0;
 
@@ -209,6 +240,31 @@ public class AssetSetter {
         gp.monster[mapNum][i] = new MON_Bat(gp);
         gp.monster[mapNum][i].worldX = gp.tileSize * 10;
         gp.monster[mapNum][i].worldY = gp.tileSize * 19;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_Bat(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 35;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 38;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_Bat(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 37;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 26;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_Bat(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 29;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 12;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_Orc(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 12;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 19;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_Orc(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 38;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 25;
         i++;
 
         mapNum = 3;

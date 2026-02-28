@@ -49,20 +49,24 @@ public class Config {
       String s = br.readLine();
 
       // Full Screen
-      if (s.equals("On")) {
+      if (s != null && s.equals("On")) {
         gp.fullScreenOn = true;
       }
-      if (s.equals("Off")) {
+      if (s != null && s.equals("Off")) {
         gp.fullScreenOn = false;
       }
 
       // Music Volume
       s = br.readLine();
-      gp.music.volumeScale = Integer.parseInt(s);
+      if (s != null) {
+        gp.music.volumeScale = Integer.parseInt(s);
+      }
 
       // SE Volume
       s = br.readLine();
-      gp.se.volumeScale = Integer.parseInt(s);
+      if (s != null) {
+        gp.se.volumeScale = Integer.parseInt(s);
+      }
 
       // Language
       s = br.readLine();
@@ -77,9 +81,9 @@ public class Config {
       br.close();
 
     } catch (FileNotFoundException e) {
-      throw new RuntimeException(e);
+      // config.txt not found, use default values — this is normal on first run
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      e.printStackTrace();
     }
   }
 }

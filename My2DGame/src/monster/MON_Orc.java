@@ -20,11 +20,11 @@ public class MON_Orc extends Entity {
         name = "Orc";
         defaultSpeed = 1;
         speed = defaultSpeed;
-        maxLife = 6;
+        maxLife = 10;
         life = maxLife;
-        attack = 8;
+        attack = 5;
         defense = 2;
-        exp = 8;
+        exp = 12;
         knockBackPower = 5;
 
         solidArea.x = 4;
@@ -96,10 +96,10 @@ public class MON_Orc extends Entity {
         int i = new Random().nextInt(100) + 1;
 
         // SET THE MONSTER DROP
-        if (i < 50) {
+        if (i < 30) {
             dropItem(new OBJ_Coin_Bronze(gp));
         }
-        if (i >= 50 && i < 75) {
+        if (i >= 30 && i < 75) {
             dropItem(new OBJ_Heart(gp));
         }
         if (i >= 75 && i < 100) {

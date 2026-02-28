@@ -21,7 +21,7 @@ public class MON_GreenSlime extends Entity {
     name = "Green Slime";
     defaultSpeed = 1;
     speed = defaultSpeed;
-    maxLife = 2;
+    maxLife = 4;
     life = maxLife;
     attack = 1;
     defense = 0;
@@ -80,13 +80,13 @@ public class MON_GreenSlime extends Entity {
     int i = new Random().nextInt(100) + 1;
 
     // SET THE MONSTER DROP
-    if (i < 50) {
+    if (i < 40) {
       dropItem(new OBJ_Coin_Bronze(gp));
     }
-    if (i >= 50 && i < 75) {
+    if (i >= 40 && i < 80) {
       dropItem(new OBJ_Heart(gp));
     }
-    if (i >= 75 && i < 100) {
+    if (i >= 80 && i < 100) {
       dropItem(new OBJ_ManaCrystal(gp));
     }
   }

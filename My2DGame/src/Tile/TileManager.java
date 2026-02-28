@@ -51,7 +51,14 @@ public class TileManager {
             String maxTile[] = line2.split(" ");
 
             gp.maxWorldCol = maxTile.length;
-            gp.maxWorldRow = maxTile.length;
+            gp.maxWorldRow = maxTile.length; // assume square initially
+
+            // Count actual rows
+            int rowCount = 1;
+            while (br.readLine() != null) {
+                rowCount++;
+            }
+            gp.maxWorldRow = rowCount;
 
             mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
